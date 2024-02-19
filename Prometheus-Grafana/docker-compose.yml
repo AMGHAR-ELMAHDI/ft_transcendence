@@ -22,6 +22,13 @@ services:
       - 3000:3000
     restart: unless-stopped
 
+  alertmanager:
+    image: quay.io/prometheus/alertmanager
+    container_name: alertmanager
+    ports:
+      - 9093:9093
+    restart: unless-stopped
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
@@ -37,3 +44,8 @@ services:
       - /dev/kmsg
     privileged: true
     restart: unless-stopped
+
+
+# 14282 cad
+# 1860 node
+
