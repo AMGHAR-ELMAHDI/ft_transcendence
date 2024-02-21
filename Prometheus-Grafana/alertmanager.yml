@@ -1,14 +1,13 @@
 route:
-  receiver: 'mail'
-  repeat_interval: 5s
-  group_by: [ alertname ]
-
+  group_by: [Alertname]
+  receiver: email-me
 
 receivers:
-  - name: 'mail'
-    email_configs:
-      - smarthost: 'smtp.gmail.com:465'
-        auth_username: 'amgharmahdi1@gmail.com'
-        auth_password: ""
-        from: 'ocsthebest@gmail.com'
-        to: 'amgharmahdi1@gmail.com'
+- name: email-me
+  email_configs:
+  - to: amgharmahdi1@gmail.com
+    from: ocsthebest@gmail.com
+    smarthost: smtp.gmail.com:587
+    auth_username: "ocsthebest@gmail.com"
+    auth_identity: "ocsthebest@gmail.com"
+    auth_password: "ummh zldk aozx bnly"
