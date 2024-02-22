@@ -25,7 +25,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - grafana-data:/data
+      - grafana-data:/var/lib/grafana
+      - ./grafana.ini:/etc/grafana/grafana.ini
     restart: unless-stopped
 
   alertmanager:
@@ -34,7 +35,6 @@ services:
     ports:
       - 9093:9093
     volumes:
-      - ./alertmanager.service:/etc/systemd/system/alertmanager.service
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
       - alertmanager-data:/data
     command: --config.file=/etc/alertmanager/alertmanager.yml
@@ -58,7 +58,15 @@ services:
 
 volumes:
   alertmanager-data:
+    driver_opts:
+      o: bind
+      type: none
+      device: /Users/$USER/Desktop/ft_transcendence/Prometheus-Grafana/alertmanager
   grafana-data:
+    driver_opts:
+      o: bind
+      type: none
+      device: /Users/$USER/Desktop/ft_transcendence/Prometheus-Grafana/grafana
 
 # 14282 cad
 # 1860 node
