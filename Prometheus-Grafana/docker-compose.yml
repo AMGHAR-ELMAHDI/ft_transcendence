@@ -33,6 +33,8 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       - ./grafana.ini:/etc/grafana/grafana.ini
+    environment:
+      - "GF_SECURITY_ADMIN_PASSWORD=$ADMIN_PASS"
     restart: unless-stopped
 
   alertmanager:
