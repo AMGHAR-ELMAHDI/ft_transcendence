@@ -2,6 +2,8 @@ services:
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
+    env_file:
+      - .env
     ports:
       - 9100:9100
     restart: unless-stopped
@@ -11,10 +13,12 @@ services:
     container_name: prometheus
     ports:
       - 9090:9090
+    env_file:
+      - .env
     volumes:
+      - prometheus-data:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./rules.yml:/etc/alertmanager/rules.yml
-      - ./rules.yml:/etc/prometheus/rules.yml
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     restart: unless-stopped
@@ -24,6 +28,8 @@ services:
     container_name: grafana
     ports:
       - 3000:3000
+    env_file:
+      - .env
     volumes:
       - grafana-data:/var/lib/grafana
       - ./grafana.ini:/etc/grafana/grafana.ini
@@ -34,6 +40,8 @@ services:
     container_name: alertmanager
     ports:
       - 9093:9093
+    env_file:
+      - .env
     volumes:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
       - alertmanager-data:/data
@@ -45,6 +53,8 @@ services:
     container_name: cadvisor
     ports:
       - 8080:8080
+    env_file:
+      - .env
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
@@ -57,6 +67,11 @@ services:
     restart: unless-stopped
 
 volumes:
+  prometheus-data:
+    driver_opts:
+      o: bind
+      type: none
+      device: /Users/$USER/Desktop/ft_transcendence/Prometheus-Grafana/prometheus
   alertmanager-data:
     driver_opts:
       o: bind
