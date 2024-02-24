@@ -6,4 +6,4 @@ datasources:
     access: proxy
     isDefault: false
     uid: prometheus
-    url: http://prometheus:9090/
+    url: http://localhost:9090/
