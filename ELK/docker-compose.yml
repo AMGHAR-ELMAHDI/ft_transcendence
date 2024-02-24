@@ -1,49 +1,60 @@
 services:
-  Elasticsearch:
-    image: elasticsearch:7.16.2
+  elasticsearch:
+    image: elasticsearch:7.9.1
     container_name: elasticsearch
-    restart: always
-    volumes:
-    - elastic_data:/usr/share/elasticsearch/data/
-    environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      discovery.type: single-node    
     ports:
-    - '9200:9200'
-    - '9300:9300'
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - test_data:/usr/share/elasticsearch/data/
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    environment:
+      - discovery.type=single-node
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - cluster.name=elasticsearch
+      - bootstrap.memory_lock=true
     networks:
       - elk
+    restart: on-failure
 
-  Logstash:
-    image: logstash:7.16.2
+  logstash:
+    image: logstash:7.9.1
     container_name: logstash
-    restart: always
+    ports:
+      - "5044:5044"
+      - "9600:9600"
     volumes:
-    - ./logstash/:/logstash_dir
-    command: logstash -f /logstash_dir/logstash.conf 
-    depends_on:
-      - Elasticsearch
-    ports:
-    - '9600:9600'
-    environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"    
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ls_data:/usr/share/logstash/data
     networks:
       - elk
+    depends_on:
+      - elasticsearch
+    restart: on-failure
 
-  Kibana:
-    image: kibana:7.16.2
+  kibana:
+    image: kibana:7.9.1
     container_name: kibana
-    restart: always       
     ports:
-    - '5601:5601'
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200  
-    depends_on:
-      - Elasticsearch  
+      - "5601:5601"
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+      - kb_data:/usr/share/kibana/data
     networks:
       - elk
-volumes:
-  elastic_data: {}
+    depends_on:
+      - elasticsearch
+    restart: on-failure
 
 networks:
   elk:
+    driver: bridge
+
+volumes:
+  test_data:
+  ls_data:
+  kb_data:
