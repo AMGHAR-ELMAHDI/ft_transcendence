@@ -32,6 +32,7 @@ services:
       - .env
     volumes:
       - grafana-data:/var/lib/grafana
+      - ./provisioning:/etc/grafana/
       - ./grafana.ini:/etc/grafana/grafana.ini
     environment:
       - "GF_SECURITY_ADMIN_PASSWORD=$ADMIN_PASS"
@@ -73,17 +74,17 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /Users/$USER/Desktop/ft_transcendence/Prometheus-Grafana/prometheus
+      device: /$PWD/prometheus
   alertmanager-data:
     driver_opts:
       o: bind
       type: none
-      device: /Users/$USER/Desktop/ft_transcendence/Prometheus-Grafana/alertmanager
+      device: /$PWD/alertmanager
   grafana-data:
     driver_opts:
       o: bind
       type: none
-      device: /Users/$USER/Desktop/ft_transcendence/Prometheus-Grafana/grafana
+      device: /$PWD/grafana
 
 # 14282 cad
 # 1860 node

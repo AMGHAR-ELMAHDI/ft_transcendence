@@ -38,3 +38,8 @@ scrape_configs:
     static_configs:
       - targets: ["alertmanager:9093"]
 
+remote_write:
+- url: https://prometheus-prod-39-prod-eu-north-0.grafana.net/api/prom/push
+  basic_auth:
+    username: 1437461
+    password: glc_eyJvIjoiMTA1OTQ4OSIsIm4iOiJzdGFjay04NjI4MzktaG0td3JpdGUtcHJvbWV0aGV1cy1hcGkta2V5IiwiayI6InlXWmcxSTQwR0wxdDI2NjI5cDFIa0pRaSIsIm0iOnsiciI6InByb2QtZXUtbm9ydGgtMCJ9fQ==
