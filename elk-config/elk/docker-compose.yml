@@ -1,0 +1,64 @@
+version: '3'
+
+networks:
+  elk:
+
+volumes:
+  elasticsearch:
+    driver: local
+
+services:
+
+  filebeat:
+    container_name: filebeat
+    image: docker.elastic.co/beats/filebeat:6.2.1
+    user: root
+    networks:
+      elk: null
+    restart: unless-stopped
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    - ./etc/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.1
+    ports:
+    - 9200:9200
+    networks:
+      elk: null
+    environment:
+      http.host: 0.0.0.0
+      transport.host: 127.0.0.1
+    volumes:
+    - elasticsearch:/usr/share/elasticsearch/data:rw
+    restart: unless-stopped
+
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash-oss:6.2.1
+    depends_on:
+    - elasticsearch
+    networks:
+      elk: null
+    ports:
+    - 5044:5044
+    volumes:
+    - ./etc/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    restart: unless-stopped
+
+  kibana:
+    container_name: kibana
+    depends_on:
+    - elasticsearch
+    environment:
+      ELASTICSEARCH_PASSWORD: changeme
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: elastic
+    image: docker.elastic.co/kibana/kibana-oss:6.2.1
+    networks:
+      elk: null
+    ports:
+    - 5601:5601
+    restart: unless-stopped
