@@ -1,0 +1,8 @@
+{"op":"set","id":1}
+{"k":"filebeat::logs::native::1051755-65025","v":{"type":"container","FileStateOS":{"inode":1051755,"device":65025},"prev_id":"","source":"/var/lib/docker/containers/4d6b8f4e30a3b9cd952d1d892e1b4c2d3a59e56cd7649a19ab393c16eba3ed93/4d6b8f4e30a3b9cd952d1d892e1b4c2d3a59e56cd7649a19ab393c16eba3ed93-json.log","offset":0,"ttl":-1,"id":"native::1051755-65025","timestamp":[495057299,1709057290],"identifier_name":"native"}}
+{"op":"set","id":2}
+{"k":"filebeat::logs::native::1051755-65025","v":{"timestamp":[23770984,1709057425],"ttl":-1,"type":"container","FileStateOS":{"inode":1051755,"device":65025},"offset":12547,"prev_id":"","source":"/var/lib/docker/containers/4d6b8f4e30a3b9cd952d1d892e1b4c2d3a59e56cd7649a19ab393c16eba3ed93/4d6b8f4e30a3b9cd952d1d892e1b4c2d3a59e56cd7649a19ab393c16eba3ed93-json.log","identifier_name":"native","id":"native::1051755-65025"}}
+{"op":"set","id":3}
+{"k":"filebeat::logs::native::1051755-65025","v":{"source":"/var/lib/docker/containers/4d6b8f4e30a3b9cd952d1d892e1b4c2d3a59e56cd7649a19ab393c16eba3ed93/4d6b8f4e30a3b9cd952d1d892e1b4c2d3a59e56cd7649a19ab393c16eba3ed93-json.log","offset":16498,"ttl":-1,"FileStateOS":{"inode":1051755,"device":65025},"prev_id":"","timestamp":[45973728,1709057425],"type":"container","identifier_name":"native","id":"native::1051755-65025"}}
+{"op":"set","id":4}
+{"k":"filebeat::logs::native::1051755-65025","v":{"id":"native::1051755-65025","prev_id":"","source":"/var/lib/docker/containers/4d6b8f4e30a3b9cd952d1d892e1b4c2d3a59e56cd7649a19ab393c16eba3ed93/4d6b8f4e30a3b9cd952d1d892e1b4c2d3a59e56cd7649a19ab393c16eba3ed93-json.log","offset":16498,"FileStateOS":{"inode":1051755,"device":65025},"identifier_name":"native","timestamp":[45973728,1709057425],"ttl":-1,"type":"container"}}

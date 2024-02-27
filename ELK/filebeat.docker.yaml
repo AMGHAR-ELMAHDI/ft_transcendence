@@ -39,11 +39,11 @@ processors:
 #
 # The following example enriches each event with host metadata.
 #      
-- add_host_metadata: ~
+- add_host_metadata: ~    
 
 # setup.kibana:
-#   host: "kibana:5601"   
+#   host: "kibana-01:5601"   
 # output.elasticsearch:
-#  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+#  hosts: '${ELASTICSEARCH_HOSTS:es-node-01:9200}'
 output.logstash:
-   hosts: ["logstash:5400"]  
+   hosts: ["logstash:5400"]
