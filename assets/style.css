@@ -6,18 +6,18 @@
 	--custDBlue: #1B1D26;
 }
 @font-face {
-	font-family: face;
-	src: url(../tools/Nexa-ExtraLight.ttf);
+	font-family: lightpant;
+	src: url(../tools/Panton-Trial-Light.ttf);
 }
 @font-face {
-	font-family: faceH;
-	src: url(../tools/Nexa-ExtraLight.ttf);
+	font-family: pant;
+	src: url(../tools/Panton-Trial-Bold.ttf);
 }
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: faceH;
+	font-family: pant;
 }
 .container {
 	height: 100svh;
@@ -31,10 +31,11 @@
 	align-items: center;
 }
 .header h1 {
-	font-family: face;
+	font-family: lightpant;
 	font-size: 40px;
 	color: #FBFAF8;
 	text-transform: capitalize;
+	margin-left: -30px;
 }
 .header img {
 	position: relative;
@@ -103,7 +104,7 @@ input:hover {
 	box-shadow: 0 0 7.3px 2px var(--custBlue);
 }
 .custom-input input {
-	padding: 20px 272px 20px 30px;
+	padding: 20px 291px 20px 30px;
 	background-color: var(--custDGray);
 	border: none;
 	outline: none;
@@ -126,7 +127,7 @@ input:hover {
 	pointer-events: none;
 }
 .custom-input_f input {
-	padding: 20px 24px 20px 30px;
+	padding: 20px 44px 20px 30px;
 	background-color: var(--custDGray);
 	border: none;
 	outline: none;
@@ -146,6 +147,10 @@ input:hover {
 	left: 30px;
 	top: 18px;
 	pointer-events: none;
+}
+.password input {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 20px 271px 20px 30px;
 }
 .custom-input input:focus + label,
 .custom-input input:valid + label,
@@ -175,7 +180,7 @@ input:hover {
 	background-color: var(--custBlue);
 	border: none;
 	color: white;
-	padding: 20px 50px;
+	padding: 20px 46px;
 	font-size: 20px;
 	text-transform: capitalize;
 	border-radius: 20px;
@@ -184,7 +189,7 @@ input:hover {
 .login_btn {
 	padding: 20px 93px;
 }
-.create:hover, .login_btn {
+.create:hover, .login_btn:hover {
 	box-shadow: 0 0 10px 1px var(--custBlue);
 }
 .gmail:hover, .fourtytwo:hover {
