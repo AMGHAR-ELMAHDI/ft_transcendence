@@ -5,14 +5,23 @@
 	--custDGray: #323644;
 	--custDBlue: #1B1D26;
 }
+@font-face {
+	font-family: face;
+	src: url(../tools/Nexa-ExtraLight.ttf);
+}
+@font-face {
+	font-family: faceH;
+	src: url(../tools/Nexa-ExtraLight.ttf);
+}
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	font-family: faceH;
 }
 .container {
 	height: 100svh;
-	background: url(../tools/back.png);
+	background: url(../tools/back.svg);
 	background-size: cover;
 	background-position: center;
 }
@@ -22,10 +31,10 @@
 	align-items: center;
 }
 .header h1 {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: face;
 	font-size: 40px;
 	color: #FBFAF8;
-	text-transform: uppercase;
+	text-transform: capitalize;
 }
 .header img {
 	position: relative;
@@ -40,8 +49,15 @@
 	gap: 15px;
 	margin-left: 150px;
 }
+.register {
+	width: 80%;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 15px;
+}
 .top_ h1 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 54px;
 	text-transform: capitalize;
 	color: white;
@@ -62,7 +78,6 @@
 .member {
 	cursor: pointer;
 	color: var(--custGray);
-	font-family: Arial, Helvetica, sans-serif;
 	text-transform: capitalize;
 }
 .member a {
@@ -84,7 +99,8 @@ input {
 	color: #61b3fafd;
 }
 input:hover {
-	box-shadow: 0 0 13px 1px var(--custBlue);
+	border: 1px solid #1D90F5;
+	box-shadow: 0 0 7.3px 2px var(--custBlue);
 }
 .custom-input input {
 	padding: 20px 272px 20px 30px;
@@ -102,7 +118,6 @@ input:hover {
 .custom-input label {
 	position: absolute;
 	color: #636362;
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	text-transform: capitalize;
 	transition: all .2s;
@@ -111,7 +126,7 @@ input:hover {
 	pointer-events: none;
 }
 .custom-input_f input {
-	padding: 20px 20px 20px 30px;
+	padding: 20px 24px 20px 30px;
 	background-color: var(--custDGray);
 	border: none;
 	outline: none;
@@ -125,7 +140,6 @@ input:hover {
 .custom-input_f label {
 	position: absolute;
 	color: #636362;
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	text-transform: capitalize;
 	transition: all .2s;
@@ -134,6 +148,8 @@ input:hover {
 	pointer-events: none;
 }
 .custom-input input:focus + label,
+.custom-input input:valid + label,
+.custom-input_f input:valid + label,
 .custom-input_f input:focus + label {
 	top: 0;
 	font-size: 13px;
@@ -154,19 +170,21 @@ input:hover {
 	outline: none;
 	transition: .5s;
 }
-.create {
+.create, .login_btn {
 	cursor: pointer;
 	background-color: var(--custBlue);
 	border: none;
 	color: white;
 	padding: 20px 50px;
 	font-size: 20px;
-	font-family: Arial, Helvetica, sans-serif;
 	text-transform: capitalize;
 	border-radius: 20px;
 	transition: .5s;
 }
-.create:hover {
+.login_btn {
+	padding: 20px 93px;
+}
+.create:hover, .login_btn {
 	box-shadow: 0 0 10px 1px var(--custBlue);
 }
 .gmail:hover, .fourtytwo:hover {
@@ -178,21 +196,23 @@ input:hover {
 .line p {
 	color: white;
 }
-.content_ {
+.login {
 	height: 83.2svh;
 	display: flex;
 	flex-flow: column;
 	justify-content: center;
 	align-items: flex-start;
 	gap: 15px;
-	display: none;
 }
 .swipe {
-	left: 300px;
+	transform: translateX(-100%);
+	position: absolute;
+	opacity: 0;
+	transition: 1s;
 }
 .show {
-	display: flex;
-}
-.hide {
-	display: none;
+	opacity: 1;
+	position: absolute;
+	transform: translateX(0%);
+	transition: 1s;
 }
