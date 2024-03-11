@@ -3,7 +3,7 @@
 *{
     font-family: 'Roboto', sans-serif;
     color: white;
-    /* border: 0.1px solid white; */
+    /* border: 0.1px solid red; */
     font-size: 1.2rem;
 }
 
@@ -58,6 +58,7 @@ body{
 .middle{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 #top-bar{
@@ -122,4 +123,46 @@ body{
     border-radius: 50%;
     border: none;
     background-color: #3D73A3;
+}
+
+#notification:hover{
+    background-color: #1E8EF3;
+    transition: 0.5s;
+}
+
+#mainContent{
+    display: flex;
+    flex-direction: column;
+}
+
+#profile{
+    border: 1px solid #5FCAE4;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.progress-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: 
+      radial-gradient(closest-side, white 79%, transparent 80% 100%),
+      conic-gradient(#5FCAE4 75%, #323644 0);    
+}
+
+#user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile-img{
+    /* transform: rotate(-90deg); */
+    height: 250px;
+    position: relative;
+    top: 20px;
 }
