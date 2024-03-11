@@ -94,6 +94,7 @@
 	pointer-events: none;
 }
 input {
+	border: none;
 	transition: .2s;
 }
 .member a:hover {
@@ -153,12 +154,13 @@ input:hover {
 	padding: 20px 271px 20px 30px;
 }
 .custom-input input:focus + label,
-.custom-input input:valid + label,
 .custom-input_f input:valid + label,
+.custom-input input:valid + label,
 .custom-input_f input:focus + label {
 	top: 0;
 	font-size: 13px;
 }
+
 .buttons {
 	display: flex;
 	justify-content: flex-start;
@@ -215,9 +217,42 @@ input:hover {
 	opacity: 0;
 	transition: 1s;
 }
+.move {
+	transform: translateX(-100%);
+	opacity: 0;
+	transition: 1s;
+}
 .show {
 	opacity: 1;
 	position: absolute;
 	transform: translateX(0%);
 	transition: 1s;
+}
+.good {
+	background-color: rgba(67, 247, 91, 0.74);
+}
+.error {
+	animation: error .6s linear;
+}
+@keyframes error {
+	0% {
+		border: none;
+		background-color: var(--custDGray);
+	}
+	20% {
+		/* border: 1px solid red; */
+		background-color: rgba(247, 67, 67, 0.74);
+	}
+	40% {
+		border: none;
+		background-color: var(--custDGray);
+	}
+	60% {
+		/* border: 1px solid red; */
+		background-color: rgba(247, 67, 67, 0.74);
+	}
+	100% {
+		border: none;
+		background-color: var(--custDGray);
+	}
 }
