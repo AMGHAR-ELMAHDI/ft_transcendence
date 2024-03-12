@@ -58,7 +58,8 @@ body{
 .middle{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 3%;
+    width: 80%;
 }
 
 #top-bar{
@@ -133,6 +134,7 @@ body{
 #mainContent{
     display: flex;
     flex-direction: column;
+    /* justify-content: space-between; */
 }
 
 #profile{
@@ -142,6 +144,7 @@ body{
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
+    padding: 2% 0;
 }
 
 .progress-circle {
@@ -150,7 +153,7 @@ body{
     border-radius: 50%;
     background: 
       radial-gradient(closest-side, white 79%, transparent 80% 100%),
-      conic-gradient(#5FCAE4 75%, #323644 0);    
+      conic-gradient(#5FCAE4 75%, #323644 0);
 }
 
 #user{
@@ -161,8 +164,32 @@ body{
 }
 
 #profile-img{
-    /* transform: rotate(-90deg); */
-    height: 250px;
+    width: 100%;
     position: relative;
-    top: 20px;
+}
+
+progress[value] {
+    --color: #5FCAE4;
+    --background: #323644;
+  
+    width: 200px;
+    margin: 0 10px;
+  }
+  progress[value]::-webkit-progress-bar {
+    border-radius: 10em;
+    background: var(--background);
+  }
+  progress[value]::-webkit-progress-value {
+    border-radius: 10em;
+    background: var(--color);
+  }
+
+#img-cover{
+    border: 5px solid #5FCAE4;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
 }
