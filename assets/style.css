@@ -105,7 +105,7 @@ input:hover {
 	box-shadow: 0 0 7.3px 2px var(--custBlue);
 }
 .custom-input input {
-	padding: 20px 291px 20px 30px;
+	padding: 20px 294px 20px 30px;
 	background-color: var(--custDGray);
 	border: none;
 	outline: none;
@@ -128,7 +128,7 @@ input:hover {
 	pointer-events: none;
 }
 .custom-input_f input {
-	padding: 20px 44px 20px 30px;
+	padding: 20px 47px 20px 30px;
 	background-color: var(--custDGray);
 	border: none;
 	outline: none;
@@ -151,7 +151,7 @@ input:hover {
 }
 .password input {
 	font-family: Arial, Helvetica, sans-serif;
-	padding: 20px 271px 20px 30px;
+	padding: 20px 300px 20px 30px;
 }
 .custom-input input:focus + label,
 .custom-input_f input:valid + label,
