@@ -3,7 +3,7 @@
 *{
     font-family: 'Roboto', sans-serif;
     color: white;
-    border: 0.1px solid red;
+    /* border: 0.1px solid red; */
     font-size: 1.2rem;
     padding: 0;
     margin: 0;
@@ -276,4 +276,8 @@ progress[value]::-webkit-progress-bar {
 
 #level-text h2{
     font-size: 1.5rem;
+}
+
+.main{
+    display: flex;
 }
