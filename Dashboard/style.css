@@ -5,25 +5,35 @@
     color: white;
     border: 0.1px solid red;
     font-size: 1.2rem;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --color: #5FCAE4;
+    --background: #323644;
 }
 
 body{
-    margin: 0;
-    padding: 0;
     width: 100%;
     height: 100svh;
     background-color: #0C0E14;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
 }
 
 #sideBar{
-    margin: 1% 0;
+    /* margin: 1% 0; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 10%;
+    width: 6%;
+    height: 100%;
+    padding: 30px 0;
 }
 
 .pages{
@@ -36,7 +46,7 @@ body{
 
 #logo{min-width: 50%;}
 
-.sideB{width: 55px;}
+.sideB{width: 50px;}
 
 .friendBar{
     border: 1px solid #5FCAE4;
@@ -44,32 +54,40 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin: 1% 1%;
-    gap: 3%;
+    justify-content: space-evenly;
+    /* gap: 3%; */
+    width: 5%;
+    height: 95%;
 }
 
 .friend-sb{
     width: 50%;
 }
 
-#logo-friend-svg{width: 50px;}
+#logo-friend-svg{
+    width: 50px;
+}
 
 .middle{
     display: flex;
     flex-direction: column;
     gap: 3%;
-    width: 80%;
+    width: 75%;
+    height: 100%;
+
 }
 
 #top-bar{
     margin-top: 2%;
     display: flex;
     justify-content: space-between;
+    /* border: 1px solid #5FCAE4; */
 }
 
 #welcome-top-left-bar{
     display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 2rem;
     gap: 10px;
 }
@@ -106,7 +124,7 @@ body{
 }
 
 #search:hover{
-    background-color: #3D73A3;
+    background-color: #5FCAE4;
     background-image: none;
     transition: 0.5s;
 }
@@ -119,11 +137,14 @@ body{
 }
 
 #notification{
-    width: 5%;
-    padding: 1% 1.5%;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
+    padding: 10px;
     border: none;
     background-color: #3D73A3;
+    object-fit: fill;
+    overflow: visible;
 }
 
 #notification:hover{
@@ -158,10 +179,9 @@ body{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    width: 50%;
     justify-content: space-around;
     position: relative;
-    /* padding: 3% 0; */
+    flex-grow: 0.5;
 }
 
 #profile-img{
@@ -170,20 +190,26 @@ body{
 }
 
 progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+
     --color: #5FCAE4;
     --background: #323644;
   
-    width: 400px;
+    width: 100%;
     height: 40px;
-  }
-  progress[value]::-webkit-progress-bar {
-    border-radius: 10em;
-    background: var(--background);
-  }
-  progress[value]::-webkit-progress-value {
-    border-radius: 10em;
-    background: var(--color);
 }
+
+progress[value]::-webkit-progress-bar {
+    background-color: #323644;
+    border-radius: 10em;
+  }
+
+  progress[value]::-webkit-progress-value {
+    background-color: #5FCAE4;
+    border-radius: 10em;
+  }
+
 
 #img-cover{
     border: 5px solid #5FCAE4;
@@ -207,12 +233,18 @@ progress[value] {
 #level-info{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    flex: 2;
+    padding: 0 5%;
+    gap: 20px;
 }
 
 #circles{
     display: flex;
-    padding: 0 5%;
-    /* gap: 10%; */
+    flex: 0.5;
+    justify-content: center;
+    align-items: center;
 }
 
 #level-text{
@@ -223,10 +255,9 @@ progress[value] {
 #user-left{
     display: flex;
     flex-direction: column;
-    /* gap: 20px; */
-    /* width: 50%; */
-    /* padding: 0 10% ; */
-    /* margin-right: 5%; */
+    justify-content: center;
+    align-items: center;
+    flex: 2;
 }
 
 .line1{
@@ -242,4 +273,8 @@ progress[value] {
     background: #5FCAE4;
     position: absolute;
     top: 20%;
+}
+
+#level-text h2{
+    font-size: 1.5rem;
 }
