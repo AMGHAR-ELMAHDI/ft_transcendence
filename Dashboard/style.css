@@ -140,11 +140,9 @@ body{
     border: 1px solid #5FCAE4;
     border-radius: 20px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    padding: 1%;
-    /* padding: 1% 0; */
 }
 
 .progress-circle {
@@ -160,11 +158,10 @@ body{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    /* width: 50%; */
-    justify-content: space-evenly;
+    width: 50%;
+    justify-content: space-around;
     position: relative;
-    padding: 2% 10%;
-
+    /* padding: 3% 0; */
 }
 
 #profile-img{
@@ -226,9 +223,23 @@ progress[value] {
 #user-left{
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #5FCAE4;
     /* gap: 20px; */
     /* width: 50%; */
     /* padding: 0 10% ; */
     /* margin-right: 5%; */
+}
+
+.line1{
+    position: relative;
+    width: 1px;
+    height: 500px;
+    background: #474c60;
+}
+
+.line2{
+    width: 2px;
+    height: 300px;
+    background: #5FCAE4;
+    position: absolute;
+    top: 20%;
 }
