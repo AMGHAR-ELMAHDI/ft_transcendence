@@ -7,7 +7,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    /* border: 0.1px solid red; */
+    border: 0.1px solid red;
 }
 
 :root{
@@ -313,5 +313,30 @@ progress[value]::-webkit-progress-bar {
 #history{
     display: flex;
     flex-direction: column;
+    padding: 30px;
+    border: 1px solid #5FCAE4;
+    border-radius: 20px;
     width: 35%;
+}
+
+.history-top-text{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.line3{
+    position: relative;
+    width: 2px;
+    height: 500px;
+    background: #5FCAE4;
+}
+
+.line4{
+    background: #24B299;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 15px;
+    left: -10px;
 }
