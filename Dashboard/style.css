@@ -17,6 +17,7 @@
 
 body{
     width: 100%;
+    /* overflow: hidden; */
     height: 100svh;
     background-color: #0C0E14;
     display: flex;
@@ -278,21 +279,22 @@ progress[value]::-webkit-progress-bar {
 
 .main{
     display: flex;
-    border-radius: 20px;
-    /* border: 1px solid #5FCAE4; */
+    flex-wrap: wrap;
+    flex: 1;
+    /* background-color: #5FCAE4; */
 }
 
 #vsplayer-container{
     display: flex;
-    width: 35%;
     flex-direction: column;
+    width: 35%;
 }
 
 #vsplayer, #history-img{
     border-radius: 20px;
 }
 
-.extraModes{
+.extraModes-container{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
