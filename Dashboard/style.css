@@ -324,7 +324,7 @@ progress[value]::-webkit-progress-bar {
 .line3{
     position: relative;
     width: 2px;
-    height: 500px;
+    height: 710px;
     background: #5FCAE4;
 }
 
@@ -339,7 +339,7 @@ progress[value]::-webkit-progress-bar {
 
 .history-container{
     display: flex;
-    /* flex: 1; */
+    flex: 1;
 }
 
 #dashboard-history-pic{
@@ -355,7 +355,7 @@ progress[value]::-webkit-progress-bar {
 }
 
 .history-tab-first{
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 .history-tabs{
@@ -364,14 +364,25 @@ progress[value]::-webkit-progress-bar {
     align-items: center;
     background-color: #172A31;
     width: 100%;
-    height: 150px;
+    height: 140px;
 }
+
+.history-tab-won{
+    background-color: #172A31;
+}
+
+.history-tab-lost{
+    background-color: #5F2A33;
+}
+
+
 #dashboard-history-opponent, #dashboard-history-mode, #dashboard-history-date{
     display: flex;
     flex-direction: column;
     height: 100%;
     justify-content: space-evenly;
 }
+
 #tabs-container{
     display: flex;
     flex-direction: column;
