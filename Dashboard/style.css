@@ -10,11 +10,6 @@
     /* border: 0.1px solid red; */
 }
 
-:root{
-    --glow: #5FCAE4;
-    --background: #323644;
-}
-
 body{
     width: 100%;
     /* overflow: hidden; */
@@ -359,11 +354,27 @@ progress[value]::-webkit-progress-bar {
     display: flex;
 }
 
+.history-tab-first{
+    margin-top: 60px;
+}
+
 .history-tabs{
     display: flex;
     justify-content: space-around;
+    align-items: center;
     background-color: #172A31;
-    /* align-items: center; */
     width: 100%;
-    /* height: 100%; */
+    height: 150px;
+}
+#dashboard-history-opponent, #dashboard-history-mode, #dashboard-history-date{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+}
+#tabs-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
 }
