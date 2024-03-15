@@ -7,7 +7,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    border: 0.1px solid red;
+    /* border: 0.1px solid red; */
 }
 
 :root{
@@ -110,9 +110,9 @@ body{
     margin-right: 2%;
 }
 
-#search {
-    background-color: #323644;
-    border: none;
+#search:placeholder-shown, #search {
+    background-color: #0C0E14;
+    border: 1px solid #5FCAE4;
     width: 70%;
     border-radius: 30px;
     padding: 20px 20px;
@@ -121,19 +121,19 @@ body{
     background-image: url(../search-icon.svg);
     background-repeat: no-repeat;
     background-position: 20px 20px;
+    transition: all .3s;
 }
 
-#search:hover{
-    background-color: #5FCAE4;
+#search, #search:focus{
     background-image: none;
-    transition: 0.5s;
 }
 
 #search:focus{
-    background-color: #3D73A3;
-    background-image: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #5FCAE4; 
     transition: 0.5s;
-    color: white;
+    border-radius: 0;
 }
 
 #notification{
@@ -317,6 +317,7 @@ progress[value]::-webkit-progress-bar {
     border: 1px solid #5FCAE4;
     border-radius: 20px;
     width: 35%;
+    gap: 30px;
 }
 
 .history-top-text{
@@ -339,4 +340,30 @@ progress[value]::-webkit-progress-bar {
     position: absolute;
     top: 15px;
     left: -10px;
+}
+
+.history-container{
+    display: flex;
+    /* flex: 1; */
+}
+
+#dashboard-history-pic{
+    background-image: url(../gay.png);
+    height: 100px;
+    width: 100px;
+    background-size: cover;
+    background-position: center;
+}
+
+.tabs-acheivements{
+    display: flex;
+}
+
+.history-tabs{
+    display: flex;
+    justify-content: space-around;
+    background-color: #172A31;
+    /* align-items: center; */
+    width: 100%;
+    /* height: 100%; */
 }
