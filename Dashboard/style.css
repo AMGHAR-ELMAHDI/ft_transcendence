@@ -113,7 +113,7 @@ body{
     padding: 20px 20px;
     margin: 20px 0;
     box-sizing: border-box;
-    background-image: url(../search-icon.svg);
+    background-image: url(../Imgs/search-icon.svg);
     background-repeat: no-repeat;
     background-position: 20px 20px;
     transition: all .3s;
@@ -298,7 +298,7 @@ progress[value]::-webkit-progress-bar {
 }
 
 .extra-Modes-img{
-    background-image: url(../table2.jpg);
+    background-image: url(../Imgs/table2.jpg);
     background-size: cover;
     background-position: center;
     border-radius: 20px;
@@ -343,7 +343,7 @@ progress[value]::-webkit-progress-bar {
 }
 
 #dashboard-history-pic{
-    background-image: url(../gay.png);
+    background-image: url(../Imgs/gay.png);
     height: 100px;
     width: 100px;
     background-size: cover;
