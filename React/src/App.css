@@ -21,14 +21,31 @@ body{
     background-color: var(--bg-color);;
     width: 100%;
     height: 100svh;
-    display: flex;
-    /* flex: auto; */
-    /* flex-direction: row; */
 }
 
 .AppClass{
     display: flex;
     border: white 1px solid;
-    /* flex: 2; */
-    width: 100%;
+}
+
+.AppClass > *{
+    border: 1px solid green;
+    height: 100svh;
+}
+
+.main{
+    max-width: 2560px;
+    display: flex;
+    flex-direction: column;
+    /* flex: 1; */
+}
+
+#SideBar{
+    /* background-color: aquamarine; */
+}
+
+#FriendBar{
+    display: flex;
+    flex-direction: column;
+    /* background-color: aquamarine; */
 }

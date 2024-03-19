@@ -11,13 +11,13 @@ import "./App.css";
 function App() {
   return (
 	<div className="AppClass">
-		<SideBar />
+		<div id="SideBar"><SideBar /></div>
 		<div className="main">
 			<TopBar />
 			<Profile />
 			<Dashboard />
 		</div>
-		<FriendBar />
+		<div id="FriendBar"><FriendBar /></div>
 	</div>
   );
 }
