@@ -13,6 +13,9 @@ function FriendBar() {
         <img className="friend-sb" src="/friend1.svg" alt="friend1"/>
         <img className="friend-sb" src="/friend1.svg" alt="friend1"/>
         <img className="friend-sb" src="/friend1.svg" alt="friend1"/>
+        <img className="friend-sb" src="/friend1.svg" alt="friend1"/>
+        <img className="friend-sb" src="/friend1.svg" alt="friend1"/>
+        <img className="friend-sb" src="/friend1.svg" alt="friend1"/>
       </div>
     </>
   )

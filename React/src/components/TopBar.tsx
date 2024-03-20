@@ -3,7 +3,7 @@ import React from "react";
 function TopBar() {
   return (
     <>
-      <div id="wc-bar">
+      <div id="welcome-bar">
         <h1>Good Evening,</h1>
         <h1 id="nickName">DawDaw</h1>
       </div>

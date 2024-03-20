@@ -4,6 +4,7 @@
 :root{
     --bg-color : #0C0E14;
     --font-color: white;
+    --blue-glow: #5FCAE4;
 }
 
 *{
@@ -42,29 +43,47 @@ body{
     flex: 1;
 }
 
-#FriendBar{
-    border: 1px solid burlywood;
-    /* background-color: wheat; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 0 1 auto;
-    width: 9rem;
+#TopBar{
+	background-color: #5FCAE4;
+	display: flex;
+	height: 8rem;
+	align-items: center;
+	justify-content: space-between;
 }
 
-#friend-container{
-    border: 1px solid blue;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 1rem;
-    flex: 1;
-    margin: 1rem;
+#welcome-bar{
+	display: flex;
+	gap: 0.5rem;
+}
+
+#welcome-bar > h1{
+	font-size: 2rem;
+}
+
+#nickName{
+	color: #1E8EF3;
+    text-shadow: 0px 0px 25px rgba(29, 144, 245, 1);
+}
+
+#search-bar{
+	background-color:blueviolet;
+	display: flex;
+	flex: 0.5;
+	justify-content: space-between;
+    align-items:center;
+    margin-right: 2rem;
+}
+
+#search:placeholder-shown, #search {
+	background-color: #0C0E14;
+    border: 1px solid #5FCAE4;
+	width: 60%;
     border-radius: 30px;
-}
-
-.friend-sb{
-    cursor: pointer;
-    width: 3rem;
+    padding: 20px 20px;
+    margin: 20px 0;
+    box-sizing: border-box;
+    background-image: url(../Imgs/search-icon.svg);
+    background-repeat: no-repeat;
+    background-position: 20px 20px;
+    transition: all .3s;
 }

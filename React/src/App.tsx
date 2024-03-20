@@ -8,13 +8,14 @@ import Dashboard from "./components/Dashboard";
 import FriendBar from "./components/FriendBar";
 import "./App.css";
 import "./css/SideBar.css";
+import "./css/FriendBar.css";
 
 function App() {
   return (
 	<div className="AppClass">
 		<div id="SideBar"><SideBar /></div>
 		<div className="main">
-			<TopBar />
+			<div id="TopBar"><TopBar /></div>
 			<Profile />
 			<Dashboard />
 		</div>
