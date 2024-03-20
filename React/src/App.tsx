@@ -7,6 +7,7 @@ import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import FriendBar from "./components/FriendBar";
 import "./App.css";
+import "./css/SideBar.css";
 
 function App() {
   return (
