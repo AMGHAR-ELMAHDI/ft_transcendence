@@ -43,7 +43,8 @@ body{
 }
 
 #Dashboard{
-	/* background-color: gray; */
+	border-radius: 25px;
+	/* background-color: lightblue; */
 	display: flex;
 	flex: 2;
 }

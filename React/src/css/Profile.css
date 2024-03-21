@@ -1,7 +1,79 @@
+:root{
+    --bg-color : #0C0E14;
+    --font-color: white;
+    --blue-glow: #5FCAE4;
+}
+
 #Profile{
-	background-color:darkgray;
+	border: 2px solid var(--blue-glow);
+	border-radius: 25px;
 	display: flex;
 	justify-content: space-evenly;
 	flex: 1;
+	flex-wrap: wrap;
 }
 
+.profile-left{
+	display: flex;
+	justify-content:space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
+	flex: 1;
+}
+
+#profile-usr{
+	/* background-color: #5FCAE4; */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+	padding-top: 1rem;
+	gap: 1rem;
+	height: 100%;
+}
+
+#profile-usr > h1{
+	font-size: 2rem;
+}
+
+#profile-img{
+	width: 15rem;
+}
+
+.line1{
+    position: relative;
+    width: 1px;
+    height: 100%;
+    background: #474c60;
+	display: flex;
+	align-items: center;
+}
+
+.line2{
+    width: 2px;
+    height: 50%;
+    background:var(--blue-glow);
+    position: absolute;
+}
+
+.profile-right{
+	/* background-color:burlywood; */
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex: 2;
+}
+
+#circles{
+	display: flex;
+}
+
+.progress-circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: 
+      radial-gradient(closest-side, white 79%, transparent 80% 100%),
+      conic-gradient(#5FCAE4 75%, #323644 0);
+}
