@@ -9,6 +9,8 @@ import FriendBar from "./components/FriendBar";
 import "./App.css";
 import "./css/SideBar.css";
 import "./css/FriendBar.css";
+import "./css/TopBar.css";
+import "./css/Profile.css";
 
 function App() {
   return (
@@ -16,8 +18,8 @@ function App() {
 		<div id="SideBar"><SideBar /></div>
 		<div className="main">
 			<div id="TopBar"><TopBar /></div>
-			<Profile />
-			<Dashboard />
+			<div id="Profile"><Profile /></div>
+			<div id="Dashboard"><Dashboard /></div>
 		</div>
 		<div id="FriendBar"><FriendBar /></div>
 	</div>

@@ -34,56 +34,16 @@ body{
 }
 
 .main{
-    border: 1px solid green;
     max-width: 2560px;
     display: flex;
     flex-direction: column;
-    margin: 0 5rem;
+    margin: 0 3rem;
     max-height: 120rem;
     flex: 1;
 }
 
-#TopBar{
-	background-color: #5FCAE4;
+#Dashboard{
+	/* background-color: gray; */
 	display: flex;
-	height: 8rem;
-	align-items: center;
-	justify-content: space-between;
-}
-
-#welcome-bar{
-	display: flex;
-	gap: 0.5rem;
-}
-
-#welcome-bar > h1{
-	font-size: 2rem;
-}
-
-#nickName{
-	color: #1E8EF3;
-    text-shadow: 0px 0px 25px rgba(29, 144, 245, 1);
-}
-
-#search-bar{
-	background-color:blueviolet;
-	display: flex;
-	flex: 0.5;
-	justify-content: space-between;
-    align-items:center;
-    margin-right: 2rem;
-}
-
-#search:placeholder-shown, #search {
-	background-color: #0C0E14;
-    border: 1px solid #5FCAE4;
-	width: 60%;
-    border-radius: 30px;
-    padding: 20px 20px;
-    margin: 20px 0;
-    box-sizing: border-box;
-    background-image: url(../Imgs/search-icon.svg);
-    background-repeat: no-repeat;
-    background-position: 20px 20px;
-    transition: all .3s;
+	flex: 2;
 }

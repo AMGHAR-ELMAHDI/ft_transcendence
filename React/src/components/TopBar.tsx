@@ -1,4 +1,7 @@
 import React from "react";
+import { IoNotifications } from "react-icons/io5";
+import { IoNotificationsOutline } from "react-icons/io5";
+
 
 function TopBar() {
   return (
@@ -9,8 +12,8 @@ function TopBar() {
       </div>
 
       <div id="search-bar">
-        <input id="search" type="text" placeholder="         Search" />
-        <img id="notif" src="/notif.svg" alt="notif" />
+        <input id="search" type="text" placeholder="Search" />
+		<IoNotificationsOutline id="notif" />
       </div>
     </>
   );
