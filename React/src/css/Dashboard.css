@@ -82,7 +82,7 @@
   }
 
 @media only screen and (max-width: 1440px) {
-	#ProfileHistory, #Dashboard-Main-GameModeContainer, #Dashboard-Secondary-GameModeContainer{
+	#Dashboard-Main-GameModeContainer, #Dashboard-Secondary-GameModeContainer{
 		width: 400px;
 	}
   }
