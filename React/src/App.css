@@ -51,5 +51,7 @@ body{
 #ProfileHistory{
 	background-color: #5FCAE4;
 	display: flex;
-	flex: 1;
+	/* flex: 1; */
+	border-radius: 25px;
+	width: 30%;
 }

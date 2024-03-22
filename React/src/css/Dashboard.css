@@ -3,13 +3,15 @@
 	--grey-bg-color: #323644;
     --font-color: white;
     --blue-glow: #5FCAE4;
+	--edge: 25px
 }
 
 #Dashboard{
 	border: 2px solid var(--blue-glow);
-	border-radius: 25px;
+	border-radius: var(--edge);
 	display: flex;
 	flex: 2;
+	/* flex-wrap: wrap; */
 }
 
 .DashboardGameModes{
@@ -17,6 +19,13 @@
 	flex: 1;
 }
 
-.extraModes{
-	width: 400px;
+#Dashboard-Main-GameModeContainer{
+	display: flex;
+	width: 35%;
+}
+
+#Dashboard-Secondary-GameModeContainer{
+	/* display: flex;
+	flex-direction: column; */
+	width: 30%;
 }

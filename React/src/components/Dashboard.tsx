@@ -7,15 +7,17 @@ function Dashboard() {
 	<>
 		<div className="DashboardGameModes">
 			<div id="Dashboard-Main-GameModeContainer">
-				<img src="/DashboardGameModes/table1.jpg" alt="MainGameMode" />
+				main
+				{/* <img className='big' src="/DashboardGameModes/table1.jpg" alt="MainGameMode" /> */}
 			</div>
 			<div id="Dashboard-Secondary-GameModeContainer">
-				<img className='extraModes' src="/DashboardGameModes/table1.jpg" alt="ExtraGameMode1" />
+				second
+				{/* <img className='extraModes' src="/DashboardGameModes/table1.jpg" alt="ExtraGameMode1" />
 				<img className='extraModes' src="/DashboardGameModes/table1.jpg" alt="ExtraGameMode2" />
-				<img className='extraModes' src="/DashboardGameModes/table1.jpg" alt="ExtraGameMode3" />
+				<img className='extraModes' src="/DashboardGameModes/table1.jpg" alt="ExtraGameMode3" /> */}
 			</div>
+			<div id="ProfileHistory"><ProfileHistory /></div>
 		</div>
-		<div id="ProfileHistory"><ProfileHistory /></div>
 	</>
   )
 }
