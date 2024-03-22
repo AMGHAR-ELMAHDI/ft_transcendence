@@ -9,7 +9,7 @@
 *{
     margin: 0;
     padding: 0;
-    border: 0.1px solid red;
+    /* border: 0.1px solid red; */
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
     font-size: 1.2rem;
@@ -39,20 +39,4 @@ body{
     margin: 0 3rem;
     /* max-height: 120rem; */
     flex: 1;
-}
-
-#DashboardProfileContainer{
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-	flex: 1;
-}
-
-#ProfileHistory{
-	/* background-color: #5FCAE4; */
-	display: flex;
-	flex: 1.5;
-
-	border-radius: 25px;
-	/* width: 35%; */
 }

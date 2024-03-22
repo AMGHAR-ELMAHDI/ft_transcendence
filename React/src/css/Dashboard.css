@@ -6,31 +6,50 @@
 	--edge: 25px
 }
 
+#DashboardProfileContainer{
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	flex: 1;
+}
+
 #Dashboard{
 	border: 2px solid var(--blue-glow);
 	border-radius: var(--edge);
 	display: flex;
-	flex: 2;
+	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 1rem;
 }
 
+#ProfileHistory{
+	display: flex;
+	width: 830px;
+	border-radius: 25px;
+}
+
 #Dashboard-Main-GameModeContainer{
-	flex: 1.5;
+	width: 830px;
 }
 
 #Dashboard-Secondary-GameModeContainer{
-	flex: 1;
+	width: 830px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .big{
 	width: 100%;
-	object-fit: contain;
+	object-fit: cover;
+	height: 100%;
+	border-radius: var(--edge);
 }
 
 .extraModes{
-	width: 100%;
-	height: 300px;
+	height: 260px;
+	object-fit: cover;
+	border-radius: var(--edge);
 }
 
 /* --------------------------DASHBOARD HISTORY------------------------- */
@@ -73,7 +92,7 @@
 }
 
 #dashboard-history-pic{
-    background-image: url(../Imgs/gay.png);
+    background-image: url(/bacharG.svg);
     height: 100px;
     width: 100px;
     background-size: cover;

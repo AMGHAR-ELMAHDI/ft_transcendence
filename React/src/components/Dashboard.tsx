@@ -6,33 +6,14 @@ function Dashboard() {
   return (
     <div id="Dashboard">
       <div id="Dashboard-Main-GameModeContainer">
-        <img
-          className="big"
-          src="/DashboardGameModes/table1.jpg"
-          alt="MainGameMode"
-        />
+        <img className="big" src="/DashboardGameModes/table1.jpg" />
       </div>
-
 
       <div id="Dashboard-Secondary-GameModeContainer">
-        <img
-          className="extraModes"
-          src="/DashboardGameModes/table1.jpg"
-          alt="ExtraGameMode1"
-        />
-        <img
-          className="extraModes"
-          src="/DashboardGameModes/table1.jpg"
-          alt="ExtraGameMode2"
-        />
-        <img
-          className="extraModes"
-          src="/DashboardGameModes/table1.jpg"
-          alt="ExtraGameMode3"
-        />
+        <img className="extraModes" src="/DashboardGameModes/table1.jpg" />
+        <img className="extraModes" src="/DashboardGameModes/table1.jpg" />
+        <img className="extraModes" src="/DashboardGameModes/table1.jpg" />
       </div>
-
-
 
       <div id="ProfileHistory">
         <ProfileHistory />
