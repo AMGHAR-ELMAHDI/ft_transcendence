@@ -15,7 +15,7 @@
 }
 
 #Dashboard{
-	/* border: 0.1px solid #5FCAE4; */
+	border: 0.1px solid #5FCAE4;
 	border-radius: var(--edge);
 	display: flex;
 	justify-content: space-between;
@@ -32,9 +32,8 @@
 	width: 800px;
 	background-image: url(/DashboardGameModes/table1.jpg);
 	border-radius: 25px;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-	flex-shrink: 0;
 }
 
 #Dashboard-Secondary-GameModeContainer{
@@ -83,11 +82,9 @@
   }
 
 @media only screen and (max-width: 1440px) {
-	#Dashboard-Main-GameModeContainer{
-		/* background-color: #1E8EF3;
-		width: 400px; */
+	#ProfileHistory, #Dashboard-Main-GameModeContainer, #Dashboard-Secondary-GameModeContainer{
+		width: 400px;
 	}
-
   }
 
 /* --------------------------DASHBOARD HISTORY------------------------- */

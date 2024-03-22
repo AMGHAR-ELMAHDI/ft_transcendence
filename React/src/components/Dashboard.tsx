@@ -6,6 +6,7 @@ function Dashboard() {
   return (
     <div id="Dashboard">
       <div id="Dashboard-Main-GameModeContainer"></div>
+	  
       <div id="Dashboard-Secondary-GameModeContainer">
         <div id="Dashboard-Secondary-tournament"></div>
         <div id="Dashboard-Secondary-bot"></div>
