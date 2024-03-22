@@ -1,5 +1,6 @@
 :root{
     --bg-color : #0C0E14;
+	--grey-bg-color: #323644;
     --font-color: white;
     --blue-glow: #5FCAE4;
 }
@@ -22,12 +23,10 @@
 }
 
 #profile-usr{
-	/* background-color: #5FCAE4; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	flex: 1;
 	padding-top: 1rem;
 	gap: 1rem;
 	height: 100%;
@@ -39,6 +38,8 @@
 
 #profile-img{
 	width: 15rem;
+	border: 5px solid var(--blue-glow);
+	border-radius: 50%;
 }
 
 .line1{
@@ -58,15 +59,54 @@
 }
 
 .profile-right{
-	/* background-color:burlywood; */
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
+	/* gap: 50px; */
+	flex-wrap: wrap;
 	flex: 2;
+	min-width: none;
+}
+
+.profile-level{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-width: 300px;
+	height: 100%;
+	flex: 1;
+}
+
+#profile-level-text{
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+}
+
+progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 40px;
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: var(--grey-bg-color);
+    border-radius: 10em;
+}
+
+progress[value]::-webkit-progress-value {
+    background-color: var(--blue-glow);
+    border-radius: 10em;
 }
 
 #circles{
 	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 100%;
+	/* margin-left: 50px; */
+	flex: 2;
 }
 
 .progress-circle {
