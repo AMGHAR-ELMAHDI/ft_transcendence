@@ -21,7 +21,7 @@ function App() {
 			<div id="TopBar"><TopBar /></div>
 			<div id="DashboardProfileContainer">
 				<div id="Profile"><Profile /></div>
-				<div id="Dashboard"><Dashboard /></div>
+				<Dashboard />
 			</div>
 		</div>
 		<div id="FriendBar"><FriendBar /></div>
