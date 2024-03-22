@@ -41,9 +41,15 @@ body{
     flex: 1;
 }
 
-#Dashboard{
-	border-radius: 25px;
-	/* background-color: lightblue; */
+#DashboardProfileContainer{
 	display: flex;
-	flex: 2;
+	flex-direction: column;
+	gap: 1.5rem;
+	flex: 1;
+}
+
+#ProfileHistory{
+	background-color: #5FCAE4;
+	display: flex;
+	flex: 1;
 }

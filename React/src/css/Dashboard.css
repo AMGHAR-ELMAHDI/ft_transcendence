@@ -1,0 +1,22 @@
+:root{
+    --bg-color : #0C0E14;
+	--grey-bg-color: #323644;
+    --font-color: white;
+    --blue-glow: #5FCAE4;
+}
+
+#Dashboard{
+	border: 2px solid var(--blue-glow);
+	border-radius: 25px;
+	display: flex;
+	flex: 2;
+}
+
+.DashboardGameModes{
+	display: flex;
+	flex: 1;
+}
+
+.extraModes{
+	width: 400px;
+}
