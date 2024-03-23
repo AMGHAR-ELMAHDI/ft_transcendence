@@ -1,6 +1,0 @@
-{
-	"grant_type": "authorization_code",
-	"client_id" : ${uid},
-	"client_secret" : ${secret_id},
-	"redirect_uri" : "http://127.0.0.1:5500/"
-}
