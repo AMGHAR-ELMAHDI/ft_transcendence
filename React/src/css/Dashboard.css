@@ -82,13 +82,16 @@
 	#ProfileHistory, #Dashboard-Main-GameModeContainer, #Dashboard-Secondary-GameModeContainer{
 		width: 700px;
 	}
-  }
+}
 
 @media only screen and (max-width: 1440px) {
 	#Dashboard-Main-GameModeContainer, #Dashboard-Secondary-GameModeContainer{
 		width: 350px;
 	}
-  }
+	#ProfileHistory{
+		width: 1000px;
+	}
+}
 
 /* --------------------------DASHBOARD HISTORY------------------------- */
 
