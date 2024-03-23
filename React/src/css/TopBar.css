@@ -77,4 +77,8 @@
 	#search:placeholder-shown, #search {
 		width: 70%;
 	}
+
+	#search::placeholder{
+		padding: 0 0 0 10%;
+	}
 }

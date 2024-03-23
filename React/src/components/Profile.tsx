@@ -2,7 +2,8 @@ import React from 'react'
 
 function Profile() {
   return (
-	<>
+	<div id="Profile">
+
 		<div className="profile-left">
 			<div id="profile-usr">
 				<img id='profile-img' src="/bacharG.svg" alt="profilePic"/>
@@ -29,7 +30,7 @@ function Profile() {
 				<div className="progress-circle" aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}></div>
 			</div>
 		</div>
-	</>
+	</div>
   )
 }
 

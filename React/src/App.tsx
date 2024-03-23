@@ -20,7 +20,7 @@ function App() {
 		<div className="main">
 			<div id="TopBar"><TopBar /></div>
 			<div id="DashboardProfileContainer">
-				<div id="Profile"><Profile /></div>
+				<Profile />
 				<Dashboard />
 			</div>
 		</div>
