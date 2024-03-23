@@ -133,6 +133,8 @@ progress[value]::-webkit-progress-value {
 	}
 	.profile-right{
 		min-width: 1000px;
+		padding: 2rem;
+		gap: 1rem;
 	}
 	#profile-usr{
 		width: 100%;
@@ -148,5 +150,7 @@ progress[value]::-webkit-progress-value {
 	}
 	.profile-level{
 		min-width: 800px;
+		margin: 1rem;
+		flex: 0;
 	}
 }

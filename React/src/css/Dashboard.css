@@ -91,6 +91,13 @@
 	}
 }
 
+@media only screen and (max-width: 1440px) {
+	#Dashboard-Secondary-GameModeContainer{
+		gap: 1rem;
+	}
+}
+
+
 /* --------------------------DASHBOARD HISTORY------------------------- */
 
 #history{
