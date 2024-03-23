@@ -15,10 +15,8 @@
 }
 
 #Dashboard{
-	border: 0.1px solid #5FCAE4;
 	border-radius: var(--edge);
 	display: flex;
-	/* justify-content: space-between; */
 	flex-wrap: wrap;
 	gap: 1rem;
 }

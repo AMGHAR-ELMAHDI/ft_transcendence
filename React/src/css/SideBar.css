@@ -1,7 +1,6 @@
 #SideBar{
     display: flex;
     flex-direction: column;
-    flex: 0 1 auto;
     align-items: center;
     justify-content: space-between;
 }
