@@ -6,6 +6,7 @@ import TopBar from "./components/TopBar";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import FriendBar from "./components/FriendBar";
+import ProfileMain from "./components/ProfileMain";
 import "./App.css";
 import "./css/SideBar.css";
 import "./css/FriendBar.css";
@@ -16,17 +17,34 @@ import "./css/Dashboard.css";
 function App() {
   return (
 	<div className="AppClass">
-		<div id="SideBar"><SideBar /></div>
+		<SideBar />
 		<div className="main">
-			<div id="TopBar"><TopBar /></div>
+			<TopBar />
 			<div id="DashboardProfileContainer">
-				<Profile />
+				<Profile profileList="RenderList" />
+				{/* <ProfileMain /> */}
 				<Dashboard />
 			</div>
 		</div>
-		<div id="FriendBar"><FriendBar /></div>
+		<FriendBar />
 	</div>
   );
 }
+
+// function App() {
+// 	return (
+// 	  <div className="AppClass">
+// 		  <SideBar />
+// 		  <div className="main">
+// 			  <TopBar />
+// 			  <div id="DashboardProfileContainer">
+// 				  <Profile profileList="RenderList" />
+// 				  <Dashboard />
+// 			  </div>
+// 		  </div>
+// 		  <FriendBar />
+// 	  </div>
+// 	);
+//   }
 
 export default App;
