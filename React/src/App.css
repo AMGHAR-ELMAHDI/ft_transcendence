@@ -42,7 +42,10 @@ body{
 }
 
 
-@media only screen and (max-width: 2560px) {
+@media only screen and (max-width: 1920px) {
+    .AppClass > *{
+		height:auto;
+	}
 }
 
 @media only screen and (max-width: 1440px) {

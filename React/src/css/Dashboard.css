@@ -89,12 +89,24 @@
 	#ProfileHistory{
 		width: 1000px;
 	}
+    #Dashboard-Secondary-GameModeContainer{
+        gap: 1rem;
+    }
 }
 
-@media only screen and (max-width: 1440px) {
-	#Dashboard-Secondary-GameModeContainer{
-		gap: 1rem;
+@media only screen and (max-width: 1920px) {
+    #Dashboard-Main-GameModeContainer, #Dashboard-Secondary-GameModeContainer{
+		width: 500px;
 	}
+	#ProfileHistory{
+		width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #1E8EF3;
+	}
+    #Dashboard-Secondary-GameModeContainer{
+        gap: 1rem;
+    }
 }
 
 
