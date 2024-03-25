@@ -9,7 +9,7 @@
 *{
     margin: 0;
     padding: 0;
-    border: 0.1px solid red;
+    /* border: 0.1px solid red; */
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
     font-size: 1.2rem;
@@ -29,7 +29,6 @@ body{
 
 .AppClass > *{
     height: 100svh;
-    /* max-height: 120rem; */
 }
 
 .main{
@@ -37,10 +36,8 @@ body{
     display: flex;
     flex-direction: column;
     margin: 0 3rem;
-    /* max-height: 120rem; */
     flex: 1;
 }
-
 
 @media only screen and (max-width: 1920px) {
     .AppClass > *{

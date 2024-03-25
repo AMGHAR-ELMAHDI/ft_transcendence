@@ -4,7 +4,17 @@ interface ProfileProps {
 	profileList: string;
 }
 
+const divStyleDashboard = {
+	justifyContent: 'center',
+};
+  
+const divStyleProfile = {
+	justifyContent: 'space-between',
+};
+
 function Profile({profileList}: ProfileProps) {
+	const profileLevelStyle = profileList === 'RenderList' ? divStyleProfile : divStyleDashboard;
+	const boolRender = profileList === 'RenderList' ? true : false;
   return (
 	<div id="Profile">
 
@@ -19,8 +29,8 @@ function Profile({profileList}: ProfileProps) {
 		</div>
 
 		<div className="profile-right">
-			<div className="profile-level">
-				<div></div>
+			<div className="profile-level" style={profileLevelStyle}>
+				{boolRender && <div></div>}
 				<div id="profile-level-container">
 					<div id="profile-level-text">
 						<h2>Level 10</h2>
@@ -30,11 +40,13 @@ function Profile({profileList}: ProfileProps) {
 						<progress id="progress-bar" value={75} max={100}/>
 					</div>
 				</div>
-				<div id="profile-tabs">
-					<h1>History</h1>
-					<h1>Trophies</h1>
-					<h1>Items</h1>
-				</div>
+				{ boolRender &&
+					<div id="profile-tabs">
+						<h1>History</h1>
+						<h1>Trophies</h1>
+						<h1>Items</h1>
+					</div>
+				}
 			</div>
 
 			<div id="circles">

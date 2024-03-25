@@ -38,7 +38,7 @@ function App() {
 // 		  <div className="main">
 // 			  <TopBar />
 // 			  <div id="DashboardProfileContainer">
-// 				  <Profile profileList="RenderList" />
+// 				  <Profile profileList="dont" />
 // 				  <Dashboard />
 // 			  </div>
 // 		  </div>

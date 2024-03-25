@@ -69,11 +69,12 @@
 .profile-level{
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	/* justify-content: center; */
 	flex: 1;
 	gap: 1rem;
 	height: 100%;
 }
+
 #profile-level-container{
 	display: flex;
 	flex-direction: column;
@@ -116,7 +117,7 @@ progress[value]::-webkit-progress-value {
 
 #profile-tabs > *{
 	font-size: 1.5rem;
-	border-bottom: 5px solid var(--blue-glow);
+	border-bottom: 6px solid var(--blue-glow);
 	padding: 0 1rem 0.5rem 1rem;
 	position: relative;
 	top: 0.2rem;
