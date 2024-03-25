@@ -9,7 +9,7 @@
 *{
     margin: 0;
     padding: 0;
-    /* border: 0.1px solid red; */
+    border: 0.1px solid red;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
     font-size: 1.2rem;
@@ -49,4 +49,10 @@ body{
 	.AppClass > *{
 		height:auto;
 	}
+}
+
+
+#progress-thingy{
+    width: 300px;
+    height: 300px;
 }

@@ -2,7 +2,6 @@ import React from 'react'
 
 function ProfileHistory() {
   return (
-	<>
 		<div id="history">
 			<div className="history-top-text">
 				<h2>GAMES HISTORY</h2>
@@ -52,7 +51,6 @@ function ProfileHistory() {
 				</div>
 			</div>
 		</div>
-	</>
   )
 }
 

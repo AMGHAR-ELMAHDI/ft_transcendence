@@ -13,6 +13,7 @@ import "./css/FriendBar.css";
 import "./css/TopBar.css";
 import "./css/Profile.css";
 import "./css/Dashboard.css";
+import "./css/ProfileMain.css";
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
 // 			  <TopBar />
 // 			  <div id="DashboardProfileContainer">
 // 				  <Profile profileList="dont" />
-// 				  <Dashboard />
+				//   <Dashboard />
 // 			  </div>
 // 		  </div>
 // 		  <FriendBar />

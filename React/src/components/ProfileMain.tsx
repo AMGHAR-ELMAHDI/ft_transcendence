@@ -1,8 +1,9 @@
 import React from 'react'
+import ProfileHistory from "./ProfileHistory";
 
 function ProfileMain() {
   return (
-    <div>ProfileMain</div>
+    <div id="ProfileHistory"><ProfileHistory /></div>
   )
 }
 

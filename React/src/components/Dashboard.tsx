@@ -13,7 +13,7 @@ function Dashboard() {
         <div id="Dashboard-Secondary-practice"></div>
       </div>
 
-      <div id="ProfileHistory"><ProfileHistory /></div>
+      <div id="DashboardHistory"><ProfileHistory /></div>
     </div>
   );
 }
