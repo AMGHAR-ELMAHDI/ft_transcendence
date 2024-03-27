@@ -23,8 +23,8 @@ function App() {
 			<TopBar />
 			<div id="DashboardProfileContainer">
 				<Profile profileList="RenderList" />
-				{/* <ProfileMain /> */}
-				<Dashboard />
+				<ProfileMain />
+				{/* <Dashboard /> */}
 			</div>
 		</div>
 		<FriendBar />

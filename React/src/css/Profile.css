@@ -107,6 +107,8 @@ progress[value]::-webkit-progress-bar {
 progress[value]::-webkit-progress-value {
     background-color: var(--blue-glow);
     border-radius: 10em;
+    box-shadow: 0px 0px 10px #5FCAE4;
+
 }
 
 #profile-tabs{
