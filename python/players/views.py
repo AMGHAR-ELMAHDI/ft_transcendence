@@ -1,11 +1,11 @@
 from django.db.models.aggregates import Count
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Player, FriendshipRequest
-from .serializers import PlayerSerializer, FriendshipRequestSerializer
+from .serializers import PlayerSerializer, FriendshipRequestSerializer, FriendshipSerializer
 # Create your views here.
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -42,3 +42,29 @@ def reqs_list(request):
         serializer = FriendshipRequestSerializer(
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Player
+from .serializers import PlayerSerializer
+
+class playerDashboard(APIView):
+    def get(self, request, player_id):
+        try:
+            player = Player.objects.get(id=player_id)
+            player_serializer = PlayerSerializer(player)
+
+            online_friends = player.friends.filter(status=Player.STATUS_ONLINE)[:10]
+            offline_friends = player.friends.filter(status=Player.STATUS_OFFLINE)[:10 - online_friends.count()]
+            friends = list(online_friends) + list(offline_friends)
+            friends_serializer = PlayerSerializer(friends, many=True)
+
+            data = {
+                'username': player_serializer.data['username'],
+                'firstname': player_serializer.data['firstname'],
+                'lastname': player_serializer.data['lastname'],
+                'friends': friends_serializer.data
+            }
+            return Response(data)
+        except Player.DoesNotExist:
+            return Response({"message": "Player not found"}, status=404)

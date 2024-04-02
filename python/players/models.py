@@ -15,9 +15,12 @@ class Player(models.Model):
         max_length=1, choices=STATUS_CHOICES, default=STATUS_OFFLINE)
     level = models.IntegerField(default=0)
     friends = models.ManyToManyField('self', through='Friendship', symmetrical=False)
-    #email = 
-    #password = 
-    #invites
+
+    firstname = models.CharField(max_length=32)
+    lastname = models.CharField(max_length=32)
+    def get_friendships(self):
+        friendships = Friendship.objects.filter(models.Q(player1=self) | models.Q(player2=self))
+        return friendships
 	
     def __str__(self) -> str:
         return self.username
