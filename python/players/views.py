@@ -3,10 +3,10 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from rest_framework.decorators import api_view, APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework import status
 from .models import Player, FriendshipRequest
-from .serializers import PlayerSerializer, FriendshipRequestSerializer, FriendshipSerializer
-# Create your views here.
+from .serializers import *
 
 @api_view(['GET', 'POST', 'DELETE'])
 def players_list(request):
@@ -43,12 +43,9 @@ def reqs_list(request):
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .models import Player
-from .serializers import PlayerSerializer
 
-class playerDashboard(APIView):
+
+class PlayerDashboard(APIView):
     def get(self, request, player_id):
         try:
             player = Player.objects.get(id=player_id)
@@ -56,15 +53,32 @@ class playerDashboard(APIView):
 
             online_friends = player.friends.filter(status=Player.STATUS_ONLINE)[:10]
             offline_friends = player.friends.filter(status=Player.STATUS_OFFLINE)[:10 - online_friends.count()]
-            friends = list(online_friends) + list(offline_friends)
-            friends_serializer = PlayerSerializer(friends, many=True)
+            played_games = GameHistory.objects.filter(player=player)
+
+            # win_rate
+            total_games = played_games.count()
+            wins = played_games.filter(player=player, player_score__gt=F('opponent_score')).count()
+            win_rate = wins / total_games if total_games > 0 else 0
+
+            #trophies_rate
+            total_trophies = Achievement.objects.count()
+            earned_trophies = AchievementPerUser.objects.filter(user=player).count()
+            trophies_rate = earned_trophies / total_games if total_trophies > 0 else 0
+            # Serialize data
+            friends_serializer = PlayerSerializer(online_friends.union(offline_friends), many=True)
+            games_serializer = GameHistorySerializer(played_games, many=True)
 
             data = {
                 'username': player_serializer.data['username'],
                 'firstname': player_serializer.data['firstname'],
                 'lastname': player_serializer.data['lastname'],
-                'friends': friends_serializer.data
+                'level' : player.level,
+                'win_rate' : win_rate,
+                'trophies_rate' : trophies_rate,
+                'friends': friends_serializer.data,
+                'games': games_serializer.data,
             }
             return Response(data)
         except Player.DoesNotExist:
             return Response({"message": "Player not found"}, status=404)
+

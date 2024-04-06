@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.db.models import F
 # Create your models here.
 class Player(models.Model):
     STATUS_ONLINE = 'O'
@@ -74,10 +74,10 @@ class Item(models.Model):
     ITEM_AVATAR = 'A'
 
     ITEM_CHOICES = [
-        (ITEM_BALL, 'PENDING'),
-        (ITEM_PADDLE, 'ACCEPTED'),
-        (ITEM_BGC, 'REJECTED'),
-        (ITEM_AVATAR, 'REJECTED'),
+        (ITEM_BALL, 'BALL'),
+        (ITEM_PADDLE, 'PADDLE'),
+        (ITEM_BGC, 'BGC'),
+        (ITEM_AVATAR, 'AVATAR'),
     ]
     type =  models.CharField(
         max_length=1, choices=ITEM_CHOICES)
@@ -102,3 +102,36 @@ class AchievementPerUser(models.Model):
     user = models.ForeignKey(Player, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     obtaining_date = models.DateTimeField(auto_now_add=True)
+
+class Message(models.Model):
+    sender = models.ForeignKey(Player, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(Player, related_name='received_messages', on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"From: {self.sender.username} To: {self.receiver.username} - {self.timestamp}"
+
+
+class GameHistory(models.Model):
+    ITEM_TOURNAMENT = 'T'
+    ITEM_OPPONENT = 'O'
+    ITEM_BOT = 'B'
+
+    ITEM_CHOICES = [
+        (ITEM_TOURNAMENT, 'TOURNAMENT'),
+        (ITEM_OPPONENT, 'OPPONENT'),
+        (ITEM_BOT, 'BOT'),
+    ]
+    date = models.DateTimeField(auto_now_add=True)
+    player = models.ForeignKey(Player, related_name='games_as_player', on_delete=models.CASCADE)
+    opponent = models.ForeignKey(Player, related_name='opponent_games', on_delete=models.CASCADE)
+    player_score = models.DecimalField(max_digits=5, decimal_places=2)
+    opponent_score = models.DecimalField(max_digits=5, decimal_places=2)
+    game_mode = models.CharField(
+        max_length=1, choices=ITEM_CHOICES, default=ITEM_OPPONENT)
+    game_duration_minutes = models.DecimalField(max_digits=5, decimal_places=2)
+
+    def __str__(self):
+        return f"Game played on {self.date} between {self.player.username} and {self.opponent.username}"
