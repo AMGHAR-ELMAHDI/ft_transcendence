@@ -12,6 +12,7 @@
 	justify-content: space-between;
 	flex: 1;
 	flex-wrap: wrap;
+	margin-bottom: 2rem;
 }
 
 .profile-left{
@@ -190,51 +191,4 @@ progress[value]::-webkit-progress-value {
 		width: 100%;
 		height: 30px;
 	}
-}
-
-
-body {
-	--sb-track-color: #0c0e14;
-	--sb-thumb-color: #5fcae4;
-	--sb-size: 15px;
-}
-  
-  body::-webkit-scrollbar {
-	width: var(--sb-size)
-}
-  
-  body::-webkit-scrollbar-track {
-	background: var(--sb-track-color);
-	border-radius: 18px;
-}
-  
-  body::-webkit-scrollbar-thumb {
-	background: var(--sb-thumb-color);
-	border-radius: 18px;
-	
-}
-  
-  @supports not selector(::-webkit-scrollbar) {
-	body {
-	  scrollbar-color: var(--sb-thumb-color)
-					   var(--sb-track-color);
-	}
-}
-
-.ProfileItems{
-	/* display: flex; */
-	/* flex: 1; */
-	border: 1px solid var(--blue-glow);
-	border-radius: 25px;
-	flex-wrap: wrap;
-	overflow-y: scroll;
-	max-height: 1000px;
-}
-
-.ProfileItems > *{
-	border: 1px solid red;
-}
-
-.ach{
-	max-width: 400px;
 }

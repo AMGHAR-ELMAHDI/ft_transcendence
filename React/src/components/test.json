@@ -1,0 +1,19 @@
+{
+    "friends": [
+        {
+            "name": "John",
+            "age": 25,
+            "email": "john@example.com"
+        },
+        {
+            "name": "Alice",
+            "age": 30,
+            "email": "alice@example.com"
+        },
+        {
+            "name": "Bob",
+            "age": 28,
+            "email": "bob@example.com"
+        }
+    ]
+}
