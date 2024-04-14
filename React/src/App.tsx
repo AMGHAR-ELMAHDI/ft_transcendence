@@ -17,18 +17,18 @@ import "./css/ProfileMain.css";
 
 function App() {
   return (
-	<div className="AppClass">
-		<SideBar />
-		<div className="main">
-			<TopBar />
-			<div id="DashboardProfileContainer">
-				<Profile profileList="RenderList" />
-				<ProfileMain />
-				{/* <Dashboard /> */}
-			</div>
-		</div>
-		<FriendBar />
-	</div>
+    <div className="AppClass">
+      <SideBar />
+      <div className="main">
+        <TopBar />
+        <div id="DashboardProfileContainer">
+          <Profile profileList="RenderList" />
+          {/* <ProfileMain /> */}
+          <Dashboard />
+        </div>
+      </div>
+      <FriendBar />
+    </div>
   );
 }
 
@@ -40,7 +40,7 @@ function App() {
 // 			  <TopBar />
 // 			  <div id="DashboardProfileContainer">
 // 				  <Profile profileList="dont" />
-				//   <Dashboard />
+//   <Dashboard />
 // 			  </div>
 // 		  </div>
 // 		  <FriendBar />
