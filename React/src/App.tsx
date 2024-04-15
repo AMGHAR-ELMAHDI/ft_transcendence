@@ -23,7 +23,7 @@ function App() {
         <TopBar />
         <div id="DashboardProfileContainer">
           <Profile profileList="RenderList" />
-          <ProfileMain />
+          <ProfileMain render="Trophies" />
           {/* <Dashboard /> */}
         </div>
       </div>

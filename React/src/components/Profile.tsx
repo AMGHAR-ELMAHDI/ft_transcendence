@@ -14,8 +14,7 @@ const divStyleProfile = {
 };
 
 function Profile({ profileList }: ProfileProps) {
-  const profileLevelStyle =
-    profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
+  const profileLevelStyle = profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
   return (
     <div id="Profile">
