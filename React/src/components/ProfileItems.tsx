@@ -1,10 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import Data from "./test.json";
 
 
 function ProfileItems() {
-  const [data, setData] = useState(Data.friends);
 
   return (
     <div className="ProfileItems">
@@ -28,12 +26,3 @@ function ProfileItems() {
 }
 
 export default ProfileItems;
-  {/* <ul>
-    {data.map((friend, index) => (
-      <li key={index}>
-        <div>Name: {friend.name}</div>
-        <div>Age: {friend.age}</div>
-        <div>Email: {friend.email}</div>
-      </li>
-    ))}
-  </ul> */}

@@ -1,0 +1,38 @@
+{
+  "username": "zmakhkha",
+  "first_name": "Othman",
+  "last_name": "Chekairi",
+  "level": 10,
+  "win_rate": 0,
+  "trophies_rate": 0,
+  "friends": [
+    {
+      "id": 2,
+      "user_id": 4,
+      "username": "dawdaw",
+      "coins": 0,
+      "level": 0,
+      "first_name": "daw",
+      "last_name": "daaaw"
+    },
+    {
+      "id": 3,
+      "user_id": 5,
+      "username": "chesy",
+      "coins": 0,
+      "level": 0,
+      "first_name": "cheesy",
+      "last_name": "amghar"
+    },
+    {
+      "id": 4,
+      "user_id": 3,
+      "username": "mnassi",
+      "coins": 0,
+      "level": 0,
+      "first_name": "simo",
+      "last_name": "nassi"
+    }
+  ],
+  "games": []
+}

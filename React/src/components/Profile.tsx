@@ -1,5 +1,7 @@
 import React from "react";
+import { useState } from "react";
 import Circle from "./Circle.tsx";
+import ProfileData from "../Data/Profile.json";
 
 interface ProfileProps {
   profileList: string;
@@ -14,14 +16,15 @@ const divStyleProfile = {
 };
 
 function Profile({ profileList }: ProfileProps) {
-  const profileLevelStyle = profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
+  const profileLevelStyle =
+    profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
   return (
     <div id="Profile">
       <div className="profile-left">
         <div id="profile-usr">
           <img id="profile-img" src="/bacharG.svg" alt="profilePic" />
-          <h1 id="user-name">Othman Chekairi</h1>
+          <h1 id="user-name">{ProfileData.first_name + " " + ProfileData.last_name}</h1>
         </div>
         <div className="line1">
           <div className="line2"></div>
@@ -33,7 +36,7 @@ function Profile({ profileList }: ProfileProps) {
           {boolRender && <div></div>}
           <div id="profile-level-container">
             <div id="profile-level-text">
-              <h2>Level 10</h2>
+              <h2>Level {ProfileData.level}</h2>
               <h2>700/1000</h2>
             </div>
             <div id="profile-level-bar">
@@ -50,8 +53,8 @@ function Profile({ profileList }: ProfileProps) {
         </div>
 
         <div id="circles">
-            <Circle />
-            <Circle />
+          <Circle />
+          <Circle />
           {/* <div className="progress-circle" aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}></div>
           <div className="progress-circle" aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}></div> */}
         </div>
