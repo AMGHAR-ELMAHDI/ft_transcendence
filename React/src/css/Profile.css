@@ -146,7 +146,7 @@ progress[value]::-webkit-progress-value {
 	.AppClass > *{
 		height:auto;
 	}
-	.progress-circle {
+	.progress-circle-thingy {
 		width: 200px;
 		height: 200px;
 	}
