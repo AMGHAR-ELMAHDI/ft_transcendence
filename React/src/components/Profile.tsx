@@ -2,6 +2,12 @@ import React from "react";
 import { useState } from "react";
 import Circle from "./Circle.tsx";
 import ProfileData from "../Data/Profile.json";
+import {
+  CircularProgressbar,
+  buildStyles,
+  CircularProgressbarWithChildren,
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 interface ProfileProps {
   profileList: string;
@@ -26,6 +32,8 @@ function Profile({ profileList }: ProfileProps) {
   const boolRender = profileList === "RenderList" ? true : false;
 
   let levelStart = Number(getLevelStart()) * 100;
+
+  const percentage = 69;
 
   return (
     <div id="Profile">
@@ -63,8 +71,34 @@ function Profile({ profileList }: ProfileProps) {
         </div>
 
         <div id="circles">
-          <Circle value={Number(ProfileData.win_rate)} />
-          <Circle value={ProfileData.trophies_rate} />
+          <CircularProgressbarWithChildren
+            value={ProfileData.win_rate}
+            styles={buildStyles({
+              pathColor: `rgba(95, 202, 228, ${percentage / 100})`,
+              textColor: "#FFFFFF",
+              trailColor: "#323644",
+              backgroundColor: "#3e98c7",
+            })}
+          >
+            <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
+              Win Rate
+            </div>
+            <div style={{ fontSize: 50 }}>{ProfileData.win_rate}%</div>
+          </CircularProgressbarWithChildren>
+          <CircularProgressbarWithChildren
+            value={ProfileData.trophies_rate}
+            styles={buildStyles({
+              pathColor: `rgba(95, 202, 228, ${percentage / 100})`,
+              textColor: "#FFFFFF",
+              trailColor: "#323644",
+              backgroundColor: "#3e98c7",
+            })}
+          >
+            <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
+              Trophies
+            </div>
+            <div style={{ fontSize: 50 }}>{ProfileData.trophies_rate}%</div>
+          </CircularProgressbarWithChildren>
         </div>
       </div>
     </div>
