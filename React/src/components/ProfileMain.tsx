@@ -3,15 +3,15 @@ import ProfileHistory from "./ProfileHistory";
 import ProfileItems from "./ProfileItems";
 
 interface ProfileMainProps {
-  render: string;
+  inRender: string;
 }
 
-function ProfileMain({ render }: ProfileMainProps) {
+function ProfileMain({ inRender }: ProfileMainProps) {
   var toRender = <ProfileHistory />;
 
-	if (render === "Items")
+	if (inRender === "Items")
 		toRender = <ProfileItems />;
-	else if (render === "Trophies")
+	else if (inRender === "Trophies")
 		toRender = <ProfileItems />;
 
   return (

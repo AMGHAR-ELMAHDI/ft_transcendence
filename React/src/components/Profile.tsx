@@ -2,16 +2,13 @@ import React from "react";
 import { useState } from "react";
 import Circle from "./Circle.tsx";
 import ProfileData from "../Data/Profile.json";
+import "../css/Profile.css";
 import {
   CircularProgressbar,
   buildStyles,
   CircularProgressbarWithChildren,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-
-interface ProfileProps {
-  profileList: string;
-}
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -25,21 +22,23 @@ function getLevelStart() {
   else levelStart = "0";
   return levelStart;
 }
+interface ProfileProps {
+  profileList: string;
+  show: string;
+}
 
-function Profile({ profileList }: ProfileProps) {
+function Profile({ profileList, show }: ProfileProps) {
   const profileLevelStyle =
     profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
 
   let levelStart = Number(getLevelStart()) * 100;
 
-  const percentage = 69;
-
   return (
     <div id="Profile">
       <div className="profile-left">
         <div id="profile-usr">
-          <img id="profile-img" src="/bacharG.svg" alt="profilePic" />
+          <img id="profile-img" src={"/bacharG.svg"} alt="profilePic" />
           <h1 id="user-name">
             {ProfileData.first_name + " " + ProfileData.last_name}
           </h1>
@@ -63,9 +62,9 @@ function Profile({ profileList }: ProfileProps) {
           </div>
           {boolRender && (
             <div id="profile-tabs">
-              <h1>History</h1>
-              <h1>Trophies</h1>
-              <h1>Items</h1>
+              <button onClick={() => show="History"}>History</button>
+              <button onClick={() => show="Trophies"}>Trophies</button>
+              <button onClick={() => show="Items"}>Items</button>
             </div>
           )}
         </div>
@@ -74,7 +73,7 @@ function Profile({ profileList }: ProfileProps) {
           <CircularProgressbarWithChildren
             value={ProfileData.win_rate}
             styles={buildStyles({
-              pathColor: `rgba(95, 202, 228, ${percentage / 100})`,
+              pathColor: `rgba(95, 202, 228, 1)`,
               textColor: "#FFFFFF",
               trailColor: "#323644",
               backgroundColor: "#3e98c7",
@@ -88,7 +87,7 @@ function Profile({ profileList }: ProfileProps) {
           <CircularProgressbarWithChildren
             value={ProfileData.trophies_rate}
             styles={buildStyles({
-              pathColor: `rgba(95, 202, 228, ${percentage / 100})`,
+              pathColor: `rgba(95, 202, 228, 1)`,
               textColor: "#FFFFFF",
               trailColor: "#323644",
               backgroundColor: "#3e98c7",

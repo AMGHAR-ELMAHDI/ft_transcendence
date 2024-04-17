@@ -17,14 +17,16 @@ import "./css/Dashboard.css";
 import "./css/ProfileMain.css";
 
 function App() {
+  const [render, setRender] = useState("History");
+
   return (
     <div className="AppClass">
       <SideBar />
       <div className="main">
         <TopBar />
         <div id="DashboardProfileContainer">
-          <Profile profileList="RenderList" />
-          <ProfileMain render="Trophies" />
+          <Profile profileList="RenderList" show={render} />
+          <ProfileMain inRender={render} />
           {/* <Dashboard /> */}
           {/* <Test /> */}
         </div>
