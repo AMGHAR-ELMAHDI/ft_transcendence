@@ -13,7 +13,7 @@
     height: 50%;
 }
 
-.sidebar-links > *, #logout{
+.sidebar-links > * > *, #logout{
     text-align: center;
     cursor: pointer;
     width: 3rem;

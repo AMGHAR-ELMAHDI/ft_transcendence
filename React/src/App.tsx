@@ -1,13 +1,13 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import SideBar from "./components/SideBar";
 import TopBar from "./components/TopBar";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import FriendBar from "./components/FriendBar";
 import ProfileMain from "./components/ProfileMain";
-import Test from "./components/Test";
+import { Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import "./App.css";
 import "./css/SideBar.css";
 import "./css/FriendBar.css";
@@ -24,16 +24,10 @@ function App() {
       <SideBar />
       <div className="main">
         <TopBar />
-        <div id="DashboardProfileContainer">
-          <Profile
-            profileList="RenderList"
-            show={render}
-            setRender={setRender}
-          />
-          <ProfileMain inRender={render} />
-          {/* <Dashboard /> */}
-          {/* <Test /> */}
-        </div>
+          <Routes>
+			<Route path="/profile" element={<><Profile profileList="RenderList" show={render} setRender={setRender} /> <ProfileMain inRender={render} /></>}/>
+			<Route path="/" element={<><Profile profileList="Dont" show={render} setRender={setRender} /> <Dashboard /></>} />
+          </Routes>
       </div>
       <FriendBar />
     </div>

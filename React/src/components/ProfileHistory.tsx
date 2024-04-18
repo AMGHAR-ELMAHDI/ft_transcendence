@@ -3,10 +3,10 @@ import React from 'react'
 function ProfileHistory() {
   return (
 		<div id="history">
-			<div className="history-top-text">
+			{/* <div className="history-top-text">
 				<h2>GAMES HISTORY</h2>
 				<h6>View All Matches</h6>
-			</div>
+			</div> */}
 			<div className="history-container">
 				<div className="line3">
 					<div className="line4"></div>

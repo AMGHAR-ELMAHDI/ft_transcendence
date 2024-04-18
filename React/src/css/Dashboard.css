@@ -6,13 +6,13 @@
   --edge: 25px;
 }
 
-#DashboardProfileContainer {
+/* #DashboardProfileContainer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   flex: 1;
   margin-bottom: 1rem;
-}
+} */
 
 #Dashboard {
   border-radius: var(--edge);
@@ -122,6 +122,9 @@
   border-radius: 20px;
   flex: 1;
   gap: 30px;
+  max-height: 800px;
+  overflow-y: scroll;
+
 }
 
 .history-top-text {
@@ -135,7 +138,7 @@
   font-size: 1rem;
 }
 
-/* .line3 {
+.line3 {
   position: relative;
   width: 2px;
   min-height: 705px;
@@ -149,7 +152,7 @@
   position: absolute;
   top: 15px;
   left: -10px;
-} */
+}
 
 .history-container {
   display: flex;
@@ -179,7 +182,7 @@
   width: 100%;
   height: 140px;
   position: relative;
-  direction: ltr;
+  /* direction: ltr; */
 }
 
 .history-tabs-left-container {
@@ -227,24 +230,19 @@
   justify-content: space-evenly;
   width: 100%;
   gap: 30px;
-  max-height: 800px;
-  padding-top: 250px;
-  overflow-y: scroll;
-  direction: rtl;
 }
 
 *::-webkit-scrollbar {
-  width: 5px;
+  /* width: 5px; */
 }
 *::-webkit-scrollbar-track {
-  border-radius: 0px;
-  /* background-color: var(--blue-glow); */
+  /* border-radius: 0px;
   background-color: var(--blue-glow);
 
-  border: 2px solid #0c0e14;
+  border: 2px solid #0c0e14; */
 }
 
 *::-webkit-scrollbar-thumb {
-  border-radius: 0px;
-  background-color: var(--blue-glow);
+  /* border-radius: 0px;
+  background-color: var(--blue-glow); */
 }
