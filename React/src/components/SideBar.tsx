@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function SideBar() {
   return (
     <div id="SideBar">
-		<Link to={"/"}><img id="logo" src="sidebarImgs/logo.svg" alt="logo" /></Link>
+		<Link to={"/"} ><img id="logo" src="sidebarImgs/logo.svg" alt="logo" /></Link>
       <div className="sidebar-links">
         <Link to={"/"}><img src="sidebarImgs/home.svg" alt="home" /></Link>
         <Link to={"/chat"}><img src="sidebarImgs/chat.svg" alt="chat" /></Link>

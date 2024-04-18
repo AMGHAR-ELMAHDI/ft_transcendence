@@ -6,7 +6,7 @@
 }
 
 #Profile {
-  border: 2px solid var(--blue-glow);
+  border: 1px solid var(--blue-glow);
   border-radius: 25px;
   display: flex;
   justify-content: space-between;
