@@ -1,12 +1,11 @@
 import { useState } from "react";
-import SideBar from "./components/SideBar";
-import TopBar from "./components/TopBar";
-import Profile from "./components/Profile";
-import Dashboard from "./components/Dashboard";
-import FriendBar from "./components/FriendBar";
-import ProfileMain from "./components/ProfileMain";
 import { Route, Routes } from "react-router-dom";
-import { Link } from "react-router-dom";
+import DashboardContainer from "./components/DashboardContainer";
+import ProfileContainer from "./components/ProfileContainer";
+import ChatContainer from "./components/ChatContainer";
+import GameContainer from "./components/GameContainer";
+import LeaderBoardContainer from "./components/LeaderBoardContainer";
+import ShopContainer from "./components/ShopContainer";
 
 import "./App.css";
 import "./css/SideBar.css";
@@ -20,17 +19,14 @@ function App() {
   const [render, setRender] = useState<string>("History");
 
   return (
-    <div className="AppClass">
-      <SideBar />
-      <div className="main">
-        <TopBar />
-          <Routes>
-			<Route path="/profile" element={<><Profile profileList="RenderList" show={render} setRender={setRender} /> <ProfileMain inRender={render} /></>}/>
-			<Route path="/" element={<><Profile profileList="Dont" show={render} setRender={setRender} /> <Dashboard /></>} />
-          </Routes>
-      </div>
-      <FriendBar />
-    </div>
+    <Routes>
+      <Route path="/" element={DashboardContainer(render, setRender)}></Route>
+      <Route path="/chat" element={ChatContainer()}></Route>
+      <Route path="/game" element={GameContainer()}></Route>
+      <Route path="/leaderboard" element={LeaderBoardContainer()}></Route>
+      <Route path="/shop" element={ShopContainer()}></Route>
+      <Route path="/profile" element={ProfileContainer(render, setRender)}></Route>
+    </Routes>
   );
 }
 
