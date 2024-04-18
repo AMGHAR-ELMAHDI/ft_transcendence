@@ -1,195 +1,205 @@
-:root{
-    --bg-color : #0C0E14;
-	--grey-bg-color: #323644;
-    --font-color: white;
-    --blue-glow: #5FCAE4;
+:root {
+  --bg-color: #0c0e14;
+  --grey-bg-color: #323644;
+  --font-color: white;
+  --blue-glow: #5fcae4;
 }
 
-#Profile{
-	border: 2px solid var(--blue-glow);
-	border-radius: 25px;
-	display: flex;
-	justify-content: space-between;
-	flex: 1;
-	flex-wrap: wrap;
-	margin-bottom: 2rem;
+#Profile {
+  border: 2px solid var(--blue-glow);
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
-.profile-left{
-	display: flex;
-	justify-content:space-evenly;
-	align-items: center;
-	flex-wrap: wrap;
-	flex: 1;
+.profile-left {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1;
 }
 
-#profile-usr{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding-top: 1rem;
-	gap: 1rem;
-	height: 100%;
+#profile-usr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 1rem;
+  height: 100%;
 }
 
-#profile-usr > h1{
-	font-size: 2rem;
+#profile-usr > h1 {
+  font-size: 2rem;
 }
 
-#profile-img{
-	width: 15rem;
-	border: 5px solid var(--blue-glow);
-	border-radius: 50%;
+#profile-img {
+  width: 15rem;
+  border: 5px solid var(--blue-glow);
+  border-radius: 50%;
 }
 
-.line1{
-    position: relative;
-    width: 1px;
-    height: 100%;
-    background: #474c60;
-	display: flex;
-	align-items: center;
+.line1 {
+  position: relative;
+  width: 1px;
+  height: 100%;
+  background: #474c60;
+  display: flex;
+  align-items: center;
 }
 
-.line2{
-    width: 2px;
-    height: 50%;
-    background:var(--blue-glow);
-    position: absolute;
+.line2 {
+  width: 2px;
+  height: 50%;
+  background: var(--blue-glow);
+  position: absolute;
 }
 
-.profile-right{
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-	flex-wrap: wrap;
-	flex: 2;
+.profile-right {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 2;
 }
 
-.profile-level{
-	display: flex;
-	flex-direction: column;
-	/* justify-content: center; */
-	flex: 1;
-	gap: 1rem;
-	height: 100%;
+.profile-level {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  flex: 1;
+  gap: 1rem;
+  height: 100%;
 }
 
-#profile-level-container{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	gap: 1rem;
+#profile-level-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
 }
 
-#profile-level-text{
-	display: flex;
-	justify-content: space-between;
-	text-align: center;
+#profile-level-text {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
 }
 
-#profile-level-text > *{
-	font-size: 1.5rem;
+#profile-level-text > * {
+  font-size: 1.5rem;
 }
 
 progress[value] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 40px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 40px;
 }
 
 progress[value]::-webkit-progress-bar {
-    background-color: var(--grey-bg-color);
-    border-radius: 10em;
+  background-color: var(--grey-bg-color);
+  border-radius: 10em;
 }
 
 progress[value]::-webkit-progress-value {
-    background-color: var(--blue-glow);
-    border-radius: 10em;
-    box-shadow: 0px 0px 10px #5FCAE4;
-
+  background-color: var(--blue-glow);
+  border-radius: 10em;
+  box-shadow: 0px 0px 10px #5fcae4;
 }
 
-#profile-tabs{
-	display: flex;
-	justify-content: space-around;
-	gap: 1rem;
+#profile-tabs {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
 }
 
-#profile-tabs > *{
-	font-size: 1.5rem;
-	border-bottom: 6px solid var(--blue-glow);
-	padding: 0 1rem 0.5rem 1rem;
-	position: relative;
-	top: 0.2rem;
+#profile-tabs > * {
+  font-size: 1.5rem;
+  border-bottom: 6px solid var(--blue-glow);
+  padding: 0 1rem 0.5rem 1rem;
+  position: relative;
+  top: 0.2rem;
 }
 
-#circles{
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-	flex: 2;
+#circles {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: 2;
 }
 
-.progress-circle{
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: 
-      radial-gradient(closest-side, white 79%, transparent 80% 100%),
-      conic-gradient(#5FCAE4 75%, #323644 0);
+.progress-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
+    conic-gradient(#5fcae4 75%, #323644 0);
+}
+
+#profile-tabs > button {
+  background: none;
+  border: none;
+}
+
+.ProfileToRender {
+  border-bottom: 6px solid var(--blue-glow) !important;
+}
+
+#profile-tabs > button:hover {
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 1440px) {
-	.AppClass > *{
-		height:auto;
-	}
-	.progress-circle-thingy {
-		width: 200px;
-		height: 200px;
-	}
-	#Profile{
-		justify-content: center;
-	}
-	.profile-left{
-		justify-content:center;
-	}
-	.profile-right{
-		min-width: 1000px;
-		padding: 1rem;
-		gap: 1rem;
-	}
-	#profile-usr{
-		width: 100%;
-	}
-	.line1{
-		width: 100%;
-		height: 1px;
-		justify-content: center;
-	}
-	.line2{
-		width: 50%;
-		height: 2px;
-	}
-	.profile-level{
-		min-width: 600px;
-		margin: 1rem;
-		flex: 0;
-	}
-	#circles{
-		display: none;
-	}
-	#profile-img{
-		width: 10rem;
-	}
+  .AppClass > * {
+    height: auto;
+  }
+  .progress-circle-thingy {
+    width: 200px;
+    height: 200px;
+  }
+  #Profile {
+    justify-content: center;
+  }
+  .profile-left {
+    justify-content: center;
+  }
+  .profile-right {
+    min-width: 1000px;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  #profile-usr {
+    width: 100%;
+  }
+  .line1 {
+    width: 100%;
+    height: 1px;
+    justify-content: center;
+  }
+  .line2 {
+    width: 50%;
+    height: 2px;
+  }
+  .profile-level {
+    min-width: 600px;
+    margin: 1rem;
+    flex: 0;
+  }
+  #circles {
+    display: none;
+  }
+  #profile-img {
+    width: 10rem;
+  }
 
-	progress[value] {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 100%;
-		height: 30px;
-	}
+  progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 30px;
+  }
 }
-

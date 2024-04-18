@@ -3,7 +3,7 @@
 	--sb-thumb-color: #5fcae4;
 	--sb-size: 14px;
 }
-  
+
 .ProfileItems::-webkit-scrollbar, body::-webkit-scrollbar {
 	width: var(--sb-size)
 }
@@ -27,7 +27,6 @@
 }
 
 .ProfileItems{
-	/* border: 1px solid var(--blue-glow); */
 	border-radius: 25px;
 	display: flex;
 	flex: 1;
@@ -43,6 +42,5 @@
 	border: 1px solid var(--blue-glow);
 	max-width: 400px;
     fill: white;
-    /* background-color: aliceblue; */
 	border-radius: 25px;
 }

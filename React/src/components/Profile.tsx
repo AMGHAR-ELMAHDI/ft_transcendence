@@ -4,7 +4,6 @@ import Circle from "./Circle.tsx";
 import ProfileData from "../Data/Profile.json";
 import "../css/Profile.css";
 import {
-  CircularProgressbar,
   buildStyles,
   CircularProgressbarWithChildren,
 } from "react-circular-progressbar";
@@ -25,9 +24,10 @@ function getLevelStart() {
 interface ProfileProps {
   profileList: string;
   show: string;
+  setRender: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Profile({ profileList, show }: ProfileProps) {
+function Profile({ profileList, show, setRender }: ProfileProps) {
   const profileLevelStyle =
     profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
@@ -62,9 +62,24 @@ function Profile({ profileList, show }: ProfileProps) {
           </div>
           {boolRender && (
             <div id="profile-tabs">
-              <button onClick={() => show="History"}>History</button>
-              <button onClick={() => show="Trophies"}>Trophies</button>
-              <button onClick={() => show="Items"}>Items</button>
+              <button
+                className={`${show === "History" && "ProfileToRender"} `}
+                onClick={() => setRender("History")}
+              >
+                History
+              </button>
+              <button
+                className={`${show === "Trophies" && "ProfileToRender"}  `}
+                onClick={() => setRender("Trophies")}
+              >
+                Trophies
+              </button>
+              <button
+                className={`${show === "Items" && "ProfileToRender"}`}
+                onClick={() => setRender("Items")}
+              >
+                Items
+              </button>
             </div>
           )}
         </div>

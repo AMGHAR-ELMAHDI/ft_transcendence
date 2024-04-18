@@ -17,7 +17,7 @@ import "./css/Dashboard.css";
 import "./css/ProfileMain.css";
 
 function App() {
-  const [render, setRender] = useState("History");
+  const [render, setRender] = useState<string>("History");
 
   return (
     <div className="AppClass">
@@ -25,7 +25,11 @@ function App() {
       <div className="main">
         <TopBar />
         <div id="DashboardProfileContainer">
-          <Profile profileList="RenderList" show={render} />
+          <Profile
+            profileList="RenderList"
+            show={render}
+            setRender={setRender}
+          />
           <ProfileMain inRender={render} />
           {/* <Dashboard /> */}
           {/* <Test /> */}
