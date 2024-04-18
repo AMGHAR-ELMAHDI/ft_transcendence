@@ -138,7 +138,7 @@
   font-size: 1rem;
 }
 
-.line3 {
+/* .line3 {
   position: relative;
   width: 2px;
   min-height: 705px;
@@ -152,7 +152,7 @@
   position: absolute;
   top: 15px;
   left: -10px;
-}
+} */
 
 .history-container {
   display: flex;

@@ -8,9 +8,9 @@ function ProfileHistory() {
 				<h6>View All Matches</h6>
 			</div> */}
 			<div className="history-container">
-				<div className="line3">
+				{/* <div className="line3">
 					<div className="line4"></div>
-				</div>
+				</div> */}
 				<div id="tabs-container">
 					<div className="history-tabs history-tab-first history-tab-won">
 						<div className="history-tabs-left-container">

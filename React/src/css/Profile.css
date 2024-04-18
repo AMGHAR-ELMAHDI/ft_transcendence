@@ -123,6 +123,8 @@ progress[value]::-webkit-progress-value {
   padding: 0 1rem 0.5rem 1rem;
   position: relative;
   top: 0.2rem;
+  color: var(--grey-bg-color);
+  /* color: gray; */
 }
 
 #circles {
@@ -147,6 +149,7 @@ progress[value]::-webkit-progress-value {
 
 .ProfileToRender {
   border-bottom: 6px solid var(--blue-glow) !important;
+  color: white !important;
 }
 
 #profile-tabs > button:hover {
