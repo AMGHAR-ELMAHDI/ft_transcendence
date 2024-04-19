@@ -1,20 +1,42 @@
-#SideBar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+#SideBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.sidebar-links{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 50%;
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
 }
 
-.sidebar-links > * > *, #logout{
-    text-align: center;
-    cursor: pointer;
-    width: 3rem;
+.sidebar-links > * > *, #logout {
+  text-align: center;
+  cursor: pointer;
+  width: 3rem;
 }
+
+.sidebarImgs {
+  width: 3rem;
+  color: red;
+  fill: green;
+  stroke: purple;
+}
+
+/* #exit:hover {
+  color: #f51d1d;
+  filter: drop-shadow(0 0 13px #f51d1d);
+}
+#exit {
+  position: absolute;
+  bottom: 100px;
+  left: 100px;
+} */
+
+/* #icons:hover, #exit:hover {
+    color: var(--NeonEffect);
+    filter: drop-shadow(0 0 13px var(--NeonEffect));
+  }  */

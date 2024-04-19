@@ -8,12 +8,12 @@ import LeaderBoardContainer from "./components/LeaderBoardContainer";
 import ShopContainer from "./components/ShopContainer";
 
 import "./App.css";
-import "./css/SideBar.css";
 import "./css/FriendBar.css";
 import "./css/TopBar.css";
 import "./css/Profile.css";
 import "./css/Dashboard.css";
 import "./css/ProfileMain.css";
+import "./css/SideBar.css";
 import NotFound from "./components/NotFound";
 
 function App() {

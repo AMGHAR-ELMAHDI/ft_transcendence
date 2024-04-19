@@ -32,10 +32,11 @@
   flex: 1;
   flex-wrap: wrap;
   overflow-y: scroll;
-  max-height: 800px;
+  max-height: 900px;
   justify-content: space-evenly;
   align-items: center;
   gap: 2rem;
+
 }
 
 .ProfileItems > * {

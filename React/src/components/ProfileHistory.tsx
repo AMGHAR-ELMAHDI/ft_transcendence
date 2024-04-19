@@ -3,14 +3,7 @@ import React from 'react'
 function ProfileHistory() {
   return (
 		<div id="history">
-			{/* <div className="history-top-text">
-				<h2>GAMES HISTORY</h2>
-				<h6>View All Matches</h6>
-			</div> */}
 			<div className="history-container">
-				{/* <div className="line3">
-					<div className="line4"></div>
-				</div> */}
 				<div id="tabs-container">
 					<div className="history-tabs history-tab-first history-tab-won">
 						<div className="history-tabs-left-container">
@@ -67,7 +60,9 @@ function ProfileHistory() {
 						<div className="dashboard-history-right-rect rect-lost"></div>
 					</div>
 				</div>
+
 			</div>
+			<div className="testContainer"></div>
 		</div>
   )
 }

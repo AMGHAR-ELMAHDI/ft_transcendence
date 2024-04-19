@@ -10,6 +10,8 @@ function ShopContainer() {
         <SideBar />
         <div className="main">
           <TopBar />
+          <h1>dhsjkhdjkhsjkdhs</h1>
+          
         </div>
         <FriendBar />
       </div>
