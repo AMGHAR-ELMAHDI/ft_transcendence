@@ -26,6 +26,13 @@
   fill: white;
   font-size: 3rem;
 }
+
+.sidebarImgsBlue {
+  width: 3rem;
+  fill: #1d90f5;
+  font-size: 3rem;
+}
+
 .exit {
   margin-bottom: 2rem;
 }
