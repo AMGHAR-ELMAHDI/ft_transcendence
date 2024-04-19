@@ -65,6 +65,8 @@
   align-items: center;
   flex-wrap: wrap;
   flex: 2;
+  margin-left: -5rem;
+  /* gap: 100px; */
 }
 
 .profile-level {
@@ -96,6 +98,7 @@
 progress[value] {
   -webkit-appearance: none;
   appearance: none;
+  /* min-width: 700px; */
   width: 100%;
   height: 40px;
 }
@@ -124,7 +127,7 @@ progress[value]::-webkit-progress-value {
   position: relative;
   top: 0.2rem;
   color: var(--grey-bg-color);
-  /* color: gray; */
+  color: gray;
 }
 
 #circles {

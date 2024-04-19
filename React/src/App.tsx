@@ -21,13 +21,13 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={DashboardContainer(render, setRender)}/>
-      <Route path="/chat" element={ChatContainer()}/>
-      <Route path="/game" element={GameContainer()}/>
-      <Route path="/leaderboard" element={LeaderBoardContainer()}/>
-      <Route path="/shop" element={ShopContainer()}/>
-      <Route path="/profile" element={ProfileContainer(render, setRender)}/>
-      <Route path="*" element={<NotFound/>}/>
+      <Route path="/" element={DashboardContainer(render, setRender)} />
+      <Route path="/chat" element={ChatContainer()} />
+      <Route path="/game" element={GameContainer()} />
+      <Route path="/leaderboard" element={LeaderBoardContainer()} />
+      <Route path="/shop" element={ShopContainer()} />
+      <Route path="/profile" element={ProfileContainer(render, setRender)} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

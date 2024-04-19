@@ -11,5 +11,5 @@ export default function GameContainer() {
         </div>
       </div>
     </>
-  )
+  );
 }
