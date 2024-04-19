@@ -13,7 +13,8 @@
   height: 50%;
 }
 
-.sidebar-links > * > *, #logout {
+.sidebar-links > * > *,
+#logout {
   text-align: center;
   cursor: pointer;
   width: 3rem;
@@ -21,9 +22,8 @@
 
 .sidebarImgs {
   width: 3rem;
-  color: red;
-  fill: green;
-  stroke: purple;
+  fill: white;
+  font-size: 3rem;
 }
 
 /* #exit:hover {
