@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  /* margin-bottom: 3rem; */
 }
 
 .sidebar-links {
@@ -24,6 +25,9 @@
   width: 3rem;
   fill: white;
   font-size: 3rem;
+}
+.exit {
+  margin-bottom: 2rem;
 }
 
 /* #exit:hover {
