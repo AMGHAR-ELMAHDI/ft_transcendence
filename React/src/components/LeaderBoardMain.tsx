@@ -2,26 +2,24 @@ import Data from "../Data/LeaderBoardData.json";
 
 function getTop3() {
   const LeaderBoardData = Data;
+  // <h1>Level {LeaderBoardData.LeaderBoard[0].level}</h1>
   return (
     <div className="Top3">
       <div className="First">
-        <img src={LeaderBoardData.LeaderBoard[0].picture} alt="FirstPic" />
-        <h1>{LeaderBoardData.LeaderBoard[0].username}</h1>
-        <h1>Level {LeaderBoardData.LeaderBoard[0].level}</h1>
-        <h1>{LeaderBoardData.LeaderBoard[0].coins}</h1>
+        <img className="topImgs" src={LeaderBoardData.LeaderBoard[0].picture} alt="FirstPic" />
+        <h1 className="toph1">{LeaderBoardData.LeaderBoard[0].username}</h1>
+        <div className="Coins"><h2>200 Coins</h2><h3 className="prize">Prize</h3></div>
       </div>
       <div className="SecondThird">
         <div className="Second">
-          <img src={LeaderBoardData.LeaderBoard[1].picture} alt="FirstPic" />
-          <h1>{LeaderBoardData.LeaderBoard[1].username}</h1>
-          <h1>Level {LeaderBoardData.LeaderBoard[1].level}</h1>
-          <h1>{LeaderBoardData.LeaderBoard[1].coins}</h1>
+          <img className="topImgs" src={LeaderBoardData.LeaderBoard[1].picture} alt="FirstPic" />
+          <h1 className="toph1">{LeaderBoardData.LeaderBoard[1].username}</h1>
+          <div className="Coins"><h2>100 Coins</h2><h3 className="prize">Prize</h3></div>
         </div>
         <div className="Third">
-          <img src={LeaderBoardData.LeaderBoard[2].picture} alt="FirstPic" />
-          <h1>{LeaderBoardData.LeaderBoard[2].username}</h1>
-          <h1>Level {LeaderBoardData.LeaderBoard[2].level}</h1>
-          <h1>{LeaderBoardData.LeaderBoard[2].coins}</h1>
+          <img className="topImgs" src={LeaderBoardData.LeaderBoard[2].picture} alt="FirstPic" />
+          <h1 className="toph1">{LeaderBoardData.LeaderBoard[2].username}</h1>
+          <div className="Coins"><h2>50 Coins</h2><h3 className="prize">Prize</h3></div>
         </div>
       </div>
     </div>
@@ -31,18 +29,18 @@ function getTop3() {
 function getTheRest() {
   const LeaderBoardData = Data;
   return (
-    <ul>
-      {LeaderBoardData.LeaderBoard.map((user) => (
-        <li key={user.id}>
-          <p>Username: {user.username}</p>
-          <p>First Name: {user.first_name}</p>
-          <p>Last Name: {user.last_name}</p>
-          <p>Level: {user.level}</p>
-          <p>Coins: {user.coins}</p>
-          <br />
-        </li>
-      ))}
-    </ul>
+    <div className="LeaderBoardRest">
+      <ul>
+        {LeaderBoardData.LeaderBoard.map((user) => (
+          <li key={user.id} id={user.id.toString()}>
+            <p>Username: {user.username}</p>
+            <p>Level: {user.level}</p>
+            <p>Coins: {user.coins}</p>
+            <br />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

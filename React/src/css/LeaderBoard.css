@@ -1,9 +1,13 @@
 * {
-  border: 0.1px solid var(--grey-bg-color);
+  /* border: 0.1px solid gray; */
   --bg-color: #0c0e14;
   --font-color: white;
   --grey-bg-color: hsl(227, 15%, 23%);
   --blue-glow: #5fcae4;
+}
+
+.topBarLeaderBoard{
+  /* margin: 0rem 0 0rem 0; */
 }
 
 .LeaderBoardContainer {
@@ -11,10 +15,11 @@
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  gap: 4rem;
 }
 
 .LeaderBoardContainer > h1 {
-  margin: 4rem 0 4rem 0;
+  margin: 4rem 0 0rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,20 +30,49 @@
   letter-spacing: 0.5rem;
 }
 
-.First {
+.Top3 {
+  flex: 2;
+}
+
+.First , .Second, .Third{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0.6rem;
 }
 
-.First > img {
+.topImgs {
   width: 17rem;
   height: 17rem;
   border-radius: 50%;
 }
 
+.toph1{
+  font-size: 1.9rem;
+}
+
+.Coins {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 1.5rem;
+  border: 1px solid var(--grey-bg-color);
+  padding: 0.5rem 7rem;
+  border-radius: 15px;
+}
+
+.Coins > h2 {
+  font-size: 1.3rem;
+}
+
 .SecondThird {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.LeaderBoardRest {
+  flex: 1;
 }

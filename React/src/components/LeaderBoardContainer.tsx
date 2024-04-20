@@ -9,7 +9,9 @@ function LeaderBoardContainer() {
       <div className="AppClass">
         <SideBar />
         <div className="main">
-          <TopBar />
+          <div className="topBarLeaderBoard">
+            <TopBar />
+          </div>
           <LeaderBoardMain />
         </div>
         <FriendBar />
