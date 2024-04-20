@@ -44,8 +44,17 @@
   gap: 0.6rem;
 }
 
-.First > img{
-  box-shadow: #FFC94A 0px 20px 30px 5px;
+.First > img {
+  box-shadow: #ffc94a 0px 20px 30px 5px;
+}
+
+.Second > img {
+  box-shadow: #999999 0px 20px 30px 5px;
+}
+
+.Third > img {
+  box-shadow: #e07f1f 0px 20px 30px 5px;
+  /* e07f1f */
 }
 
 .topImgs {
@@ -68,7 +77,6 @@
   border-radius: 25px;
   background: linear-gradient(to bottom, #242631 0%, #0f1119 100%);
 }
-/* #FFD700 */
 
 .Coins > h2 {
   font-size: 1.3rem;
@@ -76,9 +84,8 @@
 
 .Coins > h3 {
   /* font-size: 1.3rem; */
-  color: #33394E; 
+  color: #33394e;
 }
-
 
 .SecondThird {
   display: flex;
