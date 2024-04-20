@@ -6,6 +6,8 @@ import ChatContainer from "./components/ChatContainer";
 import GameContainer from "./components/GameContainer";
 import LeaderBoardContainer from "./components/LeaderBoardContainer";
 import ShopContainer from "./components/ShopContainer";
+import NotFound from "./components/NotFound";
+import LogoutContainer from "./components/LogoutContainer";
 
 import "./App.css";
 import "./css/FriendBar.css";
@@ -15,8 +17,6 @@ import "./css/Dashboard.css";
 import "./css/ProfileMain.css";
 import "./css/SideBar.css";
 import "./css/History.css";
-import NotFound from "./components/NotFound";
-import LogoutContainer from "./components/LogoutContainer";
 
 function App() {
   const [render, setRender] = useState<string>("History");
@@ -26,6 +26,7 @@ function App() {
       <Route path="/" element={DashboardContainer(render, setRender)} />
       <Route path="/chat" element={ChatContainer()} />
       <Route path="/game" element={GameContainer()} />
+      <Route path="/login" element={DashboardContainer(render, setRender)} />
       <Route path="/leaderboard" element={LeaderBoardContainer()} />
       <Route path="/shop" element={ShopContainer()} />
       <Route path="/profile" element={ProfileContainer(render, setRender)} />

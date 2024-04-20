@@ -10,7 +10,6 @@ function LogoutContainer() {
         <SideBar />
         <div className="main">
           <TopBar />
-          <Test />
         </div>
         <FriendBar />
       </div>

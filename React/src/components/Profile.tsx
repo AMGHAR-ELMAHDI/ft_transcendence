@@ -20,6 +20,7 @@ function getLevelStart() {
   else levelStart = "0";
   return levelStart;
 }
+
 interface ProfileProps {
   profileList: string;
   show: string;
