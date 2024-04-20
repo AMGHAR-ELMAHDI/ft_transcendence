@@ -28,9 +28,11 @@
 }
 
 .sidebarImgsBlue {
+  font-size: 3rem;
   width: 3rem;
   fill: #1d90f5;
-  font-size: 3rem;
+  color: #1d90f5;
+  stroke: #1d90f5;
 }
 
 .exit {
@@ -41,6 +43,7 @@
   color: #f51d1d;
   filter: drop-shadow(0 0 13px #f51d1d);
 }
+
 #exit {
   position: absolute;
   bottom: 100px;

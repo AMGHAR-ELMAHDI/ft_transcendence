@@ -27,6 +27,7 @@ function App() {
       <Route path="/leaderboard" element={LeaderBoardContainer()} />
       <Route path="/shop" element={ShopContainer()} />
       <Route path="/profile" element={ProfileContainer(render, setRender)} />
+      <Route path="/logout" element={ProfileContainer(render, setRender)} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
