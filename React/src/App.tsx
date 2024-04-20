@@ -16,6 +16,7 @@ import "./css/ProfileMain.css";
 import "./css/SideBar.css";
 import "./css/History.css";
 import NotFound from "./components/NotFound";
+import LogoutContainer from "./components/LogoutContainer";
 
 function App() {
   const [render, setRender] = useState<string>("History");
@@ -28,8 +29,8 @@ function App() {
       <Route path="/leaderboard" element={LeaderBoardContainer()} />
       <Route path="/shop" element={ShopContainer()} />
       <Route path="/profile" element={ProfileContainer(render, setRender)} />
-      <Route path="/logout" element={ProfileContainer(render, setRender)} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="/logout" element={LogoutContainer()} />
+      <Route path="*" element={NotFound()} />
     </Routes>
   );
 }
