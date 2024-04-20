@@ -1,5 +1,5 @@
 * {
-  border: 0.1px solid red;
+  border: 0.1px solid var(--grey-bg-color);
   --bg-color: #0c0e14;
   --font-color: white;
   --grey-bg-color: hsl(227, 15%, 23%);
@@ -9,17 +9,36 @@
 .LeaderBoardContainer {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.LeaderBoardContainer > h1 {
+  margin: 4rem 0 4rem 0;
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
-  /* background-color: var(--blue-glow); */
+  text-align: center;
+  font-size: 4rem;
+  color: #1e8ef3;
+  text-shadow: 0px 0px 25px rgba(29, 144, 245, 1);
+  letter-spacing: 0.5rem;
 }
 
-.LeaderBoardContainer > *{
-    /* flex: 1; */
+.First {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/* border-radius: var(--edge);
-display: flex;
-flex-wrap: wrap;
-gap: 1rem; */
+.First > img {
+  width: 17rem;
+  height: 17rem;
+  border-radius: 50%;
+}
+
+.SecondThird {
+  display: flex;
+  justify-content: space-around;
+}
