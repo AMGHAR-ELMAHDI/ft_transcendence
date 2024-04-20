@@ -1,6 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import Circle from "./Circle.tsx";
+
 import ProfileData from "../Data/Profile.json";
 import "../css/Profile.css";
 import {

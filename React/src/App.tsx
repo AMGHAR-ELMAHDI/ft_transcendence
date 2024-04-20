@@ -14,6 +14,7 @@ import "./css/Profile.css";
 import "./css/Dashboard.css";
 import "./css/ProfileMain.css";
 import "./css/SideBar.css";
+import "./css/History.css";
 import NotFound from "./components/NotFound";
 
 function App() {
