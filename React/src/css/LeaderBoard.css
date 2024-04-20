@@ -1,0 +1,25 @@
+* {
+  border: 0.1px solid red;
+  --bg-color: #0c0e14;
+  --font-color: white;
+  --grey-bg-color: hsl(227, 15%, 23%);
+  --blue-glow: #5fcae4;
+}
+
+.LeaderBoardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  /* background-color: var(--blue-glow); */
+}
+
+.LeaderBoardContainer > *{
+    /* flex: 1; */
+}
+
+/* border-radius: var(--edge);
+display: flex;
+flex-wrap: wrap;
+gap: 1rem; */

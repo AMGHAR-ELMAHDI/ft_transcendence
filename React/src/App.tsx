@@ -17,6 +17,7 @@ import "./css/Dashboard.css";
 import "./css/ProfileMain.css";
 import "./css/SideBar.css";
 import "./css/History.css";
+import "./css/LeaderBoard.css";
 
 function App() {
   const [render, setRender] = useState<string>("History");

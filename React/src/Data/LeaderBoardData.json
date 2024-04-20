@@ -1,0 +1,82 @@
+{
+  "username": "zmakhkha",
+  "picture" : "https://source.unsplash.com/featured/300x201",
+  "first_name": "Othman",
+  "last_name": "Chekairi",
+  "level": 10.9,
+  "win_rate": 75,
+  "trophies_rate": 50,
+  "LeaderBoard": [
+    {
+      "id": 2,
+      "user_id": 4,
+      "username": "dawdaw",
+      "picture" : "https://source.unsplash.com/featured/300x201",
+      "coins": 200,
+      "level": 10,
+      "first_name": "daw",
+      "last_name": "daaaw"
+    },
+    {
+      "id": 3,
+      "user_id": 5,
+      "username": "chesy",
+      "picture" : "https://source.unsplash.com/featured/300x201",
+      "coins": 100,
+      "level": 8,
+      "first_name": "cheesy",
+      "last_name": "amghar"
+    },
+    {
+      "id": 4,
+      "user_id": 3,
+      "username": "mnassi",
+      "picture" : "https://source.unsplash.com/featured/300x201",
+      "coins": 50,
+      "level": 5,
+      "first_name": "simo",
+      "last_name": "nassi"
+    },
+    {
+      "id": 5,
+      "user_id": 3,
+      "username": "Buda",
+      "picture" : "https://source.unsplash.com/featured/300x201",
+      "coins": 50,
+      "level": 5,
+      "first_name": "yahya",
+      "last_name": "taqsi"
+    },
+    {
+      "id": 6,
+      "user_id": 3,
+      "username": "zmoumni",
+      "picture" : "https://source.unsplash.com/featured/300x201",
+      "coins": 50,
+      "level": 5,
+      "first_name": "zakaria",
+      "last_name": "moumni"
+    },
+    {
+      "id": 7,
+      "user_id": 3,
+      "username": "jmou7i",
+      "picture" : "https://source.unsplash.com/featured/300x201",
+      "coins": 50,
+      "level": 5,
+      "first_name": "ayman",
+      "last_name": "Msaoub"
+    },
+    {
+      "id": 7,
+      "user_id": 3,
+      "username": "GamerGirl",
+      "picture" : "https://source.unsplash.com/featured/300x201",
+      "coins": 50,
+      "level": 5,
+      "first_name": "Yassmine",
+      "last_name": "Makhlouf"
+    }
+  ],
+  "games": []
+}

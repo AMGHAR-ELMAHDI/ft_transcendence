@@ -1,6 +1,7 @@
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
 import FriendBar from "./FriendBar";
+import LeaderBoardMain from "./LeaderBoardMain";
 
 function LeaderBoardContainer() {
   return (
@@ -9,6 +10,7 @@ function LeaderBoardContainer() {
         <SideBar />
         <div className="main">
           <TopBar />
+          <LeaderBoardMain />
         </div>
         <FriendBar />
       </div>
