@@ -12,7 +12,9 @@ function LeaderBoardContainer() {
           <div className="topBarLeaderBoard">
             <TopBar />
           </div>
-          <LeaderBoardMain />
+          <div className="LeaderBoard">
+            <LeaderBoardMain />
+          </div>
         </div>
         <FriendBar />
       </div>

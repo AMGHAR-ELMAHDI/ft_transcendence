@@ -8,7 +8,7 @@
   "trophies_rate": 50,
   "LeaderBoard": [
     {
-      "id": 2,
+      "id": 1,
       "user_id": 4,
       "username": "dawdaw",
       "picture": "https://source.unsplash.com/featured/300x201",
@@ -19,7 +19,7 @@
       "last_name": "daaaw"
     },
     {
-      "id": 3,
+      "id": 2,
       "user_id": 5,
       "username": "cheesy",
       "picture": "https://source.unsplash.com/featured/300x201",
@@ -30,7 +30,7 @@
       "last_name": "amghar"
     },
     {
-      "id": 4,
+      "id": 3,
       "user_id": 3,
       "username": "mnassi",
       "picture": "https://source.unsplash.com/featured/300x201",
@@ -41,7 +41,7 @@
       "last_name": "nassi"
     },
     {
-      "id": 5,
+      "id": 4,
       "user_id": 3,
       "username": "Buda",
       "picture": "https://source.unsplash.com/featured/300x201",
@@ -52,7 +52,7 @@
       "last_name": "taqsi"
     },
     {
-      "id": 6,
+      "id": 5,
       "user_id": 3,
       "username": "zmoumni",
       "picture": "https://source.unsplash.com/featured/300x201",
@@ -63,7 +63,7 @@
       "last_name": "moumni"
     },
     {
-      "id": 7,
+      "id": 6,
       "user_id": 3,
       "username": "jmou7i",
       "picture": "https://source.unsplash.com/featured/300x201",
@@ -74,7 +74,7 @@
       "last_name": "Msaoub"
     },
     {
-      "id": 8,
+      "id": 7,
       "user_id": 3,
       "username": "GamerGirl",
       "picture": "https://source.unsplash.com/featured/300x201",

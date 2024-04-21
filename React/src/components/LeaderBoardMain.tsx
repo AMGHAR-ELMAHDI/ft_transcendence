@@ -31,6 +31,7 @@ function getTheRest() {
     <div className="LeaderBoardRest">
       <ul>
         {LeaderBoardData.LeaderBoard.map((user) => (
+          (user.id > 3 && 
           <li key={user.id} id={user.id.toString()} className={user.id % 2 == 0 ? "SpecialCase" : ""}>
             <div className="LeaderRestLeft">
               <div className="idAndLine">
@@ -46,7 +47,7 @@ function getTheRest() {
                 <h1>{user.level}</h1>
               </div>
             </div>
-          </li>
+          </li>)
         ))}
       </ul>
     </div>

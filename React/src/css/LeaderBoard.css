@@ -10,26 +10,26 @@
   /* margin: 0rem 0 0rem 0; */
 }
 
+.LeaderBoard {
+  display: flex;
+  justify-content: center;
+}
+
 .LeaderBoardContainer {
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 3rem;
+  max-width: 2000px;
 }
 
 .LeaderBoardContainer > h1 {
   margin: 4rem 0 0rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   font-size: 4rem;
   color: #1e8ef3;
   text-shadow: 0px 0px 25px rgba(29, 144, 245, 1);
   letter-spacing: 0.5rem;
-}
-
-.Top3 {
-  flex: 2;
 }
 
 .First,
@@ -43,15 +43,15 @@
 }
 
 .First > img {
-  box-shadow: #ffc94a 0px 20px 30px 5px;
+  box-shadow: #ffc94a 0px 0px 30px 0px;
 }
 
 .Second > img {
-  box-shadow: #999999 0px 20px 30px 5px;
+  box-shadow: #999999 0px 0px 30px 0px;
 }
 
 .Third > img {
-  box-shadow: #e07f1f 0px 20px 30px 5px;
+  box-shadow: #e07f1f 0px 0px 30px 0px;
 }
 
 .topImgs {
@@ -87,8 +87,8 @@
 
 .LeaderBoardRest {
   max-height: 500px;
-  padding: 0 15rem;
   overflow-y: scroll;
+  padding: 0 2rem;
 }
 
 .LeaderBoardRest > ul {
@@ -106,7 +106,7 @@
 }
 
 .SpecialCase {
-  background: linear-gradient(to bottom, #242631 0%, #0f1119 100%);
+  background: linear-gradient(to bottom, #24263195 0%, #0f1119 100%);
 }
 
 .lineLi {
@@ -119,6 +119,7 @@
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
+  box-shadow: #000000 0px 0px 30px 0px;
 }
 
 .idAndLine {
@@ -127,9 +128,21 @@
   gap: 2rem;
 }
 
+.idAndLine > h1 {
+  position: relative;
+}
+
+.idAndLine > h1:hover::before {
+  content: "Rank";
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1rem;
+  /* padding: 5px; */
+}
+
 @media only screen and (max-width: 2200px) {
   .LeaderBoardRest {
-    padding: 0;
+    /* padding: 0; */
   }
 }
 
@@ -147,7 +160,7 @@
 
 .LeaderRestRighUsrtName {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex: 0.5;
 }
 
