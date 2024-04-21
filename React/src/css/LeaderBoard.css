@@ -1,5 +1,5 @@
 * {
-  /* border: 0.1px solid gray; */
+  border: 0.1px solid gray;
   --bg-color: #0c0e14;
   --font-color: white;
   --grey-bg-color: hsl(227, 15%, 23%);
@@ -13,9 +13,7 @@
 .LeaderBoardContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-  gap: 4rem;
+  gap: 3rem;
 }
 
 .LeaderBoardContainer > h1 {
@@ -70,10 +68,9 @@
 .Coins {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   align-items: center;
-  font-size: 1.5rem;
-  padding: 0.5rem 7rem;
+  justify-content: center;
+  padding: 1rem 5rem;
   border-radius: 25px;
   background: linear-gradient(to bottom, #242631 0%, #0f1119 100%);
 }
@@ -82,17 +79,52 @@
   font-size: 1.3rem;
 }
 
-.Coins > h3 {
-  /* font-size: 1.3rem; */
-  color: #33394e;
-}
-
 .SecondThird {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  padding: 0 3rem;
 }
 
 .LeaderBoardRest {
-  flex: 1;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.LeaderBoardRest > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.LeaderBoardRest > ul > li {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 25px;
+  padding: 1rem;
+}
+
+.SpecialCase {
+  background: linear-gradient(to bottom, #242631 0%, #0f1119 100%);
+}
+
+.lineLi {
+  height: 100px;
+  width: 2px;
+  border: 1px solid var(--grey-bg-color);
+}
+
+.RestImgs {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+}
+
+.idAndLine {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 2rem;
+  justify-content: space-between;
 }
