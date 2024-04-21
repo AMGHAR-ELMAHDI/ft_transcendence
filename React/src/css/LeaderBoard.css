@@ -1,5 +1,5 @@
 * {
-  border: 0.1px solid gray;
+  /* border: 0.1px solid gray; */
   --bg-color: #0c0e14;
   --font-color: white;
   --grey-bg-color: hsl(227, 15%, 23%);
@@ -52,7 +52,6 @@
 
 .Third > img {
   box-shadow: #e07f1f 0px 20px 30px 5px;
-  /* e07f1f */
 }
 
 .topImgs {
@@ -88,6 +87,7 @@
 
 .LeaderBoardRest {
   max-height: 500px;
+  padding: 0 15rem;
   overflow-y: scroll;
 }
 
@@ -124,7 +124,35 @@
 .idAndLine {
   display: flex;
   align-items: center;
-  padding: 0 1rem;
   gap: 2rem;
+}
+
+@media only screen and (max-width: 2200px) {
+  .LeaderBoardRest {
+    padding: 0;
+  }
+}
+
+.LeaderRestLeft {
+  display: flex;
+  justify-content: space-evenly;
+  flex: 1;
+}
+
+.LeaderRestRight {
+  display: flex;
   justify-content: space-between;
+  flex: 2;
+}
+
+.LeaderRestRighUsrtName {
+  display: flex;
+  justify-content: center;
+  flex: 0.5;
+}
+
+.LeaderRestRightLvl {
+  display: flex;
+  flex: 2;
+  justify-content: space-evenly;
 }
