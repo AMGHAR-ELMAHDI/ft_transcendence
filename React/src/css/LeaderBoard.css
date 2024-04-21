@@ -125,19 +125,31 @@
 .idAndLine {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
 }
 
-.idAndLine > h1 {
+.idAndLine > h1,
+.UserLevel,
+.UserGamesWon {
   position: relative;
 }
 
-.idAndLine > h1:hover::before {
+.idAndLine > h1:hover::before,
+.UserGamesWon:hover::before,
+.UserLevel:hover::before {
   content: "Rank";
   position: absolute;
-  bottom: 1.5rem;
-  right: 1rem;
-  /* padding: 5px; */
+  bottom: 2rem;
+  right: -1rem;
+  color: #5fcae4;
+}
+
+.UserGamesWon:hover::before {
+  content: "Wins";
+}
+
+.UserLevel:hover::before {
+  content: "Level";
 }
 
 @media only screen and (max-width: 2200px) {
@@ -160,7 +172,6 @@
 
 .LeaderRestRighUsrtName {
   display: flex;
-  /* justify-content: center; */
   flex: 0.5;
 }
 
@@ -168,4 +179,10 @@
   display: flex;
   flex: 2;
   justify-content: space-evenly;
+}
+
+.LeaderBoardToolTip {
+  display: flex;
+  background-color: gray;
+  margin: 0 2rem;
 }

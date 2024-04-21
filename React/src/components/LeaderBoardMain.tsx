@@ -28,29 +28,48 @@ function getTop3() {
 function getTheRest() {
   const LeaderBoardData = Data;
   return (
-    <div className="LeaderBoardRest">
-      <ul>
-        {LeaderBoardData.LeaderBoard.map((user) => (
-          (user.id > 3 && 
-          <li key={user.id} id={user.id.toString()} className={user.id % 2 == 0 ? "SpecialCase" : ""}>
-            <div className="LeaderRestLeft">
-              <div className="idAndLine">
-                <h1>{user.id}</h1>
-                <div className="lineLi"/>
+    <>
+      {/* <div className="LeaderBoardToolTip">
+        <div className="TooltipLeft">
+          <div className="TooltipLeftRank">
+            <h1>Rank</h1>
+            <div/>
+          </div>
+          <div/>
+        </div>
+        <div className="TooltipRight">
+          <div className="TooltipRightUser"><h1>UserName</h1></div>
+          <div className="TooltipRightRest">
+            <h1 className="TooltipRightWins">Games Won</h1>
+            <h1 className="TooltipRightLevel">Level</h1>
+          </div>
+        </div>
+      </div> */}
+      <div className="LeaderBoardRest">
+        <ul>
+          {LeaderBoardData.LeaderBoard.map((user) => (
+            (user.id > 3 && 
+            <li key={user.id} id={user.id.toString()} className={user.id % 2 == 0 ? "SpecialCase" : ""}>
+              <div className="LeaderRestLeft">
+                <div className="idAndLine">
+                  <h1>{user.id}</h1>
+                  <div className="lineLi"/>
+                </div>
+                <img className="RestImgs" src={user.picture} alt="userPic" />
               </div>
-              <img className="RestImgs" src={user.picture} alt="userPic" />
-            </div>
-            <div className="LeaderRestRight">
-              <div className="LeaderRestRighUsrtName"><h1>{user.username}</h1></div>
-              <div className="LeaderRestRightLvl">
-                <h1>{user.games_won}</h1>
-                <h1>{user.level}</h1>
+              <div className="LeaderRestRight">
+                <div className="LeaderRestRighUsrtName"><h1>{user.username}</h1></div>
+                <div className="LeaderRestRightLvl">
+                  <h1 className="UserGamesWon">{user.games_won}</h1>
+                  <h1 className="UserLevel">{user.level}</h1>
+                </div>
               </div>
-            </div>
-          </li>)
-        ))}
-      </ul>
-    </div>
+            </li>)
+          ))}
+        </ul>
+      </div>
+    </>
+
   );
 }
 
