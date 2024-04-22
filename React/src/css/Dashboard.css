@@ -20,7 +20,6 @@
   flex-wrap: wrap;
   gap: 1rem;
   max-height: 900px;
-
 }
 
 #DashboardHistory {
@@ -50,7 +49,7 @@
   border-radius: 25px;
   background-size: cover;
   background-position: center;
-  height: 250px;
+  height: 290px;
 }
 
 #Dashboard-Secondary-tournament {
