@@ -29,22 +29,22 @@ function getTheRest() {
   const LeaderBoardData = Data;
   return (
     <>
-      {/* <div className="LeaderBoardToolTip">
+      <div className="LeaderBoardToolTip">
         <div className="TooltipLeft">
           <div className="TooltipLeftRank">
-            <h1>Rank</h1>
+            <h1 className="ToolTipColor">Rank</h1>
             <div/>
           </div>
           <div/>
         </div>
         <div className="TooltipRight">
-          <div className="TooltipRightUser"><h1>UserName</h1></div>
+          <div className="TooltipRightUser"><h1 className="ToolTipColor">UserName</h1></div>
           <div className="TooltipRightRest">
-            <h1 className="TooltipRightWins">Games Won</h1>
-            <h1 className="TooltipRightLevel">Level</h1>
+            <h1 className="TooltipRightWins ToolTipColor">Games Won</h1>
+            <h1 className="TooltipRightLevel ToolTipColor">Level</h1>
           </div>
         </div>
-      </div> */}
+      </div>
       <div className="LeaderBoardRest">
         <ul>
           {LeaderBoardData.LeaderBoard.map((user) => (

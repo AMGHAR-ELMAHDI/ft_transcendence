@@ -38,6 +38,7 @@ body {
   flex-direction: column;
   margin: 0 3rem;
   flex: 1;
+  gap: 2rem;
 }
 
 @media only screen and (max-width: 1920px) {
@@ -63,5 +64,5 @@ body {
 }
 
 #ProfileHistory {
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
 }

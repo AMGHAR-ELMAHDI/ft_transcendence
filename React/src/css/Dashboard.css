@@ -19,6 +19,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  max-height: 900px;
+
 }
 
 #DashboardHistory {
