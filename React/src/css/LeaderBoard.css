@@ -91,7 +91,7 @@
 }
 
 .LeaderBoardRest {
-  max-height: 500px;
+  max-height: 550px;
   overflow-y: scroll;
   padding: 0 2rem;
 }

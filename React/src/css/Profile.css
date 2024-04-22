@@ -5,60 +5,39 @@
   --blue-glow: #5fcae4;
 }
 
-html  {
-  --s: 15px;
-  --c1:#3236445a;
-  --c2:#0c0e14;
-  
-  --g:#0000 66%,var(--c1) 67% 98%,#0000;
-}
-
-
-
-
-
 #Profile {
-  /* background:
-    radial-gradient(30% 50% at 30% 100%,var(--g)),
-    radial-gradient(30% 50% at 70%   0%,var(--g)) var(--s) 0,
-    repeating-linear-gradient(90deg,var(--c1) 0 10%,var(--c2) 0 50%);
-  background-size: calc(10*var(--s)) calc(6*var(--s));*/
-
-  animation: g17 1.5s infinite linear; 
-
   border: 1px solid var(--blue-glow);
   border-radius: 25px;
   display: flex;
   justify-content: space-between;
   flex: 1;
   flex-wrap: wrap;
-  
-
-  background-image: radial-gradient(#5fcae4 1px, transparent 1px), radial-gradient(#5fcae4 1px, transparent 1px);
+  background-image: radial-gradient(#5fcae4 1px, transparent 1px),
+    radial-gradient(#5fcae4 1px, transparent 1px);
   background-size: 100px 100px;
   background-position: 0 0, 50px 50px;
-
-  /* background-image: repeating-linear-gradient(45deg, transparent, transparent 24px, #10121a 24px, #10121a 48px); */
-}
-
-#Profile:hover {
   animation: g17 1.5s infinite linear;
-
 }
 
+/* @keyframes g17 {
+  from {
+    background-position: 0 0, 50px 50px;
+  }
+  
+  to {
+    background-position: 100px -100px, 150px -50px;
+  }
+} */
 
 @keyframes g17 {
+  from {
+    background-position: 0 0, 50px 50px;
+  }
+
   to {
-    background-position:
-      0 calc(-6*var(--s)), 
-      var(--s) calc(6*var(--s)),
-      0 0;
+    background-position: 0 -100px, 50px -50px;
   }
 }
-
-
-
-/* #0c0e14 */
 
 .profile-left {
   display: flex;
