@@ -4,7 +4,7 @@
   "first_name": "Othman",
   "last_name": "Chekairi",
   "level": 10.9,
-  "win_rate": 75,
+  "Won_rate": 75,
   "trophies_rate": 50,
   "History": [
     {
@@ -15,7 +15,7 @@
       "date": "2001-09-11",
       "score": "10:10",
       "GameMode": "Tournament",
-      "Result": "Win",
+      "Result": "Won",
       "first_name": "daw",
       "last_name": "daaaw",
       "lenght": "20min"
@@ -41,7 +41,7 @@
       "date": "2001-09-11",
       "score": "10:10",
       "GameMode": "Tournament",
-      "Result": "Win",
+      "Result": "Won",
       "first_name": "daw",
       "last_name": "daaaw",
       "lenght": "20min"
@@ -67,7 +67,7 @@
       "date": "2001-09-11",
       "score": "10:10",
       "GameMode": "Tournament",
-      "Result": "Win",
+      "Result": "Won",
       "first_name": "daw",
       "last_name": "daaaw",
       "lenght": "20min"
@@ -93,7 +93,7 @@
       "date": "2001-09-11",
       "score": "10:10",
       "GameMode": "Tournament",
-      "Result": "Win",
+      "Result": "Won",
       "first_name": "daw",
       "last_name": "daaaw",
       "lenght": "20min"
@@ -119,7 +119,7 @@
       "date": "2001-09-11",
       "score": "10:10",
       "GameMode": "Tournament",
-      "Result": "Win",
+      "Result": "Won",
       "first_name": "daw",
       "last_name": "daaaw",
       "lenght": "20min"

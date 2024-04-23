@@ -12,13 +12,17 @@ function History() {
         <h1>Game Mode</h1>
         <h1>Lenght</h1>
       </div>
-      <ul>
+      <ul className="ProfileHistoryData">
         {Data.History.map((element) => (
-            <li>{element.GameMode}</li>
+          <li key={element.id} className={element.Result === "Won" ? "Won" : "Lost"}>
+            <h1>{element.date}</h1>
+            <h1>{element.username}</h1>
+            <h1>{element.score}</h1>
+            <h1>{element.GameMode}</h1>
+            <h1>{element.lenght}</h1>
+          </li>
         ))}
       </ul>
-      <div className="ProfileHistoryData">
-      </div>
     </div>
   );
 }

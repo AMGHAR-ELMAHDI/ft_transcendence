@@ -1,5 +1,5 @@
 * {
-  border: 0.1px solid gray;
+  /* border: 0.1px solid gray; */
   --bg-color: #0c0e14;
   --font-color: white;
   --grey-bg-color: hsl(227, 15%, 23%);
@@ -10,12 +10,33 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  /* overflow-y: scroll; */
-  /* max-height: 900px; */
+  overflow-y: scroll;
+  max-height: 900px;
 }
 
-.HistoryToolTip{
-    display: flex;
-    justify-content: space-evenly;
-    background-color: #5fcae4;
+.HistoryToolTip {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 2rem;
+  padding: 0 5rem;
+}
+
+.HistoryToolTip > h1 {
+}
+
+.ProfileHistoryData > li {
+  /* background-color: var(--grey-bg-color); */
+  padding: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Won {
+background: #1b393f;
+background: -webkit-linear-gradient(0deg, #1b393f 0%, #326a76 50%, #4795a5 100%);
+background: linear-gradient(0deg, #1b393f 0%, #326a76 50%, #4795a5 100%);
+}
+
+.Lost {
+  background-color: red;
 }
