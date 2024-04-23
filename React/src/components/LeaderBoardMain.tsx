@@ -5,7 +5,10 @@ function getTop3() {
   return (
     <div className="Top3">
       <div className="First">
-        <img className="topImgs" src={LeaderBoardData.LeaderBoard[0].picture} alt="FirstPic" />
+        <div className="crownImageContainer">
+          <img className="topImgs" src={LeaderBoardData.LeaderBoard[0].picture} alt="FirstPic" />
+          <img className="crown" src="/purplecrown-1.png" alt="crown" />
+        </div>
         <h1 className="toph1">{LeaderBoardData.LeaderBoard[0].username}</h1>
         <div className="Coins"><h2>200 Coins</h2></div>
       </div>

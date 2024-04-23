@@ -1,19 +1,17 @@
 #history {
   display: flex;
   flex-direction: column;
-  padding: 30px;
-  border: 1px solid #5fcae4;
-  border-radius: 20px;
   flex: 1;
-  gap: 30px;
+  border-radius: 5px;
   max-height: 900px;
+  padding: 0 0.5rem;
   width: 100%;
   overflow-y: scroll;
 }
 
 .HistoryShadow {
   position: fixed;
-  bottom: 0rem;
+  bottom: 2.1rem;
   width: 2500px;
   height: 4rem;
   background: linear-gradient(transparent, rgb(0, 0, 0));
@@ -22,7 +20,7 @@
 .HistoryShadowDashboard {
   position: fixed;
   bottom: 0;
-  width: 750px;
+  width: 775px;
   height: 4rem;
   background: linear-gradient(transparent, rgb(0, 0, 0));
 }
@@ -54,10 +52,6 @@
 
 .tabs-acheivements {
   display: flex;
-}
-
-.history-tab-first {
-  margin-top: 40px;
 }
 
 .history-tabs {

@@ -16,7 +16,7 @@ function SideBar() {
         <Link to={"/"}><Home/></Link>
         <Link to={"/chat"}><PiChatCircleTextLight color="#757889" className={window.location.pathname === "/chat" ? "sidebarImgsBlue" : "sidebarImgs"} /></Link>
         <Link to={"/game"}><IoGameControllerOutline className={window.location.pathname === "/game" ? "sidebarImgsBlue" : "sidebarImgs"} /></Link>
-        <Link to={"/leaderboard"}><Leaderboard/></Link>
+        <Link to={"/leaderboard"}> <div className="LeaderSide"><Leaderboard/></div></Link>
         <Link to={"/shop"}><Shop/></Link>
         <Link to={"/profile"}><ProfileSideBar/></Link>
       </div>

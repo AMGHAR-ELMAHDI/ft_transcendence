@@ -5,7 +5,7 @@ function ProfileHistory() {
 		<div id="history">
 			<div className="history-container">
 				<div id="tabs-container">
-					<div className="history-tabs history-tab-first history-tab-won">
+					<div className="history-tabs history-tab-won">
 						<div className="history-tabs-left-container">
 							<div id="dashboard-history-pic"></div>
 							<div id="dashboard-history-opponent"><h3>Zmoumni</h3><h3>13 : 13</h3></div>
