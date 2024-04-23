@@ -1,4 +1,5 @@
 import Data from "../Data/LeaderBoardData.json";
+import { GiJewelCrown } from "react-icons/gi";
 
 function getTop3() {
   const LeaderBoardData = Data;
@@ -7,7 +8,9 @@ function getTop3() {
       <div className="First">
         <div className="crownImageContainer">
           <img className="topImgs" src={LeaderBoardData.LeaderBoard[0].picture} alt="FirstPic" />
-          <img className="crown" src="/purplecrown-1.png" alt="crown" />
+          {/* <div className="crown"><GiJewelCrown fontSize={30}/></div> */}
+
+          <img className="crown" src="/crownsvg.svg" alt="crown" />
         </div>
         <h1 className="toph1">{LeaderBoardData.LeaderBoard[0].username}</h1>
         <div className="Coins"><h2>200 Coins</h2></div>

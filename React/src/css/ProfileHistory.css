@@ -1,0 +1,21 @@
+* {
+  border: 0.1px solid gray;
+  --bg-color: #0c0e14;
+  --font-color: white;
+  --grey-bg-color: hsl(227, 15%, 23%);
+  --blue-glow: #5fcae4;
+}
+
+.ProfileHistoryContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* overflow-y: scroll; */
+  /* max-height: 900px; */
+}
+
+.HistoryToolTip{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #5fcae4;
+}

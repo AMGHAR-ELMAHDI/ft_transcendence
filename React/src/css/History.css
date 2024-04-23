@@ -11,8 +11,8 @@
 
 .HistoryShadow {
   position: fixed;
-  bottom: 2.1rem;
-  width: 2500px;
+  bottom: 0rem;
+  width: 2530px;
   height: 4rem;
   background: linear-gradient(transparent, rgb(0, 0, 0));
 }
