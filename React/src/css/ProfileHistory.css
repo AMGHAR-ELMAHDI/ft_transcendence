@@ -36,11 +36,15 @@
 }
 
 .Won {
-  background: linear-gradient(90deg, rgb(16, 26, 32), rgb(30, 57, 66));
+  /* background: linear-gradient(90deg, rgb(16, 26, 32), rgb(30, 57, 66)); */
+  background: rgb(16,26,32);
+  background: linear-gradient(90deg, rgba(16,26,32,1) 35%, #18272f 60%, rgba(30,57,66,1) 100%);
 }
 
 .Lost {
-  background: linear-gradient(90deg, rgb(66, 27, 33), rgb(102, 42, 51));
+  /* background: linear-gradient(90deg, rgb(66, 27, 33), rgb(102, 42, 51)); */
+  background: rgb(66,27,33);
+background: linear-gradient(90deg, #401a20 35%, #4f2027 60%, #612830 100%);
 }
 
 .spacing {

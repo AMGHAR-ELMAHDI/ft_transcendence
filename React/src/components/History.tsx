@@ -13,7 +13,7 @@ function History() {
           <th>Opponent</th>
           <th>Score</th>
           <th>Game Mode</th>
-          <th>Lenght</th>
+          <th>Length</th>
         </tr>
         <div className="spacing"></div>
         {Data.History.map((element) => (
