@@ -3,26 +3,35 @@ import HistoryData from "../Data/HistoryData.json";
 
 function History() {
   let Data = HistoryData;
+  let UserScore = 0;
+  let OpponentScore = 0;
   return (
-    <div className="ProfileHistoryContainer">
-      <div className="HistoryToolTip">
-        <h1>Date</h1>
-        <h1>Opponent</h1>
-        <h1>Score</h1>
-        <h1>Game Mode</h1>
-        <h1>Lenght</h1>
-      </div>
-      <ul className="ProfileHistoryData">
+    <div className="tableau">
+      <table>
+        <tr className="HistoryToolTipTable">
+          <th>Date</th>
+          <th>Opponent</th>
+          <th>Score</th>
+          <th>Game Mode</th>
+          <th>Lenght</th>
+        </tr>
+        <div className="spacing"></div>
         {Data.History.map((element) => (
-          <li key={element.id} className={element.Result === "Won" ? "Won" : "Lost"}>
-            <h1>{element.date}</h1>
-            <h1>{element.username}</h1>
-            <h1>{element.score}</h1>
-            <h1>{element.GameMode}</h1>
-            <h1>{element.lenght}</h1>
-          </li>
+          <>
+            <tr
+              key={element.id}
+              className={element.Result === "Won" ? "Won" : "Lost"}
+            >
+              <td>{element.date}</td>
+              <td>{element.username}</td>
+              <td>{element.score}</td>
+              <td>{element.GameMode}</td>
+              <td>{element.lenght}</td>
+            </tr>
+            <div className="spacing"></div>
+          </>
         ))}
-      </ul>
+      </table>
     </div>
   );
 }

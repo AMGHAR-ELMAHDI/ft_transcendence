@@ -6,37 +6,43 @@
   --blue-glow: #5fcae4;
 }
 
-.ProfileHistoryContainer {
+.tableau {
   display: flex;
-  flex-direction: column;
   flex: 1;
   overflow-y: scroll;
-  max-height: 900px;
+  height: 900px;
 }
 
-.HistoryToolTip {
-  display: flex;
-  justify-content: space-evenly;
-  gap: 2rem;
-  padding: 0 5rem;
+.tableau > table {
+  width: 100%;
+  position: relative;
+  border-collapse: collapse;
+  border-spacing: 2px;
+  margin: 0 1rem 0 1rem;
 }
 
-.HistoryToolTip > h1 {
+.HistoryToolTipTable {
+  background-color: var(--bg-color);
+  height: 1rem;
+  position: sticky;
+  top: 0;
+  height: 3rem;
 }
 
-.ProfileHistoryData > li {
-  /* background-color: var(--grey-bg-color); */
-  padding: 2rem;
-  display: flex;
-  justify-content: space-evenly;
+.Won,
+.Lost {
+  height: 8rem;
+  text-align: center;
 }
 
 .Won {
-background: #1b393f;
-background: -webkit-linear-gradient(0deg, #1b393f 0%, #326a76 50%, #4795a5 100%);
-background: linear-gradient(0deg, #1b393f 0%, #326a76 50%, #4795a5 100%);
+  background: linear-gradient(90deg, rgb(16, 26, 32), rgb(30, 57, 66));
 }
 
 .Lost {
-  background-color: red;
+  background: linear-gradient(90deg, rgb(66, 27, 33), rgb(102, 42, 51));
+}
+
+.spacing {
+  height: 2rem;
 }
