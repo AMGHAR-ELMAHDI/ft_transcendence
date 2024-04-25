@@ -1,5 +1,5 @@
 * {
-  /* border: 0.1px solid gray; */
+  border: 0.1px solid gray;
   --bg-color: #0c0e14;
   --font-color: white;
   --grey-bg-color: hsl(227, 15%, 23%);
@@ -10,6 +10,8 @@
   display: flex;
   flex: 1;
   overflow-y: scroll;
+  overflow-x: hidden;
+
   height: 900px;
 }
 
@@ -27,26 +29,51 @@
   position: sticky;
   top: 0;
   height: 3rem;
+  z-index: 100;
 }
 
 .Won,
 .Lost {
   height: 8rem;
   text-align: center;
+  transition: 0.5s all;
+}
+
+.Won:hover,
+.Lost:hover {
+  scale: 1.02;
+  overflow: hidden;
+  z-index: 90;
 }
 
 .Won {
   /* background: linear-gradient(90deg, rgb(16, 26, 32), rgb(30, 57, 66)); */
-  background: rgb(16,26,32);
-  background: linear-gradient(90deg, rgba(16,26,32,1) 35%, #18272f 60%, rgba(30,57,66,1) 100%);
+  background: rgb(16, 26, 32);
+  background: linear-gradient(
+    90deg,
+    rgba(16, 26, 32, 1) 35%,
+    #18272f 60%,
+    rgba(30, 57, 66, 1) 100%
+  );
 }
 
 .Lost {
   /* background: linear-gradient(90deg, rgb(66, 27, 33), rgb(102, 42, 51)); */
-  background: rgb(66,27,33);
-background: linear-gradient(90deg, #401a20 35%, #4f2027 60%, #612830 100%);
+  background: rgb(66, 27, 33);
+  background: linear-gradient(90deg, #401a20 35%, #4f2027 60%, #612830 100%);
 }
 
 .spacing {
   height: 2rem;
+}
+
+td {
+  /* color: #401a20; */
+  font-size: 1.3rem;
+}
+
+.ScoreTd {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
