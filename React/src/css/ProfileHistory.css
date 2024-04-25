@@ -1,5 +1,4 @@
 :root {
-  /* border: 0.1px solid gray; */
   --bg-color: #0c0e14;
   --font-color: white;
   --grey-bg-color: hsl(227, 15%, 23%);
@@ -30,6 +29,7 @@
   top: 0;
   height: 3rem;
   z-index: 100;
+  margin-bottom: 3rem;
 }
 
 .Won,
@@ -42,12 +42,10 @@
 .Won:hover,
 .Lost:hover {
   scale: 1.02;
-  overflow: hidden;
   z-index: 90;
 }
 
 .Won {
-  /* background: linear-gradient(90deg, rgb(16, 26, 32), rgb(30, 57, 66)); */
   background: rgb(16, 26, 32);
   background: linear-gradient(
     90deg,
@@ -58,7 +56,6 @@
 }
 
 .Lost {
-  /* background: linear-gradient(90deg, rgb(66, 27, 33), rgb(102, 42, 51)); */
   background: rgb(66, 27, 33);
   background: linear-gradient(90deg, #401a20 35%, #4f2027 60%, #612830 100%);
 }
@@ -98,11 +95,23 @@ td {
 }
 
 td > h1 {
-  font-family: Zekton;
   letter-spacing: 2px;
-  font-size: 1rem;
-  /* font-family: URW;
-  font-size: 1.4rem; */
-  /* font-family: BigNoodle;
-  font-size: 1.6rem; */
+  color: rgb(204, 204, 204);
+}
+
+.zekton > h1 {
+  font-family: Zekton;
+  font-size: 1.1rem;
+}
+
+.Toruk > h1 {
+  font-family: Bank;
+}
+
+.UserScore {
+  color: #39dba0 !important;
+}
+
+.OppScore {
+  color: #e25c5c !important;
 }

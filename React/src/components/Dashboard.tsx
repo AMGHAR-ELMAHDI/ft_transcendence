@@ -1,6 +1,7 @@
 import React from "react";
 import Profile from "./Profile";
 import ProfileHistory from "./ProfileHistory";
+import History from "./History";
 
 function Dashboard() {
   return (
