@@ -1,5 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
+@font-face {
+  font-family: Futurass;
+  src: url("../src/css/Fonts/futura/FUTURA55REGULAR.TTF");
+}
+
+@font-face {
+  font-family: URW;
+  src: url("../src/css/Fonts/urw/URWGeometricBold.otf");
+}
+
+@font-face {
+  font-family: Zekton;
+  src: url("../src/css/Fonts/zektonbo.ttf");
+}
+
+@font-face {
+  font-family: BigNoodle;
+  src: url("../src/css/Fonts/bignoodle/big_noodle_titling.ttf");
+}
+
 :root {
   --bg-color: #0c0e14;
   --font-color: white;
@@ -21,9 +41,6 @@ body {
   background-color: var(--bg-color);
   width: 100%;
   height: 100svh;
-  /* background-image: radial-gradient(#1A8FE5 1px, transparent 1px), radial-gradient(#1A8FE5 1px, transparent 1px);
-  background-size: 100px 100px;
-  background-position: 0 0, 50px 50px; */
 }
 
 .AppClass {

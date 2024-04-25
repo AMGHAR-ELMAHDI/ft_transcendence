@@ -16,7 +16,7 @@
     radial-gradient(#5fcae4 1px, transparent 1px);
   background-size: 100px 100px;
   background-position: 0 0, 50px 50px;
-  animation: g17 1.5s infinite linear;
+  animation: g17 3s infinite linear;
 }
 
 /* @keyframes g17 {
