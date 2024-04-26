@@ -1,6 +1,7 @@
 import React from "react";
 import { IoNotifications } from "react-icons/io5";
 import { IoNotificationsOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 function TopBar() {
   return (
@@ -12,7 +13,12 @@ function TopBar() {
 
       <div id="search-bar">
         <input id="search" type="text" placeholder="Search" />
-        <IoNotificationsOutline id="notif" />
+        <div className="NotifProfile">
+          <IoNotificationsOutline id="notif" />
+          <Link to={"/profile"}>
+            <img className="NotifProfilePic" src="/bacharG.svg" alt="bachar" />
+          </Link>
+        </div>
       </div>
     </div>
   );
