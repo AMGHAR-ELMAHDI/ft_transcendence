@@ -8,6 +8,7 @@ import LeaderBoardContainer from "./components/LeaderBoardContainer";
 import ShopContainer from "./components/ShopContainer";
 import NotFound from "./components/NotFound";
 import LogoutContainer from "./components/LogoutContainer";
+import Settings from "./components/Settings";
 
 import "./App.css";
 import "./css/FriendBar.css";
@@ -33,6 +34,7 @@ function App() {
       <Route path="/shop" element={ShopContainer()} />
       <Route path="/profile" element={ProfileContainer(render, setRender)} />
       <Route path="/logout" element={LogoutContainer()} />
+      <Route path="/settings" element={Settings()} />
       <Route path="*" element={NotFound()} />
     </Routes>
   );
