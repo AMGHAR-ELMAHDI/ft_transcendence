@@ -12,6 +12,7 @@
   justify-content: space-between;
   flex: 1;
   flex-wrap: wrap;
+  max-height: 800px;
   background-image: radial-gradient(#5fcae4 1px, transparent 1px),
     radial-gradient(#5fcae4 1px, transparent 1px);
   background-size: 100px 100px;
@@ -232,5 +233,27 @@ progress[value]::-webkit-progress-value {
     appearance: none;
     width: 100%;
     height: 30px;
+  }
+}
+
+@media only screen and (max-width: 2200px) {
+  .profile-level {
+    margin: 0 2rem;
+  }
+  #circles {
+    justify-content: space-around;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  #circles {
+    display: none;
+  }
+  .profile-level {
+    padding: 0 3rem;
+    justify-content: center;
+
   }
 }

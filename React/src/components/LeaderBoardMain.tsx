@@ -1,5 +1,7 @@
+import axios from "axios";
 import Data from "../Data/LeaderBoardData.json";
 import { GiJewelCrown } from "react-icons/gi";
+import { useEffect } from "react";
 
 function getTop3() {
   const LeaderBoardData = Data;
@@ -80,6 +82,19 @@ function getTheRest() {
 }
 
 function LeaderBoardMain() {
+  useEffect(()=> {
+    axios.defaults.withCredentials = true;
+    axios.get('http://e2r7p13:8000/get/', {
+      withCredentials: true,
+    })
+    .then ((response) => {
+      if (response.status === 200)
+        console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  })
   return (
     <div className="LeaderBoardContainer">
       <h1>LEADERBOARD</h1>
