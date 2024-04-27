@@ -54,7 +54,7 @@
   gap: 0.6rem;
 }
 
-.First > img {
+.First > * > .topImgs {
   box-shadow: #ffc94a 0px 0px 30px 0px;
 }
 

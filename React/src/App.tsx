@@ -20,6 +20,7 @@ import "./css/SideBar.css";
 import "./css/History.css";
 import "./css/LeaderBoard.css";
 import "./css/ProfileHistory.css";
+import "./css/Settings.css";
 
 function App() {
   const [render, setRender] = useState<string>("History");
