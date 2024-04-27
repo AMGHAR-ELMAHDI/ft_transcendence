@@ -1,0 +1,47 @@
+:root {
+  --sb-track-color: #0c0e14;
+  --sb-thumb-color: #5fcae4;
+  --sb-size: 14px;
+}
+
+*::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 18px;
+  margin-block: 1rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 18px;
+  border: 1px solid #0c0e14;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+.ProfileItems {
+  border-radius: 25px;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  max-height: 900px;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
+
+}
+
+.ProfileItems > * {
+  border: 1px solid var(--blue-glow);
+  max-width: 400px;
+  fill: white;
+  border-radius: 25px;
+}
