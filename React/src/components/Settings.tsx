@@ -26,54 +26,23 @@ function getGeneralInfo() {
     <div className="GeneralInfoContainer">
       <form>
         <div>
-          <input
-            className="GeneralInfoInput"
-            type="text"
-            id="username"
-            name="username"
-            placeholder={"Username"}
-          />
+          <input className="GeneralInfoInput" type="text" id="username" name="username" placeholder={"Username"} />
         </div>
         <div className="FirstSecondName">
-          <input
-            type="text"
-            id="FirstName"
-            name="FirstName"
-            className="GeneralInfoInput firstSecond"
-            placeholder={"First Name"}
-          />
-
-          <input
-            type="text"
-            id="SecondName"
-            name="SecondName"
-            className="GeneralInfoInput firstSecond"
-            placeholder={"Second Name"}
-          />
+          <input type="text" id="FirstName" name="FirstName" className="GeneralInfoInput firstSecond" placeholder={"First Name"}/>
+          <input type="text" id="SecondName" name="SecondName" className="GeneralInfoInput firstSecond" placeholder={"Second Name"} />
         </div>
 
         <div>
-          <input
-            className="GeneralInfoInput"
-            type="email"
-            id="email"
-            name="email"
-            placeholder={"Email"}
-          />
+          <input className="GeneralInfoInput" type="email" id="email"  name="email" placeholder={"Email"} />
         </div>
         <div>
-          <input
-            className="GeneralInfoInput"
-            type="password"
-            id="password"
-            name="password"
-            placeholder={"Password"}
-          />
+          <input className="GeneralInfoInput" type="password" id="password" name="password" placeholder={"Password"} />
         </div>
 
         <div>
-          <button className="SettingsButton" type="submit">Cancel</button>
-          <button type="submit">Submit</button>
+          <button className="SettingsCancel" type="submit">Cancel</button>
+          <button className="SettingsButton" type="submit">Submit</button>
         </div>
       </form>
     </div>
