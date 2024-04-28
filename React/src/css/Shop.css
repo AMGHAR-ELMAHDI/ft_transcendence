@@ -1,0 +1,127 @@
+@font-face {
+  font-family: cool;
+  src: url(../css/Fonts/Panton-Trial-Bold.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100svh;
+  width: 100%;
+}
+
+.Headers-Shop {
+  height: 35svh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Headers-Shop > h1 {
+  font-size: 70px;
+  letter-spacing: 8px;
+  font-family: cool;
+  /* text-shadow: 5px 5px 0 #4946dd; */
+}
+
+.Headers-Shop > h2 {
+  font-size: 120px;
+  letter-spacing: 8px;
+  font-family: cool;
+}
+
+.ItemsToBuy {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  border: solid #5fcae4;
+  border-radius: 20px;
+  height: 550px;
+  width: 100%;
+}
+
+.Item-num-one,
+.Item-num-two,
+.Item-num-three,
+.Item-num-four {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  background-color: #323644;
+  border-radius: 20px;
+  height: 450px;
+  width: 350px;
+}
+
+.Item-one-pic {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: solid #4946dd;
+  height: 75%;
+  width: 90%;
+  border-radius: 20px;
+  box-shadow: 0 0 15px 2px #4946dd;
+}
+
+.Item-one-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4946dd;
+  border-radius: 0 0 15px 15px;
+  height: 15%;
+  width: 100%;
+}
+
+.Item-one-name > p {
+  color: white;
+  font-size: 18px;
+  font-family: cool;
+}
+
+.Item-one-value {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 15%;
+  width: 90%;
+}
+
+.Item-one-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1b1d26;
+  height: 70%;
+  width: 50%;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.Item-one-button > p {
+  color: white;
+  font-family: cool;
+}
+
+.Item-one-price-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 10%;
+}
+
+.Item-one-price-tag > p {
+  color: white;
+  font-size: 35px;
+}
