@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
-import Profile from "./Profile";
 import FriendBar from "./FriendBar";
-import Dashboard from "./Dashboard";
+import { CgProfile } from "react-icons/cg";
+import { IoShieldHalfSharp } from "react-icons/io5";
 
 function getLanguage() {
   return (
@@ -26,27 +26,55 @@ function getGeneralInfo() {
     <div className="GeneralInfoContainer">
       <form>
         <div>
-          <label htmlFor="username">Name:</label>
-          <input type="text" id="username" name="username" placeholder={"Username"} />
+          <input
+            className="GeneralInfoInput"
+            type="text"
+            id="username"
+            name="username"
+            placeholder={"Username"}
+          />
+        </div>
+        <div className="FirstSecondName">
+          <input
+            type="text"
+            id="FirstName"
+            name="FirstName"
+            className="GeneralInfoInput firstSecond"
+            placeholder={"First Name"}
+          />
+
+          <input
+            type="text"
+            id="SecondName"
+            name="SecondName"
+            className="GeneralInfoInput firstSecond"
+            placeholder={"Second Name"}
+          />
+        </div>
+
+        <div>
+          <input
+            className="GeneralInfoInput"
+            type="email"
+            id="email"
+            name="email"
+            placeholder={"Email"}
+          />
         </div>
         <div>
-          <label htmlFor="FirstName">Name:</label>
-          <input type="text" id="FirstName" name="FirstName" placeholder={"First Name"} />
-
-          <label htmlFor="SecondName">Name:</label>
-          <input type="text" id="SecondName" name="SecondName" placeholder={"Second Name"} />
+          <input
+            className="GeneralInfoInput"
+            type="password"
+            id="password"
+            name="password"
+            placeholder={"Password"}
+          />
         </div>
 
         <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" placeholder={"Email"} />
-        </div>
-
-      <div>
-          <button type="submit">Cancel</button>
+          <button className="SettingsButton" type="submit">Cancel</button>
           <button type="submit">Submit</button>
-      </div>
-
+        </div>
       </form>
     </div>
   );
@@ -72,27 +100,37 @@ function MainSettings() {
                 <h1 className="wht">{"ELMAHDI AMGHAR"}</h1>
               </div>
             </div>
-            <div
-              onClick={() => setRender("GeneralInfo")}
-              className="SetInfo GeneralInfo"
-            >
-              <img className="SetIcon" src="/SetProfile.svg" alt="Icon" />
-              <h1 className="blk">General Information</h1>
-            </div>
-            <div
-              onClick={() => setRender("Security")}
-              className="SetInfo Security"
-            >
-              <img className="SetIcon" src="/SetShield.svg" alt="Icon" />
-              <h1 className="blk">Security</h1>
-            </div>
+            <div className="SettingsComponents">
+              <div className="LeftSpacer">
+                <div
+                  onClick={() => setRender("GeneralInfo")}
+                  className="SetInfo GeneralInfo"
+                >
+                  <CgProfile className="SetIcon" />
+                  <h1 className="blk">General Information</h1>
+                </div>
+                <div className="SetUnderLine"></div>
+              </div>
+              <div className="LeftSpacer">
+                <div
+                  onClick={() => setRender("Security")}
+                  className="SetInfo Security"
+                >
+                  <IoShieldHalfSharp className="SetIcon" />
+                  <h1 className="blk">Security</h1>
+                </div>
+                <div className="SetUnderLine"></div>
+              </div>
 
-            <div
-              onClick={() => setRender("Language")}
-              className="SetInfo Language"
-            >
-              <img className="SetIcon" src="/SetLang.svg" alt="Icon" />
-              <h1 className="blk">Language</h1>
+              <div className="LeftSpacer">
+                <div
+                  onClick={() => setRender("Language")}
+                  className="SetInfo Language"
+                >
+                  <img className="SetIcon" src="/SetLang.svg" alt="Icon" />
+                  <h1 className="blk">Language</h1>
+                </div>
+              </div>
             </div>
           </div>
           <div className="SettingsRight">
