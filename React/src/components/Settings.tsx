@@ -40,9 +40,9 @@ function getGeneralInfo() {
           <input className="GeneralInfoInput" type="password" id="password" name="password" placeholder={"Password"} />
         </div>
 
-        <div>
-          <button className="SettingsCancel" type="submit">Cancel</button>
-          <button className="SettingsButton" type="submit">Submit</button>
+        <div className="ButtonContainer">
+          <button className="SetButton SetCancel" type="submit">Cancel</button>
+          <button className="SetButton SetSubmit" type="submit">Submit</button>
         </div>
       </form>
     </div>
@@ -71,31 +71,20 @@ function MainSettings() {
             </div>
             <div className="SettingsComponents">
               <div className="LeftSpacer">
-                <div
-                  onClick={() => setRender("GeneralInfo")}
-                  className="SetInfo GeneralInfo"
-                >
+                <div onClick={() => setRender("GeneralInfo")} className="SetInfo GeneralInfo">
                   <CgProfile className="SetIcon" />
                   <h1 className="blk">General Information</h1>
                 </div>
-                <div className="SetUnderLine"></div>
               </div>
               <div className="LeftSpacer">
-                <div
-                  onClick={() => setRender("Security")}
-                  className="SetInfo Security"
-                >
+                <div onClick={() => setRender("Security")} className="SetInfo Security" >
                   <IoShieldHalfSharp className="SetIcon" />
                   <h1 className="blk">Security</h1>
                 </div>
-                <div className="SetUnderLine"></div>
               </div>
 
               <div className="LeftSpacer">
-                <div
-                  onClick={() => setRender("Language")}
-                  className="SetInfo Language"
-                >
+                <div onClick={() => setRender("Language")} className="SetInfo Language">
                   <img className="SetIcon" src="/SetLang.svg" alt="Icon" />
                   <h1 className="blk">Language</h1>
                 </div>
