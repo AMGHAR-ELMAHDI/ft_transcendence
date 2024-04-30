@@ -44,3 +44,27 @@
 .sidebarImgs:hover {
   filter: drop-shadow(0 0 20px #1d90f5);
 }
+
+.sideImg {
+  font-size: 2.5rem;
+  stroke: #757889;
+}
+
+.sideImgsBlue {
+  font-size: 2.5rem;
+  stroke: #1d90f5;
+}
+
+.sideImgsBlue:hover, .sideImg:hover {
+  filter: drop-shadow(0 0 20px #1d90f5);
+}
+
+
+.SideBottom{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}

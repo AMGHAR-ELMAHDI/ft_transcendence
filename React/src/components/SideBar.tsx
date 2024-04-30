@@ -6,6 +6,7 @@ import Leaderboard from "./SideBar/Leaderboard";
 import Shop from "./SideBar/Shop";
 import ProfileSideBar from "./SideBar/ProfileSideBar";
 import LogOutSideBar from "./SideBar/LogOutSideBar";
+import { FiSettings } from "react-icons/fi";
 
 
 function SideBar() {
@@ -20,7 +21,10 @@ function SideBar() {
         <Link to={"/shop"}><Shop/></Link>
         <Link to={"/profile"}><ProfileSideBar/></Link>
       </div>
-		<Link to={"/logout"}><LogOutSideBar/></Link>
+      <div className="SideBottom">
+        <Link to={"/settings"}><FiSettings className={window.location.pathname === "/settings" ? "sideImgsBlue" : "sideImg"}/></Link>
+		    <Link to={"/logout"}><LogOutSideBar/></Link>
+      </div>
     </div>
   );
 }

@@ -41,7 +41,7 @@ function getGeneralInfo() {
         </div>
 
         <div className="ButtonContainer">
-          <button className="SetButton SetCancel" type="submit">Cancel</button>
+          <button className="SetButton SetCancel" type="reset">Cancel</button>
           <button className="SetButton SetSubmit" type="submit">Submit</button>
         </div>
       </form>
