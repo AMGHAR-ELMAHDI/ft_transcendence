@@ -22,7 +22,7 @@ function SideBar() {
         <Link to={"/profile"}><ProfileSideBar/></Link>
       </div>
       <div className="SideBottom">
-        <Link to={"/settings"}><FiSettings className={window.location.pathname === "/settings" ? "sideImgsBlue" : "sideImg"}/></Link>
+        {/* <Link to={"/settings"}><FiSettings className={window.location.pathname === "/settings" ? "sideImgsBlue" : "sideImg"}/></Link> */}
 		    <Link to={"/logout"}><LogOutSideBar/></Link>
       </div>
     </div>

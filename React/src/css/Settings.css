@@ -189,6 +189,8 @@
   transition: 0.5s;
   border-radius: 0;
   scale: 1.03;
+  color: white;
+  font-weight: 600;
 }
 
 .GeneralInfoInput:focus::placeholder {
@@ -205,7 +207,8 @@ input:-webkit-autofill:active {
 }
 
 .GeneralInfoContainer > form > div > input {
-  color: var(--blue-glow);
+  color: white;
+  font-weight: 500;
   backdrop-filter: blur(8.2px);
   background-image: radial-gradient(#5fcae4 1px, transparent 1px),
     radial-gradient(#5fcae4 1px, transparent 1px);
