@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SideBar from "./SideBar";
-import TopBar from "./TopBar";
+import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import { CgProfile } from "react-icons/cg";
 import { IoShieldHalfSharp } from "react-icons/io5";
@@ -26,23 +26,57 @@ function getGeneralInfo() {
     <div className="GeneralInfoContainer">
       <form>
         <div>
-          <input className="GeneralInfoInput" type="text" id="username" name="username" placeholder={"Username"} />
+          <input
+            className="GeneralInfoInput"
+            type="text"
+            id="username"
+            name="username"
+            placeholder={"Username"}
+          />
         </div>
         <div className="FirstSecondName">
-          <input type="text" id="FirstName" name="FirstName" className="GeneralInfoInput firstSecond" placeholder={"First Name"}/>
-          <input type="text" id="SecondName" name="SecondName" className="GeneralInfoInput firstSecond" placeholder={"Second Name"} />
+          <input
+            type="text"
+            id="FirstName"
+            name="FirstName"
+            className="GeneralInfoInput firstSecond"
+            placeholder={"First Name"}
+          />
+          <input
+            type="text"
+            id="SecondName"
+            name="SecondName"
+            className="GeneralInfoInput firstSecond"
+            placeholder={"Second Name"}
+          />
         </div>
 
         <div>
-          <input className="GeneralInfoInput" type="email" id="email"  name="email" placeholder={"Email"} />
+          <input
+            className="GeneralInfoInput"
+            type="email"
+            id="email"
+            name="email"
+            placeholder={"Email"}
+          />
         </div>
         <div>
-          <input className="GeneralInfoInput" type="password" id="password" name="password" placeholder={"Password"} />
+          <input
+            className="GeneralInfoInput"
+            type="password"
+            id="password"
+            name="password"
+            placeholder={"Password"}
+          />
         </div>
 
         <div className="ButtonContainer">
-          <button className="SetButton SetCancel" type="reset">Cancel</button>
-          <button className="SetButton SetSubmit" type="submit">Submit</button>
+          <button className="SetButton SetCancel" type="reset">
+            Cancel
+          </button>
+          <button className="SetButton SetSubmit" type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>
@@ -71,20 +105,29 @@ function MainSettings() {
             </div>
             <div className="SettingsComponents">
               <div className="LeftSpacer">
-                <div onClick={() => setRender("GeneralInfo")} className="SetInfo GeneralInfo">
+                <div
+                  onClick={() => setRender("GeneralInfo")}
+                  className="SetInfo GeneralInfo"
+                >
                   <CgProfile className="SetIcon" />
                   <h1 className="blk">General Information</h1>
                 </div>
               </div>
               <div className="LeftSpacer">
-                <div onClick={() => setRender("Security")} className="SetInfo Security" >
+                <div
+                  onClick={() => setRender("Security")}
+                  className="SetInfo Security"
+                >
                   <IoShieldHalfSharp className="SetIcon" />
                   <h1 className="blk">Security</h1>
                 </div>
               </div>
 
               <div className="LeftSpacer">
-                <div onClick={() => setRender("Language")} className="SetInfo Language">
+                <div
+                  onClick={() => setRender("Language")}
+                  className="SetInfo Language"
+                >
                   <img className="SetIcon" src="/SetLang.svg" alt="Icon" />
                   <h1 className="blk">Language</h1>
                 </div>

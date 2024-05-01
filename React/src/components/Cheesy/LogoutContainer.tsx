@@ -1,7 +1,6 @@
 import SideBar from "./SideBar";
-import TopBar from "./TopBar";
+import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
-import Test from "./Test";
 
 function LogoutContainer() {
   return (

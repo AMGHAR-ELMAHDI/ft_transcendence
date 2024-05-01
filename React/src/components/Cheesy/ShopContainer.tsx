@@ -1,6 +1,5 @@
-
 import SideBar from "./SideBar";
-import TopBar from "./TopBar";
+import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 
 function ShopContainer() {
@@ -11,7 +10,6 @@ function ShopContainer() {
         <div className="main">
           <TopBar />
           <h1>dhsjkhdjkhsjkdhs</h1>
-          
         </div>
         <FriendBar />
       </div>

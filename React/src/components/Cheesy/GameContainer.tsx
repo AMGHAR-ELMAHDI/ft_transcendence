@@ -1,7 +1,7 @@
 import SideBar from "./SideBar";
-import TopBar from "./TopBar";
+import TopBar from "../SearchBar/TopBar";
 
-function ChatContainer() {
+export default function GameContainer() {
   return (
     <>
       <div className="AppClass">
@@ -13,5 +13,3 @@ function ChatContainer() {
     </>
   );
 }
-
-export default ChatContainer;
