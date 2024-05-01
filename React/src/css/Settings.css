@@ -41,7 +41,7 @@
   border: 2px solid var(--blue-glow);
   border-radius: 25px;
   flex: 1;
-  background-image: url("../../public/blob-scene-haikei.svg");
+  background-image: url("/blob-scene-haikei.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

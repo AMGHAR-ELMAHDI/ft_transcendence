@@ -30,7 +30,7 @@
 
 #Dashboard-Main-GameModeContainer {
   width: 800px;
-  background-image: url(/DashboardGameModes/table1.jpg);
+  background-image: url(/table1.jpg);
   border-radius: 25px;
   background-size: cover;
   background-position: center;
@@ -53,15 +53,15 @@
 }
 
 #Dashboard-Secondary-tournament {
-  background-image: url(/DashboardGameModes/table1.jpg);
+  background-image: url(/table1.jpg);
 }
 
 #Dashboard-Secondary-bot {
-  background-image: url(/DashboardGameModes/table1.jpg);
+  background-image: url(/table1.jpg);
 }
 
 #Dashboard-Secondary-practice {
-  background-image: url(/DashboardGameModes/table1.jpg);
+  background-image: url(/table1.jpg);
 }
 
 .big {

@@ -10,9 +10,7 @@ function getTop3() {
       <div className="First">
         <div className="crownImageContainer">
           <img className="topImgs" src={LeaderBoardData.LeaderBoard[0].picture} alt="FirstPic" />
-          {/* <div className="crown"><GiJewelCrown fontSize={30}/></div> */}
-
-          <img className="crown" src="/crownsvg.svg" alt="crown" />
+          <img className="crown" src="/crown.png" alt="crown" />
         </div>
         <h1 className="toph1">{LeaderBoardData.LeaderBoard[0].username}</h1>
         <div className="Coins"><h2>200 Coins</h2></div>
