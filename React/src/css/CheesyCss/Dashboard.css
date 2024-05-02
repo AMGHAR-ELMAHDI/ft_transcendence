@@ -30,7 +30,7 @@
 
 #Dashboard-Main-GameModeContainer {
   width: 800px;
-  background-image: url(/table1.jpg);
+  background-image: url("/vs4.png");
   border-radius: 25px;
   background-size: cover;
   background-position: center;
@@ -46,22 +46,26 @@
 }
 
 #Dashboard-Secondary-GameModeContainer > * {
-  border-radius: 25px;
+  border-radius: 15px;
   background-size: cover;
   background-position: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   height: 290px;
 }
 
 #Dashboard-Secondary-tournament {
-  background-image: url(/table1.jpg);
+  background-image: url("/Tour2.png");
+  background-position: center 81%;
 }
 
 #Dashboard-Secondary-bot {
-  background-image: url(/table1.jpg);
+  background-image: url("/robot.png");
+  background-position: center 60%;
 }
 
 #Dashboard-Secondary-practice {
-  background-image: url(/table1.jpg);
+  background-image: url("/practice2.png");
+  background-position: center 61%;
 }
 
 .big {

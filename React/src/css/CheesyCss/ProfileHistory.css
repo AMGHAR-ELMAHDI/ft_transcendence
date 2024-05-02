@@ -41,7 +41,6 @@
 .Won:hover,
 .Lost:hover {
   scale: 1.02;
-  z-index: 90;
 }
 
 .Won {

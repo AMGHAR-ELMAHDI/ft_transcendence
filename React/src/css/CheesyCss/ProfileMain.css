@@ -1,28 +1,26 @@
 :root {
   --sb-track-color: #0c0e14;
   --sb-thumb-color: #5fcae4;
-  --sb-size: 14px;
 }
 
 *::-webkit-scrollbar {
-  width: var(--sb-size);
+  width: 14px;
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
+  background: #0c0e14;
   border-radius: 18px;
-  margin-block: 1rem;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
+  background: #5fcae4;
   border-radius: 18px;
   border: 1px solid #0c0e14;
 }
 
 @supports not selector(::-webkit-scrollbar) {
   * {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    scrollbar-color: #5fcae4 #0c0e14;
   }
 }
 
@@ -36,7 +34,6 @@
   justify-content: space-evenly;
   align-items: center;
   gap: 2rem;
-
 }
 
 .ProfileItems > * {

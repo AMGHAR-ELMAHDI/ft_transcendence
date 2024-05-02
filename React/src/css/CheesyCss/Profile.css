@@ -18,17 +18,8 @@
   background-size: 100px 100px;
   background-position: 0 0, 50px 50px;
   animation: g17 3s infinite linear;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
-
-/* @keyframes g17 {
-  from {
-    background-position: 0 0, 50px 50px;
-  }
-  
-  to {
-    background-position: 100px -100px, 150px -50px;
-  }
-} */
 
 @keyframes g17 {
   from {
