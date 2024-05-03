@@ -36,7 +36,28 @@
   background-position: center;
   display: flex;
   flex: 1;
+  position: relative;
+  transition: all 0.3s;
+  opacity: 0.6;
 }
+
+#Dashboard-Main-GameModeContainer:hover {
+  opacity: 1;
+}
+
+/* #Dashboard-Main-GameModeContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+#Dashboard-Main-GameModeContainer:hover::before {
+  background: none;
+} */
 
 #Dashboard-Secondary-GameModeContainer {
   width: 800px;
