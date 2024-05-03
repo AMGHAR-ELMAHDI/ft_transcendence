@@ -1,38 +1,16 @@
+import "../css/Shop.css";
+import FriendBar from "./FriendBar";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
-import FriendBar from "./FriendBar";
-import "../css/Shop.css";
 
 function ShopContainer() {
   return (
     <>
       <div className="AppClass">
         <SideBar />
-        <div className="wrapper">
-          <div className="Headers-Shop">
-            <h1>SHOP</h1>
-            <h2>Gear Up Game On</h2>
-          </div>
-          <div className="ItemsToBuy">
-            <div className="Item-num-one">
-              <div className="Item-one-pic">
-                <div className="Item-one-name">
-                  <p>Of Cos Cheeky Breeky</p>
-                </div>
-              </div>
-              <div className="Item-one-value">
-                <div className="Item-one-button">
-                  <p>Buy</p>
-                </div>
-                <div className="Item-one-price-tag">
-                  <p>5$</p>
-                </div>
-              </div>
-            </div>
-            <div className="Item-num-two"></div>
-            <div className="Item-num-three"></div>
-            <div className="Item-num-four"></div>
-          </div>
+        <div className="main">
+          <TopBar />
+          <ShopDesign />
         </div>
         <FriendBar />
       </div>
@@ -41,3 +19,87 @@ function ShopContainer() {
 }
 
 export default ShopContainer;
+
+function GetPaddle() {
+  return (
+    <>
+      <div className="Paddles item">
+        <h1 id="Paddles-header">Paddles</h1>
+        <div className="Paddle-holder">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function GetBackground() {
+  return (
+    <>
+      <div className="Background item">
+        <h1 id="Paddles-header">Backgrounds</h1>
+        <div className="Paddle-holder">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function GetAvatar() {
+  return (
+    <>
+      <div className="Avatar item">
+        <h1 id="Paddles-header">Avatars</h1>
+        <div className="Paddle-holder">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function ShopDesign() {
+  return (
+    <>
+      <div className="container">
+        <div className="wrapper">
+          <div className="Header-shop">
+            <h1 id="First-header">SHOP</h1>
+          </div>
+          <div className="Items">
+            <GetPaddle />
+            <GetBackground />
+            <GetAvatar />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function Card() {
+  return (
+    <>
+      <div className="Card-container">
+        <div className="Item-img"></div>
+        <div className="Item-value">
+          <div className="Item-title">here</div>
+          <div className="Item-price">20$</div>
+        </div>
+      </div>
+    </>
+  );
+}
