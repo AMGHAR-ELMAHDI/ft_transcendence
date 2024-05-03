@@ -1,7 +1,6 @@
-import "../css/Shop.css";
-import FriendBar from "./FriendBar";
-import SideBar from "./SideBar";
-import TopBar from "./TopBar";
+import FriendBar from "../Cheesy/FriendBar";
+import SideBar from "../Cheesy/SideBar";
+import TopBar from "../SearchBar/TopBar";
 
 function ShopContainer() {
   return (
