@@ -3,26 +3,27 @@
   flex-direction: column;
   flex: 1;
   border-radius: 5px;
-  max-height: 900px;
+  max-height: 930px;
   padding: 0 0.5rem;
   width: 100%;
   overflow-y: scroll;
 }
 
-.HistoryShadow {
+/* .HistoryShadow {
   position: fixed;
   bottom: 0rem;
   width: 2530px;
   height: 4rem;
   background: linear-gradient(transparent, rgb(0, 0, 0));
-}
+} */
 
 .HistoryShadowDashboard {
   position: fixed;
-  bottom: 0;
-  width: 775px;
-  height: 4rem;
-  background: linear-gradient(transparent, rgb(0, 0, 0));
+  bottom: 50px;
+  width: 800px;
+  left: 2070px;
+  height: 2rem;
+  background: linear-gradient(transparent, rgb(0, 0, 0,0.8));
 }
 
 .history-top-text {

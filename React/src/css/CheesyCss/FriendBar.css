@@ -5,6 +5,7 @@
     justify-content: center;
     flex: 0 1 auto;
     width: 9rem;
+    height: 100vh;
 }
 
 #friend-container{

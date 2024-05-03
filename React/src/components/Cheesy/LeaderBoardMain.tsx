@@ -1,6 +1,5 @@
 import axios from "axios";
 import Data from "../../Data/LeaderBoardData.json";
-import { GiJewelCrown } from "react-icons/gi";
 import { useEffect } from "react";
 
 function getTop3() {
@@ -14,12 +13,9 @@ function getTop3() {
             src={LeaderBoardData.LeaderBoard[0].picture}
             alt="FirstPic"
           />
-          <img className="crown" src="/crown.png" alt="crown" />
+          <img className="crown" src="/LeaderCup.svg" alt="crown" />
         </div>
         <h1 className="toph1">{LeaderBoardData.LeaderBoard[0].username}</h1>
-        <div className="Coins">
-          <h2>200 Coins</h2>
-        </div>
       </div>
       <div className="SecondThird">
         <div className="Second">
@@ -29,9 +25,6 @@ function getTop3() {
             alt="SecondPic"
           />
           <h1 className="toph1">{LeaderBoardData.LeaderBoard[1].username}</h1>
-          <div className="Coins">
-            <h2>100 Coins</h2>
-          </div>
         </div>
         <div className="Third">
           <img
@@ -40,9 +33,6 @@ function getTop3() {
             alt="ThirdPic"
           />
           <h1 className="toph1">{LeaderBoardData.LeaderBoard[2].username}</h1>
-          <div className="Coins">
-            <h2>50 Coins</h2>
-          </div>
         </div>
       </div>
     </div>
@@ -111,19 +101,19 @@ function getTheRest() {
 }
 
 function LeaderBoardMain() {
-  // useEffect(()=> {
-  //   axios.defaults.withCredentials = true;
-  //   axios.get('http://e2r7p13:8000/get/', {
-  //     withCredentials: true,
-  //   })
-  //   .then ((response) => {
-  //     if (response.status === 200)
-  //       console.log(response)
-  //   })
-  //   .catch((error) => {
-  //     console.log(error)
-  //   })
-  // })
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/get/")
+      .then((response) => {
+        if (response.status === 200) {
+          const LeaderBoard = JSON.parse(response.data);
+          console.log(LeaderBoard[0]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
   return (
     <div className="LeaderBoardContainer">
       <h1>LEADERBOARD</h1>

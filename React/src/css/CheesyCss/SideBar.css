@@ -4,6 +4,8 @@
   align-items: center;
   justify-content: space-between;
   margin-left: 1rem;
+  /* background-color: red; */
+  height: 100vh;
 }
 
 .sidebar-links {

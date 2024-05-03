@@ -19,7 +19,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  max-height: 900px;
+  /* background-color: #5fcae4; */
+  /* max-height: 800px; */
 }
 
 #DashboardHistory {
@@ -36,28 +37,14 @@
   background-position: center;
   display: flex;
   flex: 1;
-  position: relative;
   transition: all 0.3s;
   opacity: 0.6;
 }
 
 #Dashboard-Main-GameModeContainer:hover {
   opacity: 1;
+  scale: 1.01;
 }
-
-/* #Dashboard-Main-GameModeContainer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-}
-
-#Dashboard-Main-GameModeContainer:hover::before {
-  background: none;
-} */
 
 #Dashboard-Secondary-GameModeContainer {
   width: 800px;
@@ -72,6 +59,13 @@
   background-position: center;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   height: 290px;
+  transition: all 0.3s;
+  opacity: 0.6;
+}
+
+#Dashboard-Secondary-GameModeContainer > *:hover {
+  opacity: 1;
+  scale: 1.01;
 }
 
 #Dashboard-Secondary-tournament {
@@ -87,13 +81,7 @@
 #Dashboard-Secondary-practice {
   background-image: url("/practice2.png");
   background-position: center 61%;
-}
-
-.big {
-  width: 100%;
-  object-fit: cover;
-  height: 100%;
-  border-radius: var(--edge);
+  background-color: #5fcae4;
 }
 
 .extraModes {

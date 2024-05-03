@@ -10,9 +10,9 @@
   border-radius: 25px;
   display: flex;
   justify-content: space-between;
-  flex: 1;
+  /* flex: 1; */
   flex-wrap: wrap;
-  max-height: 800px;
+  height: 500px;
   background-image: radial-gradient(#5fcae4 1px, transparent 1px),
     radial-gradient(#5fcae4 1px, transparent 1px);
   background-size: 100px 100px;
@@ -179,10 +179,6 @@ progress[value]::-webkit-progress-value {
 @media only screen and (max-width: 1440px) {
   .AppClass > * {
     height: auto;
-  }
-  .progress-circle-thingy {
-    width: 200px;
-    height: 200px;
   }
   #Profile {
     justify-content: center;
