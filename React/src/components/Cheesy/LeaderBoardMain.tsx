@@ -19,19 +19,25 @@ function getTop3() {
       </div>
       <div className="SecondThird">
         <div className="Second">
-          <img
-            className="topImgs"
-            src={LeaderBoardData.LeaderBoard[1].picture}
-            alt="SecondPic"
-          />
+          <div className="crownImageContainer">
+            <img
+              className="topImgs"
+              src={LeaderBoardData.LeaderBoard[1].picture}
+              alt="SecondPic"
+            />
+            <img className="crown crown2" src="/LeaderCup.svg" alt="crown" />
+          </div>
           <h1 className="toph1">{LeaderBoardData.LeaderBoard[1].username}</h1>
         </div>
         <div className="Third">
-          <img
-            className="topImgs"
-            src={LeaderBoardData.LeaderBoard[2].picture}
-            alt="ThirdPic"
-          />
+          <div className="crownImageContainer">
+            <img
+              className="topImgs"
+              src={LeaderBoardData.LeaderBoard[2].picture}
+              alt="ThirdPic"
+            />
+            <img className="crown crown3" src="/LeaderCup.svg" alt="crown" />
+          </div>
           <h1 className="toph1">{LeaderBoardData.LeaderBoard[2].username}</h1>
         </div>
       </div>
