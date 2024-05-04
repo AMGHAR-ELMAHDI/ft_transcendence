@@ -1,6 +1,6 @@
 @font-face {
   font-family: cool;
-  src: url(../../css/Fonts/Panton-Trial-Bold.ttf);
+  src: url(../../css/Fonts/Panton/Panton-Trial-Bold.ttf);
 }
 
 :root {
@@ -37,7 +37,6 @@
   font-size: 90px;
   letter-spacing: 8px;
   font-family: cool;
-  /* text-shadow: 5px 5px 0 #4946dd; */
 }
 
 .Items {
@@ -52,7 +51,6 @@
 .Items::-webkit-scrollbar-track {
   margin-block: 4.5rem;
 }
-
 
 .item {
   gap: 3rem;
@@ -84,9 +82,19 @@
 }
 
 .Item-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 370px;
   border-radius: 15px;
   background-color: #c8f1ff;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.Item-img:hover {
+  scale: 1.007;
+  filter: brightness(80%);
 }
 
 .Item-price {
@@ -94,4 +102,15 @@
   color: black;
   padding: 0.1rem 2rem;
   background-color: var(--blue-glow);
+}
+
+#cart {
+  opacity: 0;
+  height: 350px;
+  width: 200px;
+  transition: opacity 0.4s;
+}
+
+.Item-img:hover #cart {
+  opacity: 1;
 }
