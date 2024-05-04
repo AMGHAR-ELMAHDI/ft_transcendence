@@ -8,15 +8,21 @@ interface Props {
 
 function LogoutPopUp({ onConfirm, onCancel }: Props) {
   return (
-    <div className="LogoutContainer">
-      <h1>Logout</h1>
-      <div className="LogoutButtons">
-        <button onClick={() => onCancel(false)}>Cancel</button>
-        <Link to={"/login"}><button onClick={() => onConfirm(true)}>Confirm</button></Link>
+    { onConfirm } && (
+      <div className="popup">
+        <div className="popup-inner">
+          <button className="close-btn" onClick={() => onCancel(false)}>
+            Cancel
+          </button>
+          <Link to={"/login"}>
+            <button onClick={() => onConfirm(true)}>
+              Confirm
+            </button>
+          </Link>
+        </div>
       </div>
-    </div>
+    )
   );
 }
-
 
 export default LogoutPopUp;

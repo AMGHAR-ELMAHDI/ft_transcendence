@@ -6,15 +6,15 @@ import LogOutSideBar from "../SideBar/LogOutSideBar";
 import LogoutPopUp from "../SideBar/Logout";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { PiChatCircleTextLight } from "react-icons/pi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link} from "react-router-dom";
+
 
 
 function SideBar() {
     const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
     const handleConfirmLogout = () => {
-      <Link to={"/login"} />
       setShowLogoutPopup(false);
     };
 
@@ -22,7 +22,7 @@ function SideBar() {
       setShowLogoutPopup(false);
     };
 
-
+    
   return (
     <div id="SideBar">
       <Link to={"/"}><img id="logo" src="logo.svg" alt="logo" /></Link>
@@ -36,7 +36,7 @@ function SideBar() {
       </div>
       <div className="SideBottom" onClick={() => (setShowLogoutPopup(!showLogoutPopup))}>
         <LogOutSideBar />
-        {showLogoutPopup && <LogoutPopUp onConfirm={handleConfirmLogout} onCancel={() => setShowLogoutPopup(!showLogoutPopup)}/>}
+        {showLogoutPopup && <LogoutPopUp onConfirm={handleConfirmLogout} onCancel={handleCancelLogout}/>}
       </div>
     </div>
   );
