@@ -3,26 +3,27 @@
   flex-direction: column;
   flex: 1;
   border-radius: 5px;
-  max-height: 900px;
+  max-height: 930px;
   padding: 0 0.5rem;
   width: 100%;
   overflow-y: scroll;
 }
 
-.HistoryShadow {
+/* .HistoryShadow {
   position: fixed;
   bottom: 0rem;
   width: 2530px;
   height: 4rem;
   background: linear-gradient(transparent, rgb(0, 0, 0));
-}
+} */
 
 .HistoryShadowDashboard {
   position: fixed;
-  bottom: 0;
-  width: 775px;
-  height: 4rem;
-  background: linear-gradient(transparent, rgb(0, 0, 0));
+  bottom: 50px;
+  width: 800px;
+  left: 2070px;
+  height: 2rem;
+  background: linear-gradient(transparent, rgb(0, 0, 0,0.8));
 }
 
 .history-top-text {
@@ -61,7 +62,14 @@
   width: 100%;
   height: 140px;
   position: relative;
-  /* direction: ltr; */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  transition: all 0.4s;
+}
+
+.history-tabs:hover {
+  scale: 1.02;
+  cursor: pointer;
 }
 
 .history-tabs-left-container {
@@ -73,17 +81,26 @@
 }
 
 .history-tab-won {
-  background-color: #172a31;
+  background: rgb(16, 26, 32);
+  background: linear-gradient(
+    90deg,
+    rgba(16, 26, 32, 1) 35%,
+    #18272f 60%,
+    rgba(30, 57, 66, 1) 100%
+  );
 }
 
 .history-tab-lost {
-  background-color: #5f2a33;
+  background: rgb(66, 27, 33);
+  background: linear-gradient(90deg, #401a20 35%, #4f2027 60%, #612830 100%);
 }
 
 .dashboard-history-right-rect {
-  width: 10px;
+  width: 15px;
   height: 140px;
   background-color: #1e8ef3;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .rect-lost {

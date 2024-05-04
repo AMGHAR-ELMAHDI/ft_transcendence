@@ -10,25 +10,16 @@
   border-radius: 25px;
   display: flex;
   justify-content: space-between;
-  flex: 1;
+  /* flex: 1; */
   flex-wrap: wrap;
-  max-height: 800px;
+  height: 500px;
   background-image: radial-gradient(#5fcae4 1px, transparent 1px),
     radial-gradient(#5fcae4 1px, transparent 1px);
   background-size: 100px 100px;
   background-position: 0 0, 50px 50px;
   animation: g17 3s infinite linear;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
-
-/* @keyframes g17 {
-  from {
-    background-position: 0 0, 50px 50px;
-  }
-  
-  to {
-    background-position: 100px -100px, 150px -50px;
-  }
-} */
 
 @keyframes g17 {
   from {
@@ -188,10 +179,6 @@ progress[value]::-webkit-progress-value {
 @media only screen and (max-width: 1440px) {
   .AppClass > * {
     height: auto;
-  }
-  .progress-circle-thingy {
-    width: 200px;
-    height: 200px;
   }
   #Profile {
     justify-content: center;

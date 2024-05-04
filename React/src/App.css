@@ -25,11 +25,11 @@
 * {
   margin: 0;
   padding: 0;
-  /* border: 0.1px solid gray; */
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
   font-size: 1.2rem;
   color: var(--font-color);
+  /* border: 0.1px solid gray; */
 }
 
 body {
@@ -44,14 +44,14 @@ body {
 }
 
 .AppClass > * {
-  height: 100svh;
+  /* height: 100svh; */
 }
 
 .main {
   max-width: 2560px;
   display: flex;
   flex-direction: column;
-  margin: 0 3rem;
+  margin: 2rem 3rem;
   flex: 1;
   gap: 2rem;
 }
@@ -66,14 +66,4 @@ body {
   .AppClass > * {
     height: auto;
   }
-}
-
-#progress-thingy {
-  width: 300px;
-  height: 300px;
-}
-
-#progress-circle-thingy {
-  border-radius: 50%;
-  box-shadow: 0px 0px 15px #5fcae4;
 }

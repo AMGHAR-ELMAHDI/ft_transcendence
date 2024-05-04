@@ -14,8 +14,10 @@
   margin: 4rem 0 0rem 0;
   text-align: center;
   font-size: 4rem;
-  color: #1e8ef3;
-  text-shadow: 0px 0px 25px rgba(29, 144, 245, 1);
+  /* color: #1e8ef3;
+  text-shadow: 0px 0px 25px rgba(29, 144, 245, 1); */
+  color: #5fcae4;
+  text-shadow: 0px 0px 15px rgba(95, 201, 228, 0.705);
   letter-spacing: 0.5rem;
   margin-bottom: 2rem;
 }
@@ -29,12 +31,19 @@
 }
 
 .crown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: -63px;
-  left: -60px;
-  width: 150px;
-  height: 150px;
-  rotate: -10deg;
+  bottom: -50px;
+  right: -50px;
+  width: 50px;
+  height: 50px;
+  background-color: #ffc94a;
+  box-shadow: #ffc94a 0px 0px 10px 0px;
+
+  border-radius: 10px;
+  /* rotate: -10deg; */
 }
 
 /* .crown {
@@ -98,7 +107,7 @@
 }
 
 .LeaderBoardRest {
-  max-height: 550px;
+  max-height: 650px;
   overflow-y: scroll;
   padding: 0 2rem;
 }
@@ -115,6 +124,7 @@
   align-items: center;
   border-radius: 25px;
   padding: 1rem;
+  box-shadow: #000000 0px 0px 2px 0px;
 }
 
 .SpecialCase {
