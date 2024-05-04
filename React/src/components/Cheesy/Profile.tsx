@@ -1,7 +1,6 @@
 import React from "react";
 
 import ProfileData from "../../Data/Profile.json";
-// import "../css/Profile.css";
 import {
   buildStyles,
   CircularProgressbarWithChildren,

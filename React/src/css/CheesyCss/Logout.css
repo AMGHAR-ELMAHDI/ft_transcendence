@@ -1,0 +1,12 @@
+.LogoutContainer{
+    position: fixed;
+    top: 40%;
+    left: 45%;
+    width: 400px;
+    height: 400px;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

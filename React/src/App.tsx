@@ -6,7 +6,6 @@ import ChatContainer from "./components/Cheesy/ChatContainer";
 import GameContainer from "./components/Cheesy/GameContainer";
 import LeaderBoardContainer from "./components/Cheesy/LeaderBoardContainer";
 import NotFound from "./components/Cheesy/NotFound";
-import LogoutContainer from "./components/Cheesy/LogoutContainer";
 import Settings from "./components/Cheesy/Settings";
 import ShopContainer from "./components/Otchekai/ShopContainer";
 
@@ -22,6 +21,7 @@ import "./css/CheesyCss/LeaderBoard.css";
 import "./css/CheesyCss/ProfileHistory.css";
 import "./css/CheesyCss/Settings.css";
 import "./css/CheesyCss/NotFound.css";
+import "./css/CheesyCss/Logout.css";
 import "./css/Otchekai/Shop.css";
 
 function App() {
@@ -36,7 +36,6 @@ function App() {
       <Route path="/leaderboard" element={LeaderBoardContainer()} />
       <Route path="/shop" element={ShopContainer()} />
       <Route path="/profile" element={ProfileContainer(render, setRender)} />
-      <Route path="/logout" element={LogoutContainer()} />
       <Route path="/settings" element={Settings()} />
       <Route path="*" element={NotFound()} />
     </Routes>
