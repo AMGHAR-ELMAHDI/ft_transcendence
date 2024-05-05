@@ -19,8 +19,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  /* background-color: #5fcae4; */
-  /* max-height: 800px; */
 }
 
 #DashboardHistory {
@@ -81,7 +79,6 @@
 #Dashboard-Secondary-practice {
   background-image: url("/practice2.png");
   background-position: center 61%;
-  background-color: #5fcae4;
 }
 
 .extraModes {

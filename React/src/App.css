@@ -22,6 +22,10 @@
   --blue-glow: #5fcae4;
 }
 
+*:link {
+  text-decoration: none;
+}
+
 * {
   margin: 0;
   padding: 0;
