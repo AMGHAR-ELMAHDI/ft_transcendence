@@ -37,11 +37,27 @@
   flex: 1;
   transition: all 0.3s;
   opacity: 0.6;
+  position: relative;
 }
 
 #Dashboard-Main-GameModeContainer:hover {
   opacity: 1;
   scale: 1.01;
+  cursor: pointer;
+}
+
+#Dashboard-Main-GameModeContainer:hover::before {
+  content: "VS PLAYER";
+  position: absolute;
+  top: 45%;
+  left: 22%;
+  font-size: 5rem;
+  font-family: cool;
+  letter-spacing: 5px;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #Dashboard-Secondary-GameModeContainer {
@@ -59,6 +75,8 @@
   height: 290px;
   transition: all 0.3s;
   opacity: 0.6;
+  cursor: pointer;
+  position: relative;
 }
 
 #Dashboard-Secondary-GameModeContainer > *:hover {
@@ -66,15 +84,43 @@
   scale: 1.01;
 }
 
+#Dashboard-Secondary-GameModeContainer > *:hover::before {
+  content: "VS";
+  position: absolute;
+  top: 45%;
+  left: 22%;
+  font-size: 3.9rem;
+  font-family: cool;
+  letter-spacing: 5px;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 #Dashboard-Secondary-tournament {
   background-image: url("/Tour2.png");
   background-position: center 81%;
+}
+
+#Dashboard-Secondary-tournament:hover::before {
+  content: "TOURNAMENT";
+  top: 25%;
+  left: 15.2%;
 }
 
 #Dashboard-Secondary-bot {
   background-image: url("/robot.png");
   background-position: center 60%;
 }
+
+#Dashboard-Secondary-bot:hover::before  {
+  content: "VS BOT";
+  top: 25%;
+  left: 30%;
+  font-size: 4.5rem;
+}
+
 
 #Dashboard-Secondary-practice {
   background-image: url("/practice2.png");
