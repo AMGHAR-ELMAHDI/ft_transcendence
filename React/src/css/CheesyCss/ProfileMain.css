@@ -39,6 +39,7 @@
 .ProfileItems > * {
   border: 1px solid var(--blue-glow);
   max-width: 400px;
+  height: 500px;
   fill: white;
   border-radius: 25px;
 }
