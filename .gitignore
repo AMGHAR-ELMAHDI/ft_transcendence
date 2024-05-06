@@ -26,3 +26,5 @@ dist-ssr
 venv
 *.sqlite3
 token
+
+# python3 manage.py runserver 2500
