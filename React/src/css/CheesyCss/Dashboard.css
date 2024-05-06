@@ -35,7 +35,7 @@
   background-position: center;
   display: flex;
   flex: 1;
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out;
   opacity: 0.6;
   position: relative;
 }
@@ -73,7 +73,7 @@
   background-position: center;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   height: 290px;
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out;
   opacity: 0.6;
   cursor: pointer;
   position: relative;
@@ -110,21 +110,27 @@
 }
 
 #Dashboard-Secondary-bot {
-  background-image: url("/robot.png");
+  background-image: url("/robot2.png");
   background-position: center 60%;
 }
 
-#Dashboard-Secondary-bot:hover::before  {
-  content: "VS BOT";
-  top: 25%;
-  left: 30%;
-  font-size: 4.5rem;
+#Dashboard-Secondary-bot:hover::before {
+  content: "VS AI";
+  top: 28.1%;
+  left: 38.5%;
+  font-size: 4rem;
 }
-
 
 #Dashboard-Secondary-practice {
   background-image: url("/practice2.png");
   background-position: center 61%;
+}
+
+#Dashboard-Secondary-practice:hover::before {
+  content: "PRACTICE";
+  top: 34%;
+  left: 15%;
+  font-size: 3.5rem;
 }
 
 .extraModes {
