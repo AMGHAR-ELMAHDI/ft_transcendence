@@ -1,0 +1,176 @@
+:root {
+  --bg-color: #0c0e14;
+  --grey-bg-color: #323644;
+  --font-color: white;
+  --blue-glow: #5fcae4;
+  --edge: 25px;
+}
+
+/* #DashboardProfileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+  margin-bottom: 1rem;
+} */
+
+#Dashboard {
+  border-radius: var(--edge);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#DashboardHistory {
+  display: flex;
+  width: 800px;
+  border-radius: 25px;
+}
+
+#Dashboard-Main-GameModeContainer {
+  width: 800px;
+  background-image: url("/vs4.png");
+  border-radius: 25px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex: 1;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.6;
+  position: relative;
+}
+
+#Dashboard-Main-GameModeContainer:hover {
+  opacity: 1;
+  scale: 1.01;
+  cursor: pointer;
+}
+
+#Dashboard-Main-GameModeContainer:hover::before {
+  content: "VS PLAYER";
+  position: absolute;
+  top: 45%;
+  left: 22%;
+  font-size: 5rem;
+  font-family: cool;
+  letter-spacing: 5px;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#Dashboard-Secondary-GameModeContainer {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#Dashboard-Secondary-GameModeContainer > * {
+  border-radius: 15px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  height: 290px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.6;
+  cursor: pointer;
+  position: relative;
+}
+
+#Dashboard-Secondary-GameModeContainer > *:hover {
+  opacity: 1;
+  scale: 1.01;
+}
+
+#Dashboard-Secondary-GameModeContainer > *:hover::before {
+  content: "VS";
+  position: absolute;
+  top: 45%;
+  left: 22%;
+  font-size: 3.9rem;
+  font-family: cool;
+  letter-spacing: 5px;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#Dashboard-Secondary-tournament {
+  background-image: url("/Tour2.png");
+  background-position: center 81%;
+}
+
+#Dashboard-Secondary-tournament:hover::before {
+  content: "TOURNAMENT";
+  top: 25%;
+  left: 15.2%;
+}
+
+#Dashboard-Secondary-bot {
+  background-image: url("/robot2.png");
+  background-position: center 60%;
+}
+
+#Dashboard-Secondary-bot:hover::before {
+  content: "VS AI";
+  top: 28.1%;
+  left: 38.5%;
+  font-size: 4rem;
+}
+
+#Dashboard-Secondary-practice {
+  background-image: url("/practice2.png");
+  background-position: center 61%;
+}
+
+#Dashboard-Secondary-practice:hover::before {
+  content: "PRACTICE";
+  top: 34%;
+  left: 15%;
+  font-size: 3.5rem;
+}
+
+.extraModes {
+  height: 260px;
+  object-fit: cover;
+  border-radius: var(--edge);
+}
+
+@media only screen and (max-width: 2560px) {
+  #DashboardHistory,
+  #Dashboard-Main-GameModeContainer,
+  #Dashboard-Secondary-GameModeContainer {
+    width: 700px;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  #Dashboard-Main-GameModeContainer,
+  #Dashboard-Secondary-GameModeContainer {
+    width: 350px;
+  }
+  #DashboardHistory {
+    width: 1000px;
+  }
+  #Dashboard-Secondary-GameModeContainer {
+    gap: 1rem;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  #Dashboard-Main-GameModeContainer,
+  #Dashboard-Secondary-GameModeContainer {
+    width: 500px;
+  }
+  #DashboardHistory {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #Dashboard-Secondary-GameModeContainer {
+    gap: 1rem;
+  }
+}

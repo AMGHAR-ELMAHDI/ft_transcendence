@@ -1,0 +1,41 @@
+{
+	"username": "zmakhkha",
+	"picture": "https://source.unsplash.com/featured/300x201",
+	"first_name": "Othman",
+	"last_name": "Chekairi",
+	"level": 10.9,
+	"win_rate": 75,
+	"trophies_rate": 50,
+	"Paddles": [
+	  {
+		"id": 1,
+		"PaddleName": "dawdaw",
+		"picture": "https://source.unsplash.com/featured/300x201",
+		"Price": 20
+	  },
+	  {
+		"id": 2,
+		"PaddleName": "zdawdaw",
+		"picture": "https://source.unsplash.com/featured/300x201",
+		"Price": 201
+	  },
+	  {
+		"id": 3,
+		"PaddleName": "rdawdaw",
+		"picture": "https://source.unsplash.com/featured/300x201",
+		"Price": 259
+	  },
+	  {
+		"id": 4,
+		"PaddleName": "vdawdaw",
+		"picture": "https://source.unsplash.com/featured/300x201",
+		"Price": 100
+	  },
+	  {
+		"id": 5,
+		"PaddleName": "xdawdaw",
+		"picture": "https://source.unsplash.com/featured/300x201",
+		"Price": 30
+	  }
+	]
+  }
