@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import axios from "axios";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function getRegister() {
   const [username, setUsername] = useState("");
@@ -12,7 +12,9 @@ function getRegister() {
   const [re_password, setRe_password] = useState("");
   const [Loged, setLoged] = useState(false);
 
-  const car = {
+  const navigate = useNavigate();
+
+  const obj = {
     username: username,
     email: email,
     password: password,
@@ -22,7 +24,7 @@ function getRegister() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      .post("http://localhost:2500/auth/users/", car)
+      .post("http://localhost:2500/auth/users/", obj)
       .then((response) => {
         console.log("------------");
         console.log(response.data);
@@ -31,6 +33,7 @@ function getRegister() {
         if (response.status === 201) {
           console.log("hahowa 201");
           setLoged(true);
+          navigate("/login");
         }
       })
       .catch((error) => {
@@ -38,46 +41,43 @@ function getRegister() {
       });
   };
   return (
-    <>
-      <form>
-        <input
-          className="GeneralInfoInput"
-          type="text"
-          name="username"
-          value={username}
-          placeholder="username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          className="GeneralInfoInput"
-          type="email"
-          name="email"
-          value={email}
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className="GeneralInfoInput"
-          type="password"
-          name="password"
-          value={password}
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          className="GeneralInfoInput"
-          type="password"
-          name="re_password"
-          value={re_password}
-          placeholder="re-password"
-          onChange={(e) => setRe_password(e.target.value)}
-        />
-        <button className="SetButton SetSubmit" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
-      <div>{Loged && <Link to={"/login"}><button/></Link> }</div>
-    </>
+    <div>
+      <input
+        className="GeneralInfoInput"
+        type="text"
+        name="username"
+        value={username}
+        placeholder="username"
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        className="GeneralInfoInput"
+        type="email"
+        name="email"
+        value={email}
+        placeholder="email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        className="GeneralInfoInput"
+        type="password"
+        name="password"
+        value={password}
+        placeholder="password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <input
+        className="GeneralInfoInput"
+        type="password"
+        name="re_password"
+        value={re_password}
+        placeholder="re-password"
+        onChange={(e) => setRe_password(e.target.value)}
+      />
+      <button className="SetButton SetSubmit" onClick={handleSubmit}>
+        Submit
+      </button>
+    </div>
   );
 }
 

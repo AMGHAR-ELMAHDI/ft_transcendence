@@ -8,7 +8,7 @@ function getGeneralInfo() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const car = {
+  const obj = {
     username: username,
     password: password,
   };
@@ -16,17 +16,21 @@ function getGeneralInfo() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      .post("http://localhost:2500/auth/jwt/create", car)
+      .post("http://localhost:2500/auth/jwt/create", obj)
       .then((response) => {
         console.log(response);
+        console.log("---------------DATA------------------");
+        console.log(response.data);
+        console.log("---------------END OF DATA------------------");
+        console.log("---------------JSON------------------");
+        var str = JSON.stringify(response.data);
+        JSON.parse(str, (key, value) => {console.log(key, value)});
+
+        
+        console.log("---------------END OF JSON------------------");
 
         if (response.status === 200) {
-          console.log("Body" + response.data);
-          const Login = JSON.parse(response.data);
-          console.log(Login);
-        }
-        if (response.status === 401) {
-          console.log("Invalid Username or Password");
+          // console.log("Body" + response.data);
         }
       })
       .catch((error) => {
@@ -35,7 +39,7 @@ function getGeneralInfo() {
   };
 
   return (
-    <form>
+    <div>
       <input
         className="GeneralInfoInput"
         type="text"
@@ -53,7 +57,7 @@ function getGeneralInfo() {
       <button className="SetButton SetSubmit" onClick={handleSubmit}>
         Submit
       </button>
-    </form>
+    </div>
   );
 }
 
@@ -71,19 +75,6 @@ function MainSettings() {
 }
 
 function Login() {
-  //  useEffect(() => {
-  //   axios
-  //     .post("http://localhost:8000/get/")
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         const LeaderBoard = JSON.parse(response.data);
-  //         console.log(LeaderBoard[0]);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // });
   return (
     <>
       <div className="AppClass">
