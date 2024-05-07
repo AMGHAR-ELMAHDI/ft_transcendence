@@ -7,102 +7,66 @@ import { IoShieldHalfSharp } from "react-icons/io5";
 import axios from "axios";
 
 function getGeneralInfo() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const car = {
+    username: username,
+    password: password,
+  };
+
+  const handleSubmit = async (e:any) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:2500/auth/jwt/create", car)
+      .then((response) => {
+        console.log(response.status);
+        
+        if (response.status === 200) {
+          const LeaderBoard = JSON.parse(response.data);
+          console.log(LeaderBoard[0]);
+        }
+        if (response.status === 401) {
+          console.log("Invalid Username or Password");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // placeholder={"Username"}
+  // action="http://localhost:2500/auth/jwt/create"
   return (
-    <div className="GeneralInfoContainer">
-      <form method="POST" action="http://localhost:2500/auth/jwt/create">
-        <div>
-          <input
-            className="GeneralInfoInput"
-            type="text"
-            id="username"
-            name="username"
-            placeholder={"Username"}
-          />
-        </div>
-        <div className="FirstSecondName">
-          <input
-            type="text"
-            id="FirstName"
-            name="FirstName"
-            className="GeneralInfoInput firstSecond"
-            placeholder={"First Name"}
-          />
-          <input
-            type="text"
-            id="SecondName"
-            name="SecondName"
-            className="GeneralInfoInput firstSecond"
-            placeholder={"Second Name"}
-          />
-        </div>
-
-        <div>
-          <input
-            className="GeneralInfoInput"
-            type="email"
-            id="email"
-            name="email"
-            placeholder={"Email"}
-          />
-        </div>
-        <div>
-          <input
-            className="GeneralInfoInput"
-            type="password"
-            id="password"
-            name="password"
-            placeholder={"Password"}
-          />
-        </div>
-
-        <div className="ButtonContainer">
-          <button className="SetButton SetCancel" type="reset">
-            Cancel
-          </button>
-          <button className="SetButton SetSubmit" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+    <form>
+      <input
+        className="GeneralInfoInput"
+        type="text"
+        name="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        className="GeneralInfoInput"
+        type="password"
+        name="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button className="SetButton SetSubmit" onClick={handleSubmit}>
+        Submit
+      </button>
+    </form>
   );
 }
 
 function MainSettings() {
-  const [render, setRender] = useState<string>("GeneralInfo");
-
   return (
     <>
       <div className="MainSettings">
-        <h1 className="SettingsH1">SETTINGS</h1>
+        <h1 className="SettingsH1">Login</h1>
         <div className="SettingsContent">
-          <div className="SettingsLeft">
-            <div className="SettingsData">
-              <div className="SettingsImg">
-                <img src="/60sGirl.png" alt="SettingProfilesimg" />
-              </div>
-              <div className="SettingsUsrName">
-                <h1 className="wht">{"Cheesy"}</h1>
-              </div>
-              <div className="SettingsFullName">
-                <h1 className="wht">{"ELMAHDI AMGHAR"}</h1>
-              </div>
-            </div>
-            <div className="SettingsComponents">
-              <div className="LeftSpacer">
-                <div
-                  onClick={() => setRender("GeneralInfo")}
-                  className="SetInfo GeneralInfo"
-                >
-                  <CgProfile className="SetIcon" />
-                  <h1 className="blk">General Information</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="SettingsRight">
-            {render === "GeneralInfo" && getGeneralInfo()}
-          </div>
+          <div className="SettingsRight">{getGeneralInfo()}</div>
         </div>
       </div>
     </>
@@ -112,7 +76,7 @@ function MainSettings() {
 function Login() {
   //  useEffect(() => {
   //   axios
-  //     .post("http://localhost:8000/get/") 
+  //     .post("http://localhost:8000/get/")
   //     .then((response) => {
   //       if (response.status === 200) {
   //         const LeaderBoard = JSON.parse(response.data);

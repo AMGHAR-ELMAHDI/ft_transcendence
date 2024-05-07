@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-lz0a1(7a%65^qegww^--qric!&!i-#_s&$$5)e%sckd169tq3t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -122,7 +122,10 @@ TEMPLATES = [
 #WSGI_APPLICATION = 'myChat.wsgi.application'
 
 
+CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_HEADERS = [ "accept", "referer", "accept-encoding", "authorization", "content-type", "dnt", "origin", "user-agent", "x-csrftoken", "x-sessionid", "x-requested-with"]
+CORS_EXPOSE_HEADERS = ['Set-Cookie']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
