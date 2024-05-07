@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import AcessToken from "../../Atoms/AcessToken";
 
 function getGeneralInfo() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
 
   const obj = {
     username: username,
@@ -18,19 +21,10 @@ function getGeneralInfo() {
     axios
       .post("http://localhost:2500/auth/jwt/create", obj)
       .then((response) => {
-        console.log(response);
-        console.log("---------------DATA------------------");
-        console.log(response.data);
-        console.log("---------------END OF DATA------------------");
-        console.log("---------------JSON------------------");
-        var str = JSON.stringify(response.data);
-        JSON.parse(str, (key, value) => {console.log(key, value)});
-
-        
-        console.log("---------------END OF JSON------------------");
-
-        if (response.status === 200) {
-          // console.log("Body" + response.data);
+        var str = response.data;
+        if (response.status === 200 && !tokenValue) {
+          setTokenValue(str.access);
+          console.log(str.access);
         }
       })
       .catch((error) => {

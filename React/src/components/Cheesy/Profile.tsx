@@ -6,6 +6,7 @@ import {
   CircularProgressbarWithChildren,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import axios from "axios";
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -32,6 +33,19 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   const boolRender = profileList === "RenderList" ? true : false;
 
   let levelStart = Number(getLevelStart()) * 100;
+
+  const getProfileJson = async (e: any) => {
+    axios
+      .post("http://localhost:2500/auth/jwt/create")
+      .then((response) => {
+        var str = response.data;
+        if (response.status === 200) {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div id="Profile">
