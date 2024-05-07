@@ -8,6 +8,8 @@ import LeaderBoardContainer from "./components/Cheesy/LeaderBoardContainer";
 import NotFound from "./components/Cheesy/NotFound";
 import Settings from "./components/Cheesy/Settings";
 import ShopContainer from "./components/Otchekai/ShopContainer";
+import Login from "./components/Cheesy/Login";
+import Register from "./components/Cheesy/Register";
 
 import "./App.css";
 import "./css/CheesyCss/FriendBar.css";
@@ -23,7 +25,7 @@ import "./css/CheesyCss/Settings.css";
 import "./css/CheesyCss/NotFound.css";
 import "./css/CheesyCss/Logout.css";
 import "./css/Otchekai/Shop.css";
-import Login from "./components/Cheesy/Login";
+
 
 function App() {
   const [render, setRender] = useState<string>("History");
@@ -37,6 +39,7 @@ function App() {
       <Route path="/shop" element={ShopContainer()} />
       <Route path="/profile" element={ProfileContainer(render, setRender)} />
       <Route path="/login" element={Login()} />
+      <Route path="/register" element={Register()} />
       <Route path="/settings" element={Settings()} />
       <Route path="*" element={NotFound()} />
     </Routes>

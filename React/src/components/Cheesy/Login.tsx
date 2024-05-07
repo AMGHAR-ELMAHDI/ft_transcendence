@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
-import { CgProfile } from "react-icons/cg";
-import { IoShieldHalfSharp } from "react-icons/io5";
 import axios from "axios";
 
 function getGeneralInfo() {
@@ -15,16 +13,17 @@ function getGeneralInfo() {
     password: password,
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
       .post("http://localhost:2500/auth/jwt/create", car)
       .then((response) => {
-        console.log(response.status);
-        
+        console.log(response);
+
         if (response.status === 200) {
-          const LeaderBoard = JSON.parse(response.data);
-          console.log(LeaderBoard[0]);
+          console.log("Body" + response.data);
+          const Login = JSON.parse(response.data);
+          console.log(Login);
         }
         if (response.status === 401) {
           console.log("Invalid Username or Password");
@@ -35,8 +34,6 @@ function getGeneralInfo() {
       });
   };
 
-  // placeholder={"Username"}
-  // action="http://localhost:2500/auth/jwt/create"
   return (
     <form>
       <input
