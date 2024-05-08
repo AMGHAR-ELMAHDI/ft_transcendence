@@ -13,11 +13,10 @@ function getScore(WholeStr: string) {
   );
 }
 
-function History() {
-  let Data = HistoryData;
+function getTooltip() {
   return (
-    <div className="tableau">
-      <table>
+    <>
+      <thead>
         <tr className="HistoryToolTipTable">
           <th>
             <h1>DATE</h1>
@@ -35,13 +34,27 @@ function History() {
             <h1>LENGTH</h1>
           </th>
         </tr>
-        <div className="spacing"></div>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div className="spacing"></div>
+          </td>
+        </tr>
+      </tbody>
+    </>
+  );
+}
+
+function History() {
+  let Data = HistoryData;
+  return (
+    <div className="tableau">
+      <table>
+        {getTooltip()}
         {Data.History.map((element) => (
-          <>
-            <tr
-              key={element.id}
-              className={element.Result === "Won" ? "Won" : "Lost"}
-            >
+          <tbody key={element.id + Math.random()}>
+            <tr className={element.Result === "Won" ? "Won" : "Lost"}>
               <td className="leftTd zekton">
                 <h1>{element.date}</h1>
               </td>
@@ -56,8 +69,12 @@ function History() {
                 <h1>{element.lenght}</h1>
               </td>
             </tr>
-            <div className="spacing"></div>
-          </>
+            <tr>
+              <td>
+                <div className="spacing"></div>
+              </td>
+            </tr>
+          </tbody>
         ))}
       </table>
     </div>

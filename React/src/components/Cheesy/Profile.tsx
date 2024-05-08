@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import ProfileData from "../../Data/Profile.json";
 import {
@@ -7,6 +7,8 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import AcessToken from "../../Atoms/AcessToken";
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -21,6 +23,41 @@ function getLevelStart() {
   return levelStart;
 }
 
+function getCircles() {
+  return (
+    <div id="circles">
+      <CircularProgressbarWithChildren
+        value={ProfileData.win_rate}
+        styles={buildStyles({
+          pathColor: `rgba(95, 202, 228, 1)`,
+          textColor: "#FFFFFF",
+          trailColor: "#323644",
+          backgroundColor: "#3e98c7",
+        })}
+      >
+        <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
+          Win Rate
+        </div>
+        <div style={{ fontSize: 50 }}>{ProfileData.win_rate}%</div>
+      </CircularProgressbarWithChildren>
+      <CircularProgressbarWithChildren
+        value={ProfileData.trophies_rate}
+        styles={buildStyles({
+          pathColor: `rgba(95, 202, 228, 1)`,
+          textColor: "#FFFFFF",
+          trailColor: "#323644",
+          backgroundColor: "#3e98c7",
+        })}
+      >
+        <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
+          Trophies
+        </div>
+        <div style={{ fontSize: 50 }}>{ProfileData.trophies_rate}%</div>
+      </CircularProgressbarWithChildren>
+    </div>
+  );
+}
+
 interface ProfileProps {
   profileList: string;
   show: string;
@@ -33,19 +70,27 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   const boolRender = profileList === "RenderList" ? true : false;
 
   let levelStart = Number(getLevelStart()) * 100;
+  // const token = useRecoilValue(AcessToken);
+  // console.log(token);
 
-  const getProfileJson = async (e: any) => {
-    axios
-      .post("http://localhost:2500/auth/jwt/create")
-      .then((response) => {
-        var str = response.data;
-        if (response.status === 200) {
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const config = {
+  //   headers: {
+  //     Authorization: `JWT ${token}`,
+  //   },
+  // };
+
+  // const getData = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:2500/players/me/",
+  //       config
+  //     );
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // console.log("DATA:" + getData());
 
   return (
     <div id="Profile">
@@ -96,37 +141,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
             </div>
           )}
         </div>
-
-        <div id="circles">
-          <CircularProgressbarWithChildren
-            value={ProfileData.win_rate}
-            styles={buildStyles({
-              pathColor: `rgba(95, 202, 228, 1)`,
-              textColor: "#FFFFFF",
-              trailColor: "#323644",
-              backgroundColor: "#3e98c7",
-            })}
-          >
-            <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
-              Win Rate
-            </div>
-            <div style={{ fontSize: 50 }}>{ProfileData.win_rate}%</div>
-          </CircularProgressbarWithChildren>
-          <CircularProgressbarWithChildren
-            value={ProfileData.trophies_rate}
-            styles={buildStyles({
-              pathColor: `rgba(95, 202, 228, 1)`,
-              textColor: "#FFFFFF",
-              trailColor: "#323644",
-              backgroundColor: "#3e98c7",
-            })}
-          >
-            <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
-              Trophies
-            </div>
-            <div style={{ fontSize: 50 }}>{ProfileData.trophies_rate}%</div>
-          </CircularProgressbarWithChildren>
-        </div>
+        {getCircles()}
       </div>
     </div>
   );
