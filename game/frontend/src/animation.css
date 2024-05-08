@@ -1,0 +1,121 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+:root {
+	--LedColor: #FFA300;
+}
+#root {
+	width: 100%;
+}
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100svh;
+	background-color: black;
+	gap: 3px;
+}
+.container div {
+	position: relative;
+	background-color: var(--LedColor);
+	width: 3rem;
+	height: 5rem;
+	box-shadow: 0 -5rem 0 var(--LedColor),
+				0 -10rem 0 var(--LedColor),
+				0 -15rem 0 var(--LedColor);
+	transition: .3s;
+	animation: statistics 2s infinite linear;
+}
+.container div:nth-child(1)::before, .container div:nth-child(2)::before {
+	content: '';
+	background-color: rgb(0, 0, 0);
+	position: absolute;
+	width: 15.7rem;
+	height: 3rem;
+	left: 0;
+	bottom: -3rem;
+}
+.container div:nth-child(2)::before {
+	background-color: var(--LedColor);
+	box-shadow: 0 0 13px 7px #ffb301;
+	left: -51px;
+	width: 2rem;
+	height: 2.5rem;
+	transition: .3s;
+	animation: move 3s infinite linear;
+}
+.container div:nth-child(1) {
+	animation-delay: .4s;
+	box-shadow: 0 -5rem 0 var(--LedColor),
+				0 -7rem 0 var(--LedColor),
+				0 -10rem 0 var(--LedColor);
+}
+.container div:nth-child(2) {
+	animation-delay: .8s;
+	box-shadow: 0 -5rem 0 var(--LedColor);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container div:nth-child(3) {
+	animation-delay: 1.2s;
+	box-shadow: 0 -5rem 0 var(--LedColor),
+				0 -8rem 0 var(--LedColor);
+}
+.container div:nth-child(4) {
+	animation-delay: 1.6s;
+	box-shadow: 0 -5rem 0 var(--LedColor),
+				0 -10rem 0 var(--LedColor);
+}
+.container div:nth-child(5) {
+	animation-delay: 2s;
+	box-shadow: 0 -5rem 0 var(--LedColor),
+				0 -10rem 0 var(--LedColor),
+				0 -15rem 0 var(--LedColor);
+}
+@keyframes statistics {
+	0% {
+		box-shadow: 0 0rem 0 var(--LedColor);
+	}
+	20% {
+		box-shadow: 0 -5rem 0 var(--LedColor),
+			0 -10rem 0 var(--LedColor);
+	}
+	40% {
+		box-shadow: 0 -5rem 0 var(--LedColor),
+			0 -8rem 0 var(--LedColor),
+			0 -10rem 0 var(--LedColor);
+	}
+	60% {
+		box-shadow: 0 -5rem 0 var(--LedColor),
+			0 -8rem 0 var(--LedColor),
+			0 -10rem 0 var(--LedColor);
+	}
+	80% {
+		box-shadow: 0 -5rem 0 var(--LedColor),
+			0 -10rem 0 var(--LedColor),
+			0 -15rem 0 var(--LedColor);
+	}
+	100% {
+		box-shadow: 0 0rem 0 var(--LedColor);
+	}
+}
+@keyframes move {
+	0% {
+		width: 0rem;
+	}
+	40% {
+		width: 10rem;
+	}
+	60% {
+		width: 3rem;
+	}
+	80% {
+		width: 15.5rem;
+	}
+	100% {
+		width: 0rem;
+	}
+}

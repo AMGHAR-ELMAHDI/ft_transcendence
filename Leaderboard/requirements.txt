@@ -1,0 +1,7 @@
+django
+django-cors-headers
+psycopg
+psycopg-binary
+requests
+channels
+daphne

@@ -1,0 +1,8 @@
+python3-dotenv
+django
+django-cors-headers
+psycopg2
+psycopg-binary
+requests
+channels
+daphne
