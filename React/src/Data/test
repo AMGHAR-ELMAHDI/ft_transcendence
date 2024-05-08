@@ -1,0 +1,12 @@
+achievements: []
+achievements_rate: 0
+avatar: "/media/default.png"
+first_name: ""
+friends: {online: Array(0), offline: Array(0)}
+games: []
+items: []
+last_name: ""
+level: 0
+username: "user1"
+win_rate: 0
+    

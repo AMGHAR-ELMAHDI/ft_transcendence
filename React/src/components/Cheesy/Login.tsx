@@ -24,7 +24,7 @@ function getGeneralInfo() {
         var str = response.data;
         if (response.status === 200) {
           setTokenValue(str.access);
-          
+
           console.log(str.access);
         }
       })
