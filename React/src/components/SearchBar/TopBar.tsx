@@ -1,16 +1,16 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-// import { useRecoilValue } from "recoil";
-// import AcessToken from "../../Atoms/AcessToken";
+import { useRecoilValue } from "recoil";
+import AcessToken from "../../Atoms/AccessToken";
 
 function TopBar() {
-  // const tokenValue = useRecoilValue(AcessToken);
+  const tokenValue = useRecoilValue(AcessToken);
   return (
     <div id="TopBar">
       <div id="welcome-bar">
         <h1>Good Evening,</h1>
         <h1 id="nickName">DawDaw</h1>
-        {/* <h1>{tokenValue}</h1> */}
+        <h1>{tokenValue[2]}</h1>
       </div>
 
       <div id="search-bar">

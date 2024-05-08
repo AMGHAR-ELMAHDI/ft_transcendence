@@ -4,7 +4,7 @@ import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import AcessToken from "../../Atoms/AcessToken";
+import AcessToken from "../../Atoms/AccessToken";
 
 function getGeneralInfo() {
   const [username, setUsername] = useState("");
@@ -22,8 +22,9 @@ function getGeneralInfo() {
       .post("http://localhost:2500/auth/jwt/create", obj)
       .then((response) => {
         var str = response.data;
-        if (response.status === 200 && !tokenValue) {
+        if (response.status === 200) {
           setTokenValue(str.access);
+          
           console.log(str.access);
         }
       })

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import ProfileData from "../../Data/Profile.json";
 import {
   buildStyles,
@@ -7,8 +6,7 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
-import { useRecoilValue } from "recoil";
-import AcessToken from "../../Atoms/AcessToken";
+import { setAuthToken } from "../../components/Utils/setAuthToken";
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -68,29 +66,22 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   const profileLevelStyle =
     profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
-
   let levelStart = Number(getLevelStart()) * 100;
-  // const token = useRecoilValue(AcessToken);
-  // console.log(token);
+  let data;
 
-  // const config = {
-  //   headers: {
-  //     Authorization: `JWT ${token}`,
-  //   },
-  // };
-
-  // const getData = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:2500/players/me/",
-  //       config
-  //     );
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // console.log("DATA:" + getData());
+  setAuthToken();
+  const getData = async () => {
+    try {
+      const response = await axios.get("http://localhost:2500/player/me");
+      console.log(response);
+      data = response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div id="Profile">
