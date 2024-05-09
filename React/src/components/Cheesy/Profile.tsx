@@ -1,22 +1,21 @@
-import React, { useEffect } from "react";
-import ProfileData from "../../Data/Profile.json";
+import React from "react";
+
 import {
   buildStyles,
   CircularProgressbarWithChildren,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import axios from "axios";
-import { setAuthToken } from "../../components/Utils/setAuthToken";
+import { getMeData } from "../Utils/GetMeData";
 
 const divStyleDashboard = { justifyContent: "center" };
 
 const divStyleProfile = { justifyContent: "space-between" };
 
-function getCircles() {
+function getCircles(person: { win_rate: number; achievements_rate: number }) {
   return (
     <div id="circles">
       <CircularProgressbarWithChildren
-        value={ProfileData.win_rate}
+        value={person.win_rate}
         styles={buildStyles({
           pathColor: `rgba(95, 202, 228, 1)`,
           textColor: "#FFFFFF",
@@ -27,10 +26,10 @@ function getCircles() {
         <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
           Win Rate
         </div>
-        <div style={{ fontSize: 50 }}>{ProfileData.win_rate}%</div>
+        <div style={{ fontSize: 50 }}>{person.win_rate}%</div>
       </CircularProgressbarWithChildren>
       <CircularProgressbarWithChildren
-        value={ProfileData.trophies_rate}
+        value={person.achievements_rate}
         styles={buildStyles({
           pathColor: `rgba(95, 202, 228, 1)`,
           textColor: "#FFFFFF",
@@ -41,7 +40,7 @@ function getCircles() {
         <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
           Trophies
         </div>
-        <div style={{ fontSize: 50 }}>{ProfileData.trophies_rate}%</div>
+        <div style={{ fontSize: 50 }}>{person.achievements_rate}%</div>
       </CircularProgressbarWithChildren>
     </div>
   );
@@ -67,20 +66,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
 
-  let data: any = {};
-  setAuthToken();
-  const getData = async () => {
-    try {
-      const response = await axios.get("http://localhost:2500/player/me");
-      console.log(response.data);
-      data = response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getData();
-  }, []);
+  let data: any = getMeData();
 
   const obj = {
     username: data.username ? data.username : "Dawdaw",
@@ -96,6 +82,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     games: data.games ? data.games : [0],
   };
 
+  console.log(obj.username);
   let levelStart = getLevelStart(obj) * 100;
   return (
     <div id="Profile">
@@ -144,7 +131,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
             </div>
           )}
         </div>
-        {getCircles()}
+        {getCircles(obj)}
       </div>
     </div>
   );
