@@ -99,19 +99,17 @@ function ChatFriends() {
 }
 
 interface MessageInfo {
-  name: string
-  message: string
-  time: string
+  name: string;
+  message: string;
+  time: string;
 }
 
-function Boxmessage( {name, message, time}: MessageInfo ) {
+function Receiver({ name, message, time }: MessageInfo) {
   return (
     <>
       <div className="Receiver">
         <div className="First-message">
-          <p>
-            {message}
-          </p>
+          <p>{message}</p>
         </div>
         <div className="Receiver-name-img">
           <div className="First-message-img">
@@ -127,12 +125,50 @@ function Boxmessage( {name, message, time}: MessageInfo ) {
   );
 }
 
+function Sender({ name, message, time }: MessageInfo) {
+  return (
+    <>
+      <div className="Sender">
+        <div className="Sender-container">
+          <div className="Sender-message">
+            <p>{message}</p>
+          </div>
+          <div className="Sender-name-img">
+            <div className="Sender-message-name">
+              <p>{time}</p>
+              <li>{name}</li>
+            </div>
+            <div className="Sender-message-img">
+              <img src="/bacharG.svg" id="bachar" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function ChatTyping() {
   return (
     <>
       <div className="Type-wrapper">
         <div className="Chat-box">
-          <Boxmessage name="Micheal The Nigger" time="8:45 AM" message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw" />
+          <Receiver
+            name="Micheal The Nigger"
+            time="8:45 AM"
+            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
+          />
+          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+          <Receiver
+            name="Micheal The Nigger"
+            time="9:00 AM"
+            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
+          />
+          <Sender name="Me" time="9:30 AM" message="Sebat sberdilla" />
         </div>
       </div>
     </>

@@ -117,6 +117,7 @@
   position: relative;
   overflow-y: scroll;
 }
+
 .Chat-box::before {
   content: "";
   background: linear-gradient(#0c0e14, transparent);
@@ -139,7 +140,7 @@
 
 .First-message {
   margin-left: 4rem;
-  width: 900px;
+  max-width: 700px;
   background: rgb(50, 54, 68);
   background: linear-gradient(
     0deg,
@@ -186,6 +187,61 @@
 }
 
 .First-message-name > p {
+  color: gray;
+  font-size: 13px;
+}
+
+.Sender {
+  position: relative;
+  top: 5%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Sender-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.Sender-message {
+  margin-right: 4rem;
+  max-width: 700px;
+  background-color: #1d90f5;
+  border-radius: 34px;
+  padding: 35px;
+}
+
+.Sender-message > p {
+  font-size: 18px;
+}
+
+.Sender-message-img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.Sender-name-img {
+  margin-right: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.Sender-message-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Sender-message-name > li {
+  list-style: none;
+  font-size: 16px;
+}
+
+.Sender-message-name > p {
   color: gray;
   font-size: 13px;
 }
