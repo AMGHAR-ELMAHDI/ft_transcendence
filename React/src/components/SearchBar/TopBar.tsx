@@ -1,16 +1,25 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import AcessToken from "../../Atoms/AccessToken";
+import { getMeData } from "../Utils/GetMeData";
+
+export function getPageName() {
+  let pageName = window.location.pathname;
+  if (pageName === "/") pageName = "Home";
+  return pageName;
+}
 
 function TopBar() {
-  const tokenValue = useRecoilValue(AcessToken);
+  let data: any = getMeData();
+
+  const obj = {
+    avatar: data.avatar ? data.avatar : "/bacharG.svg",
+    friends: data.friends ? data.friends : [0],
+  };
+
   return (
     <div id="TopBar">
       <div id="welcome-bar">
-        <h1>Good Evening,</h1>
-        <h1 id="nickName">DawDaw</h1>
-        <h1>{tokenValue[2]}</h1>
+        <h1 id="nickName">{getPageName()}</h1>
       </div>
 
       <div id="search-bar">
@@ -18,7 +27,7 @@ function TopBar() {
         <div className="NotifProfile">
           <IoNotificationsOutline id="notif" />
           <Link to={"/profile"}>
-            <img className="NotifProfilePic" src="/bacharG.svg" alt="bachar" />
+            <img className="NotifProfilePic" src={obj.avatar} alt="bachar" />
           </Link>
         </div>
       </div>
