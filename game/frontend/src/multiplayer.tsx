@@ -3,7 +3,7 @@ import PlayersReady from './App'
 import axios from 'axios';
 import './interface.css'
 
-function multiplayer() {
+function multiplayer( Name: any, Name2: any ) {
 	interface Vector {
 		x: number
 		y: number
@@ -27,8 +27,6 @@ function multiplayer() {
 		radius: number
 	}
 
-	const [PLAYER_1, GetFirst] = useState('USER1');
-	const [PLAYER_2, GetSecond] = useState('USER2');
 	const [DataReady, StatusCode] = useState<boolean>(false);
 
 	useEffect(()=> {
@@ -121,8 +119,8 @@ function multiplayer() {
 
 		const ball = new (Ball as any)(TwoVect(canvas.width / 2, canvas.height / 2), TwoVect(10, 10), 10)
 
-		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(15, 15), 20, 160, PLAYER_1)
-		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(15, 15), 20, 160, PLAYER_2)
+		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(15, 15), 20, 160, Name)
+		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(15, 15), 20, 160, Name2)
 		
 		function Score(ScorePlayer1: string, ScorePlayer2: string) { // let animation first
 			Sscore!.innerHTML = ScorePlayer2
@@ -166,13 +164,13 @@ function multiplayer() {
 		}
 
 		function connectBackend() {
-			const url = 'ws://e3r10p8:8000/game/host/socket-server/'
+			const url = 'ws://localhost:8000/game/host/socket-server/'
 			return new WebSocket(url)
 		}
 
 		function isWebSocketConnected(): boolean {
 			return objSocket && objSocket.readyState === WebSocket.OPEN;
-		}		
+		}
 
 		const objSocket = connectBackend()
 

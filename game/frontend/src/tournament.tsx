@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { WinnerI } from './atoms/Winner';
 import _LocalGame from './multiplayer2'
+import _OnlineGame from './multiplayer'
 import { useRecoilValue } from 'recoil';
 
 import './tournament.css'
@@ -11,10 +12,10 @@ function _tournament() {
 		<div className="tournCont">
 			<div className="tournament">
 				<div className="LeftJoin">
-					<div className="first">
+					<div className="first call">
 						<h1>Me</h1>
 					</div>
-					<div className="second">
+					<div className="second call">
 						<h1>...</h1>
 					</div>
 				</div>
@@ -34,10 +35,10 @@ function _tournament() {
 					</span>
 				</div>
 				<div className="RightJoin">
-					<div className="first">
+					<div className="first call">
 						<h1>...</h1>
 					</div>
-					<div className="second">
+					<div className="second call">
 						<h1>...</h1>
 					</div>
 				</div>
@@ -53,6 +54,7 @@ function tournament(NetType: any) {
 	const [Final, SetFinal] = useState<boolean>(false)
 	const [player1, setNameP] = useState<string>('...')
 	const [player2, setNameP2] = useState<string>('...')
+	const [FirstGame, RunFirstGame] = useState<boolean>(false)
 
 	useEffect(()=> {
 		const player_1 = document.querySelector('.LeftJoin .first')
@@ -112,13 +114,52 @@ function tournament(NetType: any) {
 			AnimationWinner?.classList.add('animate_winn')
 		}
 	}, [])
+
+	const [Player1, setName] = useState<string>('p1')
+	const [Player2, setName1] = useState<string>('p2')
+
+	useEffect(()=> {
+		var index = 0
+		var name = ""
+		var alphabets = 'abcdefghijklmnopqrstuvwxyz'
+		const players = document.querySelectorAll('.call')
+		for (let i = 0 ; i < 8; i++)
+			name += alphabets[Math.floor(Math.random() * alphabets.length - 1)]
+		if (NetType.NetType !== '') return
+
+		function isWebSocketConnected(): boolean {
+			return objSocket && objSocket.readyState === WebSocket.OPEN;
+		}
+
+		const objSocket = new WebSocket('ws://localhost:8000/ws/game/tn/')
+
+		objSocket.onopen = function() {
+			objSocket.send(JSON.stringify({
+				'type': 'info',
+				'name': name,
+			}))
+		}
+
+		objSocket.onmessage = function(e) {
+			const data = JSON.parse(e.data)
+			const dataType = data.type
+
+			if (dataType === 'identify') {
+				index = data.player
+				players[index - 1].innerHTML = name
+			}
+			if (dataType === 'firstGame')
+				setTimeout(()=> RunFirstGame(true), 3000)
+		}
+	})
+
 	return (
 		<div className='VirParent'>
-			{/* <div className="timer">0</div> */}
-			{(!run && !secondRun && !Final) && <_tournament/>}
+			{(!run && !secondRun && !Final && !FirstGame) && <_tournament/>}
 			{run && <_LocalGame type='local' Name1={player1} Name2={player2}/>}
 			{secondRun && <_LocalGame type='local2' Name1={player1} Name2={player2}/>}
 			{Final && <_LocalGame type='local3' Name1={player1} Name2={player2}/>}
+			{FirstGame && <_OnlineGame Name={Player1} Name2={Player2}/>}
 		</div>
 	)
 }

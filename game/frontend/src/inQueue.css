@@ -1,0 +1,9 @@
+.containent {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.containent h1 { 
+	color: white;
+	font-size: 70px;
+}

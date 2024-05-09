@@ -109,11 +109,34 @@ class GameConsumer(AsyncWebsocketConsumer):
 
 
 class TournamentM_(AsyncWebsocketConsumer):
-    def connect(self):
-        self.accept()
+    connections = {}
+    name = ''
 
-    def receive(self, text_data):
+    async def connect(self):
+        if len(TournamentM_.connections) + 1 == 5:
+            return
+        await self.accept()
+        self.index = len(TournamentM_.connections) + 1
+        TournamentM_.connections[self] = self.index
+        self.room_group_name = "bertouch"
+        await self.channel_layer.group_add(self.room_group_name, self.channel_name)
+
+        await self.send(text_data=json.dumps({
+            'type': 'identify',
+            'player': self.index,
+        }))
+
+        if len(TournamentM_.connections) == 4:
+            asyncio.ensure_future(self.StartTournament())
+
+    async def StartTournament(self):
+        await self.send(text_data=json.dumps({
+            'type': 'firstGame',
+        }))
+
+
+    async def receive(self, text_data):
         data = json.loads(text_data)
 
-    def disconnect(self):
-        pass
+        if (data['type'] == 'info'):
+            self.name = data['name']

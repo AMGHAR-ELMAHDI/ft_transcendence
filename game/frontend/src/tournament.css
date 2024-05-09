@@ -98,9 +98,10 @@
 }
 .void {
 	position: absolute;
+	border-radius: 50%;;
 }
 .animate_winn {
-	animation: winner 2.5s infinite linear;
+	animation: winner 2.5s infinite ease-in-out;
 }
 @keyframes slider {
 	0% {
@@ -118,18 +119,21 @@
 }
 @keyframes winner {
 	0% {
-		box-shadow: 0 0 5px yellow;
+		box-shadow: 0 0 100px 19px yellow,
+					0 0 200px 19px yellow;
 	}
 	50% {
-		box-shadow: 0 0 5px 9px yellow,
-				0 0 100px 9px yellow,
-				0 0 200px 9px yellow,
-				0 0 300px 9px yellow,
-				0 0 400px 9px yellow,
-				0 0 500px 9px yellow,
-				0 0 600px 9px yellow;
+		box-shadow:
+				0 0 100px 19px yellow,
+				0 0 200px 19px yellow,
+				0 0 300px 19px yellow,
+				0 0 400px 19px yellow,
+				0 0 500px 19px yellow,
+				0 0 600px 19px yellow,
+				0 0 9000px 19px yellow;
 	}
 	100% {
-		box-shadow: 0 0 5px yellow;
+		box-shadow: 0 0 100px 19px yellow,
+					0 0 200px 19px yellow;
 	}
 }
