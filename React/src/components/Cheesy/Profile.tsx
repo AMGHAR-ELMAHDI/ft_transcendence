@@ -6,6 +6,7 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
+import { setAuthToken } from "../Utils/setAuthToken";
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -67,6 +68,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   const boolRender = profileList === "RenderList" ? true : false;
   const [data, setData] = React.useState<any>({});
 
+  setAuthToken();
   const getData = async () => {
     try {
       const response = await axios.get("http://localhost:2500/player/me");

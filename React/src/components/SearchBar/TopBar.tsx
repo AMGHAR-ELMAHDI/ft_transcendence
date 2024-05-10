@@ -1,6 +1,5 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { getMeData } from "../Utils/GetMeData";
 
 export function getPageName() {
   let pageName = window.location.pathname;
@@ -10,7 +9,7 @@ export function getPageName() {
 }
 
 function TopBar() {
-  let data: any = getMeData();
+  let data: any = {};
 
   const obj = {
     username: data.username ? data.username : "Dawdaw",
@@ -35,7 +34,7 @@ function TopBar() {
         <div className="NotifProfile">
           <IoNotificationsOutline id="notif" />
           <Link to={"/profile"}>
-            <img className="NotifProfilePic" src="/bacharG.svg" alt="bachar" />
+            <img className="NotifProfilePic" src={obj.avatar} />
           </Link>
         </div>
       </div>
