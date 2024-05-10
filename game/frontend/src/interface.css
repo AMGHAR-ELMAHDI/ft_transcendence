@@ -154,3 +154,7 @@ canvas {
 	left: 50%;
 	transform: translateX(-50%);
 }
+.VirParent {
+	width: 100%;
+	height: 100svh;
+}

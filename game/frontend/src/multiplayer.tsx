@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react';
 import PlayersReady from './App'
+import _tournament from './tournament'
 import axios from 'axios';
 import './interface.css'
 
-function multiplayer( Name: any, Name2: any ) {
+interface LocalGameProps {
+	Type: string;
+	Name: string;
+	Name2: string;
+}
+
+function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 	interface Vector {
 		x: number
 		y: number
@@ -28,18 +35,16 @@ function multiplayer( Name: any, Name2: any ) {
 	}
 
 	const [DataReady, StatusCode] = useState<boolean>(false);
+	const [Exit, setExit] = useState<boolean>(false);
 
 	useEffect(()=> {
 		var index = 0
-		let StopGame = false
 		const KEY_UP = 38
 		const KEY_DOWN = 40
 		const canvas = document.getElementById('canvas') as HTMLCanvasElement
 		const Fscore = document.getElementById('Pscore')
 		const Sscore = document.getElementById('Sscore')
 		const winner = document.getElementById('winner')
-		const buttons = document.getElementById('buttons')
-		const retry = document.getElementById('retry')
 		const score = document.getElementById('score')
 		const context = canvas.getContext('2d')
 		
@@ -130,31 +135,17 @@ function multiplayer( Name: any, Name2: any ) {
 		}
 
 		function winGame(paddle: Paddles) {
-			StopGame = true
 			score!.style.display = 'none'
 			canvas!.style.cursor = 'default'
 			winner!.style.opacity = '1'
-			buttons!.style.opacity = '1'
-			buttons!.style.pointerEvents = 'visible'
 			winner!.innerHTML = paddle.player
+			console.log('before', Type)
+			if (Type === 'Online') {
+				console.log('after', Type)
+				localStorage.setItem('FirstWinner', paddle.player)
+				setExit(true)
+			}
 		}
-
-		function StartGame() {
-			score!.style.display = 'flex'
-			canvas!.style.cursor = 'none'
-			winner!.style.opacity = '0'
-			buttons!.style.opacity = '0'
-			paddle1.score = 0
-			paddle2.score = 0
-			Fscore!.innerHTML = '0'
-			Sscore!.innerHTML = '0'
-			buttons!.style.pointerEvents = 'none'
-			StopGame = false
-			GameLoop()
-		}
-
-		retry?.addEventListener('click', StartGame)
-
 
 		function BallSettings(paddle1: Paddles, paddle2: Paddles) {
 			if (paddle1.score >= 7)
@@ -164,7 +155,7 @@ function multiplayer( Name: any, Name2: any ) {
 		}
 
 		function connectBackend() {
-			const url = 'ws://localhost:8000/game/host/socket-server/'
+			const url = 'ws://e3r3p8:8000/game/host/socket-server/'
 			return new WebSocket(url)
 		}
 
@@ -226,8 +217,6 @@ function multiplayer( Name: any, Name2: any ) {
 		}
 
 		function GameLoop() {
-			if (StopGame)
-				return
 			context?.clearRect(0, 0, canvas.width, canvas.height)
 			window.requestAnimationFrame(GameLoop)
 
@@ -240,20 +229,20 @@ function multiplayer( Name: any, Name2: any ) {
 		// return (()=> {
 		// 	objSocket && objSocket.close()
 		// })
-	})
+	}, [])
 	return (
-		<div className="game">
-			<div className="play"></div>
-			<div className="score" id='score'>
-				<p id='Pscore'>0</p>
-				<p id='Sscore'>0</p>
-			</div>
-			<div className="winner" id='winner'></div>
-			<div id="buttons">
-				<button id='retry'>retry</button>
-				<button id='mods'>change Mods</button>
-			</div>
-			<canvas id="canvas"></canvas>
+		<div className='VirParent'>
+			{!Exit && 
+			<div className="game">
+				<div className="play"></div>
+				<div className="score" id='score'>
+					<p id='Pscore'>0</p>
+					<p id='Sscore'>0</p>
+				</div>
+				<div className="winner" id='winner'></div>
+				<canvas id="canvas"></canvas>
+			</div>}
+			{Exit && <_tournament NetType='fill' />}
 		</div>
 	);
 }

@@ -108,9 +108,16 @@ class GameConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({"type": "scored", "message": message}))
 
 
+
+# tournament code here -->
 class TournamentM_(AsyncWebsocketConsumer):
     connections = {}
-    name = ''
+    players = {
+        'name_1': '...',
+        'name_2': '...',
+        'name_3': '...',
+        'name_4': '...',
+    }
 
     async def connect(self):
         if len(TournamentM_.connections) + 1 == 5:
@@ -129,14 +136,45 @@ class TournamentM_(AsyncWebsocketConsumer):
         if len(TournamentM_.connections) == 4:
             asyncio.ensure_future(self.StartTournament())
 
-    async def StartTournament(self):
-        await self.send(text_data=json.dumps({
-            'type': 'firstGame',
-        }))
+    async def custom_Async(self, message, type):
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                "type": type,
+                "message": message,
+            },
+        )
 
+    async def StartTournament(self):
+        print('dkhal')
+        message = {
+            'type': 'firstGame',
+            'player1': '1',
+            'player2': '2',
+        }
+        await self.custom_Async(message, 'firstGame')
+
+    async def firstGame(self, event):
+        message = event['message']
+        await self.send(json.dumps({
+            'type': 'firstGame',
+            'message': message,
+        }))
 
     async def receive(self, text_data):
         data = json.loads(text_data)
 
-        if (data['type'] == 'info'):
-            self.name = data['name']
+        if (data['type'] == 'Player'):
+            self.players['name_' + str(data['index'])] = data['name']
+            message = {
+                'type': 'JoinedPlayers',
+                'array': self.players
+            }
+            await self.custom_Async(message ,'JoinedPlayers')
+    
+    async def JoinedPlayers(self, event):
+        message = event['message']
+        await self.send(json.dumps({
+            'type': 'JoinedPlayers',
+            'message': message
+        }))

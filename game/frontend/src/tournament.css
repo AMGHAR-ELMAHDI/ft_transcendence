@@ -96,13 +96,6 @@
 .cup:hover {
 	filter: drop-shadow(0 0 5px yellow);
 }
-.void {
-	position: absolute;
-	border-radius: 50%;;
-}
-.animate_winn {
-	animation: winner 2.5s infinite ease-in-out;
-}
 @keyframes slider {
 	0% {
 		transform: translateX(-100px) translateY(0%);
@@ -115,25 +108,5 @@
 	} */
 	100% {
 		transform: translateY(300px) translateX(0);
-	}
-}
-@keyframes winner {
-	0% {
-		box-shadow: 0 0 100px 19px yellow,
-					0 0 200px 19px yellow;
-	}
-	50% {
-		box-shadow:
-				0 0 100px 19px yellow,
-				0 0 200px 19px yellow,
-				0 0 300px 19px yellow,
-				0 0 400px 19px yellow,
-				0 0 500px 19px yellow,
-				0 0 600px 19px yellow,
-				0 0 9000px 19px yellow;
-	}
-	100% {
-		box-shadow: 0 0 100px 19px yellow,
-					0 0 200px 19px yellow;
 	}
 }
