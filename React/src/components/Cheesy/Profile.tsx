@@ -96,8 +96,6 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     games: data.games ? data.games : [0],
   };
 
-  console.log("profile user" + obj.username);
-
   let levelStart = getLevelStart(obj) * 100;
   return (
     <div id="Profile">

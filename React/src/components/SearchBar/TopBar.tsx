@@ -21,7 +21,6 @@ function TopBar() {
     try {
       const response = await axios.get("http://localhost:2500/player/me");
       setGotData(true);
-      console.log("--------------HERE-------------");
       setData(response.data);
     } catch (error) {
       console.log(error);
