@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
@@ -6,11 +6,13 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import AcessToken from "../../Atoms/AccessToken";
 import { setAuthToken } from "../Utils/setAuthToken";
+import IsLogged from "../../Atoms/IsLogged";
 
 function getGeneralInfo() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
+  const [Logged, setLogged] = useRecoilState(IsLogged);
 
   const obj = {
     username: username,
@@ -25,8 +27,7 @@ function getGeneralInfo() {
         var str = response.data;
         if (response.status === 200) {
           setTokenValue(str.access);
-          setAuthToken();
-
+          setLogged(true);
           console.log(str.access);
         }
       })
@@ -34,6 +35,10 @@ function getGeneralInfo() {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    if (Logged) setAuthToken();
+  }, []);
 
   return (
     <div>

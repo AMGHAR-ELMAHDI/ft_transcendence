@@ -5,11 +5,7 @@ import {
   CircularProgressbarWithChildren,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { getMeData } from "../Utils/GetMeData";
-import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
-import { useRecoilValue } from "recoil";
-import AcessToken from "../../Atoms/AccessToken";
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -97,9 +93,9 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     items: data.items ? data.items : [0],
     games: data.games ? data.games : [0],
   };
-  console.log();
 
   console.log("profile user" + obj.username);
+
   let levelStart = getLevelStart(obj) * 100;
   return (
     <div id="Profile">
