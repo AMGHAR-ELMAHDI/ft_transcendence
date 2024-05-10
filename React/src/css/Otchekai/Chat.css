@@ -66,6 +66,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   height: 1000px;
   width: 1628px;
 }
@@ -105,7 +106,7 @@
 }
 
 .Chat-box {
-  height: 900px;
+  height: 700px;
   width: 1550px;
   background: #323644;
   background: linear-gradient(
@@ -113,7 +114,6 @@
     rgba(50, 54, 68, 1) -30%,
     rgba(12, 14, 20, 1) 120%
   );
-  border-radius: 27px;
   position: relative;
   overflow-y: scroll;
 }
@@ -129,13 +129,16 @@
   align-items: flex-start;
   z-index: 5;
 }
-
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 .Receiver {
   position: relative;
   top: 5%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .First-message {
@@ -144,11 +147,11 @@
   background: rgb(50, 54, 68);
   background: linear-gradient(
     0deg,
-    rgba(50, 54, 68, 1) 20%,
+    rgba(50, 54, 68, 1) 65%,
     rgba(12, 14, 20, 1) 130%
   );
   border-radius: 34px;
-  padding: 35px;
+  padding: 20px;
 }
 
 #bachar {
@@ -196,6 +199,7 @@
   top: 5%;
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .Sender-container {
@@ -209,7 +213,7 @@
   max-width: 700px;
   background-color: #1d90f5;
   border-radius: 34px;
-  padding: 35px;
+  padding: 20px;
 }
 
 .Sender-message > p {
@@ -244,4 +248,37 @@
 .Sender-message-name > p {
   color: gray;
   font-size: 13px;
+}
+
+.Chat-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  width: 1550px;
+  background-color: rgb(42, 46, 58);
+  gap: 1rem;
+  border-bottom-left-radius: 27px;
+  border-bottom-right-radius: 27px;
+}
+
+.Input-box > input {
+  background-color: #424656;
+  border-radius: 17px;
+  padding: 15px;
+  width: 800px;
+  border: 1px solid #1e8ef3;
+  outline: 1px solid #1e8ef3;
+  font-size: medium;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 200;
+}
+
+.Input-box > input::placeholder {
+  color: white;
+}
+.Input-box > input:focus {
+  box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
+    rgba(30, 142, 243, 1) 0px 0px 0px 1px;
 }

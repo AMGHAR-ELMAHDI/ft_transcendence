@@ -54,7 +54,7 @@ function ChatFriends() {
           </div>
           <div className="Name-messages">
             <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey There Im Using Whatsapp!</p>
+            <p id="Last-message">mbanch lik dek mahdi bghit n...</p>
           </div>
         </div>
         <div className="Chat-Friendslist">
@@ -63,7 +63,7 @@ function ChatFriends() {
           </div>
           <div className="Name-messages">
             <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey There Im Using Whatsapp!</p>
+            <p id="Last-message">huh ?</p>
           </div>
         </div>
         <div className="Chat-Friendslist">
@@ -154,7 +154,7 @@ function ChatTyping() {
       <div className="Type-wrapper">
         <div className="Chat-box">
           <Receiver
-            name="Micheal The Nigger"
+            name="Micheal"
             time="8:45 AM"
             message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
             moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
@@ -162,13 +162,66 @@ function ChatTyping() {
           />
           <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
           <Receiver
-            name="Micheal The Nigger"
-            time="9:00 AM"
+            name="Micheal"
+            time="8:45 AM"
             message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
             moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
             moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
           />
-          <Sender name="Me" time="9:30 AM" message="Sebat sberdilla" />
+          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+          <Receiver
+            name="Micheal"
+            time="8:45 AM"
+            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
+          />
+          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+          <Receiver
+            name="Micheal"
+            time="8:45 AM"
+            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
+          />
+          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+          <Receiver
+            name="Micheal"
+            time="8:45 AM"
+            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
+          />
+          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+          <Receiver
+            name="Micheal"
+            time="8:45 AM"
+            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
+          />
+          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+          <Receiver
+            name="Micheal"
+            time="8:45 AM"
+            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
+          />
+          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+          <Receiver
+            name="Micheal"
+            time="8:45 AM"
+            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
+            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
+          />
+          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+        </div>
+        <div className="Chat-input">
+          <div className="Input-box">
+            <input type="text" placeholder="Type Something ..." />
+          </div>
         </div>
       </div>
     </>
