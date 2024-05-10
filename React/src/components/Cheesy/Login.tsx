@@ -5,6 +5,7 @@ import FriendBar from "./FriendBar";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import AcessToken from "../../Atoms/AccessToken";
+import { setAuthToken } from "../Utils/setAuthToken";
 
 function getGeneralInfo() {
   const [username, setUsername] = useState("");
@@ -24,6 +25,7 @@ function getGeneralInfo() {
         var str = response.data;
         if (response.status === 200) {
           setTokenValue(str.access);
+          setAuthToken();
 
           console.log(str.access);
         }

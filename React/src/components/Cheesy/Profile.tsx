@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   buildStyles,
@@ -6,6 +6,10 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { getMeData } from "../Utils/GetMeData";
+import { setAuthToken } from "../Utils/setAuthToken";
+import axios from "axios";
+import { useRecoilValue } from "recoil";
+import AcessToken from "../../Atoms/AccessToken";
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -65,8 +69,20 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   const profileLevelStyle =
     profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
+  const [data, setData] = React.useState<any>({});
 
-  let data: any = getMeData();
+  const getData = async () => {
+    try {
+      const response = await axios.get("http://localhost:2500/player/me");
+      console.log(response.data);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
 
   const obj = {
     username: data.username ? data.username : "Dawdaw",
@@ -81,8 +97,9 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     items: data.items ? data.items : [0],
     games: data.games ? data.games : [0],
   };
+  console.log();
 
-  console.log(obj.username);
+  console.log("profile user" + obj.username);
   let levelStart = getLevelStart(obj) * 100;
   return (
     <div id="Profile">
