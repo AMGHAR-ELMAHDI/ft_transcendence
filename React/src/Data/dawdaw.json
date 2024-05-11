@@ -1,41 +1,147 @@
 {
-	"username": "zmakhkha",
-	"picture": "https://source.unsplash.com/featured/300x201",
-	"first_name": "Othman",
-	"last_name": "Chekairi",
-	"level": 10.9,
-	"win_rate": 75,
-	"trophies_rate": 50,
-	"Paddles": [
-	  {
-		"id": 1,
-		"PaddleName": "dawdaw",
-		"picture": "https://source.unsplash.com/featured/300x201",
-		"Price": 20
-	  },
-	  {
-		"id": 2,
-		"PaddleName": "zdawdaw",
-		"picture": "https://source.unsplash.com/featured/300x201",
-		"Price": 201
-	  },
-	  {
-		"id": 3,
-		"PaddleName": "rdawdaw",
-		"picture": "https://source.unsplash.com/featured/300x201",
-		"Price": 259
-	  },
-	  {
-		"id": 4,
-		"PaddleName": "vdawdaw",
-		"picture": "https://source.unsplash.com/featured/300x201",
-		"Price": 100
-	  },
-	  {
-		"id": 5,
-		"PaddleName": "xdawdaw",
-		"picture": "https://source.unsplash.com/featured/300x201",
-		"Price": 30
-	  }
-	]
-  }
+  "all_achievements": [],
+  "all_items": [
+    {
+      "id": 1,
+      "type": "B",
+      "name": "Ball 1",
+      "price": "10.00",
+      "path": "ball_1.jpg"
+    },
+    {
+      "id": 2,
+      "type": "B",
+      "name": "Ball 2",
+      "price": "10.00",
+      "path": "ball_2.jpg"
+    },
+    {
+      "id": 3,
+      "type": "B",
+      "name": "Ball 3",
+      "price": "10.00",
+      "path": "ball_3.jpg"
+    },
+    {
+      "id": 4,
+      "type": "B",
+      "name": "Ball 4",
+      "price": "10.00",
+      "path": "ball_4.jpg"
+    },
+    {
+      "id": 5,
+      "type": "B",
+      "name": "Ball 5",
+      "price": "10.00",
+      "path": "ball_5.jpg"
+    },
+    {
+      "id": 6,
+      "type": "P",
+      "name": "Paddle 1",
+      "price": "15.00",
+      "path": "paddle_1.jpg"
+    },
+    {
+      "id": 7,
+      "type": "P",
+      "name": "Paddle 2",
+      "price": "15.00",
+      "path": "paddle_2.jpg"
+    },
+    {
+      "id": 8,
+      "type": "P",
+      "name": "Paddle 3",
+      "price": "15.00",
+      "path": "paddle_3.jpg"
+    },
+    {
+      "id": 9,
+      "type": "P",
+      "name": "Paddle 4",
+      "price": "15.00",
+      "path": "paddle_4.jpg"
+    },
+    {
+      "id": 10,
+      "type": "P",
+      "name": "Paddle 5",
+      "price": "15.00",
+      "path": "paddle_5.jpg"
+    },
+    {
+      "id": 11,
+      "type": "G",
+      "name": "Background 1",
+      "price": "5.00",
+      "path": "bg_1.jpg"
+    },
+    {
+      "id": 12,
+      "type": "G",
+      "name": "Background 2",
+      "price": "5.00",
+      "path": "bg_2.jpg"
+    },
+    {
+      "id": 13,
+      "type": "G",
+      "name": "Background 3",
+      "price": "5.00",
+      "path": "bg_3.jpg"
+    },
+    {
+      "id": 14,
+      "type": "G",
+      "name": "Background 4",
+      "price": "5.00",
+      "path": "bg_4.jpg"
+    },
+    {
+      "id": 15,
+      "type": "G",
+      "name": "Background 5",
+      "price": "5.00",
+      "path": "bg_5.jpg"
+    },
+    {
+      "id": 16,
+      "type": "A",
+      "name": "Avatar 1",
+      "price": "20.00",
+      "path": "avatar_1.jpg"
+    },
+    {
+      "id": 17,
+      "type": "A",
+      "name": "Avatar 2",
+      "price": "20.00",
+      "path": "avatar_2.jpg"
+    },
+    {
+      "id": 18,
+      "type": "A",
+      "name": "Avatar 3",
+      "price": "20.00",
+      "path": "avatar_3.jpg"
+    },
+    {
+      "id": 19,
+      "type": "A",
+      "name": "Avatar 4",
+      "price": "20.00",
+      "path": "avatar_4.jpg"
+    },
+    {
+      "id": 20,
+      "type": "A",
+      "name": "Avatar 5",
+      "price": "20.00",
+      "path": "avatar_5.jpg"
+    }
+  ],
+  "owned_achievements": [],
+  "owned_items": []
+}
