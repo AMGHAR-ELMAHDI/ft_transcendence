@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import AcessToken from "../../Atoms/AccessToken";
+import { setAuthToken } from "../Utils/setAuthToken";
+import IsLogged from "../../Atoms/IsLogged";
 
 function getGeneralInfo() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
+  const [Logged, setLogged] = useRecoilState(IsLogged);
 
-  const car = {
+  const obj = {
     username: username,
     password: password,
   };
@@ -16,17 +22,14 @@ function getGeneralInfo() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      .post("http://localhost:2500/auth/jwt/create", car)
+      .post("http://localhost:2500/auth/jwt/create", obj)
       .then((response) => {
-        console.log(response);
-
+        var str = response.data;
         if (response.status === 200) {
-          console.log("Body" + response.data);
-          const Login = JSON.parse(response.data);
-          console.log(Login);
-        }
-        if (response.status === 401) {
-          console.log("Invalid Username or Password");
+          setTokenValue(str.access);
+          setLogged(true);
+          localStorage.setItem("token", str.access);
+          console.log(str.access);
         }
       })
       .catch((error) => {
@@ -34,8 +37,12 @@ function getGeneralInfo() {
       });
   };
 
+  useEffect(() => {
+    if (Logged) setAuthToken();
+  }, []);
+
   return (
-    <form>
+    <div>
       <input
         className="GeneralInfoInput"
         type="text"
@@ -53,7 +60,7 @@ function getGeneralInfo() {
       <button className="SetButton SetSubmit" onClick={handleSubmit}>
         Submit
       </button>
-    </form>
+    </div>
   );
 }
 
@@ -71,19 +78,6 @@ function MainSettings() {
 }
 
 function Login() {
-  //  useEffect(() => {
-  //   axios
-  //     .post("http://localhost:8000/get/")
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         const LeaderBoard = JSON.parse(response.data);
-  //         console.log(LeaderBoard[0]);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // });
   return (
     <>
       <div className="AppClass">
@@ -94,7 +88,6 @@ function Login() {
             <MainSettings />
           </div>
         </div>
-        <FriendBar />
       </div>
     </>
   );

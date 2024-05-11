@@ -30,3 +30,8 @@ python manage.py migrate
 ```bash
 python manage.py seed_db
 ```
+- Running the server
+```bash
+python manage.py runserver 2500
+```
+

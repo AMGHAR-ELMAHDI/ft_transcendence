@@ -1,6 +1,5 @@
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
-import FriendBar from "./FriendBar";
 
 export default function GameContainer() {
   return (
@@ -10,7 +9,6 @@ export default function GameContainer() {
         <div className="main">
           <TopBar />
         </div>
-        <FriendBar />
       </div>
     </>
   );

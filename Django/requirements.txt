@@ -12,6 +12,7 @@ daphne==4.1.2
 defusedxml==0.8.0rc2
 Django==4.2.11
 django-channels==0.7.0
+django-cors-headers==4.3.1
 django-filter==24.2
 django-templated-mail==1.1.1
 djangorestframework==3.15.1

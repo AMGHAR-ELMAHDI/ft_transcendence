@@ -7,7 +7,7 @@ interface ProfileMainProps {
 }
 
 function ProfileMain({ inRender }: ProfileMainProps) {
-  var toRender = <History />;
+  let toRender = <History />;
 
   if (inRender === "Items") toRender = <ProfileItems />;
   else if (inRender === "Trophies") toRender = <ProfileItems />;

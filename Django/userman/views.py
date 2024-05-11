@@ -179,7 +179,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 # } ,
                 'games': games_serializer.data,
                 'achievements' : achievements_per_user_serializer.data,
-                'items':items.values,
+                'items':items,
             }
             return Response(data)
         elif request.method == 'PUT':
