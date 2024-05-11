@@ -38,6 +38,9 @@ function TopBar() {
   };
 
   setAuthToken();
+  let vary = localStorage.getItem("token");
+  console.log("vary: " + vary);
+  
   const getData = async () => {
     try {
       const response = await axios.get("http://localhost:2500/player/me");
@@ -50,7 +53,7 @@ function TopBar() {
 
   const Logged = useRecoilValue(IsLogged);
 
-  if (Logged == true && gotData === false) getData();
+  getData();
 
   const obj = {
     username: data.username ? data.username : "Dawdaw",
@@ -58,6 +61,7 @@ function TopBar() {
     friends: data.friends ? data.friends : [0],
     level: data.level ? data.level : 0,
   };
+  if (Logged == true && gotData === true && obj.username === "DawDaw") getData();
   let print = <h1>Good Evening,</h1>;
   let username = <h1 id="nickName">{obj.username}</h1>;
   return (
