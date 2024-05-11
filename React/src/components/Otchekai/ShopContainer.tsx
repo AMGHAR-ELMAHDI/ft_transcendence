@@ -75,9 +75,6 @@ function ShopDesign() {
     <>
       <div className="container">
         <div className="wrapper">
-          <div className="Header-shop">
-            <h1 id="First-header">SHOP</h1>
-          </div>
           <div className="Items">
             <GetPaddle />
             <GetBackground />
@@ -93,9 +90,7 @@ function Card() {
   return (
     <>
       <div className="Card-container">
-        <div className="Item-img">
-          <img id="cart" src="/Frame 132.svg" />
-        </div>
+        <div className="Item-img"></div>
         <div className="Item-value">
           <div className="Item-title">here</div>
           <div className="Item-price">20$</div>

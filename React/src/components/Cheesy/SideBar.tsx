@@ -29,7 +29,7 @@ function SideBar() {
       setShowLogoutPopup(false);
     };
 
-    
+
   return (
     <div id="SideBar">
       <Link to={"/"}><img id="logo" src="logo.svg" alt="logo" /></Link>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import DashboardContainer from "./components/Cheesy/DashboardContainer";
 import ProfileContainer from "./components/Cheesy/ProfileContainer";
-import ChatContainer from "./components/Cheesy/ChatContainer";
+import ChatContainer from "./components/Otchekai/ChatContainer";
 import GameContainer from "./components/Cheesy/GameContainer";
 import LeaderBoardContainer from "./components/Cheesy/LeaderBoardContainer";
 import NotFound from "./components/Cheesy/NotFound";

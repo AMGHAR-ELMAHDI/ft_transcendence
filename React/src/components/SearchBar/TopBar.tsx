@@ -12,9 +12,30 @@ export function getPageName() {
   return pageName;
 }
 
+function DropdownMenu() {
+  return (
+    <div className="dropdown-menu">
+      <ul>
+        <li>Menu 1</li>
+        <li>Menu 2</li>
+        <li>Menu 3</li>
+      </ul>
+    </div>
+  );
+}
+
 function TopBar() {
   const [data, setData] = React.useState<any>({});
   const [gotData, setGotData] = React.useState(false);
+  const [isDropdownVisible, setDropdownVisible] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    setDropdownVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownVisible(false);
+  };
 
   setAuthToken();
   const getData = async () => {
@@ -53,9 +74,17 @@ function TopBar() {
         <input id="search" type="text" placeholder="Search" />
         <div className="NotifProfile">
           <IoNotificationsOutline id="notif" />
-          <Link to={"/profile"}>
-            <img className="NotifProfilePic" src={obj.avatar} />
-          </Link>
+          {/* <Link to={"/profile"}> */}
+          <div>
+            <img
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="NotifProfilePic"
+              src={obj.avatar}
+            />
+            {isDropdownVisible && <DropdownMenu />}
+          </div>
+          {/* </Link> */}
         </div>
       </div>
     </div>

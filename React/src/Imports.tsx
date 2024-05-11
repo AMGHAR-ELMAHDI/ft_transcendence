@@ -12,3 +12,4 @@ import "./css/CheesyCss/Settings.css";
 import "./css/CheesyCss/NotFound.css";
 import "./css/CheesyCss/Logout.css";
 import "./css/Otchekai/Shop.css";
+import "./css/Otchekai/Chat.css";
