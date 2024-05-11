@@ -82,6 +82,11 @@
   padding: 0 0.8rem;
 }
 
+.Item-img > img{
+  width: 100%;
+  height: 100%;
+}
+
 .Item-img {
   display: flex;
   justify-content: center;

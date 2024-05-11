@@ -88,7 +88,6 @@ function Login() {
             <MainSettings />
           </div>
         </div>
-        <FriendBar />
       </div>
     </>
   );

@@ -53,7 +53,7 @@ function TopBar() {
 
   const Logged = useRecoilValue(IsLogged);
 
-  getData();
+  // getData();
 
   const obj = {
     username: data.username ? data.username : "Dawdaw",

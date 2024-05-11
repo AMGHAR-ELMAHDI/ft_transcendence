@@ -47,43 +47,49 @@ function GetPaddle() {
   );
 }
 
-// function GetBackground() {
-//   const data = useRecoilValue(ShopItems);
-//   const background = data.filter((item: any) => item?.type === "B");
-//   return (
-//     <>
-//       <div className="Background item">
-//         <h1 id="Paddles-header">Backgrounds</h1>
-//         <div className="Paddle-holder">
-//           <Card />
-//           <Card />
-//           <Card />
-//           <Card />
-//           <Card />
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
+function GetBackground() {
+  const data = useRecoilValue(ShopItems);
+  const background = data.filter((item: any) => item?.type === "B");
+  return (
+    <>
+      <div className="Background item">
+        <h1 id="Paddles-header">Backgrounds</h1>
+        <div className="Paddle-holder">
+          {background.map((item: any) => (
+            <Card
+              key={item.id}
+              name={item.name}
+              price={item.price}
+              image={item.path}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
 
-// function GetAvatar() {
-//   const data = useRecoilValue(ShopItems);
-//   const avatar = data.filter((item: any) => item?.type === "A");
-//   return (
-//     <>
-//       <div className="Avatar item">
-//         <h1 id="Paddles-header">Avatars</h1>
-//         <div className="Paddle-holder">
-//           <Card />
-//           <Card />
-//           <Card />
-//           <Card />
-//           <Card />
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
+function GetAvatar() {
+  const data = useRecoilValue(ShopItems);
+  const avatar = data.filter((item: any) => item?.type === "A");
+  return (
+    <>
+      <div className="Avatar item">
+        <h1 id="Paddles-header">Avatars</h1>
+        <div className="Paddle-holder">
+          {avatar.map((item: any) => (
+            <Card
+              key={item.id}
+              name={item.name}
+              price={item.price}
+              image={item.path}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
 
 function ShopDesign() {
   const [shopItems, setShopItems] = useRecoilState(ShopItems);
@@ -107,8 +113,8 @@ function ShopDesign() {
         <div className="wrapper">
           <div className="Items">
             <GetPaddle />
-            {/* <GetBackground />
-            <GetAvatar /> */}
+            <GetBackground />
+            <GetAvatar />
           </div>
         </div>
       </div>

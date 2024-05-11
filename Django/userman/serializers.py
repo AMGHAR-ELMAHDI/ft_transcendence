@@ -46,7 +46,6 @@ class PlayerSerializer(serializers.ModelSerializer):
         extra_kwargs = {'level': {'read_only': True},
                         'coins': {'read_only': True},
                         }
-
 class FriendshipRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = FriendshipRequest
@@ -82,11 +81,12 @@ class AchievementPerUserSerializer(serializers.ModelSerializer):
 
 class ItemsPerUserSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(source = 'user.id', read_only=True)
-    item_title = serializers.CharField(source = 'Item.title', read_only = True)
+    item_id = serializers.CharField(source = 'Item.id', read_only = True)
+    item_title = serializers.CharField(source = 'Item.name', read_only = True)
     item_path = serializers.CharField(source = 'Item.path', read_only = True)
     class Meta:
         model = ItemsPerUser
-        fields = ['user_id', 'item_path']
+        fields = ['user_id', 'item_id', 'item_path', 'item_title']
 
 class PlayerSearchSerializer(serializers.ModelSerializer):
     class Meta:
@@ -96,8 +96,9 @@ class PlayerSearchSerializer(serializers.ModelSerializer):
 class LeaderBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['username', 'first_name', 'last_name', 'image', 'level', 'coins']
-
+        fields = ['username', 'first_name', 'last_name', 'image', 'level', 'coins', 'won_matches']
+    def get_won_matches(self, player):
+        return player.get_won_games_count
 
 class SettingsSerializer (serializers.ModelSerializer):
     class Meta:
