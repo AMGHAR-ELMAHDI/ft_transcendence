@@ -43,9 +43,10 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 1000px;
+  height: 1400px;
   overflow-y: scroll;
   padding: 0 2rem;
+  margin-top: 2rem;
 }
 
 .Items::-webkit-scrollbar-track {
@@ -88,7 +89,6 @@
   height: 370px;
   border-radius: 15px;
   background-color: #c8f1ff;
-  background-image: url(/bingbong.jpeg);
   background-position: center;
   background-size: cover;
   cursor: pointer;

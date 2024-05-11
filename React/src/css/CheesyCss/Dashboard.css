@@ -19,8 +19,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  /* background-color: #5fcae4; */
-  /* max-height: 800px; */
 }
 
 #DashboardHistory {
@@ -37,13 +35,29 @@
   background-position: center;
   display: flex;
   flex: 1;
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out;
   opacity: 0.6;
+  position: relative;
 }
 
 #Dashboard-Main-GameModeContainer:hover {
   opacity: 1;
   scale: 1.01;
+  cursor: pointer;
+}
+
+#Dashboard-Main-GameModeContainer:hover::before {
+  content: "VS PLAYER";
+  position: absolute;
+  top: 45%;
+  left: 22%;
+  font-size: 5rem;
+  font-family: cool;
+  letter-spacing: 5px;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #Dashboard-Secondary-GameModeContainer {
@@ -59,8 +73,10 @@
   background-position: center;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   height: 290px;
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out;
   opacity: 0.6;
+  cursor: pointer;
+  position: relative;
 }
 
 #Dashboard-Secondary-GameModeContainer > *:hover {
@@ -68,20 +84,53 @@
   scale: 1.01;
 }
 
+#Dashboard-Secondary-GameModeContainer > *:hover::before {
+  content: "VS";
+  position: absolute;
+  top: 45%;
+  left: 22%;
+  font-size: 3.9rem;
+  font-family: cool;
+  letter-spacing: 5px;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 #Dashboard-Secondary-tournament {
   background-image: url("/Tour2.png");
   background-position: center 81%;
 }
 
+#Dashboard-Secondary-tournament:hover::before {
+  content: "TOURNAMENT";
+  top: 25%;
+  left: 15.2%;
+}
+
 #Dashboard-Secondary-bot {
-  background-image: url("/robot.png");
+  background-image: url("/robot2.png");
   background-position: center 60%;
+}
+
+#Dashboard-Secondary-bot:hover::before {
+  content: "VS AI";
+  top: 28.1%;
+  left: 38.5%;
+  font-size: 4rem;
 }
 
 #Dashboard-Secondary-practice {
   background-image: url("/practice2.png");
   background-position: center 61%;
-  background-color: #5fcae4;
+}
+
+#Dashboard-Secondary-practice:hover::before {
+  content: "PRACTICE";
+  top: 34%;
+  left: 15%;
+  font-size: 3.5rem;
 }
 
 .extraModes {

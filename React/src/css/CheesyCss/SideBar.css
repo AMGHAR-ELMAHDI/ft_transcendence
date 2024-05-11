@@ -57,12 +57,12 @@
   stroke: #1d90f5;
 }
 
-.sideImgsBlue:hover, .sideImg:hover {
+.sideImgsBlue:hover,
+.sideImg:hover {
   filter: drop-shadow(0 0 20px #1d90f5);
 }
 
-
-.SideBottom{
+.SideBottom {
   display: flex;
   flex-direction: column;
   justify-content: center;

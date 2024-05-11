@@ -1,0 +1,13 @@
+{
+  "avatar": "/media/default.png",
+  "username": "user1",
+  "first_name": "",
+  "last_name": "",
+  "level": 0,
+  "win_rate": 0,
+  "achievements_rate": 0,
+  "friends": { "online": [], "offline": [] },
+  "games": [],
+  "achievements": [],
+  "items": []
+}

@@ -24,7 +24,7 @@ function getSecurity() {
 function getGeneralInfo() {
   return (
     <div className="GeneralInfoContainer">
-      <form>
+      <form action="">
         <div>
           <input
             className="GeneralInfoInput"

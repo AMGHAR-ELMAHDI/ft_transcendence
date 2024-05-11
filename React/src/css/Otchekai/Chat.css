@@ -2,13 +2,20 @@
   font-family: cool;
   src: url(../../css/Fonts/Panton/Panton-Trial-Bold.ttf);
 }
+.main{
+  /* background-color: #323644; */
+}
 
 .Chat-wrapper {
-  /* border: solid red; */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 4rem 4rem 4rem 0;
+  /* border: 1px solid #1e8ef3; */
 }
 
 #Chatlogo {
-  font-size: 90px;
+  font-size: 3.5rem;
   font-family: cool;
   width: fit-content;
 }
@@ -19,7 +26,6 @@
 }
 
 .Friends-wrapper {
-  height: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,16 +70,17 @@
 
 .Type-wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  height: 1000px;
-  width: 1628px;
+  flex: 2;
+  /* width: 1628px; */
 }
 
 .Chat-container {
   display: flex;
-  gap: 10rem;
+  flex: 1;
+  gap: 6rem;
 }
 
 .Chat-headers {
@@ -106,8 +113,8 @@
 }
 
 .Chat-box {
-  height: 700px;
-  width: 1550px;
+  height: 1000px;
+  width: 100%;
   background: #323644;
   background: linear-gradient(
     0deg,
@@ -255,7 +262,8 @@
   justify-content: center;
   align-items: center;
   height: 10%;
-  width: 1550px;
+  /* width: 1550px; */
+  width: 100%;
   background-color: rgb(42, 46, 58);
   gap: 1rem;
   border-bottom-left-radius: 27px;
@@ -273,12 +281,26 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 200;
+  transition: 0.4s;
 }
 
 .Input-box > input::placeholder {
   color: white;
 }
-.Input-box > input:focus {
+.Input-box > input:hover {
+  box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
+    rgba(30, 142, 243, 1) 0px 0px 0px 1px;
+}
+
+#bottona {
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #1d90f5;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+#bottona:hover {
   box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
     rgba(30, 142, 243, 1) 0px 0px 0px 1px;
 }

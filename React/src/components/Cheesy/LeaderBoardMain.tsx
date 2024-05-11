@@ -1,99 +1,115 @@
 import axios from "axios";
-import Data from "../../Data/LeaderBoardData.json";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { setAuthToken } from "../Utils/setAuthToken";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { Link } from "react-router-dom";
+import LeaderData from "../../Atoms/LeaderData";
 
 function getTop3() {
-  const LeaderBoardData = Data;
+  const leaderBoardData = useRecoilValue(LeaderData);
+
+  if (leaderBoardData.length < 3) return <h1>There aren't Enough PLayers</h1>;
+
+  const top3: any = leaderBoardData.slice(0, 3);
+
   return (
     <div className="Top3">
       <div className="First">
-        <div className="crownImageContainer">
+        <div className="topImgsContainer">
           <img
             className="topImgs"
-            src={LeaderBoardData.LeaderBoard[0].picture}
-            alt="FirstPic"
+            src={top3[0].image}
+            alt={top3[0].username + "picture"}
           />
-          <img className="crown" src="/LeaderCup.svg" alt="crown" />
         </div>
-        <h1 className="toph1">{LeaderBoardData.LeaderBoard[0].username}</h1>
+        <h1 className="toph1 Panton">{top3[0].username}</h1>
       </div>
       <div className="SecondThird">
         <div className="Second">
-          <img
-            className="topImgs"
-            src={LeaderBoardData.LeaderBoard[1].picture}
-            alt="SecondPic"
-          />
-          <h1 className="toph1">{LeaderBoardData.LeaderBoard[1].username}</h1>
+          <div className="topImgsContainer">
+            <img
+              className="topImgs"
+              src={top3[1].image}
+              alt={top3[1].username + "picture"}
+            />
+          </div>
+          <h1 className="toph1 Panton">{top3[1].username}</h1>
         </div>
         <div className="Third">
-          <img
-            className="topImgs"
-            src={LeaderBoardData.LeaderBoard[2].picture}
-            alt="ThirdPic"
-          />
-          <h1 className="toph1">{LeaderBoardData.LeaderBoard[2].username}</h1>
+          <div className="topImgsContainer">
+            <img
+              className="topImgs"
+              src={top3[2].image}
+              alt={top3[2].username + "picture"}
+            />
+          </div>
+          <h1 className="toph1 Panton">{top3[2].username}</h1>
         </div>
       </div>
     </div>
   );
 }
 
-function getTheRest() {
-  const LeaderBoardData = Data;
+function getToolTip() {
   return (
     <>
       <div className="LeaderBoardToolTip">
         <div className="TooltipLeft">
           <div className="TooltipLeftRank">
-            <h1 className="ToolTipColor">Rank</h1>
+            <h1 className="ToolTipColor Panton">Rank</h1>
             <div />
           </div>
           <div />
         </div>
         <div className="TooltipRight">
           <div className="TooltipRightUser">
-            <h1 className="ToolTipColor">UserName</h1>
+            <h1 className="ToolTipColor Panton">UserName</h1>
           </div>
           <div className="TooltipRightRest">
-            <h1 className="TooltipRightWins ToolTipColor">Games Won</h1>
-            <h1 className="TooltipRightLevel ToolTipColor">Level</h1>
+            <h1 className="TooltipRightWins ToolTipColor Panton">Games Won</h1>
+            <h1 className="TooltipRightLevel ToolTipColor Panton">Level</h1>
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+function getTheRest() {
+  const leaderBoardData = useRecoilValue(LeaderData);
+  if (leaderBoardData.length <= 3) return <div />;
+
+  const rest: any = leaderBoardData.slice(3);
+  return (
+    <>
+      {getToolTip()}
       <div className="LeaderBoardRest">
         <ul>
-          {LeaderBoardData.LeaderBoard.map(
-            (user) =>
-              user.id > 3 && (
-                <li
-                  key={user.id}
-                  id={user.id.toString()}
-                  className={user.id % 2 == 0 ? "SpecialCase" : ""}
-                >
-                  <div className="LeaderRestLeft">
-                    <div className="idAndLine">
-                      <h1>{user.id}</h1>
-                      <div className="lineLi" />
-                    </div>
-                    <img
-                      className="RestImgs"
-                      src={user.picture}
-                      alt="userPic"
-                    />
-                  </div>
-                  <div className="LeaderRestRight">
-                    <div className="LeaderRestRighUsrtName">
-                      <h1>{user.username}</h1>
-                    </div>
-                    <div className="LeaderRestRightLvl">
-                      <h1 className="UserGamesWon">{user.games_won}</h1>
-                      <h1 className="UserLevel">{user.level}</h1>
-                    </div>
-                  </div>
-                </li>
-              )
-          )}
+          {rest.map((user: any, index: number) => (
+            <li
+              key={user.username}
+              className={(index + 3) % 2 == 0 ? "SpecialCase" : ""}
+            >
+              <div className="LeaderRestLeft">
+                <div className="idAndLine">
+                  <h1 className="Panton">{index + 3}</h1>
+                  <div className="lineLi" />
+                </div>
+                <img className="RestImgs" src={user.image} alt="userPic" />
+              </div>
+              <div className="LeaderRestRight">
+                <div className="LeaderRestRighUsrtName">
+                  <Link to={"/profile"}>
+                    <h1 className="Panton">{user.username}</h1>
+                  </Link>
+                </div>
+                <div className="LeaderRestRightLvl">
+                  <h1 className="UserGamesWon Panton">{user.games_won}</h1>
+                  <h1 className="UserLevel Panton">{user.level}</h1>
+                </div>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     </>
@@ -101,22 +117,26 @@ function getTheRest() {
 }
 
 function LeaderBoardMain() {
+  const [data, setData] = useRecoilState(LeaderData);
+
+  setAuthToken();
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:2500/player/leaderboard"
+      );
+      setData(response.data);
+      console.log(data.map((user: any) => console.log(user.username)));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/get/")
-      .then((response) => {
-        if (response.status === 200) {
-          const LeaderBoard = JSON.parse(response.data);
-          console.log(LeaderBoard[0]);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+    getData();
+  }, []);
+
   return (
     <div className="LeaderBoardContainer">
-      <h1>LEADERBOARD</h1>
       {getTop3()}
       {getTheRest()}
     </div>

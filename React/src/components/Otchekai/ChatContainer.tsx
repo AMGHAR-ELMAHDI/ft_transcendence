@@ -11,6 +11,7 @@ function ChatContainer() {
           <TopBar />
           <ChatSystem />
         </div>
+        <FriendBar />
       </div>
     </>
   );
@@ -23,7 +24,7 @@ function ChatSystem() {
     <>
       <div className="Chat-wrapper">
         <div className="Chat-headers">
-          <h1 id="Chatlogo">Chats</h1>
+          <h1 id="Chatlogo">Friends</h1>
           <div className="Friend-header">
             <div className="Friend-header-img">
               <img src="/bacharG.svg" id="bachar" />
@@ -72,7 +73,7 @@ function ChatFriends() {
           </div>
           <div className="Name-messages">
             <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey There Im Using Whatsapp!</p>
+            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
           </div>
         </div>
         <div className="Chat-Friendslist">
@@ -81,7 +82,7 @@ function ChatFriends() {
           </div>
           <div className="Name-messages">
             <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey There Im Using Whatsapp!</p>
+            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
           </div>
         </div>
         <div className="Chat-Friendslist">
@@ -90,7 +91,7 @@ function ChatFriends() {
           </div>
           <div className="Name-messages">
             <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey There Im Using Whatsapp!</p>
+            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
           </div>
         </div>
       </div>
@@ -221,6 +222,9 @@ function ChatTyping() {
         <div className="Chat-input">
           <div className="Input-box">
             <input type="text" placeholder="Type Something ..." />
+          </div>
+          <div className="Chat-send-button">
+            <img src="/Send-button.svg" id="bottona" />
           </div>
         </div>
       </div>
