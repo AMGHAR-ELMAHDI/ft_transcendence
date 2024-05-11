@@ -84,6 +84,8 @@ class Friendship(models.Model):
     player1 = models.ForeignKey(Player, related_name='friendships1', on_delete=models.CASCADE)
     player2 = models.ForeignKey(Player, related_name='friendships2', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        unique_together = ['player1', 'player2']
     
 class FriendshipRequest(models.Model):
     STATUS_PENDING = 'P'

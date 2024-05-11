@@ -52,6 +52,7 @@
             socket.onmessage = function(e) {
                 const data = JSON.parse(e.data);
                 console.log(data['user'])
+                console.log(data['timestamp'])
                 const msg = data['user'] + " : " + data['message']
                 document.querySelector('#chat-log').value += (msg + '\n');
             };
