@@ -142,6 +142,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             #friends
             online_friends = player.friends.filter(status=Player.STATUS_ONLINE)[:10]
             offline_friends = player.friends.filter(status=Player.STATUS_OFFLINE)[:10 - online_friends.count()]
+            friends = player.friend
             on_friends_serializer = PlayerSerializer(online_friends, many=True)
             off_friends_serializer = PlayerSerializer(offline_friends, many=True)
 
@@ -162,7 +163,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             # items per user
             earned_items = ItemsPerUser.objects.filter(user=player)
             item_per_user_serializer = ItemsPerUserSerializer(earned_items, many=True)
-
+            items = ItemsPerUser.objects.filter(user=player)
             data = {
                 'avatar' : serializer.data['image'],
                 'username': serializer.data['username'],
@@ -171,13 +172,14 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 'level': player.level,
                 'win_rate': win_rate,
                 'achievements_rate': achievements_rate,
-                'friends': {
-                    'online' : on_friends_serializer.data,
-                    'offline' : off_friends_serializer.data,
-                } ,
+                'friends': friends,
+                # 'friends': {
+                #     'online' : on_friends_serializer.data,
+                #     'offline' : off_friends_serializer.data,
+                # } ,
                 'games': games_serializer.data,
                 'achievements' : achievements_per_user_serializer.data,
-                'items':item_per_user_serializer.data,
+                'items':items.values,
             }
             return Response(data)
         elif request.method == 'PUT':

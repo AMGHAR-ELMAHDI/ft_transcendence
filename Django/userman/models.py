@@ -2,8 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.contrib import admin
 from .validators import max_size_validator
-
-
+from django.db.models import F
 
 
 class PlayerManager(BaseUserManager):
@@ -53,7 +52,6 @@ class Player(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='store/images', validators=[max_size_validator], default='default.png')
-
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
@@ -73,12 +71,35 @@ class Player(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return self.is_superuser
-    
-    def get_friendships(self):
-        friendships = Friendship.objects.filter(models.Q(player1=self) | models.Q(player2=self))
-        return friendships
-    
 
+    
+    @property
+    def won_matches(self):
+        # Add your logic here to calculate the number of won matches for the player
+        return self.get_won_games_count()
+
+    def get_won_games_count(self):
+        # Count the number of games where the player has won
+        won_games_count = GameHistory.objects.filter(player=self, player_score__gt=F('opponent_score')).count()
+        return won_games_count
+    
+    @property
+    def friend(self):
+        return self.get_friends_info()
+    
+    def get_friends_info(self):
+        friendships = Friendship.objects.filter(models.Q(player1=self) | models.Q(player2=self))
+        friends_info = []
+        for friendship in friendships:
+            friend = friendship.player1 if friendship.player2 == self else friendship.player2
+            friends_info.append({
+                'id': friend.id,
+                'username': friend.username,
+                'first_name': friend.first_name,
+                'last_name': friend.last_name,
+                'avatar' : str(friend.image),
+            })
+        return friends_info
 
 class Friendship(models.Model):
     player1 = models.ForeignKey(Player, related_name='friendships1', on_delete=models.CASCADE)
