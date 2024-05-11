@@ -4,13 +4,13 @@ import axios from "axios";
 
 function FriendBar() {
   const [data, setData] = React.useState<any>([]);
+  const [showList, setShowList] = React.useState<any>(false);
 
   setAuthToken();
   const getData = async () => {
     try {
       const response = await axios.get("http://localhost:2500/player/me");
       setData(response.data.friends);
-      console.log(data.length);
     } catch (error) {
       console.log(error);
     }
@@ -22,9 +22,14 @@ function FriendBar() {
 
   return (
     <div id="FriendBar">
-      <div id="friend-container">
+      <div
+        onMouseEnter={() => setShowList(true)}
+        onMouseLeave={() => setShowList(false)}
+        id="friend-container"
+      >
         <img className="friend-svg" id="logo-friend-svg" src="/friends.svg" />
         {Array.isArray(data) &&
+          showList &&
           data.map((friend: any) => (
             <img
               className="friend-sb"
