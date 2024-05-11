@@ -41,35 +41,35 @@
       "type": "P",
       "name": "Paddle 1",
       "price": "15.00",
-      "path": "paddle_1.jpg"
+      "path": "/bingbong.jpeg"
     },
     {
       "id": 7,
       "type": "P",
       "name": "Paddle 2",
       "price": "15.00",
-      "path": "paddle_2.jpg"
+      "path": "/bingbong.jpeg"
     },
     {
       "id": 8,
       "type": "P",
       "name": "Paddle 3",
       "price": "15.00",
-      "path": "paddle_3.jpg"
+      "path": "/bingbong.jpeg"
     },
     {
       "id": 9,
       "type": "P",
       "name": "Paddle 4",
       "price": "15.00",
-      "path": "paddle_4.jpg"
+      "path": "/bingbong.jpeg"
     },
     {
       "id": 10,
       "type": "P",
       "name": "Paddle 5",
       "price": "15.00",
-      "path": "paddle_5.jpg"
+      "path": "/bingbong.jpeg"
     },
     {
       "id": 11,

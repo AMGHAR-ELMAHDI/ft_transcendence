@@ -27,76 +27,63 @@ export default ShopContainer;
 function GetPaddle() {
   const data = useRecoilValue(ShopItems);
   const paddle = data.filter((item: any) => item?.type === "P");
+  paddle.map((item: any) => console.log(item?.path));
   return (
     <>
-      <ul>
-        {paddle.map((item: any) => (
-          <li key={item?.id}>
-            <div className="Card-container">
-              <div className="Item-img"></div>
-              <div className="Item-value">
-                <div className="Item-title">{item?.name}</div>
-                <div className="Item-price">{item?.price}$</div>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-  // return (
-  //   <>
-  //     <div className="Paddles item">
-  //       <h1 id="Paddles-header">Paddles</h1>
-  //       <div className="Paddle-holder">
-  //         <Card />
-  //         <Card />
-  //         <Card />
-  //         <Card />
-  //         <Card />
-  //       </div>
-  //     </div>
-  //   </>
-  // );
-}
-
-function GetBackground() {
-  const data = useRecoilValue(ShopItems);
-  const background = data.filter((item: any) => item?.type === "B");
-  return (
-    <>
-      <div className="Background item">
-        <h1 id="Paddles-header">Backgrounds</h1>
+      <div className="Paddles item">
+        <h1 id="Paddles-header">Paddles</h1>
         <div className="Paddle-holder">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {paddle.map((item: any) => (
+            <Card
+              key={item.id}
+              name={item.name}
+              price={item.price}
+              image={item.path}
+            />
+          ))}
         </div>
       </div>
     </>
   );
 }
 
-function GetAvatar() {
-  const data = useRecoilValue(ShopItems);
-  const avatar = data.filter((item: any) => item?.type === "A");
-  return (
-    <>
-      <div className="Avatar item">
-        <h1 id="Paddles-header">Avatars</h1>
-        <div className="Paddle-holder">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </div>
-      </div>
-    </>
-  );
-}
+// function GetBackground() {
+//   const data = useRecoilValue(ShopItems);
+//   const background = data.filter((item: any) => item?.type === "B");
+//   return (
+//     <>
+//       <div className="Background item">
+//         <h1 id="Paddles-header">Backgrounds</h1>
+//         <div className="Paddle-holder">
+//           <Card />
+//           <Card />
+//           <Card />
+//           <Card />
+//           <Card />
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+// function GetAvatar() {
+//   const data = useRecoilValue(ShopItems);
+//   const avatar = data.filter((item: any) => item?.type === "A");
+//   return (
+//     <>
+//       <div className="Avatar item">
+//         <h1 id="Paddles-header">Avatars</h1>
+//         <div className="Paddle-holder">
+//           <Card />
+//           <Card />
+//           <Card />
+//           <Card />
+//           <Card />
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
 
 function ShopDesign() {
   const [shopItems, setShopItems] = useRecoilState(ShopItems);
@@ -120,8 +107,8 @@ function ShopDesign() {
         <div className="wrapper">
           <div className="Items">
             <GetPaddle />
-            <GetBackground />
-            <GetAvatar />
+            {/* <GetBackground />
+            <GetAvatar /> */}
           </div>
         </div>
       </div>
@@ -129,14 +116,22 @@ function ShopDesign() {
   );
 }
 
-function Card() {
+interface CardProps {
+  name: string;
+  price: number;
+  image: string;
+}
+
+function Card({ name, price, image }: CardProps) {
   return (
     <>
       <div className="Card-container">
-        <div className="Item-img"></div>
+        <div className="Item-img">
+          <img src={image} alt="item" />
+        </div>
         <div className="Item-value">
-          <div className="Item-title">here</div>
-          <div className="Item-price">20$</div>
+          <div className="Item-title">{name}</div>
+          <div className="Item-price">{price + "$"}</div>
         </div>
       </div>
     </>
