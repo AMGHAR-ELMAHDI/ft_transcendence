@@ -219,15 +219,19 @@ function ChatTyping() {
           />
           <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
         </div>
-        <div className="Chat-input">
+        <form onSubmit={SendMessage} className="Chat-input">
           <div className="Input-box">
             <input type="text" placeholder="Type Something ..." />
           </div>
           <div className="Chat-send-button">
             <img src="/Send-button.svg" id="bottona" />
           </div>
-        </div>
+        </form>
       </div>
     </>
   );
+}
+
+function SendMessage(e: any) {
+  e.preventDefault();
 }

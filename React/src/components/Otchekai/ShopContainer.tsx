@@ -6,6 +6,14 @@ import TopBar from "../SearchBar/TopBar";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import OwnedItems from "../../Atoms/OwnedItems";
+
+interface CardProps {
+  name: string;
+  price: number;
+  image: string;
+  id: number;
+}
 
 function ShopContainer() {
   return (
@@ -23,6 +31,12 @@ function ShopContainer() {
 }
 
 export default ShopContainer;
+
+function FilterItems(ownedItems: any, name: string) {
+  const Filter = ownedItems.find((obj: any) => obj.name === name);
+  if (Filter) return true;
+  else return false;
+}
 
 function GetPaddle() {
   const data = useRecoilValue(ShopItems);
@@ -95,7 +109,8 @@ function GetAvatar() {
 
 function ShopDesign() {
   const [shopItems, setShopItems] = useRecoilState(ShopItems);
-
+  const [ownedItems, setownedItems] = useRecoilState(OwnedItems);
+  //get items shop
   setAuthToken();
   const getData = async () => {
     try {
@@ -108,7 +123,20 @@ function ShopDesign() {
   useEffect(() => {
     getData();
   }, []);
-
+  //get owned items
+  setAuthToken();
+  const getowned = async () => {
+    try {
+      const response = await axios.get("http://localhost:2500/player/items/");
+      setownedItems(response.data.items);
+      console.log(response.data.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getowned();
+  }, []);
   return (
     <>
       <div className="container">
@@ -124,47 +152,38 @@ function ShopDesign() {
   );
 }
 
-function BuyIt(id: any) {
-  const [Data, setData] = useState(0);
-
+function BuyIt(obj: { item_id: number }) {
   setAuthToken();
-  const obj = {
-    item_id: id,
-  };
   const getData = async () => {
     try {
       const response = await axios.post("http://localhost:2500/shop/", obj);
-      setData(response.status);
       console.log(response.status);
     } catch (error) {
       console.log(error);
-      console.log("moraw");
     }
   };
-  useEffect(() => {
-    getData();
-  }, []);
-
-  return id;
-}
-
-interface CardProps {
-  name: string;
-  price: number;
-  image: string;
-  id: number;
+  getData();
 }
 
 function Card({ name, price, image, id }: CardProps) {
+  const obj = {
+    item_id: id,
+  };
+  const owned = useRecoilValue(OwnedItems);
   return (
     <>
       <div className="Card-container">
-        <div onClick={BuyIt(id)} className="Item-img">
+        <div onClick={() => BuyIt(obj)} className="Item-img">
           <img src={image} alt="item" />
         </div>
         <div className="Item-value">
           <div className="Item-title">{name}</div>
-          <div className="Item-price">{price + "$"}</div>
+          {FilterItems(owned, name) === false && (
+            <div className="Item-price">{price + "$"}</div>
+          )}
+          {FilterItems(owned, name) === true && (
+            <div className="Item-price">{"Owned"}</div>
+          )}
         </div>
       </div>
     </>

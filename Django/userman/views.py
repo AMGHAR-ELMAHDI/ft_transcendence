@@ -49,17 +49,10 @@ class ShopView(APIView):
         all_serialized_achievements = AchievementSerializer(achievements, many=True)
         all_serialized_items = ItemSerializer(items, many=True)
 
-        owned_items = ItemsPerUser.objects.filter(user=player).values_list('item__id', flat=True)
-        serialized_owned_items = ItemsPerUserSerializer(owned_items, many=True)
-
-        owned_achievements = AchievementPerUser.objects.filter(user=player).values_list('item__id', flat=True)
-        serialized_owned_achievements = AchievementPerUserSerializer(owned_items, many=True)
 
         data = {
             'all_achievements' : all_serialized_achievements.data,
             'all_items' : all_serialized_items.data,
-            'owned_achievements' : serialized_owned_achievements.data,
-            'owned_items' : serialized_owned_items.data,
         }
         return Response(data)
     
@@ -139,47 +132,29 @@ class PlayerViewSet(viewsets.ModelViewSet):
         if request.method == 'GET':
             serializer = PlayerSerializer(player)
 
-            #friends
-            online_friends = player.friends.filter(status=Player.STATUS_ONLINE)[:10]
-            offline_friends = player.friends.filter(status=Player.STATUS_OFFLINE)[:10 - online_friends.count()]
-            friends = player.friend
-            on_friends_serializer = PlayerSerializer(online_friends, many=True)
-            off_friends_serializer = PlayerSerializer(offline_friends, many=True)
-
             # win_rate && games
             played_games = GameHistory.objects.filter(player=player)
             total_games = played_games.count()
             wins = played_games.filter(player=player, player_score__gt=F('opponent_score')).count()
             win_rate = wins / total_games if total_games > 0 else 0
-            games_serializer = GameHistorySerializer(played_games, many=True)
+            # games_serializer = GameHistorySerializer(played_games, many=True)
 
             # achievements_rate && achievement per user
             total_trophies = Achievement.objects.count()
             earned_achievement = AchievementPerUser.objects.filter(user=player)
             earned_achievement_count = earned_achievement.count()
             achievements_rate = earned_achievement_count / total_trophies if total_trophies > 0 else 0
-            achievements_per_user_serializer = AchievementPerUserSerializer(earned_achievement, many=True)
 
-            # items per user
-            earned_items = ItemsPerUser.objects.filter(user=player)
-            item_per_user_serializer = ItemsPerUserSerializer(earned_items, many=True)
-            items = ItemsPerUser.objects.filter(user=player)
             data = {
-                'avatar' : serializer.data['image'],
                 'username': serializer.data['username'],
+                'avatar' : serializer.data['image'],
                 'first_name': serializer.data['first_name'],
                 'last_name': serializer.data['last_name'],
+                'coins' : player.coins,
                 'level': player.level,
-                'win_rate': win_rate,
-                'achievements_rate': achievements_rate,
-                'friends': friends,
-                # 'friends': {
-                #     'online' : on_friends_serializer.data,
-                #     'offline' : off_friends_serializer.data,
-                # } ,
-                'games': games_serializer.data,
-                'achievements' : achievements_per_user_serializer.data,
-                'items':items,
+                'win_rate': round(win_rate, 2),
+                'achievements_rate': round(achievements_rate, 2),
+                # 'games': games_serializer.data,
             }
             return Response(data)
         elif request.method == 'PUT':
@@ -187,6 +162,53 @@ class PlayerViewSet(viewsets.ModelViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
+    @action(detail=False, methods=['GET'])
+    def games(self, request):
+        try:
+            player = request.user
+            games = player.games
+            data = {
+                'games' : games
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    @action(detail=False, methods=['GET'])
+    def friends(self, request):
+        try:
+            player = request.user
+            friends = player.friend
+            data = {
+                'friends' : friends
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    @action(detail=False, methods=['GET'])
+    def achievements(self, request):
+        try:
+            player = request.user
+            achievements = player.achievements
+            data = {
+                'achievements' : achievements
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    @action(detail=False, methods=['GET'])
+    def items(self, request):
+        try:
+            player = request.user
+            items = player.items
+            data = {
+                'items' : items or ''
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
 
 @action(detail=False, methods=['GET', 'PUT', 'POST'])
 class FriendshipAPIView(APIView):
@@ -268,3 +290,4 @@ class FriendshipAPIView(APIView):
             f.save()
 
         return Response({'message': 'Friendship request updated successfully'}, status=status.HTTP_200_OK)
+

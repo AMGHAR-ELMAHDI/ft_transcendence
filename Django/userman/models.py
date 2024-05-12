@@ -37,7 +37,6 @@ class Player(AbstractBaseUser):
         (STATUS_ONLINE, 'ONLINE'),
         (STATUS_OFFLINE, 'OFFLINE'),
     ]
-    # id = models.IntegerField(unique=True, primary_key=True) 
     coins = models.IntegerField(default=0)
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=STATUS_OFFLINE)
@@ -98,8 +97,65 @@ class Player(AbstractBaseUser):
                 'first_name': friend.first_name,
                 'last_name': friend.last_name,
                 'avatar' : str(friend.image),
+                'level' : friend.level,
+                'coins' : friend.coins,
             })
         return friends_info
+    @property
+    def achievements(self):
+        return self.get_achievements()
+    def get_achievements(self):
+        achievement_info = []
+        achievements_per_user = AchievementPerUser.objects.filter(models.Q(user=self))
+        for ach in achievements_per_user:
+            achievement = ach.achievement
+            achievement_info.append({
+                'id' : achievement.id,
+                'title' : achievement.title,
+                'desc' : achievement.desc,
+                'path' : achievement.path,
+                'Obtaining_date':  ach.obtaining_date,
+            })
+        return achievement_info
+
+    @property
+    def items(self):
+        return self.get_items()
+    
+    def get_items(self):
+        items_info = []
+        items_per_user = ItemsPerUser.objects.filter(models.Q(user=self))
+        for it in items_per_user:
+            item = it.item
+            items_info.append({
+                'id' : item.id,
+                'type' : item.type,
+                'name' : item.name,
+                'price' : item.price,
+                'path' : item.path,
+                'purchase_date' : it.purchase_date,
+            })
+        return items_info
+    @property
+    def games(self):
+        return self.calculate_games()
+    
+    def calculate_games(self):
+        played_games = GameHistory.objects.filter(player=self)
+        games_info = []
+        for g in played_games:
+            games_info.append({
+                'id' : g.id,
+                'date' : g.date,
+                'player' : g.player_id,
+                'opponent' : g.opponent_id,
+                'player_score' : g.player_score,
+                'opponent_score' : g.opponent_score,
+                'game_mode' : g.game_mode,
+                'game_duration_minutes' : g.game_duration_minutes,
+
+            })
+        return games_info
 
 class Friendship(models.Model):
     player1 = models.ForeignKey(Player, related_name='friendships1', on_delete=models.CASCADE)
@@ -179,7 +235,7 @@ class Achievement(models.Model):
 
 class AchievementPerUser(models.Model):
     user = models.ForeignKey(Player, on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
     obtaining_date = models.DateTimeField(auto_now_add=True)
     
 class GameHistory(models.Model):
