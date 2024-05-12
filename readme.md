@@ -25,7 +25,7 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-- Flushing the database
+- Clearing old database values
 
 ```bash
 python manage.py flush
@@ -33,7 +33,7 @@ python manage.py flush
 - Populating the database
 
 ```bash
-python manage.py seed_db
+python manage.py seed
 ```
 - Running the server
 ```bash

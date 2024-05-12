@@ -1,0 +1,18 @@
+http://localhost:2500/auth/users/ : user creation
+http://localhost:2500/auth/jwt/create : jwt creation 
+http://localhost:2500/player/me/ : user info
+http://localhost:2500/player/freinds/ : user friends
+http://localhost:2500/player/achievements/ : user achievements
+http://localhost:2500/player/items/ : user items
+http://localhost:2500/search/<username> : user search by username
+http://localhost:2500/shop/ : shop
+	- GET : all items and all items and achievements
+	- POST : item_id : to buy the item
+http://localhost:2500/chat/<receiver_id>/ : Direct Messages Chat
+
+normal users : 
+usernames : user1 -> user10
+passwords : MKSzak123
+
+superuser : zmakhkha
+password : aaa
