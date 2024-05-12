@@ -1,7 +1,0 @@
-filebeat.inputs:
-- type: log
-  paths:
-    - /var/lib/docker/containers/*/*.log
-
-output.elasticsearch:
-  hosts: ["elasticsearch:9200"]
