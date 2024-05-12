@@ -9,7 +9,7 @@ function FriendBar() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/me");
+      const response = await axios.get("http://localhost:2500/player/friends/");
       setData(response.data.friends);
     } catch (error) {
       console.log(error);

@@ -153,7 +153,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 'coins' : player.coins,
                 'level': player.level,
                 'win_rate': round(win_rate, 2),
-                'achievements_rate': achievements_rate,
+                'achievements_rate':  round(achievements_rate, 2),
                 # 'games': games_serializer.data,
             }
             return Response(data)
