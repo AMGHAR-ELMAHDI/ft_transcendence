@@ -16,8 +16,8 @@ const DropdownMenu = () => {
   return (
     <div className="dropdown-menu">
       <ul>
-        <li>Profile</li>
-        <li>Settings</li>
+        <li><Link to={"/profile"}> Profile</Link></li>
+        <li><Link to={"/settings"}> Settings</Link></li>
       </ul>
     </div>
   );
