@@ -1,7 +1,7 @@
 -search : http://127.0.0.1:2500/search/<username>
 	list of players usernames
 
-home : http://localhost:2500/player/me/
+home : http://localhost:2500/players/me/
 	avatar_path
 	username
 	first_name

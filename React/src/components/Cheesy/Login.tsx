@@ -28,6 +28,7 @@ function getGeneralInfo() {
         if (response.status === 200) {
           setTokenValue(str.access);
           setLogged(true);
+          localStorage.setItem("token", str.access);
           console.log(str.access);
         }
       })
@@ -87,7 +88,6 @@ function Login() {
             <MainSettings />
           </div>
         </div>
-        <FriendBar />
       </div>
     </>
   );

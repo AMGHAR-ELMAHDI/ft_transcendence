@@ -24,7 +24,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from .models import Player
+from .models import Player, Friendship
 from .serializers import PlayerSerializer, ItemSerializer
 
 
@@ -129,7 +129,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['GET'])
     def leaderboard(self, request):
-        player = Player.objects.all().order_by('-level')
+        player = Player.objects.all().order_by('-level') # Won games for each user to be added later
         leaderboard_serializer = LeaderBoardSerializer(player, many=True)
         return Response(leaderboard_serializer.data)
         
@@ -142,6 +142,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             #friends
             online_friends = player.friends.filter(status=Player.STATUS_ONLINE)[:10]
             offline_friends = player.friends.filter(status=Player.STATUS_OFFLINE)[:10 - online_friends.count()]
+            friends = player.friend
             on_friends_serializer = PlayerSerializer(online_friends, many=True)
             off_friends_serializer = PlayerSerializer(offline_friends, many=True)
 
@@ -162,7 +163,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             # items per user
             earned_items = ItemsPerUser.objects.filter(user=player)
             item_per_user_serializer = ItemsPerUserSerializer(earned_items, many=True)
-
+            items = ItemsPerUser.objects.filter(user=player)
             data = {
                 'avatar' : serializer.data['image'],
                 'username': serializer.data['username'],
@@ -171,13 +172,14 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 'level': player.level,
                 'win_rate': win_rate,
                 'achievements_rate': achievements_rate,
-                'friends': {
-                    'online' : on_friends_serializer.data,
-                    'offline' : off_friends_serializer.data,
-                } ,
+                'friends': friends,
+                # 'friends': {
+                #     'online' : on_friends_serializer.data,
+                #     'offline' : off_friends_serializer.data,
+                # } ,
                 'games': games_serializer.data,
                 'achievements' : achievements_per_user_serializer.data,
-                'items':item_per_user_serializer.data,
+                'items':items,
             }
             return Response(data)
         elif request.method == 'PUT':
@@ -186,16 +188,19 @@ class PlayerViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data)
 
-
+@action(detail=False, methods=['GET', 'PUT', 'POST'])
 class FriendshipAPIView(APIView):
     queryset = FriendshipRequest.objects.all()
     serializer_class = FriendshipRequestSerializer
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        print('---------[GET]')
+        print(request.data)
+        print('---------')
         user = request.user
         sent = FriendshipRequest.objects.filter(from_user=user)
-        recieved = FriendshipRequest.objects.filter(from_user=user)
+        recieved = FriendshipRequest.objects.filter(to_user=user)
         serialized_sent = FriendshipRequestSerializer(sent, many=True)
         serialized_recieved = FriendshipRequestSerializer(recieved, many=True)
         data = {
@@ -204,41 +209,62 @@ class FriendshipAPIView(APIView):
         }
         return Response(data, status = 200)
 
-    # def post(self, request):
-    #     to_user_id = request.data.get('user_id')
-    #     if not to_user_id:
-    #         return Response({'message': 'No user_id specified'}, status=status.HTTP_400_BAD_REQUEST)
-
-    #     try:
-    #         to_user = Player.objects.get(id=to_user_id)
-    #     except Player.DoesNotExist:
-    #         return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-
-    #     from_user = request.user
-    #     FriendshipRequest.objects.create(from_user=from_user, to_user=to_user)
-    #     return Response({'message': 'Friendship request sent successfully'}, status=status.HTTP_201_CREATED)
-
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            serializer.save(from_user=request.user)
-            return Response({'message': 'Friendship request sent successfully'}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        to_user_id = request.data.get('to_user')
+        print('---------[POST]')
+        print(request.data)
+        print('---------')
+        if not to_user_id:
+            return Response({'message': 'No user_id specified'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            to_user = Player.objects.get(id=to_user_id)
+        except Player.DoesNotExist:
+            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        from_user = request.user
+        FriendshipRequest.objects.create(from_user=from_user, to_user=to_user)
+        return Response({'message': 'Friendship request sent successfully'}, status=status.HTTP_201_CREATED)
+
+    # def post(self, request):
+    #     print('---------[POST]')
+    #     print(request.data)
+    #     print('---------')
+    #     serializer = self.serializer_class(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save(from_user=request.user)
+    #         return Response({'message': 'Friendship request sent successfully'}, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
         user = request.user
-        to_user_id = request.data.get('user_id')
+        to_user_id = request.data.get('to_user')
+        from_user_id = request.data.get('from_user')
+        print('---------[PUT]')
+        print(request.data)
+        print('---------')
 
         if not to_user_id:
             return Response({'message': 'No user_id specified'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            friendship_request = FriendshipRequest.objects.get(from_user=user, to_user__id=to_user_id)
+            friendship_request = FriendshipRequest.objects.get(from_user=from_user_id, to_user__id=to_user_id)
         except FriendshipRequest.DoesNotExist:
             return Response({'message': 'Friendship request not found'}, status=status.HTTP_404_NOT_FOUND)
+        new_status = request.data.get('status')
+        new_status = request.data.get('status')
+        if new_status not in ['P', 'A', 'R']:  # Assuming status can only be 'P' (Pending) or 'A' (Accepted)
+            return Response({'message': 'Invalid status provided'}, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = self.serializer_class(instance=friendship_request, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        print(f'id : {friendship_request}')
+        friendship_request.status = request.data.get('status')
+        friendship_request.save()
+
+        if request.data.get('status') == 'A':
+            # f = Friendship(player1=from_user_id, player2=to_user_id)
+            p1 = Player.objects.get(id=from_user_id)
+            p2 = Player.objects.get(id=to_user_id)
+            f = Friendship(player1=p1, player2=p2)
+            f.save()
 
         return Response({'message': 'Friendship request updated successfully'}, status=status.HTTP_200_OK)

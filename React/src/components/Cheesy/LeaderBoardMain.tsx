@@ -18,7 +18,7 @@ function getTop3() {
         <div className="topImgsContainer">
           <img
             className="topImgs"
-            src={top3[0].image}
+            src={"http://localhost:2500" + top3[0].image.substring(6)}
             alt={top3[0].username + "picture"}
           />
         </div>
@@ -29,7 +29,7 @@ function getTop3() {
           <div className="topImgsContainer">
             <img
               className="topImgs"
-              src={top3[1].image}
+              src={"http://localhost:2500" + top3[1].image.substring(6)}
               alt={top3[1].username + "picture"}
             />
           </div>
@@ -39,7 +39,7 @@ function getTop3() {
           <div className="topImgsContainer">
             <img
               className="topImgs"
-              src={top3[2].image}
+              src={"http://localhost:2500" + top3[2].image.substring(6)}
               alt={top3[2].username + "picture"}
             />
           </div>
@@ -95,7 +95,11 @@ function getTheRest() {
                   <h1 className="Panton">{index + 3}</h1>
                   <div className="lineLi" />
                 </div>
-                <img className="RestImgs" src={user.image} alt="userPic" />
+                <img
+                  className="RestImgs"
+                  src={"http://localhost:2500" + user.image.substring(6)}
+                  alt="userPic"
+                />
               </div>
               <div className="LeaderRestRight">
                 <div className="LeaderRestRighUsrtName">

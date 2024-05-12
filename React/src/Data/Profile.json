@@ -1,38 +1,99 @@
 {
-  "username": "zmakhkha",
-  "first_name": "Othman",
-  "last_name": "Chekairi",
-  "level": 10.9,
-  "win_rate": 75,
-  "trophies_rate": 50,
+  "avatar": "/media/media/store/images/default.png",
+  "username": "user1",
+  "first_name": "",
+  "last_name": "",
+  "level": 700,
+  "win_rate": 0.2857142857142857,
+  "achievements_rate": 0,
   "friends": [
-    {
-      "id": 2,
-      "user_id": 4,
-      "username": "dawdaw",
-      "coins": 0,
-      "level": 0,
-      "first_name": "daw",
-      "last_name": "daaaw"
-    },
-    {
-      "id": 3,
-      "user_id": 5,
-      "username": "chesy",
-      "coins": 0,
-      "level": 0,
-      "first_name": "cheesy",
-      "last_name": "amghar"
-    },
-    {
-      "id": 4,
-      "user_id": 3,
-      "username": "mnassi",
-      "coins": 0,
-      "level": 0,
-      "first_name": "simo",
-      "last_name": "nassi"
-    }
+      {
+          "id": 2,
+          "username": "user2",
+          "first_name": "",
+          "last_name": "",
+          "avatar": "media/store/images/default.png"
+      },
+      {
+          "id": 3,
+          "username": "user3",
+          "first_name": "",
+          "last_name": "",
+          "avatar": "media/store/images/default.png"
+      },
+      {
+          "id": 5,
+          "username": "user4",
+          "first_name": "",
+          "last_name": "",
+          "avatar": "media/store/images/default.png"
+      }
   ],
-  "games": []
+  "games": [
+      {
+          "date": "2024-05-11T16:35:58.852097Z",
+          "player": 1,
+          "opponent": 2,
+          "player_score": "10.00",
+          "opponent_score": "5.00",
+          "game_mode": "O",
+          "game_duration_minutes": "5.00"
+      },
+      {
+          "date": "2024-05-11T16:35:58.852097Z",
+          "player": 1,
+          "opponent": 2,
+          "player_score": "13.00",
+          "opponent_score": "27.00",
+          "game_mode": "B",
+          "game_duration_minutes": "5.00"
+      },
+      {
+          "date": "2024-05-11T16:35:58.852097Z",
+          "player": 1,
+          "opponent": 2,
+          "player_score": "15.00",
+          "opponent_score": "25.00",
+          "game_mode": "T",
+          "game_duration_minutes": "5.00"
+      },
+      {
+          "date": "2024-05-11T16:35:58.852097Z",
+          "player": 1,
+          "opponent": 2,
+          "player_score": "17.00",
+          "opponent_score": "16.00",
+          "game_mode": "O",
+          "game_duration_minutes": "5.00"
+      },
+      {
+          "date": "2024-05-11T16:35:58.852097Z",
+          "player": 1,
+          "opponent": 2,
+          "player_score": "15.00",
+          "opponent_score": "20.00",
+          "game_mode": "O",
+          "game_duration_minutes": "5.00"
+      },
+      {
+          "date": "2024-05-11T16:35:58.852097Z",
+          "player": 1,
+          "opponent": 2,
+          "player_score": "11.00",
+          "opponent_score": "11.00",
+          "game_mode": "O",
+          "game_duration_minutes": "5.00"
+      },
+      {
+          "date": "2024-05-11T16:35:58.852097Z",
+          "player": 1,
+          "opponent": 2,
+          "player_score": "8.00",
+          "opponent_score": "14.00",
+          "game_mode": "O",
+          "game_duration_minutes": "5.00"
+      }
+  ],
+  "achievements": [],
+  "items": []
 }

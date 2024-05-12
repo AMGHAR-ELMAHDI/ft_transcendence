@@ -21,6 +21,7 @@ function SideBar() {
     const handleConfirmLogout = () => {
       setShowLogoutPopup(false);
       setTokenValue("");
+      localStorage.removeItem("token");
       setLogged(false);
       console.log("USER LOGGED OUT");
     };
