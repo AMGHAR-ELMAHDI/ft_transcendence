@@ -4,6 +4,7 @@ import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { useRecoilValue } from "recoil";
 import IsLogged from "../../Atoms/IsLogged";
+import { Link } from "react-router-dom";
 export function getPageName() {
   let pageName = window.location.pathname;
   pageName = pageName.slice(1);
@@ -11,17 +12,16 @@ export function getPageName() {
   return pageName;
 }
 
-function DropdownMenu() {
+const DropdownMenu = () => {
   return (
     <div className="dropdown-menu">
       <ul>
-        <li>Menu 1</li>
-        <li>Menu 2</li>
-        <li>Menu 3</li>
+        <li>Profile</li>
+        <li>Settings</li>
       </ul>
     </div>
   );
-}
+};
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
@@ -60,8 +60,10 @@ function TopBar() {
     friends: data.friends ? data.friends : [0],
     level: data.level ? data.level : 0,
   };
+
   if (Logged == true && gotData === true && obj.username === "DawDaw")
     getData();
+
   let print = <h1>Good Evening,</h1>;
   let username = <h1 id="nickName">{obj.username}</h1>;
   return (
@@ -78,17 +80,14 @@ function TopBar() {
         <input id="search" type="text" placeholder="Search" />
         <div className="NotifProfile">
           <IoNotificationsOutline id="notif" />
-          {/* <Link to={"/profile"}> */}
-          <div>
-            <img
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              className="NotifProfilePic"
-              src={obj.avatar}
-            />
+          <div
+            className="div-relat"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <img className="NotifProfilePic" src={obj.avatar} />
             {isDropdownVisible && <DropdownMenu />}
           </div>
-          {/* </Link> */}
         </div>
       </div>
     </div>
