@@ -10,16 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/fs-extra": "^11.0.4",
     "axios": "^1.6.8",
+    "fs-extra": "^11.2.0",
     "net": "^1.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "recoil": "^0.7.7",
+    "require": "^0.4.4",
     "socket.io-client": "^4.7.5",
     "ws": "^8.16.0"
   },
   "devDependencies": {
+    "@types/node": "^20.12.11",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

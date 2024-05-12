@@ -1,3 +1,4 @@
+import { exec } from 'child_process';
 import { useEffect, useState } from 'react';
 
 function game2D() {
@@ -28,6 +29,8 @@ function game2D() {
 	const [PLAYER_2, GetSecond] = useState('PLAYER2');
 
 	useEffect(()=> {
+		let seconds = 0
+		var CSVFile_data = ""
 		let StopGame = false
 		const KEY_UP = 38
 		const KEY_DOWN = 40
@@ -185,6 +188,16 @@ function game2D() {
 			buttons!.style.opacity = '1'
 			buttons!.style.pointerEvents = 'visible'
 			winner!.innerHTML = paddle.player
+			CSVFile_data += ' ' + paddle.player
+			const command = './script/ai.sh ' + CSVFile_data
+			exec(command,
+			function (error, stdout, stderr) {
+				console.log('stdout: ' + stdout);
+				console.log('stderr: ' + stderr);
+				if (error !== null) {
+					 console.log('exec error: ' + error);
+				}
+			});
 		}
 
 		function StartGame() {
@@ -211,6 +224,8 @@ function game2D() {
 		}
 
 		function GameUpdates() {
+			seconds += 1 
+			CSVFile_data = seconds + 's : BallX=' + ball.pos.x + ' BallY=' + ball.pos.y
 			ball.update()
 			WallCollision(ball)
 			paddle1.update()
