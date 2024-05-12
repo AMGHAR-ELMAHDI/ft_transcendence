@@ -25,6 +25,11 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
+- Flushing the database
+
+```bash
+python manage.py flush
+```
 - Populating the database
 
 ```bash

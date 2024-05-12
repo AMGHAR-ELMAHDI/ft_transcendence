@@ -6,6 +6,11 @@
   width: 9rem;
   height: 100%;
   max-height: 100vh;
+  transition: all 1s ease-in-out;
+}
+
+#FriendBar > * {
+  transition: all 1s ease-in-out;
 }
 
 #friend-container {
@@ -16,9 +21,9 @@
   justify-content: center;
   border: 1px solid var(--blue-glow);
   padding: 1.5rem;
-  /* flex: 1; */
   margin: 2rem;
   border-radius: 40px;
+  transition: all 1s ease-in-out;
 }
 
 .friend-sb {
