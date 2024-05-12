@@ -12,4 +12,5 @@ urlpatterns = [
 	path('search/<str:username>',views.PlayerSearchAPIView.as_view(), name='user-search'),
 	path('shop/',views.ShopView.as_view(), name='user-shop'),
 	path('friends/',views.FriendshipAPIView.as_view(), name='user-friends'),
+
 ]

@@ -1,9 +1,9 @@
 INSERT INTO userman_item (type, name, price, path) VALUES
-('B', 'Ball 1', 10.00, 'http://localhost:2500/media/default.png'),
-('B', 'Ball 2', 10.00, 'http://localhost:2500/media/default.png'),
-('B', 'Ball 3', 10.00, 'http://localhost:2500/media/default.png'),
-('B', 'Ball 4', 10.00, 'http://localhost:2500/media/default.png'),
-('B', 'Ball 5', 10.00, 'http://localhost:2500/media/default.png'),
+('B', 'Ball 1', 10.00, 'http://localhost:2500/media/items/default.png'),
+('B', 'Ball 2', 10.00, 'http://localhost:2500/media/items/default.png'),
+('B', 'Ball 3', 10.00, 'http://localhost:2500/media/items/default.png'),
+('B', 'Ball 4', 10.00, 'http://localhost:2500/media/items/default.png'),
+('B', 'Ball 5', 10.00, 'http://localhost:2500/media/items/default.png'),
 
 ('P', 'Paddle 1', 15.00, 'http://localhost:2500/media/default.png'),
 ('P', 'Paddle 2', 15.00, 'http://localhost:2500/media/default.png'),
@@ -80,3 +80,48 @@ INSERT INTO  userman_gamehistory
 ('2024-05-11 16:36:39.432539', 7, 5, 'B', 8, 5, 9),
 ('2024-05-11 16:36:39.432539', 6, 45, 'B', 8, 5, 9),
 ('2024-05-11 16:36:56.663758', 14, 15, 'T', 6, 5, 5);
+
+INSERT INTO  userman_achievement
+('path','desc','title') VALUES
+('http://localhost:2500/media/achievements/default.png', 'Win your first Match against a Bot', 'First Bot Win'),
+('http://localhost:2500/media/achievements/default.png', 'Win your first Match against a player', 'First Win'),
+('http://localhost:2500/media/achievements/default.png', 'Win 5 Matches in a row', 'Unstoppable'),
+('http://localhost:2500/media/achievements/default.png', 'Win 10 Matches in a row', 'Touch Some Grass'),
+('http://localhost:2500/media/achievements/default.png', 'lose  your first Match against a player', 'First Loss'),
+('http://localhost:2500/media/achievements/default.png', 'Win a Match in less then 5 min', 'Fast AF Boiiiii'),
+('http://localhost:2500/media/achievements/default.png', 'Win 20 Matches in a row', 'How?'),
+('http://localhost:2500/media/achievements/default.png', 'Lose a Match in less than 5 min', 'Actually Bad'),
+('http://localhost:2500/media/achievements/default.png', 'Win a Match without being scored on', 'Unbreakable'),
+('http://localhost:2500/media/achievements/default.png', 'Win your first tournament', 'Champion'),
+('http://localhost:2500/media/achievements/default.png', 'Buy your first item from the shop', 'Stonks'),
+('http://localhost:2500/media/achievements/default.png', 'Buy all Items from the shop', 'Shopa-Holic'),
+('http://localhost:2500/media/achievements/default.png', 'Play your first match', 'Rookie'),
+('http://localhost:2500/media/achievements/default.png', 'Lose without scoring', 'Bullied'),
+('http://localhost:2500/media/achievements/default.png', 'Acquire all trophies', 'Get A Life');
+
+INSERT INTO  userman_item
+('path', 'type','name','price') VALUES
+('http://localhost:2500/media/default.png', 'P','name0', 100),
+('http://localhost:2500/media/default.png', 'P','name1', 900),
+('http://localhost:2500/media/default.png', 'P','name2', 600),
+('http://localhost:2500/media/default.png', 'P','name3', 700),
+('http://localhost:2500/media/default.png', 'B','name4', 600),
+('http://localhost:2500/media/default.png', 'B','name5', 800),
+('http://localhost:2500/media/default.png', 'B','name6', 700),
+('http://localhost:2500/media/default.png', 'G','name7', 800),
+('http://localhost:2500/media/default.png', 'A','name8', 100),
+('http://localhost:2500/media/default.png', 'P','name9', 100000);
+
+INSERT INTO  userman_achievementperuser
+('user_id', 'achievement_id','obtaining_date') VALUES
+(1, 1, '2024-05-01 16:35:58.852097'),
+(1, 2, '2024-05-05 16:35:58.852097'),
+(1, 3, '2024-05-06 16:35:58.852097'),
+(1, 4, '2024-05-10 16:35:58.852097');
+
+INSERT INTO  userman_itemsperuser
+('user_id', 'item_id','purchase_date') VALUES
+-- (1, 1, '2024-05-01 16:35:58.852097'),
+(1, 2, '2024-05-05 16:35:58.852097'),
+(1, 3, '2024-05-06 16:35:58.852097'),
+(1, 30, '2024-05-10 16:35:58.852097');

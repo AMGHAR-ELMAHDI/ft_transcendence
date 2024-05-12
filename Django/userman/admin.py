@@ -7,21 +7,24 @@ from .models import *
 class AchievementAdmin(admin.ModelAdmin):
     pass
 @admin.register(ItemsPerUser)
-class AchievementAdmin(admin.ModelAdmin):
+class ItemsPerUserAdmin(admin.ModelAdmin):
     pass
 @admin.register(GameHistory)
-class AchievementAdmin(admin.ModelAdmin):
+class GameHistoryAdmin(admin.ModelAdmin):
     pass
 # @admin.register(GameHistory)
 # class AchievementAdmin(admin.ModelAdmin):
 #     pass
 @admin.register(Player)
-class AchievementAdmin(admin.ModelAdmin):
+class PlayerAdmin(admin.ModelAdmin):
     pass
 @admin.register(Friendship)
-class AchievementAdmin(admin.ModelAdmin):
+class FriendshipAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
+    pass
+@admin.register(AchievementPerUser)
+class AchievementPerUserAdmin(admin.ModelAdmin):
     pass
