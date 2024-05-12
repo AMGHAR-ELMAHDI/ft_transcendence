@@ -27,7 +27,6 @@ export default ShopContainer;
 function GetPaddle() {
   const data = useRecoilValue(ShopItems);
   const paddle = data.filter((item: any) => item?.type === "P");
-  paddle.map((item: any) => console.log(item?.path));
   return (
     <>
       <div className="Paddles item">
