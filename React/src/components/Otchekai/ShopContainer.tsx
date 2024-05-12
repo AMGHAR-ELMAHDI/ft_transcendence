@@ -38,6 +38,7 @@ function GetPaddle() {
               name={item.name}
               price={item.price}
               image={item.path}
+              id={item.id}
             />
           ))}
         </div>
@@ -60,6 +61,7 @@ function GetBackground() {
               name={item.name}
               price={item.price}
               image={item.path}
+              id={item.id}
             />
           ))}
         </div>
@@ -82,6 +84,7 @@ function GetAvatar() {
               name={item.name}
               price={item.price}
               image={item.path}
+              id={item.id}
             />
           ))}
         </div>
@@ -121,17 +124,42 @@ function ShopDesign() {
   );
 }
 
+function BuyIt(id: any) {
+  const [Data, setData] = useState(0);
+
+  setAuthToken();
+  const obj = {
+    item_id: id,
+  };
+  const getData = async () => {
+    try {
+      const response = await axios.post("http://localhost:2500/shop/", obj);
+      setData(response.status);
+      console.log(response.status);
+    } catch (error) {
+      console.log(error);
+      console.log("moraw");
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return id;
+}
+
 interface CardProps {
   name: string;
   price: number;
   image: string;
+  id: number;
 }
 
-function Card({ name, price, image }: CardProps) {
+function Card({ name, price, image, id }: CardProps) {
   return (
     <>
       <div className="Card-container">
-        <div className="Item-img">
+        <div onClick={BuyIt(id)} className="Item-img">
           <img src={image} alt="item" />
         </div>
         <div className="Item-value">
