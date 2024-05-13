@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";

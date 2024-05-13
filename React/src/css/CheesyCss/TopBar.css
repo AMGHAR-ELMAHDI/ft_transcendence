@@ -96,17 +96,17 @@ ul {
   margin: unset;
 }
 
-li {
+.dropdown-menu > ul > li {
   transition: all linear 0.3s;
 }
 
-li:hover {
+.dropdown-menu > ul > li:hover {
   background: gray;
   cursor: pointer;
   color: #fff;
 }
 
-li > *{
+li > * {
 }
 
 .dropdown-menu {

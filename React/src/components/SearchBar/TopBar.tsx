@@ -1,10 +1,9 @@
 import { IoNotificationsOutline } from "react-icons/io5";
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
-import { useRecoilValue } from "recoil";
-import IsLogged from "../../Atoms/IsLogged";
 import { Link } from "react-router-dom";
+
 export function getPageName() {
   let pageName = window.location.pathname;
   pageName = pageName.slice(1);
@@ -16,8 +15,12 @@ const DropdownMenu = () => {
   return (
     <div className="dropdown-menu">
       <ul>
-        <li><Link to={"/profile"}> Profile</Link></li>
-        <li><Link to={"/settings"}> Settings</Link></li>
+        <li>
+          <Link to={"/profile"}> Profile</Link>
+        </li>
+        <li>
+          <Link to={"/settings"}> Settings</Link>
+        </li>
       </ul>
     </div>
   );
@@ -25,7 +28,6 @@ const DropdownMenu = () => {
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
-  const [gotData, setGotData] = React.useState(false);
   const [isDropdownVisible, setDropdownVisible] = React.useState(false);
 
   const handleMouseEnter = () => {
@@ -37,32 +39,25 @@ function TopBar() {
   };
 
   setAuthToken();
-  let vary = localStorage.getItem("token");
-  console.log("vary: " + vary);
-
   const getData = async () => {
     try {
       const response = await axios.get("http://localhost:2500/player/me");
-      setGotData(true);
       setData(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const Logged = useRecoilValue(IsLogged);
-
-  // getData();
-
   const obj = {
-    username: data.username ? data.username : "Dawdaw",
-    avatar: data.avatar ? data.avatar : "/bacharG.svg",
+    username: data.username,
+    avatar: "http://localhost:2500" + data.avatar?.substring(6),
     friends: data.friends ? data.friends : [0],
-    level: data.level ? data.level : 0,
+    level: data.level,
   };
 
-  if (Logged == true && gotData === true && obj.username === "DawDaw")
+  useEffect(() => {
     getData();
+  }, []);
 
   let print = <h1>Good Evening,</h1>;
   let username = <h1 id="nickName">{obj.username}</h1>;

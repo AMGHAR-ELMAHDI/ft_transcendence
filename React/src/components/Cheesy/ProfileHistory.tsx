@@ -1,6 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { setAuthToken } from '../Utils/setAuthToken';
+import axios from 'axios';
 
 function ProfileHistory() {
+	const [data, setData] = React.useState<any>({});
+
+	setAuthToken();
+	const getData = async () => {
+		try{
+			const response = await axios.get("http://localhost:2500/player/games/");
+			console.log(response.data?.games);
+			setData(response.data?.games);
+		}
+		catch(error){
+			console.log(error);	
+		}
+	}
+
+	useEffect(() => {
+		getData();
+	}, []);
+
   return (
 		<div id="history">
 			<div className="history-container">
