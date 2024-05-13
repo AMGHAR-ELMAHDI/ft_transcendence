@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir_path="`pwd`/script/games"
+dir_path="`pwd`/../../frontend/src/script/games"
 index=0
 
 echo $dir_path
@@ -20,6 +20,6 @@ while [ -f "$dir_path/$filename" ]; do
 	filename="game_$index"
 done
 
-touch $filename
+touch "$dir_path/$filename"
 
 echo $1 > $filename

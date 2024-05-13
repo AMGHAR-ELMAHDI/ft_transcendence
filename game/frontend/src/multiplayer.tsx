@@ -41,6 +41,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		var index = 0
 		const KEY_UP = 38
 		const KEY_DOWN = 40
+		let StopGame = false
 		const canvas = document.getElementById('canvas') as HTMLCanvasElement
 		const Fscore = document.getElementById('Pscore')
 		const Sscore = document.getElementById('Sscore')
@@ -124,8 +125,8 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 
 		const ball = new (Ball as any)(TwoVect(canvas.width / 2, canvas.height / 2), TwoVect(10, 10), 10)
 
-		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(15, 15), 20, 160, Name)
-		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(15, 15), 20, 160, Name2)
+		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(5, 5), 20, 160, Name)
+		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(5, 5), 20, 160, Name2)
 		
 		function Score(ScorePlayer1: string, ScorePlayer2: string) { // let animation first
 			Sscore!.innerHTML = ScorePlayer2
@@ -135,11 +136,15 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		}
 
 		function winGame(paddle: Paddles) {
+			StopGame = true
 			score!.style.display = 'none'
 			canvas!.style.cursor = 'default'
 			winner!.style.opacity = '1'
 			winner!.innerHTML = paddle.player
-			console.log('before', Type)
+			objSocket.send(JSON.stringify({
+				'type': 'it ends now',
+				'winner': paddle.player
+			}))
 			if (Type === 'Online') {
 				console.log('after', Type)
 				localStorage.setItem('FirstWinner', paddle.player)
@@ -155,7 +160,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		}
 
 		function connectBackend() {
-			const url = 'ws://e3r3p8:8000/game/host/socket-server/'
+			const url = 'ws://localhost:8000/game/host/socket-server/'
 			return new WebSocket(url)
 		}
 
@@ -176,7 +181,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		objSocket.onmessage = function(e) {
 			const data = JSON.parse(e.data)
 
-			if (data.type == 'identify')
+			if (data.type == 'identify' && index !== 0)
 				index = data.player
 			if (data.message.type == 'ballPos') {
 				ball.pos.x = data.message.BallX
@@ -217,6 +222,8 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		}
 
 		function GameLoop() {
+			if (StopGame)
+				return
 			context?.clearRect(0, 0, canvas.width, canvas.height)
 			window.requestAnimationFrame(GameLoop)
 

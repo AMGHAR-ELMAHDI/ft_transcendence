@@ -2,16 +2,18 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
 from . import views
-import asyncio, time
+import asyncio, time, subprocess
 
 ball = views.Ball(675.7, 675.7, 10, 10, 10)
-paddle1 = views.Paddle(0, 50, 15, 15, 20, 160)
-paddle2 = views.Paddle(0, 20, 15, 15, 20, 160)
+paddle1 = views.Paddle(0, 50, 5, 5, 20, 160)
+paddle2 = views.Paddle(0, 20, 5, 5, 20, 160)
 
 
 class GameConsumer(AsyncWebsocketConsumer):
 
     connections = {}
+    seconds = 0
+    data = ""
 
     async def connect(self):
         if len(GameConsumer.connections) + 1 == 3:
@@ -49,7 +51,6 @@ class GameConsumer(AsyncWebsocketConsumer):
                     "posX": paddle1.posX,
                     "posY": paddle1.posY,
                 }
-                await asyncio.sleep(0.003)
                 await self.custom_Async(message, "paddleChan")
             if infos["user"] == "2":
                 paddle2.update(infos["key"])
@@ -59,8 +60,11 @@ class GameConsumer(AsyncWebsocketConsumer):
                     "posX": paddle2.posX,
                     "posY": paddle2.posY,
                 }
-                await asyncio.sleep(0.003)
                 await self.custom_Async(message, "paddleChan")
+            await asyncio.sleep(0.002)
+        if message_type == 'it ends now':
+            self.data += 'winner: ' + infos['winner'] + '\r\n'
+            self.CreateCSVFile(self.data)
 
     async def custom_Async(self, message, type):
         await self.channel_layer.group_send(
@@ -92,6 +96,8 @@ class GameConsumer(AsyncWebsocketConsumer):
                 }
                 await self.custom_Async(message, "scored")
             await asyncio.sleep(1 / 60)
+            self.seconds += 1
+            self.data += str(self.seconds) + 's= ' + ' BallX: ' + str(ball.BallX) + ' BallY: ' + str(ball.BallY) + ' paddleX1: ' + str(paddle1.posX) + ' paddleY1: ' + str(paddle1.posY) + ' paddleX2: ' + str(paddle2.posX) + ' paddleY2: ' + str(paddle2.posY) + '\r\n'
 
     async def paddleChan(self, event):
         message = event["message"]
@@ -107,6 +113,11 @@ class GameConsumer(AsyncWebsocketConsumer):
         message = event["message"]
         await self.send(text_data=json.dumps({"type": "scored", "message": message}))
 
+    def CreateCSVFile(self, data):
+        command = "/Users/mnassi/Desktop/1337/ft_transcendence/game/frontend/src/script/ai.sh \"" + data + "\"" 
+
+        result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        print(result)
 
 
 # tournament code here -->
