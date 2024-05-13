@@ -38,7 +38,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 	const [Exit, setExit] = useState<boolean>(false);
 
 	useEffect(()=> {
-		var index = 0
+		var index = -1
 		const KEY_UP = 38
 		const KEY_DOWN = 40
 		let StopGame = false
@@ -181,7 +181,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		objSocket.onmessage = function(e) {
 			const data = JSON.parse(e.data)
 
-			if (data.type == 'identify' && index !== 0)
+			if (data.type == 'identify')
 				index = data.player
 			if (data.message.type == 'ballPos') {
 				ball.pos.x = data.message.BallX
