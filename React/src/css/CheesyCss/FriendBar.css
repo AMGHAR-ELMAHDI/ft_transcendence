@@ -6,11 +6,11 @@
   width: 9rem;
   height: 100%;
   max-height: 100vh;
-  transition: all linear 2s;
+  transition: all 2s;
 }
 
 #FriendBar > * {
-  transition: all linear 2s;
+  transition: all 2s;
 }
 
 #friend-container {
@@ -23,17 +23,22 @@
   padding: 1.5rem;
   margin: 2rem;
   border-radius: 40px;
-  transition: all linear 2s;
+  transition: all 2s;
+}
+
+.more-friends{
+  background-color: red;
+  transition: all 2s;
 }
 
 .friend-sb {
   cursor: pointer;
   width: 3rem;
   border-radius: 50%;
-  transition: all linear 2s;
+  transition: all 2s;
 }
 
 .friend-svg {
   width: 2rem;
-  transition: all linear 2s;
+  transition: all 2s;
 }
