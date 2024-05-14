@@ -3,7 +3,7 @@ import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function getRegister() {
   const [username, setUsername] = useState("");
@@ -26,12 +26,8 @@ function getRegister() {
     axios
       .post("http://localhost:2500/auth/users/", obj)
       .then((response) => {
-        console.log("------------");
         console.log(response.data);
-        console.log("------------");
-
         if (response.status === 201) {
-          console.log("hahowa 201");
           setLoged(true);
           navigate("/login");
         }
@@ -40,6 +36,7 @@ function getRegister() {
         console.log(error);
       });
   };
+
   return (
     <div>
       <input

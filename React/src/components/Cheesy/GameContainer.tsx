@@ -1,5 +1,6 @@
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
+import Player from "./Player";
 
 export default function GameContainer() {
   return (
@@ -8,6 +9,7 @@ export default function GameContainer() {
         <SideBar />
         <div className="main">
           <TopBar />
+          <Player />
         </div>
       </div>
     </>

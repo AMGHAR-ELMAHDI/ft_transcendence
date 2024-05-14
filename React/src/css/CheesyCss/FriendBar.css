@@ -26,11 +26,6 @@
   transition: all 2s;
 }
 
-.more-friends{
-  background-color: red;
-  transition: all 2s;
-}
-
 .friend-sb {
   cursor: pointer;
   width: 3rem;

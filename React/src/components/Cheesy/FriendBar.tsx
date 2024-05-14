@@ -20,12 +20,6 @@ function FriendBar() {
     getData();
   }, []);
 
-  const update = () => {
-    setShowList(false);
-    const get = document.getElementById("more-friends");
-    // get.stye
-  };
-
   return (
     <div id="FriendBar">
       <div
