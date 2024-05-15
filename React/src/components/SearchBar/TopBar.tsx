@@ -103,7 +103,7 @@ function TopBar() {
             onChange={handleInputChange}
           />
           {search && isFocused && (
-            <div className="SearchUsers">
+            <div className="SearchUsers" onClick={() => setIsFocused(false)}>
               {filteredUsers.length == 0 && <h1>No User Found</h1>}
               {filteredUsers.map((player: any) => (
                 <Link key={player.username} to={`/profile/${player.username}`}>
