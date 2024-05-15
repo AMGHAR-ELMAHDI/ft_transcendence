@@ -1,20 +1,20 @@
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import Profile from "./Profile";
+import ProfileMain from "./ProfileMain";
 import FriendBar from "./FriendBar";
-import Dashboard from "./Dashboard";
-import { useState } from "react";
+import { Outlet, useParams } from "react-router-dom";
 
-function DashboardContainer() {
-  const [render, setRender] = useState<string>("History");
+function ProfileLayout() {
+  const { username } = useParams();
+  console.log("Layout: " + username);
   return (
     <>
       <div className="AppClass">
         <SideBar />
         <div className="main">
           <TopBar />
-          <Profile profileList="Dont" show={render} setRender={setRender} />
-          <Dashboard />
+          <Outlet />
         </div>
         <FriendBar />
       </div>
@@ -22,4 +22,4 @@ function DashboardContainer() {
   );
 }
 
-export default DashboardContainer;
+export default ProfileLayout;
