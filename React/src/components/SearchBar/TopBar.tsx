@@ -1,5 +1,5 @@
 import { IoNotificationsOutline } from "react-icons/io5";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { Link } from "react-router-dom";
@@ -29,13 +29,21 @@ const DropdownMenu = () => {
 function TopBar() {
   const [data, setData] = React.useState<any>({});
   const [isDropdownVisible, setDropdownVisible] = React.useState(false);
+  const [search, setSearch] = useState<string>("");
+  const [players, setPlayers] = useState<any>([]);
+  const [filteredUsers, setFilteredUsers] = useState<any>(players);
+  const [isFocused, setIsFocused] = useState(false);
 
-  const handleMouseEnter = () => {
-    setDropdownVisible(true);
-  };
+  const handleInputChange = (e: any) => {
+    const searchTerm = e.target.value;
+    setSearch(searchTerm);
 
-  const handleMouseLeave = () => {
-    setDropdownVisible(false);
+    const filteredItems = players.filter((user: any) =>
+      user.username.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    console.log(filteredItems);
+
+    setFilteredUsers(filteredItems);
   };
 
   setAuthToken();
@@ -43,6 +51,15 @@ function TopBar() {
     try {
       const response = await axios.get("http://localhost:2500/player/me");
       setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getPlayers = async () => {
+    try {
+      const response = await axios.get("http://localhost:2500/player/");
+      console.log(response.data);
+      setPlayers(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -57,6 +74,7 @@ function TopBar() {
 
   useEffect(() => {
     getData();
+    getPlayers();
   }, []);
 
   let print = <h1>Good Evening,</h1>;
@@ -72,13 +90,35 @@ function TopBar() {
       </div>
 
       <div id="search-bar">
-        <input id="search" type="text" placeholder="Search" />
+        <div
+          className="Search-input-container"
+          onMouseEnter={() => setIsFocused(true)}
+          onMouseLeave={() => setIsFocused(false)}
+        >
+          <input
+            id="search"
+            type="text"
+            placeholder="Search"
+            value={search}
+            onChange={handleInputChange}
+          />
+          {search && isFocused && (
+            <div className="SearchUsers">
+              {filteredUsers.length == 0 && <h1>No User Found</h1>}
+              {filteredUsers.map((player: any) => (
+                <Link key={player.username} to={`/profile/${player.username}`}>
+                  {player.username}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
         <div className="NotifProfile">
           <IoNotificationsOutline id="notif" />
           <div
             className="div-relat"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            onMouseEnter={() => setDropdownVisible(true)}
+            onMouseLeave={() => setDropdownVisible(false)}
           >
             <img className="NotifProfilePic" src={obj.avatar} />
             {isDropdownVisible && <DropdownMenu />}
