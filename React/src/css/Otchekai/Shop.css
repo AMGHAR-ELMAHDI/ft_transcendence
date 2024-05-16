@@ -8,7 +8,7 @@
   --font-color: white;
   --grey-bg-color: hsl(227, 15%, 23%);
   --blue-glow: #5fcae4;
-}a
+}
 
 * {
   /* border: solid red; */
@@ -67,8 +67,13 @@
   display: flex;
   align-items: center;
   gap: 4rem;
-  width: 2000px;
+  width: 2500px;
   overflow-x: scroll;
+}
+
+.Paddle-holder::-webkit-scrollbar-track {
+  /* marig-block: 4.5rem; */
+  /* scroll-margin-block: 30px; */
 }
 
 .Card-container {
@@ -82,6 +87,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0 0.8rem;
+  min-width: 284px;
 }
 
 .Item-img > img {
@@ -90,7 +96,7 @@
 }
 
 .Item-img:hover {
-  scale: 1.05;
+  scale: 1.01;
 }
 
 .Item-img {
@@ -148,7 +154,7 @@
 
 /* .Item-img:hover {
   scale: 1.007;
-  filter: brightness(80%);
+   filter: brightness(80%);
 } */
 
 .Item-price {

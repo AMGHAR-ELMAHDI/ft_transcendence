@@ -1,6 +1,10 @@
+import { useRecoilState, useRecoilValue } from "recoil";
 import FriendBar from "../Cheesy/FriendBar";
 import SideBar from "../Cheesy/SideBar";
 import TopBar from "../SearchBar/TopBar";
+import { setAuthToken } from "../Utils/setAuthToken";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function ChatContainer() {
   return (
@@ -20,6 +24,28 @@ function ChatContainer() {
 export default ChatContainer;
 
 function ChatSystem() {
+  // const [receiver_id, setReceiverId] = useRecoilState(ReceiverId);
+  // useEffect(() => {
+  //   const data = {
+  //     username: "user1",
+  //     password: "MKSzak123",
+  //   };
+  //   axios
+  //     .post("http://localhost:2500/auth/jwt/create/", {
+  //       body: JSON.stringify(data),
+  //       Headers: { "Content-Type": "application/json" },
+  //     })
+  //     .then((response) => {
+  //       const accessAuth = response.data.access;
+  //       console.log(accessAuth);
+  //     });
+
+  //   setReceiverId(1);
+  //   const socket = new WebSocket(`ws://localhost:2500/ws/chat/${receiver_id}/`);
+  //   // WebS.onmessage = function(e) {
+  //   //   console.log(e.data)
+  //   // }
+  // });
   return (
     <>
       <div className="Chat-wrapper">
@@ -73,7 +99,7 @@ function ChatFriends() {
           </div>
           <div className="Name-messages">
             <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
+            <p id="Last-message">Hey There Im Using Whatsapp!</p>
           </div>
         </div>
         <div className="Chat-Friendslist">
@@ -82,7 +108,7 @@ function ChatFriends() {
           </div>
           <div className="Name-messages">
             <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
+            <p id="Last-message">Hey There Im Using Whatsapp!</p>
           </div>
         </div>
         <div className="Chat-Friendslist">
@@ -91,7 +117,7 @@ function ChatFriends() {
           </div>
           <div className="Name-messages">
             <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
+            <p id="Last-message">Hey There Im Using Whatsapp!</p>
           </div>
         </div>
       </div>
@@ -219,7 +245,7 @@ function ChatTyping() {
           />
           <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
         </div>
-        <form onSubmit={SendMessage} className="Chat-input">
+        <form onSubmit={ConnectSockets} className="Chat-input">
           <div className="Input-box">
             <input type="text" placeholder="Type Something ..." />
           </div>
@@ -232,6 +258,6 @@ function ChatTyping() {
   );
 }
 
-function SendMessage(e: any) {
+function ConnectSockets(e: any) {
   e.preventDefault();
 }

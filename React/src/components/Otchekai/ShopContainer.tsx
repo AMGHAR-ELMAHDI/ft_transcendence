@@ -152,6 +152,8 @@ function ShopDesign() {
   );
 }
 
+//TODO:Add UseState to rerender the Items when bought, ADD Shake effect(green and red color)
+
 function BuyIt(obj: { item_id: number }) {
   setAuthToken();
   const getData = async () => {
@@ -165,24 +167,66 @@ function BuyIt(obj: { item_id: number }) {
   getData();
 }
 
+// function Card({ name, price, image, id }: CardProps) {
+//   const obj = {
+//     item_id: id,
+//   };
+//   const owned = useRecoilValue(OwnedItems);
+//   return (
+//     <>
+//       <div className="Card-container">
+//         <div onClick={() => BuyIt(obj)} className="Item-img">
+//           <img src={image} alt="item" />
+//         </div>
+//         <div className="Item-value">
+//           <div className="Item-title">{name}</div>
+//           {FilterItems(owned, name) === false && (
+//             <div className="Item-price">{price + "$"}</div>
+//           )}
+//           {FilterItems(owned, name) === true && (
+//             <div className="Item-price">{"Owned"}</div>
+//           )}
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
 function Card({ name, price, image, id }: CardProps) {
   const obj = {
     item_id: id,
   };
+  const [purchased, setPurchased] = useState(false);
   const owned = useRecoilValue(OwnedItems);
+
+  const handleBuy = async () => {
+    try {
+      const response = await axios.post("http://localhost:2500/shop/", obj);
+      console.log(response.status);
+      setPurchased(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (FilterItems(owned, name)) {
+      setPurchased(true);
+    }
+  }, [owned, name]);
+
   return (
     <>
       <div className="Card-container">
-        <div onClick={() => BuyIt(obj)} className="Item-img">
+        <div onClick={() => handleBuy()} className="Item-img">
           <img src={image} alt="item" />
         </div>
         <div className="Item-value">
           <div className="Item-title">{name}</div>
-          {FilterItems(owned, name) === false && (
-            <div className="Item-price">{price + "$"}</div>
-          )}
-          {FilterItems(owned, name) === true && (
+          {purchased ? (
             <div className="Item-price">{"Owned"}</div>
+          ) : (
+            <div className="Item-price">{price + "$"}</div>
           )}
         </div>
       </div>
