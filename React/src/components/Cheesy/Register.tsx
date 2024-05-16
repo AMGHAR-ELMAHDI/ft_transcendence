@@ -26,7 +26,7 @@ function getRegister() {
     axios
       .post("http://localhost:2500/auth/users/", obj)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         if (response.status === 201) {
           setLoged(true);
           navigate("/login");

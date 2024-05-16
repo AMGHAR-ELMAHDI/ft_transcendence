@@ -2,7 +2,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function getPageName() {
   let pageName = window.location.pathname;
@@ -41,9 +41,13 @@ function TopBar() {
     const filteredItems = players.filter((user: any) =>
       user.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    console.log(filteredItems);
 
     setFilteredUsers(filteredItems);
+  };
+
+  const func = (player: any) => {
+    setSearch("");
+    navigate(`/profile/${player.username}`);
   };
 
   setAuthToken();
@@ -58,7 +62,7 @@ function TopBar() {
   const getPlayers = async () => {
     try {
       const response = await axios.get("http://localhost:2500/player/");
-      console.log(response.data);
+      // console.log(response.data);
       setPlayers(response.data);
     } catch (error) {
       console.log(error);
@@ -76,6 +80,7 @@ function TopBar() {
     getData();
     getPlayers();
   }, []);
+  const navigate = useNavigate();
 
   let print = <h1>Good Evening,</h1>;
   let username = <h1 id="nickName">{obj.username}</h1>;
@@ -106,9 +111,9 @@ function TopBar() {
             <div className="SearchUsers" onClick={() => setIsFocused(false)}>
               {filteredUsers.length == 0 && <h1>No User Found</h1>}
               {filteredUsers.map((player: any) => (
-                <Link key={player.username} to={`/profile/${player.username}`}>
+                <h1 key={player.username} onClick={() => func(player)}>
                   {player.username}
-                </Link>
+                </h1>
               ))}
             </div>
           )}

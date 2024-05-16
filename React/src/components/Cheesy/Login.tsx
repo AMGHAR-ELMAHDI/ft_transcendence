@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
-import FriendBar from "./FriendBar";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import AcessToken from "../../Atoms/AccessToken";
 import { setAuthToken } from "../Utils/setAuthToken";
 import IsLogged from "../../Atoms/IsLogged";
+import { useNavigate } from "react-router-dom";
 
 function getGeneralInfo() {
   const [username, setUsername] = useState("");
@@ -19,6 +19,7 @@ function getGeneralInfo() {
     password: password,
   };
 
+  const navigate = useNavigate();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
@@ -29,7 +30,7 @@ function getGeneralInfo() {
           setTokenValue(str.access);
           setLogged(true);
           localStorage.setItem("token", str.access);
-          console.log(str.access);
+          navigate("/");
         }
       })
       .catch((error) => {

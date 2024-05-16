@@ -47,7 +47,7 @@ function ProfileHistory() {
 	const getData = async () => {
 		try{
 			const response = await axios.get("http://localhost:2500/player/games/");
-			console.log(response.data?.games);
+			// console.log(response.data?.games);
 			setData(response.data.games);
 		}
 		catch(error){

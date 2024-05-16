@@ -25,7 +25,7 @@ function Player() {
   const getPlayers = async () => {
     try {
       const response = await axios.get("http://localhost:2500/player/");
-      console.log(response.data);
+      // console.log(response.data);
       setPlayers(response.data);
     } catch (error) {
       console.log(error);
