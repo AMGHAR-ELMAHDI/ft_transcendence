@@ -59,6 +59,7 @@ interface UserProps {
   setRender: React.Dispatch<React.SetStateAction<string>>;
   data: {
     username: string;
+    id: number;
     first_name: string;
     last_name: string;
     image: string;
@@ -70,24 +71,43 @@ interface UserProps {
   };
 }
 
-function addFriend(UserName: string) {
+function addFriend(UserName: string, MyId: number, UserId: number) {
+  let sent: any = [];
+  let received: any = [];
   setAuthToken();
   const getData = async () => {
     try {
       const response = await axios.get("http://localhost:2500/friends");
       console.log(response.data);
+      sent = response.data.sent;
+      received = response.data.received;
     } catch (error) {
       console.log(error);
     }
   };
 
+  const obj = [
+    {
+      from_user: 1,
+      to_user: UserId,
+    },
+  ];
+
   getData();
+  const putData = async () => {
+    try {
+      const response = await axios.put("http://localhost:2500/friends/", obj);
+      console.log("PUT: " + response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  putData();
 }
 
 function UserProfile({ show, setRender, data }: UserProps) {
   const profileLevelStyle = { justifyContent: "space-between" };
   let levelStart = getLevelStart(data) * 100;
-  console.log(data.image);
 
   return (
     <div id="Profile">
@@ -103,7 +123,9 @@ function UserProfile({ show, setRender, data }: UserProps) {
         <div className="line1">
           <div className="line2"></div>
           <div id="ProfileaddFriend">
-            <BsPersonFillAdd onClick={() => addFriend(data.username)} />
+            <BsPersonFillAdd
+              onClick={() => addFriend(data.username, data.id, data.id)}
+            />
           </div>
         </div>
       </div>
