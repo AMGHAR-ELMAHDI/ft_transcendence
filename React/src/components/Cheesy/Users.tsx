@@ -72,31 +72,13 @@ interface UserProps {
 }
 
 function addFriend(UserName: string, MyId: number, UserId: number) {
-  let sent: any = [];
-  let received: any = [];
-  setAuthToken();
-  const getData = async () => {
-    try {
-      const response = await axios.get("http://localhost:2500/friends");
-      console.log(response.data);
-      sent = response.data.sent;
-      received = response.data.received;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const obj = [
-    {
-      from_user: 1,
-      to_user: UserId,
-    },
-  ];
-
-  getData();
+  // setAuthToken();
   const putData = async () => {
     try {
-      const response = await axios.put("http://localhost:2500/friends/", obj);
+      const response = await axios.post("http://localhost:2500/friends/", {
+        from_user: 1,
+        to_user: 11,
+      });
       console.log("PUT: " + response.data);
     } catch (error) {
       console.log(error);

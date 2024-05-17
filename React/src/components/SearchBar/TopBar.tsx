@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { Link, useNavigate } from "react-router-dom";
+import Notif from "../Cheesy/Notif";
 
 export function getPageName() {
   let pageName = window.location.pathname;
@@ -119,7 +120,7 @@ function TopBar() {
           )}
         </div>
         <div className="NotifProfile">
-          <IoNotificationsOutline id="notif" />
+          {Notif()}
           <div
             className="div-relat"
             onMouseEnter={() => setDropdownVisible(true)}
