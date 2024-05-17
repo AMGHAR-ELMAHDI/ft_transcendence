@@ -118,16 +118,14 @@ class PlayerViewSet(viewsets.ModelViewSet):
             return Response(serialized_player.data)
 
 
-
-
     @action(detail=False, methods=['GET'])
     def leaderboard(self, request):
-        player = Player.objects.all().order_by('-level') # Won games for each user to be added later
+        player = Player.objects.all().order_by('-level') # todo : Won games for each user to be added later
         leaderboard_serializer = LeaderBoardSerializer(player, many=True)
         return Response(leaderboard_serializer.data)
         
     @action(detail=False, methods=['GET', 'PUT'])
-    def me(self, request):
+    def me(self, request, username):
         player, created = Player.objects.get_or_create(username=request.user.username)
         if request.method == 'GET':
             serializer = PlayerSerializer(player)
@@ -162,10 +160,25 @@ class PlayerViewSet(viewsets.ModelViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
+        
+    # @action(detail=False, methods=['GET'])
+    # def games(self, request):
+    #     try:
+    #         player = request.user
+    #         games = player.games
+    #         data = {
+    #             'games' : games
+    #         }
+    #         return Response(data, status=status.HTTP_200_OK)
+    #     except Exception as e:
+    #         return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     @action(detail=False, methods=['GET'])
-    def games(self, request):
+    def games(self, request, username=None):
         try:
-            player = request.user
+            if not username:
+                player = request.user
+            else:
+                player = Player.objects.filter(username=username)
             games = player.games
             data = {
                 'games' : games
@@ -173,6 +186,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
     @action(detail=False, methods=['GET'])
     def friends(self, request):
         try:
@@ -281,3 +295,23 @@ class FriendshipAPIView(APIView):
 
         return Response({'message': 'Friendship request updated successfully'}, status=status.HTTP_200_OK)
 
+
+
+@action(detail=False, methods=['GET', 'PUT', 'POST'])
+class FriendProfileAPIView(APIView):
+    queryset = FriendshipRequest.objects.all()
+    serializer_class = FriendshipRequestSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user_id = request.data.get('id')
+        user = Player.objects.filter(id=user_id)
+        sent = FriendshipRequest.objects.filter(from_user=user)
+        recieved = FriendshipRequest.objects.filter(to_user=user)
+        serialized_sent = FriendshipRequestSerializer(sent, many=True)
+        serialized_recieved = FriendshipRequestSerializer(recieved, many=True)
+        data = {
+            # 'sent' : serialized_sent.data,
+            'recieved' : serialized_recieved.data,
+        }
+        return Response(data, status = 200)

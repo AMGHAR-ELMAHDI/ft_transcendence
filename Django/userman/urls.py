@@ -9,8 +9,8 @@ router.register('player', views.PlayerViewSet, basename = 'player')
 urlpatterns = [
     # path('', views.players_list),
     path('', include(router.urls)), 
-	path('search/<str:username>',views.PlayerSearchAPIView.as_view(), name='user-search'),
+	path('player/<str:username>/me/', views.PlayerViewSet.as_view({'get': 'me', 'put': 'me'})),
+	path('games/<str:username>',views.PlayerSearchAPIView.as_view(), name='user-search'),
 	path('shop/',views.ShopView.as_view(), name='user-shop'),
 	path('friends/',views.FriendshipAPIView.as_view(), name='user-friends'),
-
 ]

@@ -29,3 +29,4 @@ dist-ssr
 token
 trans
 venv
+__pycache__
