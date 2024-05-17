@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { useRecoilState } from "recoil";
 import Players from "../../Atoms/Players";
+import RenderNotif from "../../Atoms/RenderNotif";
 
 // function getUserName(
 //   filteredItems: {
@@ -44,12 +45,12 @@ import Players from "../../Atoms/Players";
 
 function Notif() {
   const [received, setReceived] = useState<any>([]);
+  const [render, setRender] = useRecoilState(RenderNotif);
 
   setAuthToken();
   const getData = async () => {
     try {
       const response = await axios.get("http://localhost:2500/friends");
-      console.log("Received invites:" + response.data?.recieved);
       setReceived(response.data?.recieved);
     } catch (error) {
       console.log(error);
@@ -64,10 +65,6 @@ function Notif() {
     user.status.includes("P")
   );
 
-  filteredItems?.map?.((user:any) => {
-    console.log("satttttttt: " + user.status);
-  })
-
   const accept = async (id: number) => {
     try {
       const response = await axios.put("http://localhost:2500/friends/", {
@@ -79,7 +76,6 @@ function Notif() {
       console.log(error);
     }
   };
-
   const decline = async (id: number) => {
     try {
       const response = await axios.put("http://localhost:2500/friends/", {
@@ -92,19 +88,27 @@ function Notif() {
     }
   };
 
+  const reRender = () => {
+    setRender(!render);
+    getData();
+
+  }
+
   return (
-    <div className="notif-relative">
+    <div className="notif-relative" onClick={reRender}>
       <IoNotificationsOutline id="notif" />
-      <div id="NotifPopUp">
-        {filteredItems.map((notif: any) => (
-          <div className="notif-item" key={notif.id}>
-            <h4>{"fromUser:" + notif.from_user}</h4>
-            {/* <h4>{"Username:" + getUserName(notif, players)}</h4> */}
-            <button onClick={() => accept(notif.from_user)}>Accept</button>
-            <button onClick={() => decline(notif.from_user)}>Decline</button>
-          </div>
-        ))}
-      </div>
+      {render && (
+        <div id="NotifPopUp">
+          {filteredItems.map((notif: any) => (
+            <div className="notif-item" key={notif.id}>
+              <h4>{"fromUser:" + notif.from_user}</h4>
+              {/* <h4>{"Username:" + getUserName(notif, players)}</h4> */}
+              <button onClick={() => accept(notif.from_user)}>Accept</button>
+              <button onClick={() => decline(notif.from_user)}>Decline</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
