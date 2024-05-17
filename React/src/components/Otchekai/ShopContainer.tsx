@@ -154,44 +154,6 @@ function ShopDesign() {
 
 //TODO:Add UseState to rerender the Items when bought, ADD Shake effect(green and red color)
 
-function BuyIt(obj: { item_id: number }) {
-  setAuthToken();
-  const getData = async () => {
-    try {
-      const response = await axios.post("http://localhost:2500/shop/", obj);
-      console.log(response.status);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getData();
-}
-
-// function Card({ name, price, image, id }: CardProps) {
-//   const obj = {
-//     item_id: id,
-//   };
-//   const owned = useRecoilValue(OwnedItems);
-//   return (
-//     <>
-//       <div className="Card-container">
-//         <div onClick={() => BuyIt(obj)} className="Item-img">
-//           <img src={image} alt="item" />
-//         </div>
-//         <div className="Item-value">
-//           <div className="Item-title">{name}</div>
-//           {FilterItems(owned, name) === false && (
-//             <div className="Item-price">{price + "$"}</div>
-//           )}
-//           {FilterItems(owned, name) === true && (
-//             <div className="Item-price">{"Owned"}</div>
-//           )}
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
 function Card({ name, price, image, id }: CardProps) {
   const obj = {
     item_id: id,
@@ -199,6 +161,7 @@ function Card({ name, price, image, id }: CardProps) {
   const [purchased, setPurchased] = useState(false);
   const owned = useRecoilValue(OwnedItems);
 
+  const item = document.querySelector("Item-img-animation");
   const handleBuy = async () => {
     try {
       const response = await axios.post("http://localhost:2500/shop/", obj);
@@ -215,11 +178,16 @@ function Card({ name, price, image, id }: CardProps) {
     }
   }, [owned, name]);
 
+
   return (
     <>
       <div className="Card-container">
         <div onClick={() => handleBuy()} className="Item-img">
+          <div className="Item-img-animation">
+            <p>BUY IT!</p>
+          </div>
           <img src={image} alt="item" />
+          <div className="Item-img-animation2"></div>
         </div>
         <div className="Item-value">
           <div className="Item-title">{name}</div>

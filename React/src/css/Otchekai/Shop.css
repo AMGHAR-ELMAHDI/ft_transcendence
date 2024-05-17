@@ -81,6 +81,7 @@
   width: 280px;
   flex-direction: column;
   gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .Item-value {
@@ -115,9 +116,11 @@
   transition: all 0.4s ease-in-out;
 }
 
-.Item-img::before {
-  content: "";
+.Item-img-animation {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   left: 0;
   top: 0;
   background-color: rgba(33, 74, 120, 0.596);
@@ -128,12 +131,16 @@
   border-radius: 15px;
 }
 
-.Item-img::after {
+.Item-img-animation > p {
+  font-family: cool;
+  font-size: 40px;
+}
+
+.Item-img-animation2 {
   font-family: cool;
   padding: 7px 30px;
   border-radius: 15px;
   font-size: 1.7rem;
-  content: "BUY IT !";
   position: absolute;
   width: fit-content;
   display: flex;
@@ -144,11 +151,11 @@
   background-color: transparent;
 }
 
-.Item-img:hover::after {
+.Item-img:hover > .Item-img-animation2 {
   opacity: 1;
 }
 
-.Item-img:hover::before {
+.Item-img:hover > .Item-img-animation {
   transform: translateY(0);
 }
 
