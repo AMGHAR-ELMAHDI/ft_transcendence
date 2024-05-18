@@ -42,7 +42,7 @@ class PlayerCreateSerializer(serializers.ModelSerializer):
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['email', 'first_name', 'last_name', 'username', 'coins', 'level', 'image']
+        fields = ['id', 'email', 'first_name', 'last_name', 'username', 'coins', 'level', 'image']
         extra_kwargs = {'level': {'read_only': True},
                         'coins': {'read_only': True},
                         }
