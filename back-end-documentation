@@ -1,14 +1,22 @@
 http://localhost:2500/auth/users/ : user creation
 http://localhost:2500/auth/jwt/create : jwt creation 
+
 http://localhost:2500/player/me/ : user info
-http://localhost:2500/player/friends/ : user friends
+http://localhost:2500/player/reqs/ : friendship requests
 http://localhost:2500/player/achievements/ : user achievements
-http://localhost:2500/player/games/ : user games
 http://localhost:2500/player/items/ : user items
+
 http://localhost:2500/search/<username> : user search by username
+
+
+http://localhost:2500/profile/<username>
+
+
+
 http://localhost:2500/shop/ : shop
 	- GET : all items and all items and achievements
 	- POST : item_id : to buy the item
+
 http://localhost:2500/chat/<receiver_id>/ : Direct Messages Chat
 
 normal users : 
@@ -17,3 +25,19 @@ passwords : MKSzak123
 
 superuser : zmakhkha
 password : aaa
+
+player/<int:id>/me/ : other players | player/<int:id>/me/ : logged players
+"username" : ""
+"avatar" : ""
+"first_name" : ""
+"last_name" : ""
+"coins" : ""
+"level" : ""
+"win_rate" : ""
+"achievements_rate" : ""
+
+player/<int:id>/games/ : other players | player/games/ : logged players
+	+ Played games info
+
+player/<int:id>/achievements/ : other players | player/achievements/ : logged players
+player/<int:id>/items/ : other players | player/items/ : logged players
