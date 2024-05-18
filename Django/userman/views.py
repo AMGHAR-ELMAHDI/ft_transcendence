@@ -125,8 +125,14 @@ class PlayerViewSet(viewsets.ModelViewSet):
         return Response(leaderboard_serializer.data)
         
     @action(detail=False, methods=['GET', 'PUT'])
-    def me(self, request, username):
-        player, created = Player.objects.get_or_create(username=request.user.username)
+    def me(self, request, id=None):
+        if not id:
+            player = request.user
+        else:
+            try:
+                player = Player.objects.get(id=id)
+            except:
+                return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
         if request.method == 'GET':
             serializer = PlayerSerializer(player)
 
@@ -152,7 +158,6 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 'level': player.level,
                 'win_rate': round(win_rate, 2),
                 'achievements_rate': achievements_rate,
-                # 'games': games_serializer.data,
             }
             return Response(data)
         elif request.method == 'PUT':
@@ -161,31 +166,25 @@ class PlayerViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data)
         
-    # @action(detail=False, methods=['GET'])
-    # def games(self, request):
-    #     try:
-    #         player = request.user
-    #         games = player.games
-    #         data = {
-    #             'games' : games
-    #         }
-    #         return Response(data, status=status.HTTP_200_OK)
-    #     except Exception as e:
-    #         return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @action(detail=False, methods=['GET'])
-    def games(self, request, username=None):
+    def games(self, request, id=None):
         try:
-            if not username:
+            if not id:
                 player = request.user
+                print('-----1')
             else:
-                player = Player.objects.filter(username=username)
+                try:
+                    player = Player.objects.get(id=id)
+                except:
+                    return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
             games = player.games
             data = {
                 'games' : games
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : '--An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
     @action(detail=False, methods=['GET'])
     def friends(self, request):
@@ -198,10 +197,18 @@ class PlayerViewSet(viewsets.ModelViewSet):
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
     @action(detail=False, methods=['GET'])
-    def achievements(self, request):
+    def achievements(self, request, id=None):
         try:
-            player = request.user
+            if not id:
+                player = request.user
+            else:
+                try:
+                    player = Player.objects.get(id=id)
+                except:
+                    return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
             achievements = player.achievements
             data = {
                 'achievements' : achievements
@@ -209,10 +216,18 @@ class PlayerViewSet(viewsets.ModelViewSet):
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
     @action(detail=False, methods=['GET'])
-    def items(self, request):
+    def items(self, request, id=None):
         try:
-            player = request.user
+            if not id:
+                player = request.user
+            else:
+                try:
+                    player = Player.objects.get(id=id)
+                except:
+                    return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
             items = player.items
             data = {
                 'items' : items or ''
