@@ -55,9 +55,13 @@
   display: flex;
   align-items: center;
   gap: 4rem;
+  width: 2500px;
   overflow-x: scroll;
-  max-width: 100%;
-  width: 2000px;
+}
+
+.Paddle-holder::-webkit-scrollbar-track {
+  /* marig-block: 4.5rem; */
+  /* scroll-margin-block: 30px; */
 }
 
 .Card-container {
@@ -65,12 +69,14 @@
   width: 280px;
   flex-direction: column;
   gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .Item-value {
   display: flex;
   justify-content: space-between;
   padding: 0 0.8rem;
+  min-width: 284px;
 }
 
 .Item-img > img {
@@ -79,7 +85,7 @@
 }
 
 .Item-img:hover {
-  scale: 1.05;
+  scale: 1.01;
 }
 
 .Item-img {
@@ -98,9 +104,11 @@
   transition: all 0.4s ease-in-out;
 }
 
-.Item-img::before {
-  content: "";
+.Item-img-animation {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   left: 0;
   top: 0;
   background-color: rgba(33, 74, 120, 0.596);
@@ -111,12 +119,16 @@
   border-radius: 15px;
 }
 
-.Item-img::after {
+.Item-img-animation > p {
+  font-family: cool;
+  font-size: 40px;
+}
+
+.Item-img-animation2 {
   font-family: cool;
   padding: 7px 30px;
   border-radius: 15px;
   font-size: 1.7rem;
-  content: "BUY IT !";
   position: absolute;
   width: fit-content;
   display: flex;
@@ -127,17 +139,17 @@
   background-color: transparent;
 }
 
-.Item-img:hover::after {
+.Item-img:hover > .Item-img-animation2 {
   opacity: 1;
 }
 
-.Item-img:hover::before {
+.Item-img:hover > .Item-img-animation {
   transform: translateY(0);
 }
 
 /* .Item-img:hover {
   scale: 1.007;
-  filter: brightness(80%);
+   filter: brightness(80%);
 } */
 
 .Item-price {

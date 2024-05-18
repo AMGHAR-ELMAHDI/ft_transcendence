@@ -66,6 +66,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.channel_layer.group_add(group_name, self.channel_name)
             print("---------> Channel name : ", self.channel_name)
             
+        except ...:
+            print("---------> Connection rejected: Token expired.")
+            await self.close()
         except jwt.ExpiredSignatureError:
             print("---------> Connection rejected: Token expired.")
             await self.close()
