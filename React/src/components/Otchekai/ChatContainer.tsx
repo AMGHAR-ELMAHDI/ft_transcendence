@@ -88,9 +88,9 @@ function ChatFriends() {
   };
 
   useEffect(() => {
-    // if (Friends.length > 0) {
-    // getInfoChat(Friends[0].id);
-    // }
+    if (Friends.length > 0) {
+      getInfoChat(Friends[0].id);
+    }
   }, [Friends]);
 
   return (
@@ -126,7 +126,7 @@ interface MessageInfo {
   time: string;
 }
 
-function Receiver({ message}: MessageInfo) {
+function Receiver({ message }: MessageInfo) {
   return (
     <>
       <div className="Receiver">
@@ -145,15 +145,6 @@ function Sender({ name, message, time }: MessageInfo) {
         <div className="Sender-container">
           <div className="Sender-message">
             <p>{message}</p>
-          </div>
-          <div className="Sender-name-img">
-            <div className="Sender-message-name">
-              <p>{time}</p>
-              <li>{name}</li>
-            </div>
-            <div className="Sender-message-img">
-              <img src="/bacharG.svg" id="bachar" />
-            </div>
           </div>
         </div>
       </div>
