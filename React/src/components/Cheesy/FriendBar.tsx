@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
+import { useNavigate } from "react-router-dom";
 
 function FriendBar() {
   const [data, setData] = React.useState<any>([]);
@@ -25,6 +26,8 @@ function FriendBar() {
     getData();
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <div id="FriendBar">
       <div
@@ -41,6 +44,9 @@ function FriendBar() {
               key={friend?.id}
               onMouseEnter={() => setRenderName(true)}
               onMouseLeave={() => setRenderName(false)}
+              onClick={() => {
+                navigate(`/profile/${friend?.username}`);
+              }}
             >
               <img className="friend-sb" src={url + friend?.avatar} />
               {renderName && (
