@@ -29,4 +29,15 @@ def get_data(table):
 	for row in rows:
 		print(row)
 	conn.close()
-    
+
+def delete_data(table):
+	conn = sqlite3.connect(database_file)
+	cursor = conn.cursor()
+	cursor.execute(f'DELETE  FROM {table} WHERE id=1')
+	rows = cursor.fetchall()
+	for row in rows:
+		print(row)
+	conn.close()
+    # userman_friendshiprequest
+	# userman_friendship
+delete_data('userman_friendship')

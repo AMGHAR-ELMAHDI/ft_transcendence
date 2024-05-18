@@ -3,8 +3,10 @@ import TopBar from "../SearchBar/TopBar";
 import Profile from "./Profile";
 import FriendBar from "./FriendBar";
 import Dashboard from "./Dashboard";
+import { useState } from "react";
 
-function DashboardContainer(render: string, setRender: any) {
+function DashboardContainer() {
+  const [render, setRender] = useState<string>("History");
   return (
     <>
       <div className="AppClass">

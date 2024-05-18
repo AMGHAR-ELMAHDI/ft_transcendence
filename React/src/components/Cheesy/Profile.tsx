@@ -7,6 +7,9 @@ import {
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
+import api from "../../api";
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -67,12 +70,13 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
   const [data, setData] = React.useState<any>({});
+  const url = useRecoilValue(Url);
 
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/me");
-      console.log(response.data);
+      const response = await api.get("player/me");
+      // console.log(response.data);
       setData(response.data);
     } catch (error) {
       console.log(error);
@@ -86,7 +90,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     username: data.username ? data.username : "Dawdaw",
     first_name: data.first_name ? data.first_name : "First",
     last_name: data.last_name ? data.last_name : " Last",
-    avatar: data.avatar ? data.avatar : "/bacharG.svg",
+    avatar: url.slice(0, url.length -1) + data.avatar?.substring(6),
     friends: data.friends ? data.friends : [0],
     win_rate: data.win_rate ? data.win_rate : 0,
     level: data.level ? data.level : 0,
@@ -101,7 +105,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     <div id="Profile">
       <div className="profile-left">
         <div id="profile-usr">
-          <img id="profile-img" src={"/bacharG.svg"} alt="profilePic" />
+          <img id="profile-img" src={obj.avatar} alt="profilePic" />
           <h1 id="user-name">{obj.first_name + " " + obj.last_name}</h1>
         </div>
         <div className="line1">

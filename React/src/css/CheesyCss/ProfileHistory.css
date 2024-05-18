@@ -102,6 +102,21 @@ td > h1 {
   font-size: 1.1rem;
 }
 
+#PlayerScoreProfile{
+  font-family: Zekton !important;
+  font-size: 1.1rem !important;
+  color: #1f6561;
+}
+
+
+
+#PlayerScoreOpponent{
+  font-family: Zekton !important;
+  font-size: 1.1rem !important;
+  color: #9f4146;
+}
+
+
 .Toruk > h1 {
   font-family: Bank;
 }

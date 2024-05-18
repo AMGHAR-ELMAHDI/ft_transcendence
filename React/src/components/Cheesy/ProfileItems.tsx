@@ -1,8 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import { setAuthToken } from "../Utils/setAuthToken";
+import axios from "axios";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
+import api from "../../api";
+
+interface HistoryProps {
+  UserData?: {
+    username: string;
+    first_name: string;
+    last_name: string;
+    image: string;
+    level: number;
+    coins: number;
+    email: string;
+    win_rate: number;
+    achievements_rate: number;
+    games: [];
+    items: [];
+    acheivments: [];
+  };
+  UseUserData: boolean;
+}
 
 
-function ProfileItems() {
+function ProfileItems({ UserData, UseUserData }: HistoryProps) {
+  const [data, setData] = React.useState<any>([]);
+  const url = useRecoilValue(Url);
+
+  setAuthToken();
+  const getData = async () => {
+    try {
+      const response = await api.get("player/items/");
+      // console.log(response.data?.items);
+      setData(response.data?.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (UseUserData == false) getData();
+    setData(UserData?.items);
+  }, []);
 
   return (
     <div className="ProfileItems">

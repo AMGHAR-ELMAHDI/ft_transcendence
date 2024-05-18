@@ -1,4 +1,8 @@
+import React, { useEffect } from "react";
 import ProfileHistory from "./ProfileHistory";
+import { setAuthToken } from "../Utils/setAuthToken";
+import axios from "axios";
+
 function Dashboard() {
   return (
     <div id="Dashboard">

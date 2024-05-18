@@ -23,7 +23,7 @@
   width: 800px;
   left: 2070px;
   height: 2rem;
-  background: linear-gradient(transparent, rgb(0, 0, 0,0.8));
+  background: linear-gradient(transparent, rgb(0, 0, 0, 0.8));
 }
 
 .history-top-text {
@@ -44,11 +44,15 @@
 }
 
 #dashboard-history-pic {
-  background-image: url(/bacharG.svg);
   height: 100px;
   width: 100px;
-  background-size: cover;
-  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#dashboard-history-pic > * {
+  font-family: cool;
 }
 
 .tabs-acheivements {
@@ -111,6 +115,10 @@
   background-color: #1f6561;
 }
 
+#dashboard-history-date > h3 {
+  color: hsl(228, 18%, 57%);
+}
+
 #dashboard-history-opponent,
 #dashboard-history-mode,
 #dashboard-history-date {
@@ -120,12 +128,34 @@
   justify-content: space-evenly;
 }
 
+#dashboard-history-opponent > *,
+#dashboard-history-mode > *,
+#dashboard-history-date > * {
+  font-family: cool;
+}
+
 #tabs-container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 100%;
   gap: 30px;
+}
+
+.Dashboard-History-Score {
+  display: flex;
+}
+
+.Dashboard-History-Score > * {
+  font-family: cool;
+}
+
+#History-player_score {
+  color: #1f6561;
+}
+
+#History-opponent_score {
+  color: #9f4146;
 }
 
 @media only screen and (max-width: 2560px) {

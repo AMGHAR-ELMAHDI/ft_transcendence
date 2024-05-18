@@ -82,7 +82,7 @@
   align-items: center;
   flex-wrap: wrap;
   flex: 2;
-  margin-left: -5rem;
+  /* margin-left: -5rem; */
   /* gap: 100px; */
 }
 
@@ -174,6 +174,20 @@ progress[value]::-webkit-progress-value {
 
 #profile-tabs > button:hover {
   cursor: pointer;
+}
+
+#ProfileaddFriend {
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+#ProfileaddFriend > * {
+  height: 100%;
+  width: 100%;
 }
 
 @media only screen and (max-width: 1440px) {

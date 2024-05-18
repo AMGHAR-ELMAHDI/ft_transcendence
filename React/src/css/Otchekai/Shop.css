@@ -28,33 +28,21 @@
   margin-bottom: 1rem;
 }
 
-.Header-shop {
-  display: flex;
-  align-items: center;
-}
-
-#First-header {
-  font-size: 90px;
-  letter-spacing: 8px;
-  font-family: cool;
-}
-
 .Items {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   height: 1400px;
   overflow-y: scroll;
-  padding: 0 2rem;
   margin-top: 2rem;
 }
 
 .Items::-webkit-scrollbar-track {
-  margin-block: 4.5rem;
+  /* margin-block: 4.5rem; */
 }
 
 .item {
-  gap: 3rem;
+  /* gap: 3rem; */
 }
 
 #Paddles-header {
@@ -67,6 +55,9 @@
   display: flex;
   align-items: center;
   gap: 4rem;
+  overflow-x: scroll;
+  max-width: 100%;
+  width: 2000px;
 }
 
 .Card-container {
