@@ -8,8 +8,10 @@ import { useEffect, useState } from "react";
 import Friendschat from "../../Atoms/Chatfriends";
 import Chatmessages from "../../Atoms/ChatMessages";
 import FriendId from "../../Atoms/FriendId";
+import api from "../../api";
+import Url from "../../Atoms/Url";
 
-const host = "e2r7p6";
+const host = "localhost";
 const port = 2500;
 
 function ChatContainer() {
@@ -34,9 +36,7 @@ function ChatSystem() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get(
-        `http://${host}:${port}/player/friends/`
-      );
+      const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
     } catch (error) {
       console.log(error);
@@ -72,13 +72,11 @@ function ChatSystem() {
 function ChatFriends() {
   const Friends = useRecoilValue(Friendschat);
   const [ChatMessages, SetMessages] = useRecoilState(Chatmessages);
-
   const [Friendid, setId] = useRecoilState(FriendId);
+  const url = useRecoilValue(Url);
   const getInfoChat = async (id: number) => {
     try {
-      const response = await axios.get(
-        `http://${host}:${port}/messages/${id}/`
-      );
+      const response = await api.get("messages/${id}/")
       SetMessages(response.data);
       console.log(response.data);
       setId(id);
@@ -92,7 +90,6 @@ function ChatFriends() {
     // getInfoChat(Friends[0].id);
     // }
   }, [Friends]);
-
   return (
     <>
       <div className="Friends-wrapper">
@@ -105,7 +102,7 @@ function ChatFriends() {
           >
             <div className="Friend-img">
               <img
-                src={`http://${host}:${port}/${item.avatar}`}
+                src={`${url}${item.avatar}`}
                 className="bachar"
               />
             </div>
@@ -126,7 +123,7 @@ interface MessageInfo {
   time: string;
 }
 
-function Receiver({ message}: MessageInfo) {
+function Receiver({ message }: MessageInfo) {
   return (
     <>
       <div className="Receiver">
