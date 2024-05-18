@@ -23,8 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
-venv
-*.sqlite3
-token
 
 # python3 manage.py runserver 2500
+*.sqlite3
+token
+trans
+venv
+__pycache__
