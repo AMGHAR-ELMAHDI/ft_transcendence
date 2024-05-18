@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { BsPersonFillAdd } from "react-icons/bs";
 import {

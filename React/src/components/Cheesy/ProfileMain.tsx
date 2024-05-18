@@ -1,4 +1,3 @@
-import ProfileHistory from "./ProfileHistory";
 import ProfileItems from "./ProfileItems";
 import History from "./History";
 import ProfileAcheivements from "./ProfileAcheivements";
