@@ -7,6 +7,8 @@ import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import OwnedItems from "../../Atoms/OwnedItems";
+import api from "../../api";
+import Url from "../../Atoms/Url";
 
 interface CardProps {
   name: string;
@@ -127,7 +129,7 @@ function ShopDesign() {
   setAuthToken();
   const getowned = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/items/");
+      const response = await api.get("player/items/");
       setownedItems(response.data.items);
     } catch (error) {
       console.log(error);
@@ -159,11 +161,12 @@ function Card({ name, price, image, id }: CardProps) {
   };
   const [purchased, setPurchased] = useState(false);
   const owned = useRecoilValue(OwnedItems);
+  const url = useRecoilValue(Url);
 
   const item = document.querySelector("Item-img-animation");
   const handleBuy = async () => {
     try {
-      const response = await axios.post("http://localhost:2500/shop/", obj);
+      const response = await axios.post(url + "shop/", obj);
       console.log(response.status);
       setPurchased(true);
     } catch (error) {
