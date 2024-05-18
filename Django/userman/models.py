@@ -235,7 +235,7 @@ class Achievement(models.Model):
 
 class AchievementPerUser(models.Model):
     user = models.ForeignKey(Player, on_delete=models.CASCADE)
-    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
+    achievement = models.OneToOneField(Achievement, on_delete=models.CASCADE)
     obtaining_date = models.DateTimeField(auto_now_add=True)
     
 class GameHistory(models.Model):

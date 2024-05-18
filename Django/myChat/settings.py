@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework_simplejwt',         
+    'drf_yasg',
+    'rest_framework_simplejwt',
     'userman',
 	'purshase',
     
@@ -80,6 +81,10 @@ DJOSER = {
         'user_create': 'userman.serializers.PlayerCreateSerializer',
         # 'user': 'userman.serializers.PlayerCreateSerializer',
     },
+}
+
+SWAGGER_SETTINGS = {
+    'VALIDATOR_URL': 'http://localhost:8189',
 }
 
 REST_FRAMEWORK = {
