@@ -1,35 +1,40 @@
 import { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
-import FriendBar from "./FriendBar";
 import axios from "axios";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import AcessToken from "../../Atoms/AccessToken";
 import { setAuthToken } from "../Utils/setAuthToken";
 import IsLogged from "../../Atoms/IsLogged";
+import { useNavigate } from "react-router-dom";
+import Url from "../../Atoms/Url";
 
 function getGeneralInfo() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
   const [Logged, setLogged] = useRecoilState(IsLogged);
+  const url = useRecoilValue(Url);
 
   const obj = {
     username: username,
     password: password,
   };
 
+  const navigate = useNavigate();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      .post("http://localhost:2500/auth/jwt/create", obj)
+      .post(url + "auth/jwt/create", obj)
       .then((response) => {
         var str = response.data;
         if (response.status === 200) {
           setTokenValue(str.access);
           setLogged(true);
-          localStorage.setItem("token", str.access);
           console.log(str.access);
+
+          localStorage.setItem("token", str.access);
+          navigate("/");
         }
       })
       .catch((error) => {

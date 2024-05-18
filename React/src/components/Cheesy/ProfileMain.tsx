@@ -1,16 +1,34 @@
 import ProfileHistory from "./ProfileHistory";
 import ProfileItems from "./ProfileItems";
 import History from "./History";
+import ProfileAcheivements from "./ProfileAcheivements";
 
 interface ProfileMainProps {
   inRender: string;
+  UserData?: {
+    username: string;
+    first_name: string;
+    last_name: string;
+    image: string;
+    level: number;
+    coins: number;
+    email: string;
+    win_rate: number;
+    achievements_rate: number;
+    games: [];
+    items: [];
+    acheivments: [];
+  };
+  UseUserData: boolean;
 }
 
-function ProfileMain({ inRender }: ProfileMainProps) {
-  let toRender = <History />;
+function ProfileMain({ inRender, UserData, UseUserData }: ProfileMainProps) {
+  let toRender = <History UserData={UserData} UseUserData={UseUserData} />;
 
-  if (inRender === "Items") toRender = <ProfileItems />;
-  else if (inRender === "Trophies") toRender = <ProfileItems />;
+  if (inRender === "Items")
+    toRender = <ProfileItems UserData={UserData} UseUserData={UseUserData} />;
+  else if (inRender === "Trophies")
+    toRender = <ProfileAcheivements UserData={UserData} UseUserData={UseUserData} />;
 
   return <div id="ProfileHistory">{toRender}</div>;
 }

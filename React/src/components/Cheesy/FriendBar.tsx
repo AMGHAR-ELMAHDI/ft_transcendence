@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
+import api from "../../api";
 
 function FriendBar() {
   const [data, setData] = React.useState<any>([]);
   const [showList, setShowList] = React.useState<any>(false);
+  const url = useRecoilValue(Url);
 
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/me");
+      const response = await api.get("player/friends/");
       setData(response.data.friends);
     } catch (error) {
       console.log(error);
@@ -34,7 +38,7 @@ function FriendBar() {
             <img
               className="friend-sb"
               key={friend?.id}
-              src={"http://localhost:2500/" + friend?.avatar}
+              src={url + friend?.avatar}
             />
           ))}
       </div>

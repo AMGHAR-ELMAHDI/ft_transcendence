@@ -1,17 +1,20 @@
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
-import Player from "./Player";
-
-export default function GameContainer() {
+import FriendBar from "./FriendBar";
+import { Outlet } from "react-router-dom";
+function ProfileLayout() {
   return (
     <>
       <div className="AppClass">
         <SideBar />
         <div className="main">
           <TopBar />
-          <Player />
+          <Outlet />
         </div>
+        <FriendBar />
       </div>
     </>
   );
 }
+
+export default ProfileLayout;

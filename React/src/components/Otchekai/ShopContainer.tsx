@@ -6,6 +6,16 @@ import TopBar from "../SearchBar/TopBar";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import OwnedItems from "../../Atoms/OwnedItems";
+import api from "../../api";
+import Url from "../../Atoms/Url";
+
+interface CardProps {
+  name: string;
+  price: number;
+  image: string;
+  id: number;
+}
 
 function ShopContainer() {
   return (
@@ -24,10 +34,15 @@ function ShopContainer() {
 
 export default ShopContainer;
 
+function FilterItems(ownedItems: any, name: string) {
+  const Filter = ownedItems.find((obj: any) => obj.name === name);
+  if (Filter) return true;
+  else return false;
+}
+
 function GetPaddle() {
   const data = useRecoilValue(ShopItems);
   const paddle = data.filter((item: any) => item?.type === "P");
-  paddle.map((item: any) => console.log(item?.path));
   return (
     <>
       <div className="Paddles item">
@@ -39,6 +54,7 @@ function GetPaddle() {
               name={item.name}
               price={item.price}
               image={item.path}
+              id={item.id}
             />
           ))}
         </div>
@@ -61,6 +77,7 @@ function GetBackground() {
               name={item.name}
               price={item.price}
               image={item.path}
+              id={item.id}
             />
           ))}
         </div>
@@ -83,6 +100,7 @@ function GetAvatar() {
               name={item.name}
               price={item.price}
               image={item.path}
+              id={item.id}
             />
           ))}
         </div>
@@ -93,11 +111,12 @@ function GetAvatar() {
 
 function ShopDesign() {
   const [shopItems, setShopItems] = useRecoilState(ShopItems);
-
+  const [ownedItems, setownedItems] = useRecoilState(OwnedItems);
+  //get items shop
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/shop/");
+      const response = await api.get("shop/");
       setShopItems(response.data.all_items);
     } catch (error) {
       console.log(error);
@@ -106,7 +125,19 @@ function ShopDesign() {
   useEffect(() => {
     getData();
   }, []);
-
+  //get owned items
+  setAuthToken();
+  const getowned = async () => {
+    try {
+      const response = await api.get("player/items/");
+      setownedItems(response.data.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getowned();
+  }, []);
   return (
     <>
       <div className="container">
@@ -122,22 +153,50 @@ function ShopDesign() {
   );
 }
 
-interface CardProps {
-  name: string;
-  price: number;
-  image: string;
-}
+//TODO:Add UseState to rerender the Items when bought, ADD Shake effect(green and red color)
 
-function Card({ name, price, image }: CardProps) {
+function Card({ name, price, image, id }: CardProps) {
+  const obj = {
+    item_id: id,
+  };
+  const [purchased, setPurchased] = useState(false);
+  const owned = useRecoilValue(OwnedItems);
+  const url = useRecoilValue(Url);
+
+  const item = document.querySelector("Item-img-animation");
+  const handleBuy = async () => {
+    try {
+      const response = await axios.post(url + "shop/", obj);
+      console.log(response.status);
+      setPurchased(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (FilterItems(owned, name)) {
+      setPurchased(true);
+    }
+  }, [owned, name]);
+
   return (
     <>
       <div className="Card-container">
-        <div className="Item-img">
+        <div onClick={() => handleBuy()} className="Item-img">
+          <div className="Item-img-animation">
+            <p>BUY IT!</p>
+          </div>
           <img src={image} alt="item" />
+          <div className="Item-img-animation2"></div>
         </div>
         <div className="Item-value">
           <div className="Item-title">{name}</div>
-          <div className="Item-price">{price + "$"}</div>
+          {purchased ? (
+            <div className="Item-price">{"Owned"}</div>
+          ) : (
+            <div className="Item-price">{price + "$"}</div>
+          )}
         </div>
       </div>
     </>

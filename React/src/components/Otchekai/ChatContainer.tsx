@@ -1,6 +1,16 @@
+import { useRecoilState, useRecoilValue } from "recoil";
 import FriendBar from "../Cheesy/FriendBar";
 import SideBar from "../Cheesy/SideBar";
 import TopBar from "../SearchBar/TopBar";
+import { setAuthToken } from "../Utils/setAuthToken";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Friendschat from "../../Atoms/Chatfriends";
+import Chatmessages from "../../Atoms/ChatMessages";
+import FriendId from "../../Atoms/FriendId";
+
+const host = "e2r7p6";
+const port = 2500;
 
 function ChatContainer() {
   return (
@@ -20,6 +30,21 @@ function ChatContainer() {
 export default ChatContainer;
 
 function ChatSystem() {
+  const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
+  setAuthToken();
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `http://${host}:${port}/player/friends/`
+      );
+      SetFriendlist(response.data.friends);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       <div className="Chat-wrapper">
@@ -45,55 +70,51 @@ function ChatSystem() {
 }
 
 function ChatFriends() {
+  const Friends = useRecoilValue(Friendschat);
+  const [ChatMessages, SetMessages] = useRecoilState(Chatmessages);
+
+  const [Friendid, setId] = useRecoilState(FriendId);
+  const getInfoChat = async (id: number) => {
+    try {
+      const response = await axios.get(
+        `http://${host}:${port}/messages/${id}/`
+      );
+      SetMessages(response.data);
+      console.log(response.data);
+      setId(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    // if (Friends.length > 0) {
+    // getInfoChat(Friends[0].id);
+    // }
+  }, [Friends]);
+
   return (
     <>
       <div className="Friends-wrapper">
-        <p id="LastMessages">Last Messages</p>
-        <div className="Chat-Friendslist">
-          <div className="Friend-img">
-            <img src="/bacharG.svg" id="bachar" />
+        {/* <p id="LastMessages">Messages (TBD)</p> */}
+        {Friends.map((item: any) => (
+          <div
+            className="Chat-Friendslist"
+            key={item.id}
+            onClick={() => getInfoChat(item.id)}
+          >
+            <div className="Friend-img">
+              <img
+                src={`http://${host}:${port}/${item.avatar}`}
+                className="bachar"
+              />
+            </div>
+            <div className="Name-messages">
+              <li id="Friend-name">{item.username}</li>
+              <p id="Last-message">mbanch lik dek mahdi bghit n...</p>
+            </div>
           </div>
-          <div className="Name-messages">
-            <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">mbanch lik dek mahdi bghit n...</p>
-          </div>
-        </div>
-        <div className="Chat-Friendslist">
-          <div className="Friend-img">
-            <img src="/bacharG.svg" id="bachar" />
-          </div>
-          <div className="Name-messages">
-            <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">huh ?</p>
-          </div>
-        </div>
-        <div className="Chat-Friendslist">
-          <div className="Friend-img">
-            <img src="/bacharG.svg" id="bachar" />
-          </div>
-          <div className="Name-messages">
-            <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
-          </div>
-        </div>
-        <div className="Chat-Friendslist">
-          <div className="Friend-img">
-            <img src="/bacharG.svg" id="bachar" />
-          </div>
-          <div className="Name-messages">
-            <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
-          </div>
-        </div>
-        <div className="Chat-Friendslist">
-          <div className="Friend-img">
-            <img src="/bacharG.svg" id="bachar" />
-          </div>
-          <div className="Name-messages">
-            <li id="Friend-name">Micheal The Nigger</li>
-            <p id="Last-message">Hey, There Im Using Whatsapp!</p>
-          </div>
-        </div>
+        ))}
       </div>
     </>
   );
@@ -105,21 +126,12 @@ interface MessageInfo {
   time: string;
 }
 
-function Receiver({ name, message, time }: MessageInfo) {
+function Receiver({ message}: MessageInfo) {
   return (
     <>
       <div className="Receiver">
         <div className="First-message">
           <p>{message}</p>
-        </div>
-        <div className="Receiver-name-img">
-          <div className="First-message-img">
-            <img src="/bacharG.svg" id="bachar" />
-          </div>
-          <div className="First-message-name">
-            <li>{name}</li>
-            <p>{time}</p>
-          </div>
         </div>
       </div>
     </>
@@ -150,84 +162,39 @@ function Sender({ name, message, time }: MessageInfo) {
 }
 
 function ChatTyping() {
+  const messages = useRecoilValue(Chatmessages);
+  const id = useRecoilValue(FriendId);
   return (
     <>
       <div className="Type-wrapper">
         <div className="Chat-box">
-          <Receiver
-            name="Micheal"
-            time="8:45 AM"
-            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
-          />
-          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
-          <Receiver
-            name="Micheal"
-            time="8:45 AM"
-            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
-          />
-          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
-          <Receiver
-            name="Micheal"
-            time="8:45 AM"
-            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
-          />
-          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
-          <Receiver
-            name="Micheal"
-            time="8:45 AM"
-            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
-          />
-          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
-          <Receiver
-            name="Micheal"
-            time="8:45 AM"
-            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
-          />
-          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
-          <Receiver
-            name="Micheal"
-            time="8:45 AM"
-            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
-          />
-          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
-          <Receiver
-            name="Micheal"
-            time="8:45 AM"
-            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
-          />
-          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
-          <Receiver
-            name="Micheal"
-            time="8:45 AM"
-            message="moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw 
-            moraw moriw moraw moriw moraw moriw moraw moriw moraw moriw"
-          />
-          <Sender name="Me" time="8:48 AM" message="Sebat sberdilla" />
+          {messages.map((msg, index) => (
+            <div key={index}>
+              {msg.sender != id ? (
+                <Sender message={msg.content} time={msg.timestamp} name="You" />
+              ) : (
+                <Receiver
+                  message={msg.content}
+                  time={msg.timestamp}
+                  name="khona"
+                />
+              )}
+            </div>
+          ))}
         </div>
-        <div className="Chat-input">
+        <form onSubmit={ConnectSockets} className="Chat-input">
           <div className="Input-box">
             <input type="text" placeholder="Type Something ..." />
           </div>
           <div className="Chat-send-button">
             <img src="/Send-button.svg" id="bottona" />
           </div>
-        </div>
+        </form>
       </div>
     </>
   );
+}
+
+function ConnectSockets(e: any) {
+  e.preventDefault();
 }

@@ -1,26 +1,13 @@
-import React from "react";
-import SideBar from "./SideBar";
-import TopBar from "../SearchBar/TopBar";
 import Profile from "./Profile";
 import ProfileMain from "./ProfileMain";
-import FriendBar from "./FriendBar";
+import { useState } from "react";
 
-function ProfileContainer(render: string, setRender: any) {
+function ProfileContainer() {
+  const [render, setRender] = useState<string>("History");
   return (
     <>
-      <div className="AppClass">
-        <SideBar />
-        <div className="main">
-          <TopBar />
-          <Profile
-            profileList="RenderList"
-            show={render}
-            setRender={setRender}
-          />
-          <ProfileMain inRender={render} />
-        </div>
-        <FriendBar />
-      </div>
+      <Profile profileList="RenderList" show={render} setRender={setRender} />
+      <ProfileMain inRender={render} UseUserData={false} />
     </>
   );
 }

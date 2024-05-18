@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
 
-interface HistoryProps {
+interface Props {
   UserData?: {
     username: string;
     first_name: string;
@@ -25,7 +24,7 @@ interface HistoryProps {
 }
 
 
-function ProfileItems({ UserData, UseUserData }: HistoryProps) {
+function ProfileAcheivements({ UserData, UseUserData }: Props) {
   const [data, setData] = React.useState<any>([]);
   const url = useRecoilValue(Url);
 
@@ -66,4 +65,4 @@ function ProfileItems({ UserData, UseUserData }: HistoryProps) {
   );
 }
 
-export default ProfileItems;
+export default ProfileAcheivements;

@@ -1,12 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";
 import LeaderData from "../../Atoms/LeaderData";
+import Url from "../../Atoms/Url";
+import api from "../../api";
 
 function getTop3() {
   const leaderBoardData = useRecoilValue(LeaderData);
+  const url = useRecoilValue(Url);
 
   if (leaderBoardData.length < 3) return <h1>There aren't Enough PLayers</h1>;
 
@@ -18,7 +21,7 @@ function getTop3() {
         <div className="topImgsContainer">
           <img
             className="topImgs"
-            src={"http://localhost:2500" + top3[0].image.substring(6)}
+            src={url + top3[0].image.substring(6)}
             alt={top3[0].username + "picture"}
           />
         </div>
@@ -29,7 +32,7 @@ function getTop3() {
           <div className="topImgsContainer">
             <img
               className="topImgs"
-              src={"http://localhost:2500" + top3[1].image.substring(6)}
+              src={url + top3[1].image.substring(6)}
               alt={top3[1].username + "picture"}
             />
           </div>
@@ -39,7 +42,7 @@ function getTop3() {
           <div className="topImgsContainer">
             <img
               className="topImgs"
-              src={"http://localhost:2500" + top3[2].image.substring(6)}
+              src={url + top3[2].image.substring(6)}
               alt={top3[2].username + "picture"}
             />
           </div>
@@ -78,6 +81,7 @@ function getToolTip() {
 function getTheRest() {
   const leaderBoardData = useRecoilValue(LeaderData);
   if (leaderBoardData.length <= 3) return <div />;
+  const url = useRecoilValue(Url);
 
   const rest: any = leaderBoardData.slice(3);
   return (
@@ -97,7 +101,7 @@ function getTheRest() {
                 </div>
                 <img
                   className="RestImgs"
-                  src={"http://localhost:2500" + user.image.substring(6)}
+                  src={url + user.image.substring(6)}
                   alt="userPic"
                 />
               </div>
@@ -122,13 +126,12 @@ function getTheRest() {
 
 function LeaderBoardMain() {
   const [data, setData] = useRecoilState(LeaderData);
+  const url = useRecoilValue(Url);
 
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:2500/player/leaderboard"
-      );
+      const response = await api.get("player/leaderboard");
       setData(response.data);
       console.log(data.map((user: any) => console.log(user.username)));
     } catch (error) {
