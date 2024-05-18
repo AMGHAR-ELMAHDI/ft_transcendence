@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
@@ -8,6 +8,7 @@ import api from "../../api";
 function FriendBar() {
   const [data, setData] = React.useState<any>([]);
   const [showList, setShowList] = React.useState<any>(false);
+  const [renderName, setRenderName] = useState<boolean>(false);
   const url = useRecoilValue(Url);
 
   setAuthToken();
@@ -35,11 +36,17 @@ function FriendBar() {
         {Array.isArray(data) &&
           showList &&
           data.map((friend: any) => (
-            <img
-              className="friend-sb"
+            <div
+              className="Friend-Relat"
               key={friend?.id}
-              src={url + friend?.avatar}
-            />
+              onMouseEnter={() => setRenderName(true)}
+              onMouseLeave={() => setRenderName(false)}
+            >
+              <img className="friend-sb" src={url + friend?.avatar} />
+              {renderName && (
+                <h1 className="friend-bar-username">{friend?.username}</h1>
+              )}
+            </div>
           ))}
       </div>
     </div>
