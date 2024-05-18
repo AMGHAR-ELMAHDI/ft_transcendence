@@ -142,7 +142,7 @@
 .Receiver {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
 }
 
 .First-message {
@@ -206,6 +206,7 @@
 }
 
 .Sender {
+  position: relative;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1rem;

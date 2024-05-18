@@ -158,7 +158,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 'coins' : player.coins,
                 'level': player.level,
                 'win_rate': round(win_rate, 2),
-                'achievements_rate': round(achievements_rate, 2)
+                'achievements_rate': round(achievements_rate,2),
             }
             return Response(data)
         elif request.method == 'PUT':
