@@ -46,11 +46,11 @@ import api from "../../api";
 // }, []);
 
 const accept = async (id: number) => {
-  const url = useRecoilValue(Url);
+  console.log("accept: " + id);
+
   try {
     const response = await api.put("reqs/", {
       from_user: id,
-      to_user: 1,
       status: "A",
     });
   } catch (error) {
@@ -58,11 +58,11 @@ const accept = async (id: number) => {
   }
 };
 const decline = async (id: number) => {
-  const url = useRecoilValue(Url);
+  console.log("decline: " + id);
+
   try {
     const response = await api.put("reqs/", {
       from_user: id,
-      to_user: 1,
       status: "R",
     });
   } catch (error) {
@@ -97,7 +97,6 @@ function Notif() {
     getData();
   };
 
-  // if (filteredItems.length === 0) setRender(false);
   return (
     <div className="notif-relative" onClick={reRender}>
       <IoNotificationsOutline id="notif" />

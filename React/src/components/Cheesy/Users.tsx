@@ -65,7 +65,7 @@ interface UserProps {
     id: number;
     first_name: string;
     last_name: string;
-    image: string;
+    avatar: string;
     level: number;
     coins: number;
     email: string;
@@ -100,7 +100,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
         <div id="profile-usr">
           <img
             id="profile-img"
-            src={url + data.image?.substring(6)}
+            src={url.slice(0, url.length - 1) + data.avatar?.substring(6)}
             alt="profilePic"
           />
           <h1 id="user-name">{data.username}</h1>
@@ -160,19 +160,18 @@ function Users() {
 
   return (
     <>
-      <UserProfile show={render} setRender={setRender} data={UserData[0]} />
+      <UserProfile show={render} setRender={setRender} data={UserData} />
       <ProfileMain inRender={render} UserData={UserData} UseUserData={true} />
     </>
   );
 }
 
 export const UsersLoader = async ({ params }: { params: any }) => {
-  const url = useRecoilValue(Url);
   const { username } = params;
 
   setAuthToken();
   try {
-    const response = await api.get("player/" + username);
+    const response = await api.get(`player/${username}/me/`);
     return response.data;
   } catch (error) {
     console.log(error);

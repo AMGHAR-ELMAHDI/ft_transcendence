@@ -1,6 +1,4 @@
-import { IoNotificationsOutline } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { Link, useNavigate } from "react-router-dom";
 import Notif from "../Cheesy/Notif";
@@ -86,13 +84,6 @@ function TopBar() {
     getPlayers();
   }, []);
   const navigate = useNavigate();
-
-  // console.log("-----------------------------------");
-
-  // players.map((player: any) => {
-  //   console.log("playerUSERNAME: " + player.username);
-  // });
-  // console.log("-----------------------------------");
 
   let print = <h1>Good Evening,</h1>;
   let username = <h1 id="nickName">{obj.username}</h1>;

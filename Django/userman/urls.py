@@ -7,10 +7,10 @@ router.register('player', PlayerViewSet, basename = 'player')
 urlpatterns = [
     path('', include(router.urls)), 
 
-	path('player/<int:id>/me/', PlayerViewSet.as_view({'get': 'me'})),
-	path('player/<int:id>/games/', PlayerViewSet.as_view({'get': 'games'})),
-	path('player/<int:id>/achievements/', PlayerViewSet.as_view({'get': 'achievements'})),
-	path('player/<int:id>/items/', PlayerViewSet.as_view({'get': 'items'})),
+	path('player/<str:username>/me/', PlayerViewSet.as_view({'get': 'me'})),
+	path('player/<str:username>/games/', PlayerViewSet.as_view({'get': 'games'})),
+	path('player/<str:username>/achievements/', PlayerViewSet.as_view({'get': 'achievements'})),
+	path('player/<str:username>/items/', PlayerViewSet.as_view({'get': 'items'})),
 	
 	
 

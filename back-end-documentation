@@ -3,6 +3,15 @@ http://localhost:2500/auth/jwt/create : jwt creation
 
 http://localhost:2500/player/me/ : user info
 http://localhost:2500/player/reqs/ : friendship requests
+{ POST
+    "to_user" : 2,
+    "status" : "P"
+}
+{ PUT : acceptance | reject logic
+    "from_user" : 3,
+    "status" : "A"
+}
+
 http://localhost:2500/player/achievements/ : user achievements
 http://localhost:2500/player/items/ : user items
 
@@ -26,7 +35,7 @@ passwords : MKSzak123
 superuser : zmakhkha
 password : aaa
 
-player/<int:id>/me/ : other players | player/<int:id>/me/ : logged players
+player/username/me/ : other players | player/me/ : logged players
 "username" : ""
 "avatar" : ""
 "first_name" : ""
@@ -36,8 +45,11 @@ player/<int:id>/me/ : other players | player/<int:id>/me/ : logged players
 "win_rate" : ""
 "achievements_rate" : ""
 
-player/<int:id>/games/ : other players | player/games/ : logged players
+player/username/games/ : other players | player/games/ : logged players
 	+ Played games info
 
-player/<int:id>/achievements/ : other players | player/achievements/ : logged players
-player/<int:id>/items/ : other players | player/items/ : logged players
+player/username/achievements/ : other players | player/achievements/ : logged players
+player/username/items/ : other players | player/items/ : logged players
+
+
+need to modify image links -------------

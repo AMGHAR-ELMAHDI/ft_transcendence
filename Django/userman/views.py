@@ -125,12 +125,12 @@ class PlayerViewSet(viewsets.ModelViewSet):
         return Response(leaderboard_serializer.data)
         
     @action(detail=False, methods=['GET', 'PUT'])
-    def me(self, request, id=None):
-        if not id:
+    def me(self, request, username=None):
+        if not username:
             player = request.user
         else:
             try:
-                player = Player.objects.get(id=id)
+                player = Player.objects.get(username=username)
             except:
                 return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
         if request.method == 'GET':
@@ -150,6 +150,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             achievements_rate = earned_achievement_count / total_trophies if total_trophies > 0 else 0
 
             data = {
+                'id' : serializer.data['id'],
                 'username': serializer.data['username'],
                 'avatar' : serializer.data['image'],
                 'first_name': serializer.data['first_name'],
@@ -157,7 +158,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 'coins' : player.coins,
                 'level': player.level,
                 'win_rate': round(win_rate, 2),
-                'achievements_rate': achievements_rate,
+                'achievements_rate': round(achievements_rate,2),
             }
             return Response(data)
         elif request.method == 'PUT':
@@ -168,14 +169,13 @@ class PlayerViewSet(viewsets.ModelViewSet):
         
 
     @action(detail=False, methods=['GET'])
-    def games(self, request, id=None):
+    def games(self, request, username=None):
         try:
-            if not id:
+            if not username:
                 player = request.user
-                print('-----1')
             else:
                 try:
-                    player = Player.objects.get(id=id)
+                    player = Player.objects.get(username=username)
                 except:
                     return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
             games = player.games
@@ -200,13 +200,13 @@ class PlayerViewSet(viewsets.ModelViewSet):
     
 
     @action(detail=False, methods=['GET'])
-    def achievements(self, request, id=None):
+    def achievements(self, request, username=None):
         try:
-            if not id:
+            if not username:
                 player = request.user
             else:
                 try:
-                    player = Player.objects.get(id=id)
+                    player = Player.objects.get(username=username)
                 except:
                     return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
             achievements = player.achievements
@@ -219,13 +219,13 @@ class PlayerViewSet(viewsets.ModelViewSet):
     
     
     @action(detail=False, methods=['GET'])
-    def items(self, request, id=None):
+    def items(self, request, username=None):
         try:
-            if not id:
+            if not username:
                 player = request.user
             else:
                 try:
-                    player = Player.objects.get(id=id)
+                    player = Player.objects.get(username=username)
                 except:
                     return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
             items = player.items
@@ -330,3 +330,4 @@ class FriendProfileAPIView(APIView):
             'recieved' : serialized_recieved.data,
         }
         return Response(data, status = 200)
+
