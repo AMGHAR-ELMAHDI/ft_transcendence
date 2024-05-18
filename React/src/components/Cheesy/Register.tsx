@@ -4,6 +4,8 @@ import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
 
 function getRegister() {
   const [username, setUsername] = useState("");
@@ -11,6 +13,7 @@ function getRegister() {
   const [email, setEmail] = useState("");
   const [re_password, setRe_password] = useState("");
   const [Loged, setLoged] = useState(false);
+  const url = useRecoilValue(Url);
 
   const navigate = useNavigate();
 
@@ -24,7 +27,7 @@ function getRegister() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      .post("http://localhost:2500/auth/users/", obj)
+      .post(url + "auth/users/", obj)
       .then((response) => {
         // console.log(response.data);
         if (response.status === 201) {

@@ -4,6 +4,9 @@ import axios from "axios";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { Link, useNavigate } from "react-router-dom";
 import Notif from "../Cheesy/Notif";
+import api from "../../api";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
 
 export function getPageName() {
   let pageName = window.location.pathname;
@@ -34,6 +37,7 @@ function TopBar() {
   const [players, setPlayers] = useState<any>([]);
   const [filteredUsers, setFilteredUsers] = useState<any>(players);
   const [isFocused, setIsFocused] = useState(false);
+  const url = useRecoilValue(Url);
 
   const handleInputChange = (e: any) => {
     const searchTerm = e.target.value;
@@ -54,7 +58,7 @@ function TopBar() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/me");
+      const response = await api.get("player/me");
       setData(response.data);
     } catch (error) {
       console.log(error);
@@ -62,7 +66,7 @@ function TopBar() {
   };
   const getPlayers = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/");
+      const response = await api.get("player/");
       // console.log(response.data);
       setPlayers(response.data);
     } catch (error) {
@@ -72,7 +76,7 @@ function TopBar() {
 
   const obj = {
     username: data.username,
-    avatar: "http://localhost:2500" + data.avatar?.substring(6),
+    avatar: url.slice(0, url.length - 1) + data.avatar?.substring(6),
     friends: data.friends ? data.friends : [0],
     level: data.level,
   };
@@ -82,6 +86,13 @@ function TopBar() {
     getPlayers();
   }, []);
   const navigate = useNavigate();
+
+  // console.log("-----------------------------------");
+
+  // players.map((player: any) => {
+  //   console.log("playerUSERNAME: " + player.username);
+  // });
+  // console.log("-----------------------------------");
 
   let print = <h1>Good Evening,</h1>;
   let username = <h1 id="nickName">{obj.username}</h1>;

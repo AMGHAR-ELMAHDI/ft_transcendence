@@ -2,9 +2,11 @@ import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Players from "../../Atoms/Players";
 import RenderNotif from "../../Atoms/RenderNotif";
+import Url from "../../Atoms/Url";
+import api from "../../api";
 
 // function getUserName(
 //   filteredItems: {
@@ -43,14 +45,39 @@ import RenderNotif from "../../Atoms/RenderNotif";
 //   getPlayers();
 // }, []);
 
+const accept = async (id: number) => {
+  const url = useRecoilValue(Url);
+  try {
+    const response = await api.put("reqs/", {
+      from_user: id,
+      to_user: 1,
+      status: "A",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+const decline = async (id: number) => {
+  const url = useRecoilValue(Url);
+  try {
+    const response = await api.put("reqs/", {
+      from_user: id,
+      to_user: 1,
+      status: "R",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 function Notif() {
   const [received, setReceived] = useState<any>([]);
   const [render, setRender] = useRecoilState(RenderNotif);
+  const url = useRecoilValue(Url);
 
-  setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/friends");
+      const response = await api.get("reqs/");
       setReceived(response.data?.recieved);
     } catch (error) {
       console.log(error);
@@ -65,39 +92,16 @@ function Notif() {
     user.status.includes("P")
   );
 
-  const accept = async (id: number) => {
-    try {
-      const response = await axios.put("http://localhost:2500/friends/", {
-        from_user: id,
-        to_user: 1,
-        status: "A",
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const decline = async (id: number) => {
-    try {
-      const response = await axios.put("http://localhost:2500/friends/", {
-        from_user: id,
-        to_user: 1,
-        status: "R",
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const reRender = () => {
     setRender(!render);
     getData();
+  };
 
-  }
-
+  // if (filteredItems.length === 0) setRender(false);
   return (
     <div className="notif-relative" onClick={reRender}>
       <IoNotificationsOutline id="notif" />
-      {render && (
+      {render && filteredItems.length != 0 && (
         <div id="NotifPopUp">
           {filteredItems.map((notif: any) => (
             <div className="notif-item" key={notif.id}>

@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
+import api from "../../api";
 
 function getTooltip() {
   return (
@@ -81,11 +84,12 @@ interface HistoryProps {
 
 function History({ UserData, UseUserData }: HistoryProps) {
   const [data, setData] = React.useState<any>([]);
+  const url = useRecoilValue(Url);
 
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/games/");
+      const response = await api.get("player/games/");
       // console.log(response.data?.games);
       setData(response.data?.games);
     } catch (error) {

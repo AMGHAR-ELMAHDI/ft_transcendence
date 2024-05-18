@@ -6,6 +6,7 @@ import TopBar from "../SearchBar/TopBar";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import api from "../../api";
 
 function ShopContainer() {
   return (
@@ -96,7 +97,7 @@ function ShopDesign() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/shop/");
+      const response = await api.get("shop/");
       setShopItems(response.data.all_items);
     } catch (error) {
       console.log(error);

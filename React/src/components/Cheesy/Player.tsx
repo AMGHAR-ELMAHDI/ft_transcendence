@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
-
-// `http://localhost:2500/search/${search}`
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
+import api from "../../api";
 
 function searchPlayer(search: string) {}
 
@@ -10,6 +11,7 @@ function Player() {
   const [search, setSearch] = useState<string>("");
   const [players, setPlayers] = useState<any>([]);
   const [filteredUsers, setFilteredUsers] = useState<any>(players);
+  const url = useRecoilValue(Url);
 
   const handleInputChange = (e: any) => {
     const searchTerm = e.target.value;
@@ -24,7 +26,7 @@ function Player() {
   setAuthToken();
   const getPlayers = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/");
+      const response = await api.get("player/");
       // console.log(response.data);
       setPlayers(response.data);
     } catch (error) {

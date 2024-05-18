@@ -9,6 +9,9 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ProfileMain from "./ProfileMain";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
+import api from "../../api";
 
 function getLevelStart(person: { level: number }) {
   let levelStartIndex = person.level.toString().lastIndexOf(".") + 1;
@@ -71,13 +74,12 @@ interface UserProps {
   };
 }
 
-function addFriend(UserName: string, MyId: number, UserId: number) {
-  // setAuthToken();
+function addFriend(UserName: string, UserId: number, url: string) {
   const putData = async () => {
     try {
-      const response = await axios.post("http://localhost:2500/friends/", {
-        from_user: 1,
-        to_user: 11,
+      const response = await api.post("reqs/", {
+        to_user: UserId,
+        status: "P",
       });
       console.log("PUT: " + response.data);
     } catch (error) {
@@ -90,6 +92,7 @@ function addFriend(UserName: string, MyId: number, UserId: number) {
 function UserProfile({ show, setRender, data }: UserProps) {
   const profileLevelStyle = { justifyContent: "space-between" };
   let levelStart = getLevelStart(data) * 100;
+  const url = useRecoilValue(Url);
 
   return (
     <div id="Profile">
@@ -97,7 +100,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
         <div id="profile-usr">
           <img
             id="profile-img"
-            src={"http://localhost:2500" + data.image?.substring(6)}
+            src={url + data.image?.substring(6)}
             alt="profilePic"
           />
           <h1 id="user-name">{data.username}</h1>
@@ -106,7 +109,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
           <div className="line2"></div>
           <div id="ProfileaddFriend">
             <BsPersonFillAdd
-              onClick={() => addFriend(data.username, data.id, data.id)}
+              onClick={() => addFriend(data.username, data.id, url)}
             />
           </div>
         </div>
@@ -164,12 +167,12 @@ function Users() {
 }
 
 export const UsersLoader = async ({ params }: { params: any }) => {
+  const url = useRecoilValue(Url);
   const { username } = params;
+
   setAuthToken();
   try {
-    const response = await axios.get(
-      "http://localhost:2500/search/" + username
-    );
+    const response = await api.get("player/" + username);
     return response.data;
   } catch (error) {
     console.log(error);

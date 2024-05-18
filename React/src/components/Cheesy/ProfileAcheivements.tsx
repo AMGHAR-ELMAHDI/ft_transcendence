@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
+import api from "../../api";
 
 interface Props {
   UserData?: {
@@ -23,11 +26,12 @@ interface Props {
 
 function ProfileAcheivements({ UserData, UseUserData }: Props) {
   const [data, setData] = React.useState<any>([]);
+  const url = useRecoilValue(Url);
 
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:2500/player/items/");
+      const response = await api.get("player/items/");
       // console.log(response.data?.items);
       setData(response.data?.items);
     } catch (error) {
