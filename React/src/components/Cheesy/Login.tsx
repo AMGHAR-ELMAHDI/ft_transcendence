@@ -22,7 +22,7 @@ function getGeneralInfo() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      .post("http://localhost:2500/auth/jwt/create", obj)
+      .post("http://e2r7p6:2500/auth/jwt/create", obj)
       .then((response) => {
         var str = response.data;
         if (response.status === 200) {

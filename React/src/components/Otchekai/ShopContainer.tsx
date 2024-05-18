@@ -129,7 +129,6 @@ function ShopDesign() {
     try {
       const response = await axios.get("http://localhost:2500/player/items/");
       setownedItems(response.data.items);
-      console.log(response.data.items);
     } catch (error) {
       console.log(error);
     }
@@ -177,7 +176,6 @@ function Card({ name, price, image, id }: CardProps) {
       setPurchased(true);
     }
   }, [owned, name]);
-
 
   return (
     <>
