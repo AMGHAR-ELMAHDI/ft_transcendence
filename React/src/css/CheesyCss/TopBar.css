@@ -124,8 +124,9 @@ ul {
   box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.05);
   transition: all 0.5s ease-in-out;
   position: absolute;
-  left: 0;
-  bottom: -50px;
+  left: -35%;
+  bottom: -90px;
+  /* bottom: -50px; */
   display: flex;
   flex-direction: column;
   justify-content: center;

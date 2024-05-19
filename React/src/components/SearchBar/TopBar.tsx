@@ -126,6 +126,7 @@ function TopBar() {
           <div
             className="div-relat"
             onMouseEnter={() => setDropdownVisible(true)}
+            onClick={() => setDropdownVisible(true)}
             onMouseLeave={() => setDropdownVisible(false)}
           >
             <img className="NotifProfilePic" src={obj.avatar} />

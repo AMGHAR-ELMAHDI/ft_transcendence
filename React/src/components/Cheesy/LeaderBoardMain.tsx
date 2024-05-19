@@ -8,12 +8,10 @@ import api from "../../api";
 function getTop3() {
   const leaderBoardData = useRecoilValue(LeaderData);
 
-  // if (Array(leaderBoardData).length < 3)
-  //   return <h1>There aren't Enough PLayers</h1>;
-
   const top3: any = leaderBoardData.slice(0, 3);
   const navigate = useNavigate();
 
+  if (top3?.length < 3) return <h1>There aren't Enough PLayers</h1>;
   return (
     <div className="Top3">
       <div
