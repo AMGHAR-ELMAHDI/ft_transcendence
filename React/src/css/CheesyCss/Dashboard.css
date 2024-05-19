@@ -176,6 +176,25 @@
   #Dashboard-Secondary-GameModeContainer {
     width: 700px;
   }
+  #Dashboard-Main-GameModeContainer:hover::before {
+    top: 46%;
+    left: 24%;
+    font-size: 3.4rem;
+  }
+  #Dashboard-Secondary-tournament:hover::before {
+    top: 19%;
+    left: 21.6%;
+    font-size: 2.7rem;
+  }
+  #Dashboard-Secondary-bot:hover::before {
+    top: 26.4%;
+    font-size: 2.9rem;
+  }
+  #Dashboard-Secondary-practice:hover::before {
+    top: 33%;
+    left: 20%;
+    font-size: 2.5rem;
+  }
 }
 
 @media only screen and (max-width: 1440px) {

@@ -67,42 +67,37 @@ function ProfileHistory() {
 
   return (
     <div id="history">
-      <div className="history-container">
-        <div id="tabs-container">
-          {data.map((game: any) => {
-            return (
+      <div id="tabs-container">
+        {data.map((game: any) => {
+          return (
+            <div
+              key={game.id}
+              className={getHistoryTabs(game.player_score, game.opponent_score)}
+            >
+              <div className="history-tabs-left-container">
+                <div id="dashboard-history-pic">
+                  <img src={game.avatar} alt={"picture"} />
+                </div>
+                <div id="dashboard-history-opponent">
+                  <h3>{game.opponent}</h3>
+                </div>
+                {getScore(game.player_score, game.opponent_score)}
+                <div id="dashboard-history-mode">
+                  <h3>{getGameMode(game?.game_mode)}</h3>
+                </div>
+                <div id="dashboard-history-date">
+                  <h3>{getDate(game?.date)}</h3>
+                </div>
+              </div>
               <div
-                key={game.id}
-                className={getHistoryTabs(
+                className={getHistoryRect(
                   game.player_score,
                   game.opponent_score
                 )}
-              >
-                <div className="history-tabs-left-container">
-                  <div id="dashboard-history-pic">
-                    <img src={game.avatar} alt={"picture"} />
-                  </div>
-                  <div id="dashboard-history-opponent">
-                    <h3>{game.opponent}</h3>
-                  </div>
-                  {getScore(game.player_score, game.opponent_score)}
-                  <div id="dashboard-history-mode">
-                    <h3>{getGameMode(game?.game_mode)}</h3>
-                  </div>
-                  <div id="dashboard-history-date">
-                    <h3>{getDate(game?.date)}</h3>
-                  </div>
-                </div>
-                <div
-                  className={getHistoryRect(
-                    game.player_score,
-                    game.opponent_score
-                  )}
-                ></div>
-              </div>
-            );
-          })}
-        </div>
+              ></div>
+            </div>
+          );
+        })}
       </div>
       {window.location.pathname === "/profile" && (
         <div className="HistoryShadow"></div>
