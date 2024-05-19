@@ -103,27 +103,39 @@ ul {
   margin: unset;
 }
 
+.dropdown-menu > ul {
+  width: fit-content;
+}
+
 .dropdown-menu > ul > li {
-  transition: all linear 0.3s;
+  transition: all 0.5s ease-in-out;
+  padding: 0.5rem 1.3rem;
+  border-radius: 7px;
 }
 
 .dropdown-menu > ul > li:hover {
-  background: gray;
+  background: var(--blue-glow);
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
   color: #fff;
 }
 
 .dropdown-menu {
   box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.05);
-  transition: all linear 0.3s;
+  transition: all 0.5s ease-in-out;
   position: absolute;
   left: 0;
   bottom: -50px;
-  width: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(12, 14, 20, 0.75);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
 .Search-input-container {
@@ -220,7 +232,7 @@ ul {
   padding: 0.5rem 0;
 }
 
-.notif-item > button{
+.notif-item > button {
   background-color: #3d73a3;
   padding: 0.3rem;
   border-radius: 12px;
@@ -228,7 +240,6 @@ ul {
   border: none;
   cursor: pointer;
 }
-
 
 @media only screen and (max-width: 1920px) {
   #search:placeholder-shown,

@@ -1,49 +1,60 @@
 import { useEffect } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LeaderData from "../../Atoms/LeaderData";
 import api from "../../api";
 
 function getTop3() {
   const leaderBoardData = useRecoilValue(LeaderData);
 
-  if (leaderBoardData.length < 3) return <h1>There aren't Enough PLayers</h1>;
+  // if (Array(leaderBoardData).length < 3)
+  //   return <h1>There aren't Enough PLayers</h1>;
 
   const top3: any = leaderBoardData.slice(0, 3);
+  const navigate = useNavigate();
 
   return (
     <div className="Top3">
-      <div className="First">
+      <div
+        className="First"
+        onClick={() => navigate(`/profile/${top3[0]?.username}`)}
+      >
         <div className="topImgsContainer">
           <img
             className="topImgs"
-            src={"http://localhost:2500" + top3[0].image.substring(6)}
-            alt={top3[0].username + "picture"}
+            src={"http://localhost:2500" + top3[0]?.image.substring(6)}
+            alt={top3[0]?.username + "picture"}
           />
         </div>
-        <h1 className="toph1 Panton">{top3[0].username}</h1>
+        <h1 className="toph1 Panton">{top3[0]?.username}</h1>
       </div>
       <div className="SecondThird">
-        <div className="Second">
+        <div
+          className="Second"
+          onClick={() => navigate(`/profile/${top3[1]?.username}`)}
+        >
           <div className="topImgsContainer">
             <img
               className="topImgs"
-              src={"http://localhost:2500" + top3[1].image.substring(6)}
-              alt={top3[1].username + "picture"}
+              src={"http://localhost:2500" + top3[1]?.image.substring(6)}
+              alt={top3[1]?.username + "picture"}
             />
           </div>
-          <h1 className="toph1 Panton">{top3[1].username}</h1>
+          <h1 className="toph1 Panton">{top3[1]?.username}</h1>
         </div>
-        <div className="Third">
+        <div
+          className="Third"
+          onClick={() => navigate(`/profile/${top3[2]?.username}`)}
+        >
           <div className="topImgsContainer">
             <img
               className="topImgs"
-              src={"http://localhost:2500" + top3[2].image.substring(6)}
-              alt={top3[2].username + "picture"}
+              src={"http://localhost:2500" + top3[2]?.image.substring(6)}
+              alt={top3[2]?.username + "picture"}
             />
           </div>
-          <h1 className="toph1 Panton">{top3[2].username}</h1>
+          <h1 className="toph1 Panton">{top3[2]?.username}</h1>
         </div>
       </div>
     </div>
@@ -104,7 +115,7 @@ function getTheRest() {
               </div>
               <div className="LeaderRestRight">
                 <div className="LeaderRestRighUsrtName">
-                  <Link to={"/profile"}>
+                  <Link to={`/profile/${user.username}`}>
                     <h1 className="Panton">{user.username}</h1>
                   </Link>
                 </div>
