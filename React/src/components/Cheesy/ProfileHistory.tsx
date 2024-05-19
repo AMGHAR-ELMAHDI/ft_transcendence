@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
+import { Link } from "react-router-dom";
 
 function getDate(date: string) {
   const flipedDate = date.substring(0, 10).split("-").reverse();
@@ -55,6 +56,14 @@ function ProfileHistory() {
   useEffect(() => {
     getData();
   }, []);
+
+  if (!data.length) {
+    return (
+      <div id="HistoryNogamesPlayed">
+        <h1>No Games Played</h1>
+      </div>
+    );
+  }
 
   return (
     <div id="history">

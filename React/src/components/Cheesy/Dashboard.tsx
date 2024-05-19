@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
 import ProfileHistory from "./ProfileHistory";
-import { setAuthToken } from "../Utils/setAuthToken";
-import axios from "axios";
 
 function Dashboard() {
   return (
@@ -14,9 +11,7 @@ function Dashboard() {
         <div id="Dashboard-Secondary-practice"></div>
       </div>
 
-      <div id="DashboardHistory">
-        <ProfileHistory />
-      </div>
+      <div id="DashboardHistory">{ProfileHistory()}</div>
     </div>
   );
 }

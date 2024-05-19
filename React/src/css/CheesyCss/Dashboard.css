@@ -44,6 +44,7 @@
   opacity: 1;
   scale: 1.01;
   cursor: pointer;
+  transition: all 0.4s ease-in-out;
 }
 
 #Dashboard-Main-GameModeContainer:hover::before {
@@ -65,6 +66,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 #Dashboard-Secondary-GameModeContainer > * {
@@ -82,6 +84,7 @@
 #Dashboard-Secondary-GameModeContainer > *:hover {
   opacity: 1;
   scale: 1.01;
+  transition: all 0.4s ease-in-out;
 }
 
 #Dashboard-Secondary-GameModeContainer > *:hover::before {

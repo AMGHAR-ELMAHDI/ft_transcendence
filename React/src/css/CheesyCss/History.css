@@ -9,22 +9,49 @@
   overflow-y: scroll;
 }
 
-/* .HistoryShadow {
-  position: fixed;
-  bottom: 0rem;
-  width: 2530px;
-  height: 4rem;
-  background: linear-gradient(transparent, rgb(0, 0, 0));
-} */
+#HistoryNogamesPlayed {
+  width: 800px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  border: 1px solid #5fcae4;
+  box-shadow: -10px 10px 5px #1c212f;
+  transition: all 0.3s ease-in-out;
+}
 
-.HistoryShadowDashboard {
+#HistoryNogamesPlayed:hover {
+  scale: 1.01;
+}
+
+#HistoryNogamesPlayed > h1 {
+  text-shadow: 0 0 5px #0c0e14;
+  letter-spacing: 5px;
+  font-size: 4rem;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1920px) {
+  #HistoryNogamesPlayed,
+  #history {
+    display: none;
+  }
+}
+
+/* .HistoryShadowDashboard {
   position: fixed;
   bottom: 50px;
   width: 800px;
   left: 2070px;
   height: 2rem;
   background: linear-gradient(transparent, rgb(0, 0, 0, 0.8));
-}
+} */
 
 .history-top-text {
   display: flex;
