@@ -242,6 +242,28 @@ ul {
   cursor: pointer;
 }
 
+@media only screen and (max-width: 2560px) {
+  #welcome-bar > h1 {
+    font-size: 1.8rem;
+  }
+  #search:placeholder-shown,
+  #search {
+    width: 35rem;
+    padding: 20px 20px;
+    background-position: 20px 18px;
+    height: 3.5rem;
+    font-size: 1rem;
+  }
+  .NotifProfilePic {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  #notif {
+    font-size: 3.5rem;
+    padding: 10px;
+  }
+}
+
 @media only screen and (max-width: 1920px) {
   #search:placeholder-shown,
   #search {

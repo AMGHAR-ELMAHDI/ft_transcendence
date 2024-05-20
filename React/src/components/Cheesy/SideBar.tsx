@@ -7,7 +7,7 @@ import LogoutPopUp from "../SideBar/Logout";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { PiChatCircleTextLight } from "react-icons/pi";
 import { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import AcessToken from "../../Atoms/AccessToken";
 import IsLogged from "../../Atoms/IsLogged";
 import { useRecoilState } from "recoil";
@@ -29,11 +29,11 @@ function SideBar() {
     const handleCancelLogout = () => {
       setShowLogoutPopup(false);
     };
-
+    const navigate = useNavigate();
 
   return (
     <div id="SideBar">
-      <Link to={"/"}><img id="logo" src="/logo.svg" alt="logo" /></Link>
+      <img onClick={() => navigate("/")} id="logo" src="/logo.svg" alt="logo" />
       <div className="sidebar-links">
         <Link to={"/"}> <Home /></Link>
         <Link to={"/chat"}> <PiChatCircleTextLight color="#757889" className={ window.location.pathname === "/chat" ? "sidebarImgsBlue" : "sidebarImgs" }/></Link>
