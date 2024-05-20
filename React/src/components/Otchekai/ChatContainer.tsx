@@ -38,6 +38,7 @@ function ChatSystem() {
     try {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
+      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +77,12 @@ function ChatFriends() {
   const url = useRecoilValue(Url);
   const getInfoChat = async (id: number) => {
     try {
-      const response = await api.get("messages/${id}/")
+      const socket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
+      socket.onopen = function (event) {
+        console.log("WebSocket connection established.");
+        event.preventDefault();
+      };
+      const response = await api.get(`messages/${id}/`);
       SetMessages(response.data);
       console.log(response.data);
       setId(id);
@@ -101,10 +107,7 @@ function ChatFriends() {
             onClick={() => getInfoChat(item.id)}
           >
             <div className="Friend-img">
-              <img
-                src={`${url}${item.avatar}`}
-                className="bachar"
-              />
+              <img src={`${url}${item.avatar}`} className="bachar" />
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
@@ -161,11 +164,12 @@ function Sender({ name, message, time }: MessageInfo) {
 function ChatTyping() {
   const messages = useRecoilValue(Chatmessages);
   const id = useRecoilValue(FriendId);
+  const [CurrentMsg, setCurrentMSg] = useState("");
   return (
     <>
       <div className="Type-wrapper">
         <div className="Chat-box">
-          {messages.map((msg, index) => (
+          {messages.map((msg: any, index) => (
             <div key={index}>
               {msg.sender != id ? (
                 <Sender message={msg.content} time={msg.timestamp} name="You" />
@@ -179,9 +183,16 @@ function ChatTyping() {
             </div>
           ))}
         </div>
-        <form onSubmit={ConnectSockets} className="Chat-input">
+        <form
+          onSubmit={(e) => Sendmessage(e, id, setCurrentMSg)}
+          id="Chat-input"
+        >
           <div className="Input-box">
-            <input type="text" placeholder="Type Something ..." />
+            <input
+              id="message-input"
+              type="text"
+              placeholder="Type Something ..."
+            />
           </div>
           <div className="Chat-send-button">
             <img src="/Send-button.svg" id="bottona" />
@@ -192,6 +203,44 @@ function ChatTyping() {
   );
 }
 
-function ConnectSockets(e: any) {
+function Sendmessage(
+  e: any,
+  id: number,
+  setCurrentMSg: React.Dispatch<React.SetStateAction<string>>
+) {
   e.preventDefault();
+  const socket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
+  socket.onopen = function (event) {
+    console.log("WebSocket connection established.");
+    const form = document.getElementById("Chat-input");
+    form?.addEventListener("submit", function (event) {
+      console.log("form submit.");
+      const input = document.getElementById("message-input");
+      const messageContent = (input as HTMLInputElement).value.trim();
+
+      if (messageContent !== "") {
+        // Create a JSON object with the message content
+        const message = {
+          content: messageContent,
+        };
+
+        // Check if WebSocket is in OPEN state before sending message
+        if (socket.readyState === WebSocket.OPEN) {
+          // Send the message as JSON
+          socket.send(JSON.stringify(message));
+          (input as HTMLInputElement).value = "";
+        } else {
+          console.error("WebSocket connection not open yet.");
+        }
+      }
+    });
+  };
+  socket.onmessage = function (e) {
+    const data = JSON.parse(e.data);
+    console.log(data["user"]);
+    console.log(data["timestamp"]);
+    const msg = data["message"];
+    const tosend = msg + "\n";
+    setCurrentMSg(tosend);
+  };
 }

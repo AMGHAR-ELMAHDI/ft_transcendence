@@ -96,8 +96,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             message_data = json.loads(text_data)
             content = message_data.get('content')
-
             if content:
+                print('p[', content, 'p]')
                 sender_id = self.scope['user'].id
                 receiver_id = self.scope['url_route']['kwargs']['receiver_id']
                 
