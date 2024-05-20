@@ -3,6 +3,7 @@ import PlayersReady from './App'
 import _tournament from './tournament'
 import axios from 'axios';
 import './interface.css'
+import { RecoilRoot } from 'recoil';
 
 interface LocalGameProps {
 	Type: string;
@@ -36,6 +37,9 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 
 	const [DataReady, StatusCode] = useState<boolean>(false);
 	const [Exit, setExit] = useState<boolean>(false);
+	const [Exit2, setExit2] = useState<boolean>(false);
+	const [Winner, SetWinner] = useState<string>('');
+	const [Winner2, SetWinner2] = useState<string>('');
 
 	useEffect(()=> {
 		var index = -1
@@ -123,7 +127,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			}
 		}
 
-		const ball = new (Ball as any)(TwoVect(canvas.width / 2, canvas.height / 2), TwoVect(10, 10), 10)
+		const ball = new (Ball as any)(TwoVect(canvas.width / 2, canvas.height / 2), TwoVect(7, 7), 10)
 
 		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(5, 5), 20, 160, Name)
 		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(5, 5), 20, 160, Name2)
@@ -146,9 +150,12 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 				'winner': paddle.player
 			}))
 			if (Type === 'Online') {
-				console.log('after', Type)
-				localStorage.setItem('FirstWinner', paddle.player)
+				SetWinner(paddle.player)
 				setExit(true)
+			}
+			if (Type === 'Online2') {
+				SetWinner2(paddle.player)
+				setExit2(true)
 			}
 		}
 
@@ -160,7 +167,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		}
 
 		function connectBackend() {
-			const url = 'ws://localhost:8000/game/host/socket-server/'
+			const url = 'ws://e3r11p2:8000/game/host/socket-server/'
 			return new WebSocket(url)
 		}
 
@@ -181,24 +188,22 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		objSocket.onmessage = function(e) {
 			const data = JSON.parse(e.data)
 
-			if (data.type == 'identify')
-				index = data.player
-			if (data.message.type == 'ballPos') {
-				ball.pos.x = data.message.BallX
-				ball.pos.y = data.message.BallY
+			if (data?.type == 'identify')
+				index = data?.player
+			if (data?.message?.type == 'ballPos') {
+				ball.pos.x = data?.message?.BallX
+				ball.pos.y = data?.message?.BallY
 			}
-			if (data.message.type === 'paddleChan' && data.message.index === '1') {
-				console.log(data)
-				paddle1.pos.x = data.message.posX
-				paddle1.pos.y = data.message.posY
+			if (data?.message?.type === 'paddleChan' && data?.message?.index === '1') {
+				paddle1.pos.x = data?.message?.posX
+				paddle1.pos.y = data?.message?.posY
 			}
-			if (data.message.type === 'paddleChan' && data.message.index === '2') {
-				console.log(data)
-				paddle2.pos.x = data.message.posX
-				paddle2.pos.y = data.message.posY
+			if (data?.message?.type === 'paddleChan' && data?.message?.index === '2') {
+				paddle2.pos.x = data?.message?.posX
+				paddle2.pos.y = data?.message?.posY
 			}
-			if (data.message.type === 'scored')
-				Score(data.message.scorePlayer1, data.message.scorePlayer2)
+			if (data?.message?.type === 'scored')
+				Score(data?.message?.scorePlayer1, data?.message?.scorePlayer2)
 			if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
 				objSocket.send(JSON.stringify({
 					'type': 'paddleUpdates',
@@ -233,24 +238,24 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 
 		GameLoop()
 
-		// return (()=> {
-		// 	objSocket && objSocket.close()
-		// })
 	}, [])
 	return (
-		<div className='VirParent'>
-			{!Exit && 
-			<div className="game">
-				<div className="play"></div>
-				<div className="score" id='score'>
-					<p id='Pscore'>0</p>
-					<p id='Sscore'>0</p>
-				</div>
-				<div className="winner" id='winner'></div>
-				<canvas id="canvas"></canvas>
-			</div>}
-			{Exit && <_tournament NetType='fill' />}
-		</div>
+		<RecoilRoot>
+			<div className='VirParent'>
+				{!Exit && !Exit2 &&
+				<div className="game">
+					<div className="play"></div>
+					<div className="score" id='score'>
+						<p id='Pscore'>0</p>
+						<p id='Sscore'>0</p>
+					</div>
+					<div className="winner" id='winner'></div>
+					<canvas id="canvas"></canvas>
+				</div>}
+				{Exit && <_tournament NetType='fill' Winner={Winner} Winner2=''/>}
+				{Exit2 && <_tournament NetType='fill' Winner='' Winner2={Winner2}/>}
+			</div>
+		</RecoilRoot>
 	);
 }
 

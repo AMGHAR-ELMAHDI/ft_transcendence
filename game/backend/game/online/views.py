@@ -5,8 +5,12 @@ class Ball:
 	def __init__(self, BallX, BallY, radius, VeclocityX, VeclocityY):
 		self.BallX = BallX
 		self.BallY = BallY
+		self.initial_ballx = BallX
+		self.initial_bally = BallY
 		self.VeclocityX = VeclocityX
 		self.VeclocityY = VeclocityY
+		self.initial_velocityx = VeclocityX
+		self.initial_velocityy = VeclocityY
 		self.radius = radius
 		self.canvasw = 1359
 		self.canvash = 841
@@ -20,6 +24,12 @@ class Ball:
 		self.BallY = self.canvash / 2
 		self.VeclocityX *= -1
 		self.VeclocityY *= -1
+
+	def reset(self):
+		self.BallX = self.initial_ballx
+		self.BallY = self.initial_bally
+		self.VelocityX = self.initial_velocityx
+		self.VelocityY = self.initial_velocityy
 
 	def BallScored(self, paddle1, padddl2):
 		if self.BallX <= -self.radius:
@@ -39,16 +49,16 @@ class Ball:
 
 def BallIntersection(ball, paddle):
 	x1 = abs(ball.BallX - paddle.GetCenterX())
-	y1 = abs(ball.BallY - paddle.GetCenterY())
-	if (x1 + 1 <= (ball.radius + paddle.HalfWidth()) and y1 + 1 <= (ball.radius + paddle.HalfHeight())):
-		ball.VeclocityX *= -1
-	x1 = abs(ball.BallX - paddle.GetCenterX())
 	y1_top = abs(ball.BallY - (paddle.GetCenterY() - paddle.HalfHeight()))
 	y1_bottom = abs(ball.BallY - (paddle.GetCenterY() + paddle.HalfHeight()))
 
 	if x1 <= (ball.radius + paddle.HalfWidth()):
 		if y1_top <= ball.radius or y1_bottom <= ball.radius:
 			ball.VeclocityY *= -1
+	x1 = abs(ball.BallX - paddle.GetCenterX())
+	y1 = abs(ball.BallY - paddle.GetCenterY())
+	if (x1 + 1 <= (ball.radius + paddle.HalfWidth()) and y1 + 1 <= (ball.radius + paddle.HalfHeight())):
+		ball.VeclocityX *= -1
 class Paddle:
 	def __init__(self, posX, posY, veloX, veloY, width, height):
 		self.posX = posX

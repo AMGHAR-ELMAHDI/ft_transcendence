@@ -46,6 +46,7 @@ function register() {
 				setError(stats[i]?.replace('status=', '')?.replace(/_/g, ' '))
 			}
 	})
+
 	return (
 		<div className="content">
 			<div className="register">

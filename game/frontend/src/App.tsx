@@ -13,11 +13,8 @@ import _Queue from './inQueue';
 import './App.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { RecoilRoot } from 'recoil';
 
-
-function App() {
-  const [User, GuestOrUser] = useState<boolean>(false)
+function Options() {
   const [type, setMod] = useState<string>('')
 
   useEffect(()=> {
@@ -32,6 +29,22 @@ function App() {
       })
     });
   })
+    return (
+        // type === "0" ?
+        // <div><_Main />< _title Name1='local game'/><_multiplayer2 type='' Name1='PLAYER1' Name2='PLAYER2' /></div>:
+        // type === "1" ?
+        // <div><_Main />< _title Name1='local vs bot'/><_game2D /></div>:
+        // type === "2" ?
+        <div><_Main />< _title Name1='Tournament'/>< _tournament NetType='' Winner='' Winner2=''/></div>
+        // type === '3' ?
+        // <div><_Main/>< _title Name1='Local Tournament'/>< _LocTn/></div>:
+        // <div><_Main />< _title Name1='Overview'/><_UserViews /><_mods /></div>
+        // <div><_Main/><_multiplayer Type='' Name='' Name2=''/></div>
+    )
+}
+
+function App() {
+  const [User, GuestOrUser] = useState<boolean>(false)
 
   // useEffect(()=> {
   //     axios.defaults.withCredentials = true;
@@ -48,20 +61,11 @@ function App() {
   // }, [])
 
   return (
-      <>
-        {
-          // type === "0" ?
-          // <div><_Main />< _title Name1='local game'/><_multiplayer2 type='' Name1='PLAYER1' Name2='PLAYER2' /></div>:
-          // type === "1" ?
-          // <div><_Main />< _title Name1='local vs bot'/><_game2D /></div>:
-          // type === "2" ?
-          // <div><_Main />< _title Name1='Tournament'/>< _tournament NetType=''/></div>:
-          // type === '3' ?
-          // <div><_Main/>< _title Name1='Local Tournament'/>< _LocTn/></div>:
-          // <div><_Main />< _title Name1='Overview'/><_UserViews /><_mods /></div>
-          <div><_Main/><_multiplayer Type='' Name='' Name2=''/></div>
-        }
-      </>
+    <>
+      {
+        <Options/>
+      }
+    </>
     );
 }
 
