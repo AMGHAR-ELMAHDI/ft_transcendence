@@ -87,9 +87,9 @@ function getToolTip() {
 function getTheRest() {
   const leaderBoardData = useRecoilValue(LeaderData);
   if (leaderBoardData.length <= 3) return <div />;
-  // const url = useRecoilValue(Url);
 
   const rest: any = leaderBoardData.slice(3);
+  // const navigate = useNavigate();
   return (
     <>
       {getToolTip()}
@@ -105,11 +105,13 @@ function getTheRest() {
                   <h1 className="Panton">{index + 3}</h1>
                   <div className="lineLi" />
                 </div>
-                <img
-                  className="RestImgs"
-                  src={"http://localhost:2500" + user.image.substring(6)}
-                  alt="userPic"
-                />
+                <Link to={`/profile/${user.username}`}>
+                  <img
+                    className="RestImgs"
+                    src={"http://localhost:2500" + user.image.substring(6)}
+                    alt="userPic"
+                  />
+                </Link>
               </div>
               <div className="LeaderRestRight">
                 <div className="LeaderRestRighUsrtName">

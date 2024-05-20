@@ -43,3 +43,23 @@
   fill: white;
   border-radius: 25px;
 }
+
+@media only screen and (max-width: 2880px) {
+  .ProfileItems {
+    height: 50vh !important;
+  }
+  .ProfileItems > * {
+    max-width: 350px !important;
+    max-height: 450px !important;
+  }
+}
+
+@media only screen and (max-width: 2560px) {
+  .ProfileItems {
+    height: 50vh !important;
+  }
+  .ProfileItems > * {
+    max-width: 300px !important;
+    max-height: 400px !important;
+  }
+}

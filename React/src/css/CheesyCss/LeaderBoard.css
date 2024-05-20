@@ -159,11 +159,11 @@
   background: linear-gradient(to bottom, #24263195 0%, #0f1119 100%);
 }
 
-ul > li > div > img {
+ul > li > div > * > img {
   box-shadow: gray 0px 0px 20px 0px;
 }
 
-.SpecialCase > div > img {
+.SpecialCase > div > * > img {
   border: none;
   box-shadow: #000000 0px 0px 30px 0px;
 }
@@ -220,6 +220,7 @@ ul > li > div > img {
 .LeaderRestLeft {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   flex: 1;
 }
 
@@ -277,4 +278,56 @@ ul > li > div > img {
 
 .ToolTipColor {
   color: #2e313f;
+}
+
+@media only screen and (max-width: 2880px) {
+  .Top3 {
+    margin: 1rem;
+  }
+  .topImgsContainer {
+    width: 10rem;
+    height: 10rem;
+  }
+  .topImgs {
+    width: 7rem;
+    height: 7rem;
+  }
+  .topImgsContainer::before {
+    bottom: 0.7rem;
+    left: 50%;
+    translate: -50% 50%;
+    font-size: 1.3rem;
+  }
+}
+
+@media only screen and (max-width: 2600px) {
+  .LeaderBoardRest {
+    max-height: 45vh;
+    overflow-y: scroll;
+    padding: 0 2rem;
+  }
+  .RestImgs {
+    width: 4rem;
+    height: 4rem;
+  }
+  .LeaderRestRighUsrtName > * > h1 {
+    font-size: 1.2rem;
+  }
+  .LeaderRestRightLvl > h1 {
+    font-size: 1.1rem !important;
+  }
+  .topImgsContainer {
+    width: 8rem;
+    height: 8rem;
+  }
+  .topImgs {
+    width: 6rem;
+    height: 6rem;
+  }
+  .topImgsContainer::before {
+    bottom: 0.5rem;
+  }
+  .toph1 {
+    font-size: 1.5rem;
+  }
 }

@@ -126,7 +126,6 @@ ul {
   position: absolute;
   left: -35%;
   bottom: -90px;
-  /* bottom: -50px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -261,6 +260,13 @@ ul {
   #notif {
     font-size: 3.5rem;
     padding: 10px;
+  }
+  .dropdown-menu {
+    left: -48%;
+    bottom: -90px;
+  }
+  .SearchUsers {
+    top: 3.5rem;
   }
 }
 

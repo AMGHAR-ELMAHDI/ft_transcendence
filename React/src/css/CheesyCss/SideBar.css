@@ -11,6 +11,8 @@
 #logo {
   width: 6rem;
   margin-top: 1.5rem;
+  cursor: pointer;
+
 }
 
 .sidebar-links {
