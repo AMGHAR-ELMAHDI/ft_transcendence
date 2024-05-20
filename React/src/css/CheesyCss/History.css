@@ -37,30 +37,6 @@
   text-align: center;
 }
 
-@media only screen and (max-width: 1920px) {
-  #HistoryNogamesPlayed,
-  #history {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 3000px) {
-  #history {
-    height: 53vh;
-  }
-}
-
-@media only screen and (max-width: 2880px) {
-  #history {
-    height: 50vh;
-  }
-}
-
-@media only screen and (max-width: 2560px) {
-  #history {
-  }
-}
-
 /* .HistoryShadowDashboard {
   position: fixed;
   bottom: 50px;
@@ -70,13 +46,9 @@
   background: linear-gradient(transparent, rgb(0, 0, 0, 0.8));
 } */
 
-.tabs-acheivements {
-  display: flex;
-}
-
 .history-tabs {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   width: 100%;
   height: 140px;
@@ -116,7 +88,7 @@
 
 .dashboard-history-right-rect {
   width: 15px;
-  height: 140px;
+  height: 100%;
   background-color: #1e8ef3;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -149,6 +121,11 @@
   font-family: cool;
 }
 
+#dashboard-history-mode {
+  width: 6.5rem;
+  text-align: center;
+}
+
 #tabs-container {
   display: flex;
   flex-direction: column;
@@ -173,13 +150,51 @@
   color: #9f4146;
 }
 
+@media only screen and (max-width: 1920px) {
+  #HistoryNogamesPlayed,
+  #history {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 3000px) {
+  #history {
+    height: 53vh;
+  }
+}
+
+@media only screen and (max-width: 2880px) {
+  #history {
+    height: 50vh;
+  }
+}
+
 @media only screen and (max-width: 2560px) {
   .HistoryShadow,
   .HistoryShadowDashboard {
     display: none;
   }
-  /* #history {
+  .history-tabs {
+    height: 100px;
+  }
+  #dashboard-history-opponent > *,
+  #dashboard-history-mode > *,
+  #dashboard-history-date > * {
+    font-size: 1rem !important;
+  }
+  .Dashboard-History-Score > * {
+    font-size: 1rem !important;
+  }
+  .dashboard-history-right-rect {
+    width: 12px;
+  }
+  .history-tabs-left-container {
+    justify-content: space-evenly;
+    width: 100%;
     height: 100%;
-    max-height: 800px;
-  } */
+  }
+  #dashboard-history-mode {
+    width: 6.5rem;
+    text-align: center;
+  }
 }

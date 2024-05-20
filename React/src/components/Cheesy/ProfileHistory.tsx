@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
-import axios from "axios";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
-import { Link } from "react-router-dom";
 
 function getDate(date: string) {
   const flipedDate = date.substring(0, 10).split("-").reverse();
@@ -75,9 +73,6 @@ function ProfileHistory() {
               className={getHistoryTabs(game.player_score, game.opponent_score)}
             >
               <div className="history-tabs-left-container">
-                <div id="dashboard-history-pic">
-                  <img src={game.avatar} alt={"picture"} />
-                </div>
                 <div id="dashboard-history-opponent">
                   <h3>{game.opponent}</h3>
                 </div>
@@ -99,12 +94,12 @@ function ProfileHistory() {
           );
         })}
       </div>
-      {window.location.pathname === "/profile" && (
+      {/* {window.location.pathname === "/profile" && (
         <div className="HistoryShadow"></div>
       )}
       {window.location.pathname === "/" && (
         <div className="HistoryShadowDashboard"></div>
-      )}
+      )} */}
     </div>
   );
 }
