@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
-import axios from "axios";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
