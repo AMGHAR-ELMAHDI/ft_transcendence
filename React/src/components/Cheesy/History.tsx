@@ -106,9 +106,7 @@ function History({ UserData, UseUserData }: HistoryProps) {
         {getTooltip()}
         {data?.map((game: any) => (
           <tbody key={game.id}>
-            <tr
-              className={getHistoryTabs(game.player_score, game.opponent_score)}
-            >
+            <tr className={getHistoryTabs(game.player_score, game.opponent_score)}>
               <td className="leftTd zekton">
                 <h1>{getDate(game?.date)}</h1>
               </td>

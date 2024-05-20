@@ -164,6 +164,12 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
               >
                 Items
               </button>
+              <button
+                className={`${show === "Friends" && "ProfileToRender"}`}
+                onClick={() => setRender("Friends")}
+              >
+                Friends
+              </button>
             </div>
           )}
         </div>

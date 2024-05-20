@@ -1,6 +1,7 @@
 import ProfileItems from "./ProfileItems";
 import History from "./History";
 import ProfileAcheivements from "./ProfileAcheivements";
+import ProfileFriends from "./ProfileFriends";
 
 interface ProfileMainProps {
   inRender: string;
@@ -27,7 +28,10 @@ function ProfileMain({ inRender, UserData, UseUserData }: ProfileMainProps) {
   if (inRender === "Items")
     toRender = <ProfileItems UserData={UserData} UseUserData={UseUserData} />;
   else if (inRender === "Trophies")
-    toRender = <ProfileAcheivements UserData={UserData} UseUserData={UseUserData} />;
+    toRender = (
+      <ProfileAcheivements UserData={UserData} UseUserData={UseUserData} />
+    );
+  else if (inRender === "Friends") toRender = <ProfileFriends />;
 
   return <div id="ProfileHistory">{toRender}</div>;
 }

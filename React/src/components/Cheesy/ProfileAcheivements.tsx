@@ -28,7 +28,7 @@ function ProfileAcheivements({ UserData, UseUserData }: Props) {
   const url = useRecoilValue(Url);
 
   console.log("herrrrereere");
-  
+
   const username = UserData?.username;
   setAuthToken();
   const getData = async () => {
