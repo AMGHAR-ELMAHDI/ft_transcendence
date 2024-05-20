@@ -58,8 +58,8 @@ function ProfileFriends() {
       <table>
         {getProfileToolTip()}
         {data.map((friend: any) => (
-          <tbody>
-            <tr key={friend?.id} className="ProfileFriendsContent">
+          <tbody key={friend?.id}>
+            <tr className="ProfileFriendsContent">
               <td>
                 <div>
                   <img

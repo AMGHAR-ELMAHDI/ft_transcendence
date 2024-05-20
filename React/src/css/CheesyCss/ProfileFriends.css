@@ -29,6 +29,8 @@
 
 .ProfileFriendsToolTip > th > h1 {
   font-size: 1.7rem;
+  letter-spacing: 2px;
+  text-align: center;
 }
 
 .ProfileFriendsContainer > table > tbody > tr {
