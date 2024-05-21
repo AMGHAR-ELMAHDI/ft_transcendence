@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PlayerId } from './atoms/Winner';
 import _LocalGame from './multiplayer2'
+import _title from './title'
 import _OnlineGame from './multiplayer'
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -151,7 +152,7 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 			players[3].innerHTML = data.message.array.name_4.name
 		}
 	
-		objSocket = new WebSocket('ws://e3r11p2:8000/ws/game/tn/')
+		objSocket = new WebSocket('ws://localhost:8000/ws/game/tn/')
 
 		if (NetType === 'fill') {
 			const JsonData = localStorage.getItem('dataTn')
@@ -164,13 +165,13 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 
 			const exit = setInterval(()=> {
 				if (isWebSocketConnected()) {
-					clearInterval(exit)
 					objSocket.send(JSON.stringify({
 						'type': 'SecondGame'
 					}))
+					clearInterval(exit)
 				}
 				else
-					objSocket = new WebSocket('ws://e3r11p2:8000/ws/game/tn/')
+					objSocket = new WebSocket('ws://localhost:8000/ws/game/tn/')
 			}, 300)
 		}
 
@@ -198,8 +199,8 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 				}))
 			}
 			if (data?.message?.type === 'JoinedPlayers') {
-				StoreInStorage(data)
-				modifyDisplay(data)
+				// StoreInStorage(data)
+				// modifyDisplay(data)
 			}
 			if (data?.message?.type === 'firstGame' && (data?.message?.player1 === index.toString() || data?.message?.player2 === index.toString())) {
 				setName(players[0].innerHTML)
@@ -218,15 +219,15 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 		})
 	}, [])
 
-	useEffect(()=> {
-		const final_1 = document.querySelector('.final_1')
-		const final_2 = document.querySelector('.final_2')
+	// useEffect(()=> {
+	// 	const final_1 = document.querySelector('.final_1')
+	// 	const final_2 = document.querySelector('.final_2')
 
-		if (Winner !== '')
-			final_1!.innerHTML = Winner
-		// if (Winner2 !== '' || Winner2 !== undefined)
-		// 	final_2!.innerHTML = Winner2
-	})
+	// 	if (Winner !== '')
+	// 		final_1!.innerHTML = Winner
+	// 	// if (Winner2 !== '' || Winner2 !== undefined)
+	// 	// 	final_2!.innerHTML = Winner2
+	// })
 
 	return (
 		<div className='VirParent'>
@@ -234,8 +235,8 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 			{run && <_LocalGame type='local' Name1={player1} Name2={player2}/>}
 			{secondRun && <_LocalGame type='local2' Name1={player1} Name2={player2}/>}
 			{Final && <_LocalGame type='local3' Name1={player1} Name2={player2}/>}
-			{FirstGame && <_OnlineGame Type='Online' Name={Player1} Name2={Player2}/>}
-			{SecGame && <_OnlineGame Type='Online2' Name={Player1} Name2={Player2}/>}
+			{FirstGame && <_title Name1={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online' Name={Player1} Name2={Player2}/>}
+			{SecGame && <_title Name1={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online2' Name={Player1} Name2={Player2}/>}
 		</div>
 	)
 }

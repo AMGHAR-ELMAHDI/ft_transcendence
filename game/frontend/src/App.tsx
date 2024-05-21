@@ -9,7 +9,6 @@ import _Animation from './animation';
 import _LocTn from './LocTn';
 import _mods from './mods';
 import _title from './title';
-import _Queue from './inQueue';
 import './App.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -39,7 +38,8 @@ function Options() {
         // type === '3' ?
         // <div><_Main/>< _title Name1='Local Tournament'/>< _LocTn/></div>:
         // <div><_Main />< _title Name1='Overview'/><_UserViews /><_mods /></div>
-        // <div><_Main/><_multiplayer Type='' Name='' Name2=''/></div>
+        // <div><_Main/><_multiplayer Type='' Name='Smhammed' Name2='mnassi'/></div>
+        // <div><_Main/><_Queue/></div>
     )
 }
 

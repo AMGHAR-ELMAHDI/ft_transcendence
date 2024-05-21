@@ -1,14 +1,19 @@
-dict = {
-	'name': {
-		'Sockets': {}
-	}
+room = {}
+
+room[0] = {
+	'players': {},
+	'AvailablePlayers': 0,
+}
+room[1] = {
+	'players': {},
+	'AvailablePlayers': 0,
 }
 
-konitchiwa='zab'
+username = 'mnassi'
 
-dict['name']['Sockets'].update({konitchiwa: 'last'})
-dict['name']['Sockets'].update({konitchiwa: 'last'})
-dict['name']['Sockets'].update({konitchiwa: 'last'})
-dict['name']['Sockets'].update({konitchiwa: 'last'})
-dict['name']['Sockets'].update({konitchiwa: 'last'})
-print((dict['name']['Sockets'][konitchiwa]))
+if username not in room[0]:
+	room[0]['players'][username] = 1
+
+print(room[0]['players'])
+print(room[1]['players'])
+

@@ -9,18 +9,17 @@ function SearchingLoading() {
 		var alphabets = 'abcdefghijklmnopqrStuvwxyz'
 		var text = document.querySelector('.containent h1')
 
-		for (let index = 0; index < RealText.length;) {
-			for (let Jindex = 0; Jindex < alphabets.length; Jindex++) {
-				text!.innerHTML += alphabets[Jindex]
-				if (alphabets[Jindex] === RealText[index]) {
-					index++;
-					break
-				}
-				else
-					text!.innerHTML = text!.innerHTML.substring(0, text!.innerHTML.length - 1)
-			}
-		}
-	}, [])
+		window.addEventListener('load', ()=> {
+			var interval = 0
+			const exit = setInterval(()=> {
+				text!.innerHTML = text?.innerHTML.split("")
+				.map(letter=> alphabets[Math.floor(Math.random() * 26)])
+				.join("")!
+				if (interval == 9) clearInterval(exit)
+				interval += 1
+			}, 30)
+		})
+	// }, [])
 
 	return (
 		<div className='containent'>

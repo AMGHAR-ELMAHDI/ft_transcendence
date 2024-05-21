@@ -3,6 +3,7 @@ import PlayersReady from './App'
 import _tournament from './tournament'
 import axios from 'axios';
 import './interface.css'
+import _title from './title'
 import { RecoilRoot } from 'recoil';
 
 interface LocalGameProps {
@@ -54,6 +55,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		const context = canvas.getContext('2d')
 		
 		const KeyPressed: any[] = [];
+
 
 		window.addEventListener('keydown', function(e) {
 			KeyPressed[e.keyCode] = true;
@@ -167,7 +169,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		}
 
 		function connectBackend() {
-			const url = 'ws://e3r11p2:8000/game/host/socket-server/'
+			const url = 'ws://localhost:8000/game/host/socket-server/'
 			return new WebSocket(url)
 		}
 
@@ -240,22 +242,20 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 
 	}, [])
 	return (
-		<RecoilRoot>
-			<div className='VirParent'>
-				{!Exit && !Exit2 &&
-				<div className="game">
-					<div className="play"></div>
-					<div className="score" id='score'>
-						<p id='Pscore'>0</p>
-						<p id='Sscore'>0</p>
-					</div>
-					<div className="winner" id='winner'></div>
-					<canvas id="canvas"></canvas>
-				</div>}
-				{Exit && <_tournament NetType='fill' Winner={Winner} Winner2=''/>}
-				{Exit2 && <_tournament NetType='fill' Winner='' Winner2={Winner2}/>}
-			</div>
-		</RecoilRoot>
+		<div className='VirParent'>
+			{!Exit && !Exit2 &&
+			<div className="game">
+				<div className="play"></div>
+				<div className="score" id='score'>
+					<p id='Pscore'>0</p>
+					<p id='Sscore'>0</p>
+				</div>
+				<div className="winner" id='winner'></div>
+				<canvas id="canvas"></canvas>
+			</div>}
+			{Exit && <_tournament NetType='fill' Winner={Winner} Winner2=''/>}
+			{Exit2 && <_tournament NetType='fill' Winner='' Winner2={Winner2}/>}
+		</div>
 	);
 }
 

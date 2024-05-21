@@ -14,51 +14,52 @@ class Ball:
 		self.radius = radius
 		self.canvasw = 1359
 		self.canvash = 841
-	
-	def Ballinter(self):
+
+	async def Ballinter(self):
 		if self.BallY + self.radius >= self.canvash or self.BallY - self.radius <= 0:
 			self.VeclocityY *= -1
 
-	def resetBall(self):
+	async def resetBall(self):
 		self.BallX = self.canvasw / 2
 		self.BallY = self.canvash / 2
 		self.VeclocityX *= -1
 		self.VeclocityY *= -1
 
-	def reset(self):
+	async def reset(self):
 		self.BallX = self.initial_ballx
 		self.BallY = self.initial_bally
 		self.VelocityX = self.initial_velocityx
 		self.VelocityY = self.initial_velocityy
 
-	def BallScored(self, paddle1, padddl2):
+	async def BallScored(self, paddle1, padddl2):
 		if self.BallX <= -self.radius:
 			paddle1.score += 1
-			self.resetBall()
+			await self.resetBall()
 			return True
 		if  self.BallX >= self.canvasw + self.radius:
 			padddl2.score += 1
-			self.resetBall()
+			await self.resetBall()
 			return True
 		return False
 
-	def update(self):
+	async def update(self):
 		self.BallX += self.VeclocityX
 		self.BallY += self.VeclocityY
 
 
-def BallIntersection(ball, paddle):
-	x1 = abs(ball.BallX - paddle.GetCenterX())
-	y1_top = abs(ball.BallY - (paddle.GetCenterY() - paddle.HalfHeight()))
-	y1_bottom = abs(ball.BallY - (paddle.GetCenterY() + paddle.HalfHeight()))
+async def BallIntersection(ball, paddle):
+	x1 = abs(ball.BallX - await paddle.GetCenterX())
+	y1_top = abs(ball.BallY - (await paddle.GetCenterY() - await paddle.HalfHeight()))
+	y1_bottom = abs(ball.BallY - (await paddle.GetCenterY() + await paddle.HalfHeight()))
 
-	if x1 <= (ball.radius + paddle.HalfWidth()):
+	if x1 <= (ball.radius + await paddle.HalfWidth()):
 		if y1_top <= ball.radius or y1_bottom <= ball.radius:
 			ball.VeclocityY *= -1
-	x1 = abs(ball.BallX - paddle.GetCenterX())
-	y1 = abs(ball.BallY - paddle.GetCenterY())
-	if (x1 + 1 <= (ball.radius + paddle.HalfWidth()) and y1 + 1 <= (ball.radius + paddle.HalfHeight())):
+	x1 = abs(ball.BallX - await paddle.GetCenterX())
+	y1 = abs(ball.BallY - await paddle.GetCenterY())
+	if (x1 + 1 <= (ball.radius + await paddle.HalfWidth()) and y1 + 1 <= (ball.radius + await paddle.HalfHeight())):
 		ball.VeclocityX *= -1
+
 class Paddle:
 	def __init__(self, posX, posY, veloX, veloY, width, height):
 		self.posX = posX
@@ -71,25 +72,25 @@ class Paddle:
 		self.canvash = 841
 		self.score = 0
 	
-	def HalfWidth(self):
+	async def HalfWidth(self):
 		return self.width / 2
 
-	def GetCenterX(self):
-		return self.posX + self.HalfWidth()
+	async def GetCenterX(self):
+		return self.posX + await self.HalfWidth()
 
-	def GetCenterY(self):
-		return self.posY + self.HalfHeight()
+	async def GetCenterY(self):
+		return self.posY + await self.HalfHeight()
 
-	def GetCenterXW(self):
-		return self.posY + self.HalfWidth()
+	async def GetCenterXW(self):
+		return self.posY + await self.HalfWidth()
 
 	# def GetCenterYW(self):
 	# 	return self.posY + self.HalfHeight()
 
-	def HalfHeight(self):
+	async def HalfHeight(self):
 		return self.height / 2
 
-	def update(self, key):
+	async def update(self, key):
 		if (key == 'up' and self.posY >= 0):
 			self.posY -= self.veloY
 		if (key == 'down' and self.posY + self.height <= self.canvash):

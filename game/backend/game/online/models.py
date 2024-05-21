@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import F
 # Create your models here.
+
 class Player(models.Model):
     STATUS_ONLINE = 'O'
     STATUS_OFFLINE = 'F'
