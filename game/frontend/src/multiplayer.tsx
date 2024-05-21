@@ -253,8 +253,8 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 				<div className="winner" id='winner'></div>
 				<canvas id="canvas"></canvas>
 			</div>}
-			{Exit && <_tournament NetType='fill' Winner={Winner} Winner2=''/>}
-			{Exit2 && <_tournament NetType='fill' Winner='' Winner2={Winner2}/>}
+			{(Exit || Exit2) && <_tournament NetType='fill' Winner={Winner} Winner2={Winner}/>}
+			{/* {Exit2 && <_tournament NetType='fill' Winner='' Winner2={Winner2}/>} */}
 		</div>
 	);
 }

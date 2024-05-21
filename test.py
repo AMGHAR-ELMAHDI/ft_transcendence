@@ -6,22 +6,30 @@ room[0] = {
 	},
 	'AvailablePlayers': 0,
 }
-players = {
-	'name_1': {
-		'name': '...',
+room[1] = {
+	'players': {
+		'mbachar': 1,
 	},
-	'name_2': {
-		'name': '...',
+	'AvailablePlayers': 0,
+}
+room[2] = {
+	'players': {
+		'otchekai': 1,
 	},
-	'name_3': {
-		'name': '...',
+	'AvailablePlayers': 0,
+}
+room[3] = {
+	'players': {
+		'absaid': 1,
 	},
-	'name_4': {
-		'name': '...',
-	},
+	'AvailablePlayers': 0,
 }
 
-for key, value in room[0]['players'].items():
-	players[f'name_{value}'] = {'name': key}
+username = 'absaid'
 
-print(players)
+for skey, value in room.items():
+	for key in value['players']:
+		if key == username:
+			print(f'found {skey}')
+		else:
+			print('not found')

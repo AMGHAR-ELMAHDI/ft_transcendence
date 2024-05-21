@@ -87,8 +87,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 await self.custom_Async(message, "paddleChan")
             await asyncio.sleep(0.002)
         if message_type == 'it ends now':
-            self.data += str('winner: ' + infos['winner'] + '\r\n')
-            self.CreateCSVFile(self.data)
+            winner = infos['winner']
 
     async def custom_Async(self, message, type):
         await self.channel_layer.group_send(
@@ -108,11 +107,6 @@ class GameConsumer(AsyncWebsocketConsumer):
     async def scored(self, event):
         message = event["message"]
         await self.send(text_data=json.dumps({"type": "scored", "message": message}))
-
-    def CreateCSVFile(self, data):
-        command = "/Users/mnassi/Desktop/1337/ft_transcendence/game/frontend/src/script/ai.sh \"" + data + "\"" 
-
-        #result = subprocess.run(command, shell=True, capture_output=True, text=True)
 
     async def ballPos(self, event):
         message = event["message"]
@@ -143,8 +137,6 @@ class GameConsumer(AsyncWebsocketConsumer):
             await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle1'])
             await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle2'])
             await asyncio.sleep(1 / 60)
-            self.seconds += 1
-            self.data += str(self.seconds) + 's= ' + ' BallX: ' + str(self.rooms[self.room_group_name]['ball'].BallX) + ' BallY: ' + str(self.rooms[self.room_group_name]['ball'].BallY) + ' paddleX1: ' + str(self.rooms[self.room_group_name]['paddle1'].posX) + ' paddleY1: ' + str(self.rooms[self.room_group_name]['paddle1'].posY) + ' paddleX2: ' + str(self.rooms[self.room_group_name]['paddle2'].posX) + ' paddleY2: ' + str(self.rooms[self.room_group_name]['paddle2'].posY) + '\r\n'
 
 
 # tournament code here -->
@@ -159,7 +151,18 @@ class TournamentM_(AsyncWebsocketConsumer):
             await self.accept()
         else:
             return JsonResponse({'error': 'Not authenticated'})
-        self.room_group_name = f"tournament_{self.RoomNb}"
+
+        UserExist = False
+
+        if TournamentM_.RoomNb > 0:
+            for skey, value in self.rooms.items():
+                for key in value['players']:
+                    if key == self.username:
+                        UserExist = True
+                        TournamentM_.RoomNb -= 1
+                        break
+
+        self.room_group_name = f"tournament_{TournamentM_.RoomNb}"
         if self.room_group_name not in self.rooms:
             print(f' -> {self.room_group_name}')
             self.rooms[self.room_group_name] = {
@@ -179,6 +182,7 @@ class TournamentM_(AsyncWebsocketConsumer):
                     },
                 },
                 'index': 0,
+                'onceAtTime': False
             }
 
         ThisRoom = self.rooms[self.room_group_name]['players']
@@ -188,7 +192,7 @@ class TournamentM_(AsyncWebsocketConsumer):
             Index['index'] += 1
             ThisRoom[self.username] = Index['index']
         else:
-            ThisRoom[self.username] = Index['index']
+            pass
 
         await self.send(text_data=json.dumps({
             'type': 'identify',
@@ -198,12 +202,13 @@ class TournamentM_(AsyncWebsocketConsumer):
 
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
 
-        if Index['index'] + 1 >= 5:
+        if Index['index'] + 1 >= 5 and not UserExist:
             TournamentM_.RoomNb += 1
 
         print('\nplayers: ', ThisRoom, '\nlen = ', Index['index'], '\nroomnb: ', TournamentM_.RoomNb)
 
-        if Index['index'] == 4:
+        if Index['index'] == 4 and not Index['onceAtTime']:
+            Index['onceAtTime'] = True
             asyncio.ensure_future(self.StartTournament())
 
     async def custom_Async(self, message, type):
@@ -221,7 +226,13 @@ class TournamentM_(AsyncWebsocketConsumer):
             'player1': '1',
             'player2': '2',
         }
+        message2 = {
+            'type': 'SecondGame',
+            'player1': '3',
+            'player2': '4',
+        }
         await self.custom_Async(message, 'firstGame')
+        await self.custom_Async(message2, 'SecondGame')
 
     async def firstGame(self, event):
         message = event['message']
@@ -241,13 +252,13 @@ class TournamentM_(AsyncWebsocketConsumer):
                 'array': self.rooms[self.room_group_name]['Joined']
             }
             await self.custom_Async(message ,'JoinedPlayers')
-        if data['type'] == 'SecondGame':
-            message = {
-                'type': 'SecondGame',
-                'player1': '3',
-                'player2': '4',
-            }
-            await self.custom_Async(message, 'SecondGame')
+        # if data['type'] == 'SecondGame':
+        #     message = {
+        #         'type': 'SecondGame',
+        #         'player1': '3',
+        #         'player2': '4',
+        #     }
+        #     await self.custom_Async(message, 'SecondGame')
     
     async def JoinedPlayers(self, event):
         message = event['message']

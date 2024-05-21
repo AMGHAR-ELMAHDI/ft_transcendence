@@ -134,6 +134,9 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 		let index = 0
 		var objSocket: any = null
 		var alphabets = 'abcdefghijklmnopqrstuvwxyz'
+		const final_1 = document.querySelector('.final_1')
+		const final_2 = document.querySelector('.final_2')
+
 		const players = document.querySelectorAll('.call')
 
 		for (let i = 0 ; i < 8; i++)
@@ -155,6 +158,7 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 		objSocket = new WebSocket('ws://localhost:8000/ws/game/tn/')
 
 		if (NetType === 'fill') {
+			console.log('lool')
 			const JsonData = localStorage.getItem('dataTn')
 			const data = JSON.parse(JsonData!)
 
@@ -163,16 +167,7 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 			players[2].innerHTML = data.player3
 			players[3].innerHTML = data.player4
 
-			const exit = setInterval(()=> {
-				if (isWebSocketConnected()) {
-					objSocket.send(JSON.stringify({
-						'type': 'SecondGame'
-					}))
-					clearInterval(exit)
-				}
-				else
-					objSocket = new WebSocket('ws://localhost:8000/ws/game/tn/')
-			}, 300)
+			final_1!.innerHTML = Winner
 		}
 
 		function StoreInStorage(data: any) {
@@ -220,11 +215,7 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 	}, [])
 
 	// useEffect(()=> {
-	// 	const final_1 = document.querySelector('.final_1')
-	// 	const final_2 = document.querySelector('.final_2')
 
-	// 	if (Winner !== '')
-	// 		final_1!.innerHTML = Winner
 	// 	// if (Winner2 !== '' || Winner2 !== undefined)
 	// 	// 	final_2!.innerHTML = Winner2
 	// })
