@@ -164,13 +164,25 @@ class TournamentM_(AsyncWebsocketConsumer):
             print(f' -> {self.room_group_name}')
             self.rooms[self.room_group_name] = {
                 'players': {},
+                'Joined': {
+                    'name_1': {
+                        'name': '...',
+                    },
+                    'name_2': {
+                        'name': '...',
+                    },
+                    'name_3': {
+                        'name': '...',
+                    },
+                    'name_4': {
+                        'name': '...',
+                    },
+                },
                 'index': 0,
             }
 
         ThisRoom = self.rooms[self.room_group_name]['players']
         Index = self.rooms[self.room_group_name]
-
-        userExist = False
 
         if self.username not in ThisRoom:
             Index['index'] += 1
@@ -222,9 +234,11 @@ class TournamentM_(AsyncWebsocketConsumer):
         data = json.loads(text_data)
 
         if (data['type'] == 'Player'):
+            for key, value in self.rooms[self.room_group_name]['players'].items():
+                self.rooms[self.room_group_name]['Joined'][f'name_{value}'] = {'name': key}
             message = {
                 'type': 'JoinedPlayers',
-                'array': self.rooms[self.room_group_name]['players']
+                'array': self.rooms[self.room_group_name]['Joined']
             }
             await self.custom_Async(message ,'JoinedPlayers')
         if data['type'] == 'SecondGame':

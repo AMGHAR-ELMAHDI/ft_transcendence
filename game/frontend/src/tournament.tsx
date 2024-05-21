@@ -199,8 +199,8 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 				}))
 			}
 			if (data?.message?.type === 'JoinedPlayers') {
-				// StoreInStorage(data)
-				// modifyDisplay(data)
+				StoreInStorage(data)
+				modifyDisplay(data)
 			}
 			if (data?.message?.type === 'firstGame' && (data?.message?.player1 === index.toString() || data?.message?.player2 === index.toString())) {
 				setName(players[0].innerHTML)
