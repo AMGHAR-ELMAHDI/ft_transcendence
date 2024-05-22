@@ -14,6 +14,7 @@
 :root {
 	--main: #1B1D26;
 	--back: #0C0E14;
+	--lost: rgb(212, 40, 40);
 }
 .VirParent {
 	width: 100%;
@@ -35,7 +36,7 @@
 	align-items: center;
 	flex-wrap: wrap;
 }
-.LeftJoin div, .RightJoin div, .middle div {
+.call, .middle div {
 	position: relative;
 	background-color: var(--main);
 	width: 203px;
@@ -51,7 +52,15 @@
 	background-position: 0 10px;
 	color: white;
 }
-.LeftJoin div h1, .RightJoin div h1, .middle div h1{
+.lost_ {
+	background-color: var(--lost);
+}
+.lost_2 {
+	background: linear-gradient(transparent, rgba(255, 1, 1, 0.33), transparent);
+	z-index: 150;
+	transition: .3s;
+}
+.call h1, .middle div h1{
 	color: white;
 	font-size: 18px;
 }
@@ -73,7 +82,7 @@
 	align-items: center;
 	font-size: 18px;
 }
-.LeftJoin div::before, .RightJoin div::before, .middle div::before {
+.call::before, .middle div::before {
 	content: '';
 	position: absolute;
 	left: 0;

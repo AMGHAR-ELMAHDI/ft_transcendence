@@ -49,11 +49,10 @@ function _tournament() {
 
 interface OnlineGame {
 	NetType: string;
-	Winner: string;
-	Winner2: string;
+	Name: string;
 }
 
-function tournament({NetType, Winner, Winner2}: OnlineGame) {
+function tournament({NetType, Name}: OnlineGame) {
 
 	const [run, SetRun] = useState<boolean>(false)
 	const [secondRun, SetSecRun] = useState<boolean>(false)
@@ -130,17 +129,12 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 	const [Player2, setName1] = useState<string>('p2')
 
 	useEffect(()=> {
-		var name = ""
 		let index = 0
 		var objSocket: any = null
-		var alphabets = 'abcdefghijklmnopqrstuvwxyz'
 		const final_1 = document.querySelector('.final_1')
 		const final_2 = document.querySelector('.final_2')
 
 		const players = document.querySelectorAll('.call')
-
-		for (let i = 0 ; i < 8; i++)
-			name += alphabets[Math.floor(Math.random() * 26)]
 
 		if (NetType === 'local' || NetType === 'local2' || NetType === 'local3' || NetType === 'final') return
 
@@ -155,10 +149,9 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 			players[3].innerHTML = data.message.array.name_4.name
 		}
 	
-		objSocket = new WebSocket('ws://localhost:8000/ws/game/tn/')
+		objSocket = new WebSocket('ws://e3r11p10:8000/ws/game/tn/')
 
 		if (NetType === 'fill') {
-			console.log('lool')
 			const JsonData = localStorage.getItem('dataTn')
 			const data = JSON.parse(JsonData!)
 
@@ -167,7 +160,19 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 			players[2].innerHTML = data.player3
 			players[3].innerHTML = data.player4
 
-			final_1!.innerHTML = Winner
+			const Winner = localStorage.getItem(Player1 + ' ' + Player2)
+
+			const Winner2 = localStorage.getItem(Player1 + ' ' + Player2)
+			
+			if (Winner != undefined)
+				final_1!.innerHTML = Winner
+			else
+				final_1!.innerHTML = '...'
+			if (Winner2 != undefined)
+				final_2!.innerHTML = Winner2
+			else
+				final_2!.innerHTML = '...'
+
 		}
 
 		function StoreInStorage(data: any) {
@@ -198,14 +203,16 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 				modifyDisplay(data)
 			}
 			if (data?.message?.type === 'firstGame' && (data?.message?.player1 === index.toString() || data?.message?.player2 === index.toString())) {
-				setName(players[0].innerHTML)
-				setName1(players[1].innerHTML)
+				const data = JSON.parse(localStorage.getItem('dataTn')!)
+				setName(data.player1)
+				setName1(data.player2)
 				setTimeout(()=> RunFirstGame(true), 3000)
 			}
 			if (data?.message?.type === 'SecondGame' && (data?.message?.player1 === index.toString() || data?.message?.player2 === index.toString())) {
-				setName(players[2].innerHTML)
-				setName1(players[3].innerHTML)
-				setTimeout(()=> RunSecGame(true), 3000)
+				const data = JSON.parse(localStorage.getItem('dataTn')!)
+				setName(data.player3)
+				setName1(data.player4)
+				setTimeout(()=> RunSecGame(true), 5000)
 			}
 		}
 		return(()=> {
@@ -226,8 +233,8 @@ function tournament({NetType, Winner, Winner2}: OnlineGame) {
 			{run && <_LocalGame type='local' Name1={player1} Name2={player2}/>}
 			{secondRun && <_LocalGame type='local2' Name1={player1} Name2={player2}/>}
 			{Final && <_LocalGame type='local3' Name1={player1} Name2={player2}/>}
-			{FirstGame && <_title Name1={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online' Name={Player1} Name2={Player2}/>}
-			{SecGame && <_title Name1={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online2' Name={Player1} Name2={Player2}/>}
+			{FirstGame && <_title title={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online' Name={Player1} Name2={Player2}/>}
+			{SecGame && <_title title={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online2' Name={Player1} Name2={Player2}/>}
 		</div>
 	)
 }

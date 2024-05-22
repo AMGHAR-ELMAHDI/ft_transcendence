@@ -29,8 +29,6 @@ function game2D() {
 	const [PLAYER_2, GetSecond] = useState('PLAYER2');
 
 	useEffect(()=> {
-		let seconds = 0
-		var CSVFile_data = ""
 		let StopGame = false
 		const KEY_UP = 38
 		const KEY_DOWN = 40

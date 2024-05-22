@@ -17,6 +17,8 @@ class GameConsumer(AsyncWebsocketConsumer):
         if user.is_authenticated:
             self.username = user.username
             await self.accept()
+        else:
+            return JsonResponse({'error': 'The user is not Authenticated or the room is already started'}, status=403)
 
         self.room_group_name = f'bertouch_{GameConsumer.roomnb}'
 
@@ -56,6 +58,7 @@ class GameConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         # del GameConsumer.connections[self]
+        # if self in self.room_group_name:
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
     async def receive(self, text_data):
@@ -86,8 +89,16 @@ class GameConsumer(AsyncWebsocketConsumer):
                 }
                 await self.custom_Async(message, "paddleChan")
             await asyncio.sleep(0.002)
-        if message_type == 'it ends now':
+        if message_type == 'it_ends_now':
             winner = infos['winner']
+            index = self.rooms[self.room_group_name]['players'][winner]
+            print(f'->> {self.room_group_name} winner : {winner}')
+            message = {
+                'type': 'winner',
+                'index': index,
+            }
+            await self.custom_Async(message, 'winner')
+
 
     async def custom_Async(self, message, type):
         await self.channel_layer.group_send(
@@ -102,6 +113,12 @@ class GameConsumer(AsyncWebsocketConsumer):
         message = event["message"]
         await self.send(
             text_data=json.dumps({"type": "paddleChan", "message": message})
+        )
+
+    async def winner(self, event):
+        message = event["message"]
+        await self.send(
+            text_data=json.dumps({"type": "winner", "message": message})
         )
 
     async def scored(self, event):
@@ -150,7 +167,7 @@ class TournamentM_(AsyncWebsocketConsumer):
             self.username = user.username
             await self.accept()
         else:
-            return JsonResponse({'error': 'Not authenticated'})
+            return JsonResponse({'error': 'Not authenticated or The room is full'}, status=403)
 
         UserExist = False
 
@@ -207,10 +224,6 @@ class TournamentM_(AsyncWebsocketConsumer):
 
         print('\nplayers: ', ThisRoom, '\nlen = ', Index['index'], '\nroomnb: ', TournamentM_.RoomNb)
 
-        if Index['index'] == 4 and not Index['onceAtTime']:
-            Index['onceAtTime'] = True
-            asyncio.ensure_future(self.StartTournament())
-
     async def custom_Async(self, message, type):
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -219,6 +232,21 @@ class TournamentM_(AsyncWebsocketConsumer):
                 "message": message,
             },
         )
+
+    async def receive(self, text_data):
+        data = json.loads(text_data)
+
+        if (data['type'] == 'Player'):
+            for key, value in self.rooms[self.room_group_name]['players'].items():
+                self.rooms[self.room_group_name]['Joined'][f'name_{value}'] = {'name': key}
+            message = {
+                'type': 'JoinedPlayers',
+                'array': self.rooms[self.room_group_name]['Joined']
+            }
+            await self.custom_Async(message ,'JoinedPlayers')
+        if self.rooms[self.room_group_name]['index'] == 4 and not self.rooms[self.room_group_name]['onceAtTime']:
+            self.rooms[self.room_group_name]['onceAtTime'] = True
+            asyncio.ensure_future(self.StartTournament())
 
     async def StartTournament(self):
         message = {
@@ -240,25 +268,6 @@ class TournamentM_(AsyncWebsocketConsumer):
             'type': 'firstGame',
             'message': message,
         }))
-
-    async def receive(self, text_data):
-        data = json.loads(text_data)
-
-        if (data['type'] == 'Player'):
-            for key, value in self.rooms[self.room_group_name]['players'].items():
-                self.rooms[self.room_group_name]['Joined'][f'name_{value}'] = {'name': key}
-            message = {
-                'type': 'JoinedPlayers',
-                'array': self.rooms[self.room_group_name]['Joined']
-            }
-            await self.custom_Async(message ,'JoinedPlayers')
-        # if data['type'] == 'SecondGame':
-        #     message = {
-        #         'type': 'SecondGame',
-        #         'player1': '3',
-        #         'player2': '4',
-        #     }
-        #     await self.custom_Async(message, 'SecondGame')
     
     async def JoinedPlayers(self, event):
         message = event['message']

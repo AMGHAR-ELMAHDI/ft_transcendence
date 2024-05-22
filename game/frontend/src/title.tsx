@@ -1,8 +1,12 @@
 import './title.css'
 
-function Title(Name1:any) {
+interface Title {
+	title: string;
+}
+
+function Title({title}: Title) {
 	return (
-		<h1 className='text'>{Name1.Name1}</h1>
+		<h1 className='text'>{title}</h1>
 	)
 }
 

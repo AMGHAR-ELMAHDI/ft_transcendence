@@ -3,6 +3,7 @@ import PlayersReady from './App'
 import _tournament from './tournament'
 import axios from 'axios';
 import './interface.css'
+import _Queue from './inQueue';
 import _title from './title'
 import { RecoilRoot } from 'recoil';
 
@@ -10,6 +11,23 @@ interface LocalGameProps {
 	Type: string;
 	Name: string;
 	Name2: string;
+}
+
+function GameInterface({Type, Name, Name2}:LocalGameProps) {
+	return (
+		<>
+			{<_title title={Name + ' vs ' + Name2}></_title>}
+			<div className="game">
+				<div className="play"></div>
+				<div className="score" id='score'>
+					<p id='Pscore'>0</p>
+					<p id='Sscore'>0</p>
+				</div>
+				<div className="winner" id='winner'></div>
+				<canvas id="canvas"></canvas>
+			</div>
+		</>
+	)
 }
 
 function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
@@ -39,8 +57,8 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 	const [DataReady, StatusCode] = useState<boolean>(false);
 	const [Exit, setExit] = useState<boolean>(false);
 	const [Exit2, setExit2] = useState<boolean>(false);
-	const [Winner, SetWinner] = useState<string>('');
-	const [Winner2, SetWinner2] = useState<string>('');
+	const [SetIt, Lost] = useState<boolean>(false);
+	const [Display, DisplayIt] = useState<boolean>(false);
 
 	useEffect(()=> {
 		var index = -1
@@ -56,6 +74,8 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		
 		const KeyPressed: any[] = [];
 
+		if (Name != '' && Name2 != '')
+			DisplayIt(true)
 
 		window.addEventListener('keydown', function(e) {
 			KeyPressed[e.keyCode] = true;
@@ -146,17 +166,17 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			score!.style.display = 'none'
 			canvas!.style.cursor = 'default'
 			winner!.style.opacity = '1'
-			winner!.innerHTML = paddle.player
 			objSocket.send(JSON.stringify({
-				'type': 'it ends now',
+				'type': 'it_ends_now',
 				'winner': paddle.player
 			}))
+			winner!.innerHTML = paddle.player
 			if (Type === 'Online') {
-				SetWinner(paddle.player)
+				localStorage.setItem(Name + ' ' + Name2, paddle.player)
 				setExit(true)
 			}
 			if (Type === 'Online2') {
-				SetWinner2(paddle.player)
+				localStorage.setItem(Name + ' ' + Name2, paddle.player)
 				setExit2(true)
 			}
 		}
@@ -169,7 +189,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		}
 
 		function connectBackend() {
-			const url = 'ws://localhost:8000/game/host/socket-server/'
+			const url = 'ws://e3r11p10:8000/game/host/socket-server/'
 			return new WebSocket(url)
 		}
 
@@ -206,6 +226,12 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			}
 			if (data?.message?.type === 'scored')
 				Score(data?.message?.scorePlayer1, data?.message?.scorePlayer2)
+			if (data?.message?.type === 'winner' && data?.message?.index != index) {
+				Lost(true)
+				setTimeout(()=> Lost(false), 10000)
+				objSocket.close()
+			}
+
 			if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
 				objSocket.send(JSON.stringify({
 					'type': 'paddleUpdates',
@@ -243,17 +269,9 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 	}, [])
 	return (
 		<div className='VirParent'>
-			{!Exit && !Exit2 &&
-			<div className="game">
-				<div className="play"></div>
-				<div className="score" id='score'>
-					<p id='Pscore'>0</p>
-					<p id='Sscore'>0</p>
-				</div>
-				<div className="winner" id='winner'></div>
-				<canvas id="canvas"></canvas>
-			</div>}
-			{(Exit || Exit2) && <_tournament NetType='fill' Winner={Winner} Winner2={Winner}/>}
+			{SetIt && <_Queue TheTitle='YOU LOST'/>}
+			{!Exit && !Exit2 && <GameInterface Type='' Name={Name} Name2={Name2} />}
+			{(Exit || Exit2) && <_title title='Tournament'/> && <_tournament NetType='fill' Name={Name + ' ' + Name2}/>}
 			{/* {Exit2 && <_tournament NetType='fill' Winner='' Winner2={Winner2}/>} */}
 		</div>
 	);

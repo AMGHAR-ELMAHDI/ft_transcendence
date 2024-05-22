@@ -1,29 +1,28 @@
 import { useEffect } from 'react'
 import './inQueue.css'
 
-function SearchingLoading() {
+interface TextType {
+	TheTitle: string
+}
+
+function SearchingLoading({TheTitle}: TextType) {
 
 	useEffect(()=> {
-		var lol = false
-		var RealText: string = 'Searching'
-		var alphabets = 'abcdefghijklmnopqrStuvwxyz'
-		var text = document.querySelector('.containent h1')
+		var RealText: string = TheTitle
+		var text = document.getElementById('text')
+		let i = 0
 
-		window.addEventListener('load', ()=> {
-			var interval = 0
-			const exit = setInterval(()=> {
-				text!.innerHTML = text?.innerHTML.split("")
-				.map(letter=> alphabets[Math.floor(Math.random() * 26)])
-				.join("")!
-				if (interval == 9) clearInterval(exit)
-				interval += 1
-			}, 30)
-		})
-	// }, [])
+		const exit = setInterval(()=> {
+			if (i == RealText.length - 1)
+				clearInterval(exit)
+			text!.innerHTML += RealText[i]
+			i++
+		}, 200)
+	}, [])
 
 	return (
 		<div className='containent'>
-			<h1></h1>
+			<h1 id='text'></h1>
 		</div>
 	)
 }

@@ -9,6 +9,7 @@ import _Animation from './animation';
 import _LocTn from './LocTn';
 import _mods from './mods';
 import _title from './title';
+import _Queue from './inQueue';
 import './App.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -34,12 +35,12 @@ function Options() {
         // type === "1" ?
         // <div><_Main />< _title Name1='local vs bot'/><_game2D /></div>:
         // type === "2" ?
-        <div><_Main />< _title Name1='Tournament'/>< _tournament NetType='' Winner='' Winner2=''/></div>
+        <div><_Main />< _tournament NetType='' Name=''/></div>
         // type === '3' ?
         // <div><_Main/>< _title Name1='Local Tournament'/>< _LocTn/></div>:
         // <div><_Main />< _title Name1='Overview'/><_UserViews /><_mods /></div>
-        // <div><_Main/><_multiplayer Type='' Name='Smhammed' Name2='mnassi'/></div>
-        // <div><_Main/><_Queue/></div>
+        // <div><_Main/><_multiplayer Type='' Name='mnassi' Name2='otchekai'/></div>
+        // <div><_Main/><_Queue TheTitle='YOU LOST'/></div>
     )
 }
 
@@ -61,12 +62,8 @@ function App() {
   // }, [])
 
   return (
-    <>
-      {
-        <Options/>
-      }
-    </>
-    );
+    <Options/>
+  );
 }
 
 export default App;
