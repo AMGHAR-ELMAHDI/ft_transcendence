@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
-import axios from "axios";
-import { useRecoilValue } from "recoil";
-import Url from "../../Atoms/Url";
 import api from "../../api";
+import AcheivementCard from "./AcheivementCard";
 
 interface Props {
   UserData?: {
@@ -23,30 +21,54 @@ interface Props {
   UseUserData: boolean;
 }
 
+export interface CardProps {
+  id: number;
+  title: string;
+  desc: string;
+  path: string;
+  Obtaining_date: string;
+}
+
 function ProfileAcheivements({ UserData, UseUserData }: Props) {
   const [data, setData] = React.useState<any>([]);
-  const url = useRecoilValue(Url);
 
-  console.log("herrrrereere");
+  let url;
+  if (!UserData) url = "player/achievements/";
+  else url = `player/${UserData.username}/achievements/`;
+  console.log(url);
 
-  const username = UserData?.username;
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await api.get("player/" + username + "/achievements/");
-      // console.log(response.data?.items);
-      setData(response.data);
+      const response = await api.get(url);
+      setData(response.data?.achievements);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    // if (UseUserData == false) getData();
     getData();
   }, []);
 
-  return <div className="ProfileItems"></div>;
+  return (
+    <div className="ProfileItems">
+      {data?.map((Trophie: CardProps) => (
+        <AcheivementCard key={Trophie.id} {...Trophie} />
+      ))}
+      {data?.map((Trophie: CardProps) => (
+        <AcheivementCard key={Trophie.id} {...Trophie} />
+      ))}
+      {data?.map((Trophie: CardProps) => (
+        <AcheivementCard key={Trophie.id} {...Trophie} />
+      ))}
+    </div>
+  );
 }
 
 export default ProfileAcheivements;
+// "id": 1,
+// "title": "First Bot Win",
+// "desc": "Win your first Match against a Bot",
+// "path": "http://localhost:2500/media/achievements/default.png",
+// "Obtaining_date": "2024-05-01T16:35:58.852097Z"
