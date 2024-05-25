@@ -8,8 +8,11 @@ import { useEffect, useState } from "react";
 import Friendschat from "../../Atoms/Chatfriends";
 import Chatmessages from "../../Atoms/ChatMessages";
 import FriendId from "../../Atoms/FriendId";
+import Url from "../../Atoms/Url";
+import Input from "../../Atoms/Input";
+import ChatSocket from "../../Atoms/ChatSocket";
 
-const host = "e2r7p6";
+const host = "localhost";
 const port = 2500;
 
 function ChatContainer() {
@@ -74,7 +77,16 @@ function ChatFriends() {
   const [ChatMessages, SetMessages] = useRecoilState(Chatmessages);
 
   const [Friendid, setId] = useRecoilState(FriendId);
+  const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
+  // const url = useRecoilValue(Url);
   const getInfoChat = async (id: number) => {
+    const socket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
+    socket.onopen = function (event) {
+      console.log("WebSocket connection established.");
+      event.preventDefault();
+    };
+
+    // setChatSoc(socket);
     try {
       const response = await axios.get(
         `http://${host}:${port}/messages/${id}/`
@@ -126,7 +138,7 @@ interface MessageInfo {
   time: string;
 }
 
-function Receiver({ message}: MessageInfo) {
+function Receiver({ message }: MessageInfo) {
   return (
     <>
       <div className="Receiver">
@@ -163,12 +175,35 @@ function Sender({ name, message, time }: MessageInfo) {
 
 function ChatTyping() {
   const messages = useRecoilValue(Chatmessages);
+
   const id = useRecoilValue(FriendId);
+  const [input, setInput] = useRecoilState(Input);
+  const [submit, setSubmit] = useState(true);
+  const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
+  // if (input == " ") setSubmit(false);
+  // else setSubmit(true);
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    const message = {
+      content: input,
+    };
+
+    // Check if WebSocket is in OPEN state before sending message
+    if (chatSoc && chatSoc.readyState === WebSocket.OPEN) {
+      // Send the message as JSON
+      chatSoc.send(JSON.stringify(message));
+      setInput(""); // Assuming setInput is a function to update input state
+    } else {
+      console.error("WebSocket connection not open yet.");
+    }
+  };
+
   return (
     <>
       <div className="Type-wrapper">
         <div className="Chat-box">
-          {messages.map((msg, index) => (
+          {messages.map((msg: any, index: any) => (
             <div key={index}>
               {msg.sender != id ? (
                 <Sender message={msg.content} time={msg.timestamp} name="You" />
@@ -182,9 +217,14 @@ function ChatTyping() {
             </div>
           ))}
         </div>
-        <form onSubmit={ConnectSockets} className="Chat-input">
+        <form onSubmit={(e) => onSubmit(e)} className="Chat-input">
           <div className="Input-box">
-            <input type="text" placeholder="Type Something ..." />
+            <input
+              type="text"
+              placeholder="Type Something ..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
           </div>
           <div className="Chat-send-button">
             <img src="/Send-button.svg" id="bottona" />
@@ -193,8 +233,4 @@ function ChatTyping() {
       </div>
     </>
   );
-}
-
-function ConnectSockets(e: any) {
-  e.preventDefault();
 }

@@ -29,7 +29,7 @@ from .serializers import PlayerSerializer, ItemSerializer
 
 
 class PlayerSearchAPIView(APIView):
-    permission_classes = [IsAuthenticatedOrReadOnly] 
+    permission_classes = [IsAuthenticated] 
     def get(self, request, username):
         if username:
             users = Player.objects.filter(username__icontains=username)

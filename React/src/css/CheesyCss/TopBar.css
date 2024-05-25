@@ -172,6 +172,7 @@ ul {
 
 .SearchUsers > * {
   font-family: cool;
+  cursor: pointer;
 }
 
 .SearchUsers > *:hover {

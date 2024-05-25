@@ -151,6 +151,7 @@ class Player(AbstractBaseUser):
                 'opponent' : g.opponent_id,
                 'player_score' : g.player_score,
                 'opponent_score' : g.opponent_score,
+                'opponent_avatar' : Player.objects.filter(id = g.opponent_id).values('image'),
                 'game_mode' : g.game_mode,
                 'game_duration_minutes' : g.game_duration_minutes,
 

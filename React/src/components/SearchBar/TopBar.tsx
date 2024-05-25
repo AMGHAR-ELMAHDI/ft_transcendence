@@ -74,6 +74,7 @@ function TopBar() {
 
   const obj = {
     username: data.username,
+    id: data.id,
     avatar: url.slice(0, url.length - 1) + data.avatar?.substring(6),
     friends: data.friends ? data.friends : [0],
     level: data.level,
