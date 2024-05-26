@@ -16,4 +16,8 @@ urlpatterns = [
 
 	path('shop/',ShopView.as_view(), name='user-shop'),
 	path('reqs/',FriendshipAPIView.as_view(), name='user-friends'),
+
+
+	path('password/reset/confirm/<str:uid>/<str:token>', ResetPasswordAPIView.as_view()),
+
 ]

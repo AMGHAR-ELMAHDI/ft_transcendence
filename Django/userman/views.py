@@ -27,6 +27,47 @@ from rest_framework import status
 from .models import Player, Friendship
 from .serializers import PlayerSerializer, ItemSerializer
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_str
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework import status
+
+class ResetPasswordAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, uid, token):
+        try:
+            # Decode the uid to get the user id
+            uid = force_str(urlsafe_base64_decode(uid))
+            user = Player.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, Player.DoesNotExist):
+            return Response({"error": "Invalid user ID."}, status=status.HTTP_400_BAD_REQUEST)
+
+        token_generator = PasswordResetTokenGenerator()
+
+        if token_generator.check_token(user, token):
+            # Token is valid, now update the password
+            new_password = request.data.get('new_password')
+            if new_password:
+                user.set_password(new_password)
+                user.save()
+                return Response({"message": "Password has been reset successfully."}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "New password not provided."}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"error": "Invalid token or user ID."}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class PlayerSearchAPIView(APIView):
     permission_classes = [IsAuthenticated] 
