@@ -80,3 +80,24 @@ body {
     padding-right: 2rem;
   }
 }
+
+.BOX-DIV {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--blue-glow);
+  border-radius: 15px;
+  height: fit-content;
+}
+
+#BOX {
+  height: fit-content;
+}
+
+#BOX-BUTTON {
+  height: fit-content;
+  background-color: white;
+  color: black;
+  padding: 1rem 2rem;
+}

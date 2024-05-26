@@ -13,41 +13,32 @@
   display: flex;
   justify-content: center;
   flex: 1;
-  margin-bottom: 3rem;
+  border: 1px solid red;
+  /* margin-bottom: 3rem; */
 }
 
 .MainSettings {
   display: flex;
   flex-direction: column;
-  max-width: 1440px;
-  flex: 1;
-  gap: 5rem;
-  flex-wrap: wrap;
-}
-
-.SettingsH1 {
-  display: flex;
   justify-content: center;
-  font-size: 4rem;
-  color: #5fcae4;
-  text-shadow: 0px 0px 15px rgba(95, 201, 228, 0.705);
-  /* color: #1e8ef3;
-  text-shadow: 0px 0px 25px #4d98ab; */
-  letter-spacing: 0.5rem;
-  text-align: center;
+  max-width: 1440px;
+  /* flex: 1; */
+  /* gap: 5rem; */
+  flex-wrap: wrap;
 }
 
 .SettingsContent {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   border: 2px solid var(--blue-glow);
   border-radius: 25px;
-  flex: 1;
   background-image: url("/blob-scene-haikei.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  max-height: 75%;
+
+  /* flex: 1; */
+  /* max-height: 75%; */
 }
 
 .SettingsLeft {
@@ -76,12 +67,41 @@
 
 .SettingsRight > * {
   width: 100%;
-
 }
 
 .SettingsImg {
   display: flex;
   justify-content: center;
+  position: relative;
+  flex-direction: column;
+}
+
+#buttonTest {
+  border: 1px solid #5fcae4;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  width: fit-content;
+  padding: 0.5rem 2rem;
+}
+
+.SettingsImgEdit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+}
+
+.SettingsImgEdit > label > input[type="file"] {
+  display: none;
+}
+
+.SettingsImgEdit > label {
+  cursor: pointer;
+}
+
+#SettingsEdit > * {
+  font-size: 2.5rem;
 }
 
 .SettingsImg > img {
@@ -99,6 +119,13 @@
 }
 
 .SettingsData {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.SettingsDataContainer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -239,7 +266,7 @@ input:-webkit-autofill:active {
   justify-content: center;
   gap: 3rem;
 }
-.ButtonContainer *{
+.ButtonContainer * {
   width: 30%;
 }
 
@@ -284,4 +311,23 @@ input:-webkit-autofill:active {
 
 .SetSubmit:hover {
   box-shadow: 0px 0px 20px 10px rgba(95, 202, 228, 1);
+}
+
+@media screen and (max-width: 425px) {
+  .SettingsContent {
+    flex-wrap: wrap;
+  }
+  .SettingsComponents {
+    flex-direction: row;
+
+  }
+  .LeftSpacer {
+    width: 50%;
+  }
+
+  .SettingsLeft {
+    padding: 0 2rem;
+    gap: 3rem;
+  }
+  
 }
