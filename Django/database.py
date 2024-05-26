@@ -30,6 +30,8 @@ def get_data(table):
 		print(row)
 	conn.close()
 
+get_data('userman_player')
+
 def delete_data(table):
 	conn = sqlite3.connect(database_file)
 	cursor = conn.cursor()
@@ -40,4 +42,4 @@ def delete_data(table):
 	conn.close()
     # userman_friendshiprequest
 	# userman_friendship
-delete_data('userman_friendship')
+# delete_data('userman_friendship')

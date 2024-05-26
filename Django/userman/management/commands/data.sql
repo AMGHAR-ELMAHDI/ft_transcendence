@@ -83,21 +83,29 @@ INSERT INTO  userman_gamehistory
 
 INSERT INTO  userman_achievement
 ('path','desc','title') VALUES
-('http://localhost:2500/media/achievements/default.png', 'Win your first Match against a Bot', 'First Bot Win'),
-('http://localhost:2500/media/achievements/default.png', 'Win your first Match against a player', 'First Win'),
-('http://localhost:2500/media/achievements/default.png', 'Win 5 Matches in a row', 'Unstoppable'),
-('http://localhost:2500/media/achievements/default.png', 'Win 10 Matches in a row', 'Touch Some Grass'),
-('http://localhost:2500/media/achievements/default.png', 'lose  your first Match against a player', 'First Loss'),
+('http://localhost:2500/media/achievements/ach1.png', 'Win your first Match against a Bot', 'First Bot Win'),
+('http://localhost:2500/media/achievements/ach2.png', 'Win your first Match against a player', 'First Win'),
+('http://localhost:2500/media/achievements/Actually Bad.png', 'Win 5 Matches in a row', 'Unstoppable'),
+('http://localhost:2500/media/achievements/Bullied2.png', 'Win 10 Matches in a row', 'Touch Some Grass'),
+('http://localhost:2500/media/achievements/Champion2.png', 'lose  your first Match against a player', 'First Loss'),
 ('http://localhost:2500/media/achievements/default.png', 'Win a Match in less then 5 min', 'Fast AF Boiiiii'),
-('http://localhost:2500/media/achievements/default.png', 'Win 20 Matches in a row', 'How?'),
-('http://localhost:2500/media/achievements/default.png', 'Lose a Match in less than 5 min', 'Actually Bad'),
-('http://localhost:2500/media/achievements/default.png', 'Win a Match without being scored on', 'Unbreakable'),
-('http://localhost:2500/media/achievements/default.png', 'Win your first tournament', 'Champion'),
-('http://localhost:2500/media/achievements/default.png', 'Buy your first item from the shop', 'Stonks'),
-('http://localhost:2500/media/achievements/default.png', 'Buy all Items from the shop', 'Shopa-Holic'),
-('http://localhost:2500/media/achievements/default.png', 'Play your first match', 'Rookie'),
-('http://localhost:2500/media/achievements/default.png', 'Lose without scoring', 'Bullied'),
-('http://localhost:2500/media/achievements/default.png', 'Acquire all trophies', 'Get A Life');
+('http://localhost:2500/media/achievements/DefeatBot3.png', 'Win 20 Matches in a row', 'How?'),
+('http://localhost:2500/media/achievements/DefeatBot6.png', 'Lose a Match in less than 5 min', 'Actually Bad'),
+('http://localhost:2500/media/achievements/DefeatBot7.png', 'Win a Match without being scored on', 'Unbreakable'),
+('http://localhost:2500/media/achievements/DefeatBot13.png', 'Win your first tournament', 'Champion'),
+('http://localhost:2500/media/achievements/Fast AF Boii.png', 'Buy your first item from the shop', 'Stonks'),
+('http://localhost:2500/media/achievements/First Loss.png', 'Buy all Items from the shop', 'Shopa-Holic'),
+('http://localhost:2500/media/achievements/FirstWin2.png', 'Play your first match', 'Rookie'),
+('http://localhost:2500/media/achievements/Get A Life.png', 'Lose without scoring', 'Bullied'),
+('http://localhost:2500/media/achievements/How?.png', 'Acquire all trophies', 'Get A Life'),
+('http://localhost:2500/media/achievements/playFirstBotMatch.png', 'Play your first match2', 'Rookie1'),
+('http://localhost:2500/media/achievements/Rookie.png', 'Lose without scoring2', 'Bullied1'),
+('http://localhost:2500/media/achievements/Shop-a-Holic.png', 'Acquire all trophies1', 'Get A Life2'),
+('http://localhost:2500/media/achievements/Stonks.png', 'Play your first match3', 'Rookie2'),
+('http://localhost:2500/media/achievements/touchGrass.png', 'Lose without scoring3', 'Bullied2'),
+('http://localhost:2500/media/achievements/Unbreakable.png', 'Acquire all trophies2', 'Get A Life3'),
+('http://localhost:2500/media/achievements/Unstoppable.png', 'Play your first match4', 'Rookie3'),
+('http://localhost:2500/media/achievements/Unstoppable2.png', 'Lose without scoring4', 'Bullied3');
 
 INSERT INTO  userman_item
 ('path', 'type','name','price') VALUES
