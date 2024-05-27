@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
+import LoadingData from "./LoadingData";
 
 function getTooltip() {
   return (
@@ -83,54 +84,71 @@ interface HistoryProps {
 }
 
 function History({ UserData, UseUserData }: HistoryProps) {
-  const [data, setData] = React.useState<any>([]);
+  const [data, setData] = useState<any>([]);
+  const [isLoading, setLoading] = useState(true);
 
   setAuthToken();
   const getData = async () => {
     try {
       const response = await api.get("player/games/");
       setData(response.data?.games);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
+  };
+
+  const setUserData = () => {
+    setData(UserData?.games);
+    setLoading(false);
   };
 
   useEffect(() => {
     if (UseUserData == false) getData();
-    setData(UserData?.games);
+    setUserData();
   }, []);
 
   return (
     <div className="tableau">
-      <table>
-        {getTooltip()}
-        {data?.map((game: any) => (
-          <tbody key={game.id}>
-            <tr className={getHistoryTabs(game.player_score, game.opponent_score)}>
-              <td className="leftTd zekton">
-                <h1>{getDate(game?.date)}</h1>
-              </td>
-              <td className="Toruk">
-                <h1>{game.opponent}</h1>
-              </td>
-              <td className="ScoreTd Toruk">
-                {getScore(game.player_score, game.opponent_score)}
-              </td>
-              <td className="zekton">
-                <h1>{getGameMode(game?.game_mode)}</h1>
-              </td>
-              <td className="rightTd zekton">
-                <h1>{game.game_duration_minutes + "min"}</h1>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div className="spacing"></div>
-              </td>
-            </tr>
-          </tbody>
-        ))}
-      </table>
+      {isLoading ? (
+        LoadingData()
+      ) : (
+        <table>
+          {getTooltip()}
+          {data?.map((game: any) => (
+            <tbody key={game.id}>
+              <tr
+                className={getHistoryTabs(
+                  game.player_score,
+                  game.opponent_score
+                )}
+              >
+                <td className="leftTd zekton">
+                  <h1>{getDate(game?.date)}</h1>
+                </td>
+                <td className="Toruk">
+                  <h1>{game.opponent}</h1>
+                </td>
+                <td className="ScoreTd Toruk">
+                  {getScore(game.player_score, game.opponent_score)}
+                </td>
+                <td className="zekton">
+                  <h1>{getGameMode(game?.game_mode)}</h1>
+                </td>
+                <td className="rightTd zekton">
+                  <h1>{game.game_duration_minutes + "min"}</h1>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className="spacing"></div>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      )}
     </div>
   );
 }

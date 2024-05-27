@@ -4,6 +4,7 @@ import { setAuthToken } from "../Utils/setAuthToken";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
+import LoadingData from "./LoadingData";
 
 function searchPlayer(search: string) {}
 
@@ -12,6 +13,7 @@ function Player() {
   const [players, setPlayers] = useState<any>([]);
   const [filteredUsers, setFilteredUsers] = useState<any>(players);
   const url = useRecoilValue(Url);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleInputChange = (e: any) => {
     const searchTerm = e.target.value;
@@ -27,10 +29,11 @@ function Player() {
   const getPlayers = async () => {
     try {
       const response = await api.get("player/");
-      // console.log(response.data);
       setPlayers(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -39,21 +42,26 @@ function Player() {
   }, []);
 
   return (
-    <div>
-      <input
-        className="GeneralInfoInput"
-        type="text"
-        value={search}
-        onChange={handleInputChange}
-      />
-      {search && (
-        <div className="SearchUsers">
-          {filteredUsers.map((player: any) => (
-            <h1 key={player.username}>{player.username}</h1>
-          ))}
+    <>
+      {isLoading && LoadingData()}
+      {!isLoading && (
+        <div>
+          <input
+            className="GeneralInfoInput"
+            type="text"
+            value={search}
+            onChange={handleInputChange}
+          />
+          {search && (
+            <div className="SearchUsers">
+              {filteredUsers.map((player: any) => (
+                <h1 key={player.username}>{player.username}</h1>
+              ))}
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
 

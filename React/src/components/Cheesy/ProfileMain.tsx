@@ -22,7 +22,6 @@ interface ProfileMainProps {
   UseUserData: boolean;
 }
 
-
 function ProfileMain({ inRender, UserData, UseUserData }: ProfileMainProps) {
   let toRender = <History UserData={UserData} UseUserData={UseUserData} />;
 

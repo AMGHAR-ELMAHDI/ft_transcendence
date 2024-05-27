@@ -81,23 +81,31 @@ body {
   }
 }
 
-.BOX-DIV {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--blue-glow);
-  border-radius: 15px;
-  height: fit-content;
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-#BOX {
-  height: fit-content;
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 100px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--blue-glow);
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
 }
-
-#BOX-BUTTON {
-  height: fit-content;
-  background-color: white;
-  color: black;
-  padding: 1rem 2rem;
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
 }

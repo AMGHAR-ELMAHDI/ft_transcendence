@@ -10,6 +10,8 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import GetCorrectImage from "./GetCorrectImage";
+import LoadingData from "./LoadingData";
+import { GetCorrect } from "./LeaderBoardGetTop3";
 
 function getSecurity() {
   return (
@@ -25,6 +27,7 @@ function MainSettings() {
   const [renderButton, setRenderButton] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const url = useRecoilValue(Url);
+  // const [isLoading, setIsLoading] = useState(true);
 
   let obj = {
     id: "1",
@@ -39,8 +42,10 @@ function MainSettings() {
     try {
       const response = await api.get("player/setting/");
       setData(response.data);
+      // setIsLoading(false);
     } catch (error) {
       console.log(error);
+      // setIsLoading(false);
     }
   };
 
@@ -72,12 +77,15 @@ function MainSettings() {
   };
   return (
     <>
+      {/* {isLoading ? (
+        LoadingData()
+      ) : ( */}
       <div className="MainSettings">
         <div className="SettingsContent">
           <div className="SettingsLeft">
             <div className="SettingsData">
               <div className="SettingsImg">
-                <img src={GetCorrectImage(data?.image)} alt="SettingImg" />
+                <img src={GetCorrect(data?.image, url)} alt="SettingImg" />
 
                 <div className="SettingsImgEdit">
                   <label>
@@ -139,6 +147,7 @@ function MainSettings() {
           </div>
         </div>
       </div>
+      {/* )} */}
     </>
   );
 }

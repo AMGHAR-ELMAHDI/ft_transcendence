@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
+import LoadingData from "./LoadingData";
 
 function getDate(date: string) {
   const flipedDate = date.substring(0, 10).split("-").reverse();
@@ -37,17 +38,19 @@ function getHistoryRect(player_score: number, opponent_score: number) {
 }
 
 function ProfileHistory() {
-  const [data, setData] = React.useState<any>([]);
+  const [data, setData] = useState<any>([]);
   const url = useRecoilValue(Url);
+  const [isLoading, setIsLoading] = useState(true);
 
   setAuthToken();
   const getData = async () => {
     try {
       const response = await api.get("player/games/");
-      // console.log(response.data?.games);
       setData(response.data.games);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -64,43 +67,52 @@ function ProfileHistory() {
   }
 
   return (
-    <div id="history">
-      <div id="tabs-container">
-        {data.map((game: any) => {
-          return (
-            <div
-              key={game.id}
-              className={getHistoryTabs(game.player_score, game.opponent_score)}
-            >
-              <div className="history-tabs-left-container">
-                <div id="dashboard-history-opponent">
-                  <h3>{game.opponent}</h3>
+    <>
+      {isLoading ? (
+        LoadingData()
+      ) : (
+        <div id="history">
+          <div id="tabs-container">
+            {data.map((game: any) => {
+              return (
+                <div
+                  key={game.id}
+                  className={getHistoryTabs(
+                    game.player_score,
+                    game.opponent_score
+                  )}
+                >
+                  <div className="history-tabs-left-container">
+                    <div id="dashboard-history-opponent">
+                      <h3>{game.opponent}</h3>
+                    </div>
+                    {getScore(game.player_score, game.opponent_score)}
+                    <div id="dashboard-history-mode">
+                      <h3>{getGameMode(game?.game_mode)}</h3>
+                    </div>
+                    <div id="dashboard-history-date">
+                      <h3>{getDate(game?.date)}</h3>
+                    </div>
+                  </div>
+                  <div
+                    className={getHistoryRect(
+                      game.player_score,
+                      game.opponent_score
+                    )}
+                  ></div>
                 </div>
-                {getScore(game.player_score, game.opponent_score)}
-                <div id="dashboard-history-mode">
-                  <h3>{getGameMode(game?.game_mode)}</h3>
-                </div>
-                <div id="dashboard-history-date">
-                  <h3>{getDate(game?.date)}</h3>
-                </div>
-              </div>
-              <div
-                className={getHistoryRect(
-                  game.player_score,
-                  game.opponent_score
-                )}
-              ></div>
-            </div>
-          );
-        })}
-      </div>
-      {/* {window.location.pathname === "/profile" && (
+              );
+            })}
+          </div>
+          {/* {window.location.pathname === "/profile" && (
         <div className="HistoryShadow"></div>
       )}
       {window.location.pathname === "/" && (
         <div className="HistoryShadowDashboard"></div>
       )} */}
-    </div>
+        </div>
+      )}
+    </>
   );
 }
 

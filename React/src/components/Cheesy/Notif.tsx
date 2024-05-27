@@ -7,6 +7,7 @@ import Players from "../../Atoms/Players";
 import RenderNotif from "../../Atoms/RenderNotif";
 import Url from "../../Atoms/Url";
 import api from "../../api";
+import LoadingData from "./LoadingData";
 
 // function getUserName(
 //   filteredItems: {
@@ -74,13 +75,16 @@ function Notif() {
   const [received, setReceived] = useState<any>([]);
   const [render, setRender] = useRecoilState(RenderNotif);
   const url = useRecoilValue(Url);
+  const [isLoading, setLoading] = useState(true);
 
   const getData = async () => {
     try {
       const response = await api.get("reqs/");
       setReceived(response.data?.recieved);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -98,21 +102,31 @@ function Notif() {
   };
 
   return (
-    <div className="notif-relative" onClick={reRender}>
-      <IoNotificationsOutline id="notif" />
-      {render && filteredItems.length != 0 && (
-        <div id="NotifPopUp">
-          {filteredItems.map((notif: any) => (
-            <div className="notif-item" key={notif.id}>
-              <h4>{"fromUser:" + notif.from_user}</h4>
-              {/* <h4>{"Username:" + getUserName(notif, players)}</h4> */}
-              <button onClick={() => accept(notif.from_user)}>Accept</button>
-              <button onClick={() => decline(notif.from_user)}>Decline</button>
+    <>
+      {isLoading ? (
+        LoadingData()
+      ) : (
+        <div className="notif-relative" onClick={reRender}>
+          <IoNotificationsOutline id="notif" />
+          {render && filteredItems.length != 0 && (
+            <div id="NotifPopUp">
+              {filteredItems.map((notif: any) => (
+                <div className="notif-item" key={notif.id}>
+                  <h4>{"fromUser:" + notif.from_user}</h4>
+                  {/* <h4>{"Username:" + getUserName(notif, players)}</h4> */}
+                  <button onClick={() => accept(notif.from_user)}>
+                    Accept
+                  </button>
+                  <button onClick={() => decline(notif.from_user)}>
+                    Decline
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
 

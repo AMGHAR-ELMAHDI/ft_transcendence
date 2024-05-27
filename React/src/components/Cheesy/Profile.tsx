@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   buildStyles,
@@ -12,6 +12,7 @@ import Url from "../../Atoms/Url";
 import api from "../../api";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import GetCorrectImage from "./GetCorrectImage";
+import LoadingData from "./LoadingData";
 
 const divStyleDashboard = { justifyContent: "center" };
 
@@ -90,8 +91,9 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   const profileLevelStyle =
     profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
   const boolRender = profileList === "RenderList" ? true : false;
-  const [data, setData] = React.useState<any>({});
+  const [data, setData] = useState<any>({});
   const url = useRecoilValue(Url);
+  const [isLoading, setIsLoading] = useState(true);
 
   setAuthToken();
   const getData = async () => {
@@ -99,8 +101,10 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
       const response = await api.get("player/me");
       // console.log(response.data);
       setData(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -123,65 +127,70 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
 
   let levelStart = getLevelStart(obj) * 100;
   return (
-    <div id="Profile">
-      <div className="profile-left">
-        <div id="profile-usr">
-          <img
-            id="profile-img"
-            src={GetCorrectImage(obj.avatar)}
-            alt="profilePic"
-          />
-          <h1 id="user-name">{obj.first_name + " " + obj.last_name}</h1>
-        </div>
-        <div className="line1">
-          <div className="line2"></div>
-        </div>
-      </div>
-
-      <div className="profile-right">
-        <div className="profile-level" style={profileLevelStyle}>
-          {boolRender && <div></div>}
-          <div id="profile-level-container">
-            <div id="profile-level-text">
-              <h2>Level {obj.level}</h2>
-              <h2>{levelStart}/1000</h2>
+    <>
+      {isLoading && LoadingData()}
+      {!isLoading && (
+        <div id="Profile">
+          <div className="profile-left">
+            <div id="profile-usr">
+              <img
+                id="profile-img"
+                src={GetCorrect(obj.avatar, url)}
+                alt="profilePic"
+              />
+              <h1 id="user-name">{obj.first_name + " " + obj.last_name}</h1>
             </div>
-            <div id="profile-level-bar">
-              <progress id="progress-bar" value={levelStart} max={1000} />
+            <div className="line1">
+              <div className="line2"></div>
             </div>
           </div>
-          {boolRender && (
-            <div id="profile-tabs">
-              <button
-                className={`${show === "History" && "ProfileToRender"} `}
-                onClick={() => setRender("History")}
-              >
-                History
-              </button>
-              <button
-                className={`${show === "Trophies" && "ProfileToRender"}  `}
-                onClick={() => setRender("Trophies")}
-              >
-                Trophies
-              </button>
-              <button
-                className={`${show === "Items" && "ProfileToRender"}`}
-                onClick={() => setRender("Items")}
-              >
-                Items
-              </button>
-              <button
-                className={`${show === "Friends" && "ProfileToRender"}`}
-                onClick={() => setRender("Friends")}
-              >
-                Friends
-              </button>
+
+          <div className="profile-right">
+            <div className="profile-level" style={profileLevelStyle}>
+              {boolRender && <div></div>}
+              <div id="profile-level-container">
+                <div id="profile-level-text">
+                  <h2>Level {obj.level}</h2>
+                  <h2>{levelStart}/1000</h2>
+                </div>
+                <div id="profile-level-bar">
+                  <progress id="progress-bar" value={levelStart} max={1000} />
+                </div>
+              </div>
+              {boolRender && (
+                <div id="profile-tabs">
+                  <button
+                    className={`${show === "History" && "ProfileToRender"} `}
+                    onClick={() => setRender("History")}
+                  >
+                    History
+                  </button>
+                  <button
+                    className={`${show === "Trophies" && "ProfileToRender"}  `}
+                    onClick={() => setRender("Trophies")}
+                  >
+                    Trophies
+                  </button>
+                  <button
+                    className={`${show === "Items" && "ProfileToRender"}`}
+                    onClick={() => setRender("Items")}
+                  >
+                    Items
+                  </button>
+                  <button
+                    className={`${show === "Friends" && "ProfileToRender"}`}
+                    onClick={() => setRender("Friends")}
+                  >
+                    Friends
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+            {getCircles(obj)}
+          </div>
         </div>
-        {getCircles(obj)}
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

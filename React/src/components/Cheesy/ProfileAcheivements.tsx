@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import api from "../../api";
 import AcheivementCard from "./AcheivementCard";
+import LoadingData from "./LoadingData";
 
 interface Props {
   UserData?: {
@@ -30,7 +31,8 @@ export interface CardProps {
 }
 
 function ProfileAcheivements({ UserData, UseUserData }: Props) {
-  const [data, setData] = React.useState<any>([]);
+  const [data, setData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   let url;
   if (!UserData) url = "player/achievements/";
@@ -42,8 +44,10 @@ function ProfileAcheivements({ UserData, UseUserData }: Props) {
     try {
       const response = await api.get(url);
       setData(response.data?.achievements);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -52,17 +56,23 @@ function ProfileAcheivements({ UserData, UseUserData }: Props) {
   }, []);
 
   return (
-    <div className="ProfileItems">
-      {data?.map((Trophie: CardProps) => (
-        <AcheivementCard key={Trophie.id} {...Trophie} />
-      ))}
-      {data?.map((Trophie: CardProps) => (
-        <AcheivementCard key={Trophie.id} {...Trophie} />
-      ))}
-      {data?.map((Trophie: CardProps) => (
-        <AcheivementCard key={Trophie.id} {...Trophie} />
-      ))}
-    </div>
+    <>
+      {isLoading ? (
+        LoadingData()
+      ) : (
+        <div className="ProfileItems">
+          {data?.map((Trophie: CardProps) => (
+            <AcheivementCard key={Trophie.id} {...Trophie} />
+          ))}
+          {data?.map((Trophie: CardProps) => (
+            <AcheivementCard key={Trophie.id} {...Trophie} />
+          ))}
+          {data?.map((Trophie: CardProps) => (
+            <AcheivementCard key={Trophie.id} {...Trophie} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 
