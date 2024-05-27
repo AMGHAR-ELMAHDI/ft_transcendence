@@ -9,6 +9,8 @@ import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 export function getPageName() {
   let pageName = window.location.pathname;
+
+  if (window.location.pathname?.includes("/profile/")) return "User Profile";
   pageName = pageName.slice(1);
   pageName = pageName.charAt(0).toUpperCase() + pageName.slice(1);
   return pageName;
@@ -54,7 +56,6 @@ function TopBar() {
     navigate(`/profile/${player.username}`);
   };
 
-  setAuthToken();
   const getData = async () => {
     try {
       const response = await api.get("player/me");
@@ -63,10 +64,10 @@ function TopBar() {
       console.log(error);
     }
   };
+
   const getPlayers = async () => {
     try {
       const response = await api.get("player/");
-      // console.log(response.data);
       setPlayers(response.data);
     } catch (error) {
       console.log(error);

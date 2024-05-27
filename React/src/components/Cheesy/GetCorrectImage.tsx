@@ -19,8 +19,6 @@ function GetCorrectImage(image: string) {
   } else if (image?.includes("/media/media/store/"))
     correctImage = url + image.slice(7);
 
-  console.log("correctImage: ", correctImage);
-
   return correctImage;
 }
 
