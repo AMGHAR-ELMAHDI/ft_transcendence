@@ -14,6 +14,7 @@ function LeaderBoardMain() {
     try {
       const response = await api.get("player/leaderboard");
       setData(response?.data);
+      setData(response?.data);
     } catch (error) {
       console.log(error);
     }

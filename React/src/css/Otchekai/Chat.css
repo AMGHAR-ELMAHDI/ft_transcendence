@@ -260,7 +260,7 @@
   font-size: 13px;
 }
 
-.Chat-input {
+#Chat-input {
   display: flex;
   justify-content: center;
   align-items: center;
