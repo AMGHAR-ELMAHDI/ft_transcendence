@@ -11,6 +11,7 @@ import FriendId from "../../Atoms/FriendId";
 import Url from "../../Atoms/Url";
 import Input from "../../Atoms/Input";
 import ChatSocket from "../../Atoms/ChatSocket";
+import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 const host = "localhost";
 const port = 2500;
@@ -78,7 +79,7 @@ function ChatFriends() {
 
   const [Friendid, setId] = useRecoilState(FriendId);
   const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
-  // const url = useRecoilValue(Url);
+  const url = useRecoilValue(Url);
   const getInfoChat = async (id: number) => {
     const socket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
     socket.onopen = function (event) {
@@ -116,10 +117,7 @@ function ChatFriends() {
             onClick={() => getInfoChat(item.id)}
           >
             <div className="Friend-img">
-              <img
-                src={`http://${host}:${port}/${item.avatar}`}
-                className="bachar"
-              />
+              <img src={GetCorrect(item.avatar, url)} className="bachar" />
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>

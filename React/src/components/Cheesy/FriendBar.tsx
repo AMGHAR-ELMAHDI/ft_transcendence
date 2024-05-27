@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
+import { GetCorrect } from "./LeaderBoardGetTop3";
 
 function FriendBar() {
   const [data, setData] = React.useState<any>([]);
@@ -47,7 +48,10 @@ function FriendBar() {
                 navigate(`/profile/${friend?.username}`);
               }}
             >
-              <img className="friend-sb" src={url + friend?.avatar} />
+              <img
+                className="friend-sb"
+                src={GetCorrect(friend?.avatar, url)}
+              />
               {renderName && (
                 <h1 className="friend-bar-username">{friend?.username}</h1>
               )}

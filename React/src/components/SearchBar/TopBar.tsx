@@ -5,6 +5,7 @@ import Notif from "../Cheesy/Notif";
 import api from "../../api";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
+import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 export function getPageName() {
   let pageName = window.location.pathname;
@@ -75,7 +76,7 @@ function TopBar() {
   const obj = {
     username: data.username,
     id: data.id,
-    avatar: url.slice(0, url.length - 1) + data.avatar?.substring(6),
+    avatar: data.avatar,
     friends: data.friends ? data.friends : [0],
     level: data.level,
   };
@@ -130,7 +131,10 @@ function TopBar() {
             onClick={() => setDropdownVisible(true)}
             onMouseLeave={() => setDropdownVisible(false)}
           >
-            <img className="NotifProfilePic" src={obj.avatar} />
+            <img
+              className="NotifProfilePic"
+              src={GetCorrect(obj.avatar, url)}
+            />
             {isDropdownVisible && <DropdownMenu />}
           </div>
         </div>

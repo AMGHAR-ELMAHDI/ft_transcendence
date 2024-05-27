@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Url from "../../Atoms/Url";
 import { useRecoilValue } from "recoil";
 import { PiChatCircleDotsBold } from "react-icons/pi";
+import GetCorrectImage from "./GetCorrectImage";
+import { GetCorrect } from "./LeaderBoardGetTop3";
 
 function getFriendStatus() {
   return "Online";
@@ -64,7 +66,7 @@ function ProfileFriends() {
                 <div>
                   <img
                     className="ProfileFriendImg"
-                    src={url + friend?.avatar}
+                    src={GetCorrect(friend?.avatar, url)}
                     onClick={() => {
                       navigate(`/profile/${friend?.username}`);
                     }}

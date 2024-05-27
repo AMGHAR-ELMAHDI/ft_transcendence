@@ -11,6 +11,8 @@ import ProfileMain from "./ProfileMain";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
+import GetCorrectImage from "./GetCorrectImage";
+import { GetCorrect } from "./LeaderBoardGetTop3";
 
 function getLevelStart(person: { level: number }) {
   let levelStartIndex = person.level.toString().lastIndexOf(".") + 1;
@@ -99,7 +101,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
         <div id="profile-usr">
           <img
             id="profile-img"
-            src={url.slice(0, url.length - 1) + data.avatar?.substring(6)}
+            src={GetCorrect(data.avatar, url)}
             alt="profilePic"
           />
           <h1 id="user-name">{data.username}</h1>

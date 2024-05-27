@@ -9,6 +9,7 @@ import SettingsGeneralInfo from "./SettingsGeneralInfo";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
+import GetCorrectImage from "./GetCorrectImage";
 
 function getSecurity() {
   return (
@@ -69,7 +70,6 @@ function MainSettings() {
       console.log(error);
     }
   };
-
   return (
     <>
       <div className="MainSettings">
@@ -77,10 +77,7 @@ function MainSettings() {
           <div className="SettingsLeft">
             <div className="SettingsData">
               <div className="SettingsImg">
-                <img
-                  src={url.slice(0, url.length - 1) + data?.image}
-                  alt="SettingImg"
-                />
+                <img src={GetCorrectImage(data?.image)} alt="SettingImg" />
 
                 <div className="SettingsImgEdit">
                   <label>
