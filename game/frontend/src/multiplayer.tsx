@@ -58,9 +58,11 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 	const [Exit, setExit] = useState<boolean>(false);
 	const [Exit2, setExit2] = useState<boolean>(false);
 	const [SetIt, Lost] = useState<boolean>(false);
-	const [Display, DisplayIt] = useState<boolean>(false);
+	const [lastGame, SetLastGame] = useState<boolean>(false);
+	const [finalExit, SetLastExit] = useState<boolean>(false);
 
 	useEffect(()=> {
+		var room_group_name = ""
 		var index = -1
 		const KEY_UP = 38
 		const KEY_DOWN = 40
@@ -73,9 +75,6 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		const context = canvas.getContext('2d')
 		
 		const KeyPressed: any[] = [];
-
-		if (Name != '' && Name2 != '')
-			DisplayIt(true)
 
 		window.addEventListener('keydown', function(e) {
 			KeyPressed[e.keyCode] = true;
@@ -96,12 +95,12 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 
 		changeCanvasSize(1359, 841);
 
-		function Paddles(this: any, pos: Vector, velocity: Vector, width: number, height: number, player: string): void {
+		function Paddles(this: any, pos: Vector, velocity: Vector, width: number, height: number): void {
 			this.pos = pos
 			this.velocity = velocity
 			this.width = width
 			this.height = height
-			this.player = player
+			this.player = ""
 			this.radius = 20
 			this.score = 0
 
@@ -149,10 +148,10 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			}
 		}
 
-		const ball = new (Ball as any)(TwoVect(canvas.width / 2, canvas.height / 2), TwoVect(7, 7), 10)
+		const ball = new (Ball as any)(TwoVect(67, 67), TwoVect(7, 7), 10)
 
-		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(5, 5), 20, 160, Name)
-		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(5, 5), 20, 160, Name2)
+		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(5, 5), 20, 160)
+		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(5, 5), 20, 160)
 		
 		function Score(ScorePlayer1: string, ScorePlayer2: string) { // let animation first
 			Sscore!.innerHTML = ScorePlayer2
@@ -166,19 +165,16 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			score!.style.display = 'none'
 			canvas!.style.cursor = 'default'
 			winner!.style.opacity = '1'
+			winner!.innerHTML = paddle.player
 			objSocket.send(JSON.stringify({
 				'type': 'it_ends_now',
+				'room': room_group_name,
 				'winner': paddle.player
 			}))
-			winner!.innerHTML = paddle.player
-			if (Type === 'Online') {
-				localStorage.setItem(Name + ' ' + Name2, paddle.player)
+			if (Type === 'Online')
 				setExit(true)
-			}
-			if (Type === 'Online2') {
-				localStorage.setItem(Name + ' ' + Name2, paddle.player)
+			if (Type === 'Online2')
 				setExit2(true)
-			}
 		}
 
 		function BallSettings(paddle1: Paddles, paddle2: Paddles) {
@@ -189,7 +185,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		}
 
 		function connectBackend() {
-			const url = 'ws://e3r11p10:8000/game/host/socket-server/'
+			const url = 'ws://e3r11p5:8000/game/host/socket-server/'
 			return new WebSocket(url)
 		}
 
@@ -210,8 +206,18 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		objSocket.onmessage = function(e) {
 			const data = JSON.parse(e.data)
 
-			if (data?.type == 'identify')
+			if (data?.type == 'identify') {
 				index = data?.player
+				room_group_name = data?.roomId
+				if (Name == data?.name && index == 1) {
+					paddle1.player = Name
+					paddle2.player = Name2
+				}
+				else {
+					paddle1.player = Name
+					paddle2.player = Name2
+				}
+			}
 			if (data?.message?.type == 'ballPos') {
 				ball.pos.x = data?.message?.BallX
 				ball.pos.y = data?.message?.BallY
@@ -224,12 +230,32 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 				paddle2.pos.x = data?.message?.posX
 				paddle2.pos.y = data?.message?.posY
 			}
-			if (data?.message?.type === 'scored')
+			if (data?.message?.type === 'scored') {
 				Score(data?.message?.scorePlayer1, data?.message?.scorePlayer2)
-			if (data?.message?.type === 'winner' && data?.message?.index != index) {
-				Lost(true)
-				setTimeout(()=> Lost(false), 10000)
-				objSocket.close()
+				BallSettings(paddle1, paddle2)
+			}
+			if (data?.message?.type === 'winner') {
+				if (data?.message?.index1 != index && data?.message?.index2 != index) {
+					const parent = document.querySelector('.tournCont')
+					parent?.classList.add('lost_2')
+					Lost(true)
+				}
+				if (data?.message?.winner1 != undefined)
+					document.querySelector('.final_1')!.textContent = data?.message?.winner1
+				if (data?.message?.winner2 != undefined)
+					document.querySelector('.final_2')!.textContent = data?.message?.winner2
+				// setTimeout(() => SetLastGame(true), 3000)
+			}
+			if (data?.message?.type === 'finals') {
+				if (data?.message?.index != index) {
+					const parent = document.querySelector('.tournCont')
+					parent?.classList.add('lost_2')
+					Lost(true)
+				}
+				else
+					document.querySelector('.tournCont')?.classList.add('win_')
+				document.querySelector('.CupWinner')!.innerHTML = data?.message?.winner
+				setTimeout(()=>SetLastExit(true), 3000)
 			}
 
 			if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
@@ -261,18 +287,18 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			window.requestAnimationFrame(GameLoop)
 
 			GameDraw()
-			BallSettings(paddle1, paddle2)
 		}
 
 		GameLoop()
 
 	}, [])
-	return (
+	return ( // send the two palyers to tn file
 		<div className='VirParent'>
 			{SetIt && <_Queue TheTitle='YOU LOST'/>}
-			{!Exit && !Exit2 && <GameInterface Type='' Name={Name} Name2={Name2} />}
-			{(Exit || Exit2) && <_title title='Tournament'/> && <_tournament NetType='fill' Name={Name + ' ' + Name2}/>}
-			{/* {Exit2 && <_tournament NetType='fill' Winner='' Winner2={Winner2}/>} */}
+			{!Exit && !Exit2 && !finalExit && <GameInterface Type='' Name={Name} Name2={Name2} />}
+			{(Exit || Exit2) && <_title title='Tournament'/> && <_tournament NetType='fill'/>}
+			{/* {lastGame && <_title title='Tournament'/> && <_tournament NetType='FinalGame'/>} */}
+			{finalExit && <_title title='Tournament'/> && <_tournament NetType='final'/>}
 		</div>
 	);
 }

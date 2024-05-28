@@ -7,6 +7,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import './tournament.css'
 import './interface.css'
+import axios from 'axios';
+import { json } from 'stream/consumers';
 
 function _tournament() {
 	return (
@@ -49,10 +51,9 @@ function _tournament() {
 
 interface OnlineGame {
 	NetType: string;
-	Name: string;
 }
 
-function tournament({NetType, Name}: OnlineGame) {
+function tournament({NetType}: OnlineGame) {
 
 	const [run, SetRun] = useState<boolean>(false)
 	const [secondRun, SetSecRun] = useState<boolean>(false)
@@ -72,8 +73,7 @@ function tournament({NetType, Name}: OnlineGame) {
 		const final_2 = document.querySelector('.final_2')
 		const AnimationWinner = document.querySelector('.void')
 
-		if (NetType === '')
-			return
+		if (NetType === '') return
 		const JsonData = localStorage.getItem('dataTn')
 		const data = JSON.parse(JsonData!)
 
@@ -127,19 +127,20 @@ function tournament({NetType, Name}: OnlineGame) {
 /* --------------------------------------------------- */
 	const [Player1, setName] = useState<string>('p1')
 	const [Player2, setName1] = useState<string>('p2')
+	const [final, SetFinal2] = useState<boolean>(false)
 
 	useEffect(()=> {
 		let index = 0
-		var objSocket: any = null
+		var name = ""
+		var TnSocket: any = null
+		const players = document.querySelectorAll('.call')
 		const final_1 = document.querySelector('.final_1')
 		const final_2 = document.querySelector('.final_2')
-
-		const players = document.querySelectorAll('.call')
 
 		if (NetType === 'local' || NetType === 'local2' || NetType === 'local3' || NetType === 'final') return
 
 		function isWebSocketConnected(): boolean {
-			return objSocket && objSocket.readyState === WebSocket.OPEN;
+			return TnSocket && TnSocket.readyState === WebSocket.OPEN;
 		}
 
 		function modifyDisplay(data: any) {
@@ -149,7 +150,7 @@ function tournament({NetType, Name}: OnlineGame) {
 			players[3].innerHTML = data.message.array.name_4.name
 		}
 	
-		objSocket = new WebSocket('ws://e3r11p10:8000/ws/game/tn/')
+		TnSocket = new WebSocket('ws://e3r11p5:8000/ws/game/tn/')
 
 		if (NetType === 'fill') {
 			const JsonData = localStorage.getItem('dataTn')
@@ -160,18 +161,15 @@ function tournament({NetType, Name}: OnlineGame) {
 			players[2].innerHTML = data.player3
 			players[3].innerHTML = data.player4
 
-			const Winner = localStorage.getItem(Player1 + ' ' + Player2)
+		}
+		if (NetType === 'final') {
+			const JsonData = localStorage.getItem('dataTn')
+			const data = JSON.parse(JsonData!)
 
-			const Winner2 = localStorage.getItem(Player1 + ' ' + Player2)
-			
-			if (Winner != undefined)
-				final_1!.innerHTML = Winner
-			else
-				final_1!.innerHTML = '...'
-			if (Winner2 != undefined)
-				final_2!.innerHTML = Winner2
-			else
-				final_2!.innerHTML = '...'
+			players[0].innerHTML = data.player1
+			players[1].innerHTML = data.player2
+			players[2].innerHTML = data.player3
+			players[3].innerHTML = data.player4
 
 		}
 
@@ -185,14 +183,15 @@ function tournament({NetType, Name}: OnlineGame) {
 			localStorage.setItem('dataTn', JSON.stringify(Content))
 		}
 
-		objSocket.onmessage = function(e: any) {
+		TnSocket.onmessage = function(e: any) {
 			const data = JSON.parse(e.data)
 			const dataType = data.type
 
 			console.log(data)
 			if (dataType === 'identify') {
 				index = data.player
-				objSocket.send(JSON.stringify({
+				name = data.name
+				TnSocket.send(JSON.stringify({
 					'type': 'Player',
 					'name': data.name,
 					'index': index,
@@ -214,27 +213,31 @@ function tournament({NetType, Name}: OnlineGame) {
 				setName1(data.player4)
 				setTimeout(()=> RunSecGame(true), 5000)
 			}
+			if (final_1!.textContent != '...' && final_2!.textContent != '...') {
+				console.log('->', final_1?.textContent, ' ->', final_2?.textContent)
+				if (final_1?.textContent && final_2?.textContent){
+					setName(final_1!.textContent)
+					setName1(final_2!.textContent)
+				}
+				if (name === final_1?.textContent || name === final_2?.textContent)
+					setTimeout(()=> SetFinal2(true), 5000)
+			}
 		}
-		return(()=> {
-			localStorage.removeItem('FirstWinner')
-			localStorage.removeItem('SecondWinner')
-		})
+		// return(()=> {
+			// localStorage.remove
+			// localStorage.remove
+		// })
 	}, [])
-
-	// useEffect(()=> {
-
-	// 	// if (Winner2 !== '' || Winner2 !== undefined)
-	// 	// 	final_2!.innerHTML = Winner2
-	// })
 
 	return (
 		<div className='VirParent'>
-			{(!run && !secondRun && !Final && !FirstGame && !SecGame) && <_tournament/>}
+			{(!run && !secondRun && !Final && !FirstGame && !SecGame && !final) && <_tournament/>}
 			{run && <_LocalGame type='local' Name1={player1} Name2={player2}/>}
 			{secondRun && <_LocalGame type='local2' Name1={player1} Name2={player2}/>}
 			{Final && <_LocalGame type='local3' Name1={player1} Name2={player2}/>}
 			{FirstGame && <_title title={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online' Name={Player1} Name2={Player2}/>}
 			{SecGame && <_title title={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online2' Name={Player1} Name2={Player2}/>}
+			{final && <_title title={player1 + ' vs ' + player2}/> && <_OnlineGame Type='final' Name={player1} Name2={player2}/>}
 		</div>
 	)
 }

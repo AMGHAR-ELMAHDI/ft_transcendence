@@ -1,0 +1,10 @@
+-> connecting to other room and going back to the old room
+-> display names //done
+-> alias //done
+-> reconnecting after losing
+-> full room
+-> ball at the start of the game //done
+-> losing in mid game //done
+-> display animation of the losers //index problem if its identical the animation is loaded
+-> send winners from backend after i reload the page
+-> refresh in queue

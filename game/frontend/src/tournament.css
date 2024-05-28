@@ -60,6 +60,11 @@
 	z-index: 150;
 	transition: .3s;
 }
+.win_ {
+	background: linear-gradient(transparent, rgba(1, 255, 5, 0.33), transparent);
+	z-index: 150;
+	transition: .3s;
+}
 .call h1, .middle div h1{
 	color: white;
 	font-size: 18px;

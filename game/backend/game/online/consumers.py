@@ -1,16 +1,20 @@
-import json
+import json, requests
 from django.http import JsonResponse
 from channels.generic.websocket import AsyncWebsocketConsumer
-from asgiref.sync import async_to_sync
+from django.contrib.sessions.models import Session
+from asgiref.sync import sync_to_async
 from . import views
-import asyncio, time, subprocess
+from . import models
+import asyncio
+from channels.db import database_sync_to_async
 
 class GameConsumer(AsyncWebsocketConsumer):
 
     seconds = 0
-    roomnb = 0
+    roomnb = 1
     data = ""
     rooms = {}
+    task = ""
 
     async def connect(self):
         user = self.scope['user']
@@ -29,7 +33,8 @@ class GameConsumer(AsyncWebsocketConsumer):
                 'index': 0,
                 'ball': views.Ball(67, 67, 7, 7, 10),
                 'paddle2': views.Paddle(0, 20, 5, 5, 20, 160),
-                'paddle1': views.Paddle(0, 50, 5, 5, 20, 160)
+                'paddle1': views.Paddle(0, 50, 5, 5, 20, 160),
+                'winner': None,
             }
 
         ThisRoom = self.rooms[self.room_group_name]['players']
@@ -43,7 +48,9 @@ class GameConsumer(AsyncWebsocketConsumer):
 
         await self.send(text_data=json.dumps({
             "type": "identify",
+            'roomId': self.room_group_name,
             "player": Index['index'],
+            "name": self.username,
         }))
 
         print('\nplayers: ', ThisRoom, '\nlen = ', Index['index'], '\nroomnb: ', GameConsumer.roomnb)
@@ -54,11 +61,9 @@ class GameConsumer(AsyncWebsocketConsumer):
             GameConsumer.roomnb += 1
 
         if (Index['index'] == 2):
-            asyncio.ensure_future(self.sendBallPos())
+            self.task = asyncio.ensure_future(self.sendBallPos())
 
     async def disconnect(self, close_code):
-        # del GameConsumer.connections[self]
-        # if self in self.room_group_name:
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
     async def receive(self, text_data):
@@ -66,8 +71,8 @@ class GameConsumer(AsyncWebsocketConsumer):
         message_type = infos.get("type")
 
         if message_type == "canvas":
-            self.rooms[self.room_group_name]['ball'].BallX = infos["CanWidth"]
-            self.rooms[self.room_group_name]['ball'].BallY = infos["CanHeight"]
+            self.rooms[self.room_group_name]['ball'].BallX = infos["CanWidth"] / 2
+            self.rooms[self.room_group_name]['ball'].BallY = infos["CanHeight"] / 2
             self.rooms[self.room_group_name]['paddle2'].posX = infos["CanWidth"] - 20
         if message_type == "paddleUpdates":
             if infos["user"] == "1":
@@ -78,7 +83,6 @@ class GameConsumer(AsyncWebsocketConsumer):
                     "posX": self.rooms[self.room_group_name]['paddle1'].posX,
                     "posY": self.rooms[self.room_group_name]['paddle1'].posY,
                 }
-                await self.custom_Async(message, "paddleChan")
             if infos["user"] == "2":
                 await self.rooms[self.room_group_name]['paddle2'].update(infos["key"])
                 message = {
@@ -87,18 +91,65 @@ class GameConsumer(AsyncWebsocketConsumer):
                     "posX": self.rooms[self.room_group_name]['paddle2'].posX,
                     "posY": self.rooms[self.room_group_name]['paddle2'].posY,
                 }
-                await self.custom_Async(message, "paddleChan")
-            await asyncio.sleep(0.002)
-        if message_type == 'it_ends_now':
-            winner = infos['winner']
-            index = self.rooms[self.room_group_name]['players'][winner]
-            print(f'->> {self.room_group_name} winner : {winner}')
-            message = {
-                'type': 'winner',
-                'index': index,
-            }
-            await self.custom_Async(message, 'winner')
+            await self.custom_Async(message, "paddleChan")
 
+            await asyncio.sleep(0.002)
+
+        if message_type == 'it_ends_now':
+            self.rooms[infos['room']]['winner'] = infos['winner']
+
+            if not GameConsumer.roomnb % 3:
+                TempOne = GameConsumer.roomnb - 1
+                winner1 = self.rooms[f'bertouch_{TempOne - 1}']['winner']
+                winner2 = self.rooms[f'bertouch_{TempOne}']['winner']
+
+                if winner1 in self.rooms[f'bertouch_{TempOne - 1}']['players']:
+                    index1 = self.rooms[f'bertouch_{TempOne - 1}']['players'][winner1]
+
+                if winner2 in self.rooms[f'bertouch_{TempOne}']['players']:
+                    index2 = self.rooms[f'bertouch_{TempOne}']['players'][winner2]
+
+                if winner1 and winner2:
+                    message = {
+                        'type': 'winner',
+                        'winner1': winner1,
+                        'winner2': winner2,
+                        'index1': index1,
+                        'index2': index2,
+                    }
+                    await self.sendMultipleRooms(message, 'winner', TempOne - 1)
+                    await self.sendMultipleRooms(message, 'winner', TempOne)
+
+            if not (GameConsumer.roomnb - 1) % 3:
+                TempOne = GameConsumer.roomnb - 1
+                winner = self.rooms[f'bertouch_{TempOne}']['winner']
+
+                if winner in self.rooms[f'bertouch_{TempOne}']['players']:
+                    index = self.rooms[f'bertouch_{TempOne}']['players'][winner]
+
+                message = {
+                    'type': 'finals',
+                    'winner': winner,
+                    'index': index,
+                }
+                await self.custom_Async(message, 'finals')
+
+    async def stop_task(self):
+        if self.task and not self.task.done():
+            self.task.cancel()
+            try:
+                await self.task
+            except asyncio.CancelledError:
+                print("Task cancellation confirmed")
+
+    async def sendMultipleRooms(self, message, type, roomnb):
+        await self.channel_layer.group_send(
+            f'bertouch_{roomnb}',
+            {
+                "type": type,
+                "message": message,
+            },
+        )
 
     async def custom_Async(self, message, type):
         await self.channel_layer.group_send(
@@ -109,6 +160,12 @@ class GameConsumer(AsyncWebsocketConsumer):
             },
         )
     
+    async def finals(self, event):
+        message = event["message"]
+        await self.send(
+            text_data=json.dumps({"type": "finals", "message": message})
+        )
+
     async def paddleChan(self, event):
         message = event["message"]
         await self.send(
@@ -136,12 +193,10 @@ class GameConsumer(AsyncWebsocketConsumer):
                 "BallX": self.rooms[self.room_group_name]['ball'].BallX,
                 "BallY": self.rooms[self.room_group_name]['ball'].BallY,
             }
+            await self.custom_Async(message, "ballPos")
             await self.rooms[self.room_group_name]['ball'].update()
             await self.rooms[self.room_group_name]['ball'].Ballinter()
             res = await self.rooms[self.room_group_name]['ball'].BallScored(self.rooms[self.room_group_name]['paddle1'], self.rooms[self.room_group_name]['paddle2'])
-            await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle1'])
-            await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle2'])
-            await self.custom_Async(message, "ballPos")
             if res:
                 message = {
                     "type": "scored",
@@ -149,17 +204,21 @@ class GameConsumer(AsyncWebsocketConsumer):
                     "scorePlayer2": self.rooms[self.room_group_name]['paddle2'].score,
                 }
                 await self.custom_Async(message, "scored")
+            await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle1'])
+            await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle2'])
             await self.rooms[self.room_group_name]['ball'].update()
             await self.rooms[self.room_group_name]['ball'].Ballinter()
             await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle1'])
             await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle2'])
+            if self.rooms[self.room_group_name]['paddle1'].score == 7 or self.rooms[self.room_group_name]['paddle2'].score == 7:
+                await self.stop_task()
             await asyncio.sleep(1 / 60)
 
 
 # tournament code here -->
 class TournamentM_(AsyncWebsocketConsumer):
     RoomNb = 0
-    rooms = {}
+    rooms = {}       
 
     async def connect(self):
         user = self.scope['user']
@@ -199,7 +258,9 @@ class TournamentM_(AsyncWebsocketConsumer):
                     },
                 },
                 'index': 0,
-                'onceAtTime': False
+                'onceAtTime': False,
+                'final1': '',
+                'final2': '',
             }
 
         ThisRoom = self.rooms[self.room_group_name]['players']
@@ -233,6 +294,14 @@ class TournamentM_(AsyncWebsocketConsumer):
             },
         )
 
+    async def final(self, event):
+        message = event['message']
+        await self.send(json.dumps({
+            'type': 'final',
+            'message': message,
+        }))
+
+
     async def receive(self, text_data):
         data = json.loads(text_data)
 
@@ -244,6 +313,7 @@ class TournamentM_(AsyncWebsocketConsumer):
                 'array': self.rooms[self.room_group_name]['Joined']
             }
             await self.custom_Async(message ,'JoinedPlayers')
+
         if self.rooms[self.room_group_name]['index'] == 4 and not self.rooms[self.room_group_name]['onceAtTime']:
             self.rooms[self.room_group_name]['onceAtTime'] = True
             asyncio.ensure_future(self.StartTournament())
@@ -283,24 +353,7 @@ class TournamentM_(AsyncWebsocketConsumer):
             'message': message,
         }))
 
-    async def disconnected(self, event):
-        message = event['message']
-        await self.send(json.dumps({
-            'type': 'disconnected',
-            'message': message,
-        }))
-
-    # async def disconnect(self, close_code):
-        # if self in TournamentM_.Sockets:
-        # CallSockets = self.rooms[self.room_group_name]['Sockets']
-        # for i in range(1, 5):
-        #     if self.players['name_' + str(i)]['name'] == self.username:
-        #         self.players['name_' + str(i)]['name'] = '...'
-        #         self.players['name_' + str(i)]['index'] = 0
-        #         break
-        # message = {
-        #     'type': 'disconnected',
-        #     'player': self.players
-        # }
-        # await self.custom_Async(message, 'disconnect'))
-        # await self.channel_layer.group_discard(TournamentM_.room_group_name, self.channel_name)
+    async def disconnect(self, close_code):
+        user = self.scope['user']
+        if user.is_authenticated:
+            await self.channel_layer.group_discard(self.room_group_name, self.channel_name)

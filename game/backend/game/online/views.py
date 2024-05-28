@@ -31,16 +31,17 @@ class Ball:
 		self.VelocityX = self.initial_velocityx
 		self.VelocityY = self.initial_velocityy
 
-	async def BallScored(self, paddle1, padddl2):
-		if self.BallX <= -self.radius:
+	async def BallScored(self, paddle1, paddle2):
+		if self.BallX <= -self.radius and paddle2.score != 7 and paddle1.score != 7:
+			paddle2.score += 1
+			await self.resetBall()
+			return True
+		elif self.BallX >= self.canvasw + self.radius and paddle2.score != 7 and paddle1.score != 7:
 			paddle1.score += 1
 			await self.resetBall()
 			return True
-		if  self.BallX >= self.canvasw + self.radius:
-			padddl2.score += 1
-			await self.resetBall()
-			return True
-		return False
+		else:
+			return False
 
 	async def update(self):
 		self.BallX += self.VeclocityX
@@ -95,3 +96,11 @@ class Paddle:
 			self.posY -= self.veloY
 		if (key == 'down' and self.posY + self.height <= self.canvash):
 			self.posY += self.veloY
+
+def GetSession(request):
+	winner1 = request.session.get('winner1')
+	winner2 = request.session.get('winner2')
+	if winner1 and winner2:
+		return JsonResponse({'winner1': winner1, 'winner2': winner2})
+	else:
+		return JsonResponse({'error': 'session is empty'}, status=401)

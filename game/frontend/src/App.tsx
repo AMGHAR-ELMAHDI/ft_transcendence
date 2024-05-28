@@ -31,14 +31,14 @@ function Options() {
   })
     return (
         // type === "0" ?
-        // <div><_Main />< _title Name1='local game'/><_multiplayer2 type='' Name1='PLAYER1' Name2='PLAYER2' /></div>:
+        // <div><_Main />< _title title='local game'/><_multiplayer2 type='' Name1='PLAYER1' Name2='PLAYER2' /></div>:
         // type === "1" ?
-        // <div><_Main />< _title Name1='local vs bot'/><_game2D /></div>:
+        // <div><_Main />< _title title='local vs bot'/><_game2D /></div>:
         // type === "2" ?
-        <div><_Main />< _tournament NetType='' Name=''/></div>
+        <div><_Main />< _tournament NetType=''/></div>
         // type === '3' ?
-        // <div><_Main/>< _title Name1='Local Tournament'/>< _LocTn/></div>:
-        // <div><_Main />< _title Name1='Overview'/><_UserViews /><_mods /></div>
+        // <div><_Main/>< _title title='Local Tournament'/>< _LocTn/></div>:
+        // <div><_Main />< _title title='Overview'/><_UserViews /><_mods /></div>
         // <div><_Main/><_multiplayer Type='' Name='mnassi' Name2='otchekai'/></div>
         // <div><_Main/><_Queue TheTitle='YOU LOST'/></div>
     )

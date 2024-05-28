@@ -20,6 +20,7 @@ class Player(models.Model):
 
     firstname = models.CharField(max_length=32)
     lastname = models.CharField(max_length=32)
+    alias = models.CharField(max_length=255, unique=True, default='dummy')
     def get_friendships(self):
         friendships = Friendship.objects.filter(models.Q(player1=self) | models.Q(player2=self))
         return friendships
