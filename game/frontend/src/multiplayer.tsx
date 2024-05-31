@@ -13,6 +13,49 @@ interface LocalGameProps {
 	Name2: string;
 }
 
+function _tournaments() {
+	return (
+		<>
+			<_title title='nothing'/>
+			<div className="tournCont">
+				<div className="tournament">
+					<div className="LeftJoin">
+						<div className="first call">
+							<h1>Me</h1>
+						</div>
+						<div className="second call">
+							<h1>...</h1>
+						</div>
+					</div>
+					<img className='cup' src='/cup.svg'></img>
+					<div className="middle">
+						<div className="CupWinner">
+							<h1>?</h1>
+						</div>
+						<span id="candidary">
+							<div className="final_1">
+								<h1>...</h1>
+							</div>
+							<div className="final_2">
+								<h1>...</h1>
+							</div>
+						</span>
+					</div>
+					<div className="RightJoin">
+						<div className="first call">
+							<h1>...</h1>
+						</div>
+						<div className="second call">
+							<h1>...</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	)
+}
+
+
 function GameInterface({Type, Name, Name2}:LocalGameProps) {
 	return (
 		<>
@@ -58,8 +101,8 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 	const [Exit, setExit] = useState<boolean>(false);
 	const [Exit2, setExit2] = useState<boolean>(false);
 	const [SetIt, Lost] = useState<boolean>(false);
+	const [WON, SetWinner] = useState<boolean>(false);
 	const [lastGame, SetLastGame] = useState<boolean>(false);
-	const [finalExit, SetLastExit] = useState<boolean>(false);
 
 	useEffect(()=> {
 		var room_group_name = ""
@@ -165,16 +208,11 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			score!.style.display = 'none'
 			canvas!.style.cursor = 'default'
 			winner!.style.opacity = '1'
-			winner!.innerHTML = paddle.player
 			objSocket.send(JSON.stringify({
 				'type': 'it_ends_now',
 				'room': room_group_name,
 				'winner': paddle.player
 			}))
-			if (Type === 'Online')
-				setExit(true)
-			if (Type === 'Online2')
-				setExit2(true)
 		}
 
 		function BallSettings(paddle1: Paddles, paddle2: Paddles) {
@@ -185,7 +223,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 		}
 
 		function connectBackend() {
-			const url = 'ws://e3r11p5:8000/game/host/socket-server/'
+			const url = 'ws://localhost:8000/game/host/socket-server/'
 			return new WebSocket(url)
 		}
 
@@ -203,7 +241,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			}))
 		}
 
-		objSocket.onmessage = function(e) {
+		objSocket!.onmessage = function(e) {
 			const data = JSON.parse(e.data)
 
 			if (data?.type == 'identify') {
@@ -235,27 +273,35 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 				BallSettings(paddle1, paddle2)
 			}
 			if (data?.message?.type === 'winner') {
+				const firstwinner = document?.querySelector('.final_1')
+				const secondwinner = document?.querySelector('.final_2')
+				if (Type === 'Online')
+					setExit(true)
+				if (Type === 'Online2')
+					setExit2(true)
 				if (data?.message?.index1 != index && data?.message?.index2 != index) {
-					const parent = document.querySelector('.tournCont')
+					const parent = document!.querySelector('.tournCont')
 					parent?.classList.add('lost_2')
 					Lost(true)
 				}
-				if (data?.message?.winner1 != undefined)
-					document.querySelector('.final_1')!.textContent = data?.message?.winner1
-				if (data?.message?.winner2 != undefined)
-					document.querySelector('.final_2')!.textContent = data?.message?.winner2
-				// setTimeout(() => SetLastGame(true), 3000)
+				if (data?.message?.winner1 != undefined && firstwinner)
+					firstwinner!.innerHTML = data!.message!.winner1
+				if (data?.message?.winner2 != undefined && firstwinner)
+					secondwinner!.innerHTML = data!.message!.winner2
 			}
 			if (data?.message?.type === 'finals') {
+				SetLastGame(true)
+				const winner = document!.querySelector('.CupWinner')
 				if (data?.message?.index != index) {
-					const parent = document.querySelector('.tournCont')
+					const parent = document!.querySelector('.tournCont')
 					parent?.classList.add('lost_2')
 					Lost(true)
 				}
-				else
-					document.querySelector('.tournCont')?.classList.add('win_')
-				document.querySelector('.CupWinner')!.innerHTML = data?.message?.winner
-				setTimeout(()=>SetLastExit(true), 3000)
+				else {
+					document!.querySelector('.tournCont')?.classList.add('win_')
+					SetWinner(true)
+				}
+				winner!.innerHTML = data!.message!.winner
 			}
 
 			if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
@@ -293,13 +339,13 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 
 	}, [])
 	return ( // send the two palyers to tn file
-		<div className='VirParent'>
+		<>
 			{SetIt && <_Queue TheTitle='YOU LOST'/>}
-			{!Exit && !Exit2 && !finalExit && <GameInterface Type='' Name={Name} Name2={Name2} />}
-			{(Exit || Exit2) && <_title title='Tournament'/> && <_tournament NetType='fill'/>}
-			{/* {lastGame && <_title title='Tournament'/> && <_tournament NetType='FinalGame'/>} */}
-			{finalExit && <_title title='Tournament'/> && <_tournament NetType='final'/>}
-		</div>
+			{WON && <_Queue TheTitle='YOU WON'/>}
+			{(!Exit && !Exit2 && !lastGame) && <GameInterface Type='' Name={Name} Name2={Name2}/>}
+			{(Exit || Exit2) && <_tournament NetType='FinalGame'/>}
+			{lastGame && <_tournament NetType='final'/>}
+		</>
 	);
 }
 

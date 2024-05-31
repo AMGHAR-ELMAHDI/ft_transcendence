@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import __tournament from './tournament';
-import {WinnerI} from './atoms/Winner'
 import { useRecoilState } from 'recoil';
 
 interface LocalGameProps {

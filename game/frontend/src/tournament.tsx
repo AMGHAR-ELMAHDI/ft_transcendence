@@ -12,40 +12,43 @@ import { json } from 'stream/consumers';
 
 function _tournament() {
 	return (
-		<div className="tournCont">
-			<div className="tournament">
-				<div className="LeftJoin">
-					<div className="first call">
-						<h1>Me</h1>
-					</div>
-					<div className="second call">
-						<h1>...</h1>
-					</div>
-				</div>
-				<img className='cup' src='/cup.svg'></img>
-				<div className="middle">
-					<div className="CupWinner">
-						<h1>?</h1>
-					</div>
-					<span id="candidary">
-						<div className="final_1">
+		<>
+			<_title title='Tournament'/>
+			<div className="tournCont">
+				<div className="tournament">
+					<div className="LeftJoin">
+						<div className="first call">
+							<h1>Me</h1>
+						</div>
+						<div className="second call">
 							<h1>...</h1>
 						</div>
-						<div className="final_2">
+					</div>
+					<img className='cup' src='/cup.svg'></img>
+					<div className="middle">
+						<div className="CupWinner">
+							<h1>?</h1>
+						</div>
+						<span id="candidary">
+							<div className="final_1">
+								<h1>...</h1>
+							</div>
+							<div className="final_2">
+								<h1>...</h1>
+							</div>
+						</span>
+					</div>
+					<div className="RightJoin">
+						<div className="first call">
 							<h1>...</h1>
 						</div>
-					</span>
-				</div>
-				<div className="RightJoin">
-					<div className="first call">
-						<h1>...</h1>
-					</div>
-					<div className="second call">
-						<h1>...</h1>
+						<div className="second call">
+							<h1>...</h1>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 
@@ -136,8 +139,13 @@ function tournament({NetType}: OnlineGame) {
 		const players = document.querySelectorAll('.call')
 		const final_1 = document.querySelector('.final_1')
 		const final_2 = document.querySelector('.final_2')
+		const winner = document.querySelector('.CupWinner')
 
 		if (NetType === 'local' || NetType === 'local2' || NetType === 'local3' || NetType === 'final') return
+
+		// if (NetType === 'final') {
+
+		// }
 
 		function isWebSocketConnected(): boolean {
 			return TnSocket && TnSocket.readyState === WebSocket.OPEN;
@@ -150,28 +158,7 @@ function tournament({NetType}: OnlineGame) {
 			players[3].innerHTML = data.message.array.name_4.name
 		}
 	
-		TnSocket = new WebSocket('ws://e3r11p5:8000/ws/game/tn/')
-
-		if (NetType === 'fill') {
-			const JsonData = localStorage.getItem('dataTn')
-			const data = JSON.parse(JsonData!)
-
-			players[0].innerHTML = data.player1
-			players[1].innerHTML = data.player2
-			players[2].innerHTML = data.player3
-			players[3].innerHTML = data.player4
-
-		}
-		if (NetType === 'final') {
-			const JsonData = localStorage.getItem('dataTn')
-			const data = JSON.parse(JsonData!)
-
-			players[0].innerHTML = data.player1
-			players[1].innerHTML = data.player2
-			players[2].innerHTML = data.player3
-			players[3].innerHTML = data.player4
-
-		}
+		TnSocket = new WebSocket('ws://localhost:8000/ws/game/tn/')
 
 		function StoreInStorage(data: any) {
 			const Content = {
@@ -200,6 +187,12 @@ function tournament({NetType}: OnlineGame) {
 			if (data?.message?.type === 'JoinedPlayers') {
 				StoreInStorage(data)
 				modifyDisplay(data)
+				if (data?.message?.final1 != '' && data?.message?.final2 != '') {
+					final_1!.innerHTML = data?.message?.final1
+					final_2!.innerHTML = data?.message?.final2
+				}
+				if (data?.message?.winner != '')
+					winner!.innerHTML = data?.message?.winner
 			}
 			if (data?.message?.type === 'firstGame' && (data?.message?.player1 === index.toString() || data?.message?.player2 === index.toString())) {
 				const data = JSON.parse(localStorage.getItem('dataTn')!)
@@ -213,14 +206,28 @@ function tournament({NetType}: OnlineGame) {
 				setName1(data.player4)
 				setTimeout(()=> RunSecGame(true), 5000)
 			}
-			if (final_1!.textContent != '...' && final_2!.textContent != '...') {
-				console.log('->', final_1?.textContent, ' ->', final_2?.textContent)
-				if (final_1?.textContent && final_2?.textContent){
-					setName(final_1!.textContent)
-					setName1(final_2!.textContent)
+			if (NetType === 'FinalGame') {
+				if (final_1?.textContent != '...' && final_2?.textContent != '...') {
+					TnSocket.send(JSON.stringify({
+						'type': 'Qualifiers',
+						'field1': final_1?.innerHTML,
+						'field2': final_2?.innerHTML,
+					}))
+					setName(final_1!.textContent!) // take it from the back
+					setName1(final_2!.textContent!)
 				}
 				if (name === final_1?.textContent || name === final_2?.textContent)
-					setTimeout(()=> SetFinal2(true), 5000)
+					setTimeout(()=> SetFinal2(true), 3000)
+			}
+			if (NetType === 'final') {
+				console.log(winner?.textContent)
+				if (winner?.textContent != '?')
+				{
+					TnSocket.send(JSON.stringify({
+						'type': 'EndTournament',
+						'winner': winner?.textContent, 
+					}))
+				}
 			}
 		}
 		// return(()=> {
@@ -230,15 +237,17 @@ function tournament({NetType}: OnlineGame) {
 	}, [])
 
 	return (
-		<div className='VirParent'>
-			{(!run && !secondRun && !Final && !FirstGame && !SecGame && !final) && <_tournament/>}
+		// <div className='VirParent'>
+		<>
+			{!run && !secondRun && !Final && !FirstGame && !SecGame && !final && <_tournament/>}
 			{run && <_LocalGame type='local' Name1={player1} Name2={player2}/>}
 			{secondRun && <_LocalGame type='local2' Name1={player1} Name2={player2}/>}
 			{Final && <_LocalGame type='local3' Name1={player1} Name2={player2}/>}
-			{FirstGame && <_title title={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online' Name={Player1} Name2={Player2}/>}
-			{SecGame && <_title title={player1 + ' vs ' + player2}/> && <_OnlineGame Type='Online2' Name={Player1} Name2={Player2}/>}
-			{final && <_title title={player1 + ' vs ' + player2}/> && <_OnlineGame Type='final' Name={player1} Name2={player2}/>}
-		</div>
+			{FirstGame && <_OnlineGame Type='Online' Name={Player1} Name2={Player2}/>}
+			{SecGame && <_OnlineGame Type='Online2' Name={Player1} Name2={Player2}/>}
+			{final && <_OnlineGame Type='final' Name={Player1} Name2={Player2}/>}
+		</>
+		// </div>
 	)
 }
 

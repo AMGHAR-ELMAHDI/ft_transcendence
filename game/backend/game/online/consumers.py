@@ -132,7 +132,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                     'winner': winner,
                     'index': index,
                 }
-                await self.custom_Async(message, 'finals')
+                await self.sendMultipleRooms(message, 'winner', TempOne)
 
     async def stop_task(self):
         if self.task and not self.task.done():
@@ -261,6 +261,7 @@ class TournamentM_(AsyncWebsocketConsumer):
                 'onceAtTime': False,
                 'final1': '',
                 'final2': '',
+                'winner': ''
             }
 
         ThisRoom = self.rooms[self.room_group_name]['players']
@@ -310,9 +311,19 @@ class TournamentM_(AsyncWebsocketConsumer):
                 self.rooms[self.room_group_name]['Joined'][f'name_{value}'] = {'name': key}
             message = {
                 'type': 'JoinedPlayers',
-                'array': self.rooms[self.room_group_name]['Joined']
+                'array': self.rooms[self.room_group_name]['Joined'],
+                'final1': self.rooms[self.room_group_name]['final1'],
+                'final2': self.rooms[self.room_group_name]['final2'],
+                'winner': self.rooms[self.room_group_name]['winner'],
             }
             await self.custom_Async(message ,'JoinedPlayers')
+
+        if (data['type'] == 'Qualifiers'):
+            self.rooms[self.room_group_name]['final1'] = data['field1']
+            self.rooms[self.room_group_name]['final2'] = data['field2']
+
+        if (data['type'] == 'EndTournament'):
+            self.rooms[self.room_group_name]['winner'] = data['winner']
 
         if self.rooms[self.room_group_name]['index'] == 4 and not self.rooms[self.room_group_name]['onceAtTime']:
             self.rooms[self.room_group_name]['onceAtTime'] = True
@@ -322,12 +333,12 @@ class TournamentM_(AsyncWebsocketConsumer):
         message = {
             'type': 'firstGame',
             'player1': '1',
-            'player2': '2',
+            'player2': '2'
         }
         message2 = {
             'type': 'SecondGame',
             'player1': '3',
-            'player2': '4',
+            'player2': '4'
         }
         await self.custom_Async(message, 'firstGame')
         await self.custom_Async(message2, 'SecondGame')
