@@ -149,6 +149,8 @@ class Player(AbstractBaseUser):
                 'date' : g.date,
                 'player' : g.player_id,
                 'opponent' : g.opponent_id,
+                'opponent_username' : Player.objects.filter(id = g.opponent_id).values('username'),
+                #'username' : g.opponent_username,
                 'player_score' : g.player_score,
                 'opponent_score' : g.opponent_score,
                 'opponent_avatar' : Player.objects.filter(id = g.opponent_id).values('image'),
