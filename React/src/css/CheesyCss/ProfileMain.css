@@ -71,17 +71,28 @@
   right: 0;
   bottom: 0;
   width: 200px;
-  height: fit-content;
-  translate: translate(-50%, 50%);
-  color: black;
   padding: 1rem;
-  background-color: white;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
   border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .ProfileItemInfo > p {
   text-align: center;
   width: 250px;
+}
+
+.emptyData {
+  font-size: 2rem;
+  color: var(--blue-glow);
 }
 
 @media only screen and (max-width: 2880px) {

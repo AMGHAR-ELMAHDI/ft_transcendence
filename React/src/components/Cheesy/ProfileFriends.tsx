@@ -47,6 +47,7 @@ function ProfileFriends() {
       const response = await api.get("player/friends/");
       setData(response.data.friends);
       setIsLoading(false);
+
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -57,13 +58,17 @@ function ProfileFriends() {
     getData();
   }, []);
 
-  if (data?.length == 0) return <h1>{"You Don't Have Any Friends :("}</h1>;
 
+  if (!data?.length)
+    return (
+      <div className="ProfileItems">
+        <h1 className="emptyData">{"You Don't Have Any Friends :("}</h1>
+      </div>
+    );
   return (
     <>
-      {isLoading ? (
-        LoadingData()
-      ) : (
+      {isLoading && LoadingData()}
+      {!isLoading && (
         <div id="ProfileFriendsContainer">
           <table>
             {getProfileToolTip()}

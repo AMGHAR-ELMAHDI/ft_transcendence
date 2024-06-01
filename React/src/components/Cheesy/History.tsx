@@ -109,6 +109,13 @@ function History({ UserData, UseUserData }: HistoryProps) {
     setUserData();
   }, []);
 
+  if (!data?.length)
+    return (
+      <div className="ProfileItems">
+        <h1 className="emptyData">No Games History</h1>
+      </div>
+    );
+
   return (
     <div className="tableau">
       {isLoading ? (

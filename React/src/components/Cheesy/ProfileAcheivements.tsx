@@ -35,11 +35,9 @@ function ProfileAcheivements({ UserData, UseUserData }: Props) {
   const [isLoading, setIsLoading] = useState(true);
 
   let url;
-  if (!UserData) url = "player/achievements/";
-  else url = `player/${UserData.username}/achievements/`;
-  console.log(url);
+  if (!UseUserData) url = "player/achievements/";
+  else url = `player/${UserData?.username}/achievements/`;
 
-  setAuthToken();
   const getData = async () => {
     try {
       const response = await api.get(url);
@@ -54,6 +52,13 @@ function ProfileAcheivements({ UserData, UseUserData }: Props) {
   useEffect(() => {
     getData();
   }, []);
+
+  if (!data?.length)
+    return (
+      <div className="ProfileItems">
+        <h1 className="emptyData">No Trophies</h1>
+      </div>
+    );
 
   return (
     <>
@@ -77,8 +82,3 @@ function ProfileAcheivements({ UserData, UseUserData }: Props) {
 }
 
 export default ProfileAcheivements;
-// "id": 1,
-// "title": "First Bot Win",
-// "desc": "Win your first Match against a Bot",
-// "path": "http://localhost:2500/media/achievements/default.png",
-// "Obtaining_date": "2024-05-01T16:35:58.852097Z"

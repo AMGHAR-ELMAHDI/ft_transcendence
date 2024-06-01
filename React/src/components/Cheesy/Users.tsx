@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { BsPersonFillAdd } from "react-icons/bs";
 import {
@@ -11,8 +11,8 @@ import ProfileMain from "./ProfileMain";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
-import GetCorrectImage from "./GetCorrectImage";
 import { GetCorrect } from "./LeaderBoardGetTop3";
+import Profile from "./Profile";
 
 function getLevelStart(person: { level: number }) {
   let levelStartIndex = person.level.toString().lastIndexOf(".") + 1;
@@ -159,6 +159,15 @@ function Users() {
   const [render, setRender] = useState<string>("History");
   const UserData: any = useLoaderData();
 
+  if (UserData === null) {
+    return (
+      <>
+        <Profile profileList="RenderList" show={render} setRender={setRender} />
+        <ProfileMain inRender={render} UseUserData={false} />
+      </>
+    );
+  }
+
   return (
     <>
       <UserProfile show={render} setRender={setRender} data={UserData} />
@@ -176,6 +185,7 @@ export const UsersLoader = async ({ params }: { params: any }) => {
     return response.data;
   } catch (error) {
     console.log(error);
+    return null;
   }
 };
 
