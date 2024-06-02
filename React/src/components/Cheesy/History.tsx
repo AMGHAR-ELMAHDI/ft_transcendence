@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
 import LoadingData from "./LoadingData";
+import { UserDataProps } from "./ProfileItems";
 
 function getTooltip() {
   return (
@@ -64,33 +65,17 @@ function getHistoryTabs(player_score: number, opponent_score: number) {
   if (player_score >= opponent_score) return "Won";
   else return "Lost";
 }
-
-interface HistoryProps {
-  UserData?: {
-    username: string;
-    first_name: string;
-    last_name: string;
-    image: string;
-    level: number;
-    coins: number;
-    email: string;
-    win_rate: number;
-    achievements_rate: number;
-    games: [];
-    items: [];
-    acheivments: [];
-  };
-  UseUserData: boolean;
-}
-
-function History({ UserData, UseUserData }: HistoryProps) {
+function History({ UserData, UseUserData }: UserDataProps) {
   const [data, setData] = useState<any>([]);
   const [isLoading, setLoading] = useState(true);
 
-  setAuthToken();
+  let url;
+  if (!UseUserData) url = "player/games/";
+  else url = `player/${UserData?.username}/games/`;
+
   const getData = async () => {
     try {
-      const response = await api.get("player/games/");
+      const response = await api.get(url);
       setData(response.data?.games);
       setLoading(false);
     } catch (error) {
@@ -99,27 +84,19 @@ function History({ UserData, UseUserData }: HistoryProps) {
     }
   };
 
-  const setUserData = () => {
-    setData(UserData?.games);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    if (UseUserData == false) getData();
-    setUserData();
+    getData();
   }, []);
 
-  if (!data?.length)
-    return (
-      <div className="ProfileItems">
-        <h1 className="emptyData">No Games History</h1>
-      </div>
-    );
+  const length: boolean = data?.length ? true : false;
 
   return (
     <div className="tableau">
-      {isLoading ? (
-        LoadingData()
+      {isLoading && LoadingData()}
+      {!isLoading && !length ? (
+        <div className="ProfileItems">
+          <h1 className="emptyData">No Games History</h1>
+        </div>
       ) : (
         <table>
           {getTooltip()}

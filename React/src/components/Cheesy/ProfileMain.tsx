@@ -15,9 +15,6 @@ interface ProfileMainProps {
     email: string;
     win_rate: number;
     achievements_rate: number;
-    games: [];
-    items: [];
-    acheivments: [];
   };
   UseUserData: boolean;
 }

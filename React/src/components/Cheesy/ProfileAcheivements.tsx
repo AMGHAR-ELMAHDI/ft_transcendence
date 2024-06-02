@@ -1,26 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { setAuthToken } from "../Utils/setAuthToken";
+import { useEffect, useState } from "react";
 import api from "../../api";
 import AcheivementCard from "./AcheivementCard";
 import LoadingData from "./LoadingData";
-
-interface Props {
-  UserData?: {
-    username: string;
-    first_name: string;
-    last_name: string;
-    image: string;
-    level: number;
-    coins: number;
-    email: string;
-    win_rate: number;
-    achievements_rate: number;
-    games: [];
-    items: [];
-    acheivments: [];
-  };
-  UseUserData: boolean;
-}
+import { UserDataProps } from "./ProfileItems";
 
 export interface CardProps {
   id: number;
@@ -30,7 +12,7 @@ export interface CardProps {
   Obtaining_date: string;
 }
 
-function ProfileAcheivements({ UserData, UseUserData }: Props) {
+function ProfileAcheivements({ UserData, UseUserData }: UserDataProps) {
   const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -53,17 +35,15 @@ function ProfileAcheivements({ UserData, UseUserData }: Props) {
     getData();
   }, []);
 
-  if (!data?.length)
-    return (
-      <div className="ProfileItems">
-        <h1 className="emptyData">No Trophies</h1>
-      </div>
-    );
+  const length: boolean = data?.length ? true : false;
 
   return (
     <>
-      {isLoading ? (
-        LoadingData()
+      {isLoading && LoadingData()}
+      {!isLoading && !length ? (
+        <div className="ProfileItems">
+          <h1 className="emptyData">No Trophies</h1>
+        </div>
       ) : (
         <div className="ProfileItems">
           {data?.map((Trophie: CardProps) => (

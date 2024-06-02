@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
 import Url from "../../Atoms/Url";
 import { useRecoilValue } from "recoil";
-import { PiChatCircleDotsBold } from "react-icons/pi";
-import GetCorrectImage from "./GetCorrectImage";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
 
@@ -47,7 +45,6 @@ function ProfileFriends() {
       const response = await api.get("player/friends/");
       setData(response.data.friends);
       setIsLoading(false);
-
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -58,17 +55,16 @@ function ProfileFriends() {
     getData();
   }, []);
 
+  const length: boolean = data?.length ? true : false;
 
-  if (!data?.length)
-    return (
-      <div className="ProfileItems">
-        <h1 className="emptyData">{"You Don't Have Any Friends :("}</h1>
-      </div>
-    );
   return (
     <>
       {isLoading && LoadingData()}
-      {!isLoading && (
+      {!isLoading && !length ? (
+        <div className="ProfileItems">
+          <h1 className="emptyData">{"You Don't Have Any Friends :("}</h1>
+        </div>
+      ) : (
         <div id="ProfileFriendsContainer">
           <table>
             {getProfileToolTip()}
@@ -120,13 +116,3 @@ function ProfileFriends() {
 }
 
 export default ProfileFriends;
-
-// {
-//     "id": 2,
-//     "username": "user2",
-//     "first_name": "",
-//     "last_name": "",
-//     "avatar": "media/store/images/default.png",
-//     "level": 5680,
-//     "coins": 1000
-// },

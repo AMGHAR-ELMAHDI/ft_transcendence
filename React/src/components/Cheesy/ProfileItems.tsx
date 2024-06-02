@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
-import Url from "../../Atoms/Url";
 import api from "../../api";
 import LoadingData from "./LoadingData";
 import ShopCard, { ShopProps } from "./ShopCard";
 
-interface HistoryProps {
+export interface UserDataProps {
   UserData?: {
     username: string;
     first_name: string;
@@ -17,14 +15,11 @@ interface HistoryProps {
     email: string;
     win_rate: number;
     achievements_rate: number;
-    games: [];
-    items: [];
-    acheivments: [];
   };
   UseUserData: boolean;
 }
 
-function ProfileItems({ UserData, UseUserData }: HistoryProps) {
+function ProfileItems({ UserData, UseUserData }: UserDataProps) {
   const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -48,22 +43,24 @@ function ProfileItems({ UserData, UseUserData }: HistoryProps) {
     getData();
   }, []);
 
-  if (!data?.length)
-    return (
-      <div className="ProfileItems">
-        <h1 className="emptyData">No Items</h1>
-      </div>
-    );
+  const length: boolean = data?.length ? true : false;
 
   return (
     <>
       {isLoading && LoadingData()}
-      {!isLoading && (
+      {!isLoading && !length ? (
         <div className="ProfileItems">
-          {data?.map((item: ShopProps) => (
-            <ShopCard key={item.id} {...item} />
-          ))}
+          <h1 className="emptyData">No Items</h1>
         </div>
+      ) : (
+        !isLoading &&
+        length && (
+          <div className="ProfileItems">
+            {data?.map((item: ShopProps) => (
+              <ShopCard key={item.id} {...item} />
+            ))}
+          </div>
+        )
       )}
     </>
   );

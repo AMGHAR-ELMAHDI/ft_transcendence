@@ -92,7 +92,7 @@ function addFriend(UserName: string, UserId: number, url: string) {
 
 function UserProfile({ show, setRender, data }: UserProps) {
   const profileLevelStyle = { justifyContent: "space-between" };
-  let levelStart = getLevelStart(data) * 100;
+  let levelStart = Math.floor(data.level / 10);
   const url = useRecoilValue(Url);
 
   return (
@@ -121,7 +121,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
           <div></div>
           <div id="profile-level-container">
             <div id="profile-level-text">
-              <h2>Level {data?.level}</h2>
+              <h2>Level {Math.floor(data.level / 1000)}</h2>
               <h2>{levelStart}/1000</h2>
             </div>
             <div id="profile-level-bar">

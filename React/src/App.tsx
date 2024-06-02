@@ -37,7 +37,7 @@ const router = createBrowserRouter(
           <Route path=":username" element={<Users />} loader={UsersLoader} />
         </Route>
         <Route path="/settings" element={<Settings />} />
-      </Route>  
+      </Route>
       <Route path="*" element={<NotFound />} />
     </>
   )
