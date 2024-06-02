@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
-import { useRecoilValue } from "recoil";
-import Url from "../../Atoms/Url";
 import api from "../../api";
 import LoadingData from "./LoadingData";
 
@@ -39,7 +37,6 @@ function getHistoryRect(player_score: number, opponent_score: number) {
 
 function ProfileHistory() {
   const [data, setData] = useState<any>([]);
-  const url = useRecoilValue(Url);
   const [isLoading, setIsLoading] = useState(true);
 
   setAuthToken();

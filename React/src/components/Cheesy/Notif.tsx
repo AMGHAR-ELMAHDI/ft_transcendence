@@ -44,6 +44,7 @@ function Notif() {
   const [received, setReceived] = useState<any>([]);
   const [render, setRender] = useRecoilState(RenderNotif);
   const [isLoading, setLoading] = useState(true);
+  // const [displayRedDot, setDisplayRedDot] = useState(false);
   const [players, setPlayers] = useState<any>([]);
 
   const getPlayers = async () => {
@@ -69,6 +70,8 @@ function Notif() {
   useEffect(() => {
     getPlayers();
     getData();
+    const interval = setInterval(getData, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const filteredItems = received.filter((user: any) =>
@@ -87,8 +90,11 @@ function Notif() {
         LoadingData()
       ) : (
         <div className="notif-relative" onClick={reRender}>
-          <IoNotificationsOutline id="notif" />
-          {render && filteredItems.length != 0 && (
+          <div>
+            <IoNotificationsOutline id="notif" />
+            {filteredItems.length > 0 && <div id="notifRedDot"></div>}
+          </div>
+          {render && filteredItems.length > 0 && (
             <div id="NotifPopUp">
               {filteredItems.map((notif: any) => (
                 <div className="notif-item" key={notif.id}>

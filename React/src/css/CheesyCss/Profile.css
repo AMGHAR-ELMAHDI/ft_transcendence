@@ -54,6 +54,8 @@
 
 #profile-img {
   width: 15rem;
+  height: 15rem;
+  object-fit: cover;
   border: 5px solid var(--blue-glow);
   border-radius: 50%;
   box-shadow: var(--blue-glow) 0px 20px 30px -10px;

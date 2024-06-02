@@ -25,6 +25,7 @@ function MainSettings() {
   const [renderButton, setRenderButton] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const url = useRecoilValue(Url);
+  const [file, setFile] = useState<any>();
   // const [isLoading, setIsLoading] = useState(true);
 
   let obj = {
@@ -51,6 +52,12 @@ function MainSettings() {
     getData();
   }, []);
 
+  const onImageChange = (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(URL.createObjectURL(event.target.files[0]));
+    }
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setRenderButton(false);
@@ -71,6 +78,7 @@ function MainSettings() {
       console.log(error);
     }
   };
+
   return (
     <>
       {/* {isLoading ? (
@@ -81,11 +89,18 @@ function MainSettings() {
           <div className="SettingsLeft">
             <div className="SettingsData">
               <div className="SettingsImg">
-                <img src={GetCorrect(data?.image, url)} alt="SettingImg" />
+                <img
+                  src={file || GetCorrect(data?.image, url)}
+                  alt="SettingImg"
+                />
 
                 <div className="SettingsImgEdit">
                   <label>
-                    <input type="file" ref={fileInputRef} />
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={onImageChange}
+                    />
                     <div
                       id="SettingsEdit"
                       onClick={() => setRenderButton(true)}

@@ -100,11 +100,14 @@
 
 #SettingsEdit > * {
   font-size: 2.5rem;
+  fill: var(--bg-color);
 }
 
 .SettingsImg > img {
   border-radius: 15px;
   height: 18rem;
+  max-width: 400px;
+  object-fit: cover;
 }
 
 .wht {
@@ -317,7 +320,6 @@ input:-webkit-autofill:active {
   }
   .SettingsComponents {
     flex-direction: row;
-
   }
   .LeftSpacer {
     width: 50%;
@@ -327,5 +329,4 @@ input:-webkit-autofill:active {
     padding: 0 2rem;
     gap: 3rem;
   }
-  
 }

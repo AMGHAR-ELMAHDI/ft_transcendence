@@ -6,9 +6,9 @@ import { useRecoilValue } from "recoil";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
 
-function getFriendStatus() {
-  return "Online";
-}
+// function getFriendStatus() {
+//   return "Online";
+// }
 
 function getProfileToolTip() {
   return (
@@ -26,9 +26,9 @@ function getProfileToolTip() {
         <th>
           <h1>COINS</h1>
         </th>
-        <th>
+        {/* <th>
           <h1>STATUS</h1>
-        </th>
+        </th> */}
       </tr>
     </thead>
   );
@@ -100,11 +100,11 @@ function ProfileFriends() {
                       {friend?.coins}
                     </h1>
                   </td>
-                  <td>
+                  {/* <td>
                     <h1 className="ProfileFriendStatus ProfileFriendH1">
                       {getFriendStatus()}
                     </h1>
-                  </td>
+                  </td> */}
                 </tr>
               </tbody>
             ))}

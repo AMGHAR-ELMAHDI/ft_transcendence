@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { setAuthToken } from "../Utils/setAuthToken";
 import { Link, useNavigate } from "react-router-dom";
 import Notif from "../Cheesy/Notif";
 import api from "../../api";

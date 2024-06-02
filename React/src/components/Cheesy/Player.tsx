@@ -1,12 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
 import LoadingData from "./LoadingData";
-
-function searchPlayer(search: string) {}
 
 function Player() {
   const [search, setSearch] = useState<string>("");

@@ -5,13 +5,10 @@ import {
   CircularProgressbarWithChildren,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import axios from "axios";
-import { setAuthToken } from "../Utils/setAuthToken";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
 import { GetCorrect } from "./LeaderBoardGetTop3";
-import GetCorrectImage from "./GetCorrectImage";
 import LoadingData from "./LoadingData";
 
 const divStyleDashboard = { justifyContent: "center" };

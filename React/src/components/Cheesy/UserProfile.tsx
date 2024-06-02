@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import AddFriend from "./AddFriend";
 import { GetCorrect } from "./LeaderBoardGetTop3";
-import GetFriendStatus from "./GetFriendStatus";
 import { BsPersonFillAdd } from "react-icons/bs";
 import {
   CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
+import api from "../../api";
 
 function getCircles(person: { win_rate: number; achievements_rate: number }) {
   return (
@@ -67,6 +67,21 @@ function UserProfile({ show, setRender, data }: UserProps) {
   let levelStart = Math.floor(data.level / 10);
   const url = useRecoilValue(Url);
   const [pending, setPending] = useState<boolean>(false);
+  const [friends, setFriends] = useState<any>({});
+  let Dont: boolean = false;
+
+  const getFriends = async () => {
+    try {
+      const response = await api.get("player/friends/");
+      setFriends(response.data?.friends);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getFriends();
+  }, []);
 
   const obj = {
     UserName: data.username,
@@ -78,6 +93,15 @@ function UserProfile({ show, setRender, data }: UserProps) {
     // localStorage.setItem(`FriendPending user1-${obj.UserName}`, "P");
     AddFriend(obj);
   };
+
+  if (Array.isArray(friends)) {
+    console.log(friends);
+
+    friends?.map((friend: any) => {
+      if (friend.username == data.username) Dont = true;
+    });
+  }
+  console.log(pending);
 
   return (
     <div id="Profile">
@@ -93,7 +117,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
         <div className="line1">
           <div className="line2"></div>
           <div onClick={sendRequest}>
-            {!pending && !GetFriendStatus(data.username) && (
+            {!pending && !Dont && (
               <div id="ProfileaddFriend">
                 <BsPersonFillAdd />
               </div>
