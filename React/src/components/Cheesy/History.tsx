@@ -135,7 +135,7 @@ function History({ UserData, UseUserData }: HistoryProps) {
                   <h1>{getDate(game?.date)}</h1>
                 </td>
                 <td className="Toruk">
-                  <h1>{game.opponent}</h1>
+                  <h1>{game?.opponent_username[0]?.username}</h1>
                 </td>
                 <td className="ScoreTd Toruk">
                   {getScore(game.player_score, game.opponent_score)}

@@ -28,7 +28,7 @@ function ProfileItems({ UserData, UseUserData }: HistoryProps) {
   const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  let getUrl;
+  let getUrl: string;
   if (!UseUserData) getUrl = "player/items/";
   else getUrl = `player/${UserData?.username}/items/`;
 

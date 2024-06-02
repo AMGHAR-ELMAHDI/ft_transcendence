@@ -1,12 +1,5 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
-
-// "image": "/media/store/images/DefeatBot7_oVhzQX9.png" //*** *
-
-// "image": "http://localhost:2500/media/media/store/images/default.png"
-
-// "avatar": "/media/store/images/DefeatBot7_oVhzQX9.png",
 
 function GetCorrectImage(image: string) {
   const url = useRecoilValue(Url);

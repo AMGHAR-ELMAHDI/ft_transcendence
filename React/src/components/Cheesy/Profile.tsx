@@ -78,15 +78,6 @@ interface ProfileProps {
   setRender: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function getLevelStart(person: { level: number }) {
-  let levelStartIndex = person.level.toString().lastIndexOf(".") + 1;
-  let levelStart = "";
-  if (levelStartIndex != 0)
-    levelStart = person.level.toString().slice(levelStartIndex);
-  else levelStart = "0";
-  return Number(levelStart);
-}
-
 function Profile({ profileList, show, setRender }: ProfileProps) {
   const profileLevelStyle =
     profileList === "RenderList" ? divStyleProfile : divStyleDashboard;
@@ -99,7 +90,6 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   const getData = async () => {
     try {
       const response = await api.get("player/me");
-      // console.log(response.data);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -125,7 +115,6 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     games: data.games ? data.games : [0],
   };
 
-  let levelStart = getLevelStart(obj) * 100;
   return (
     <>
       {isLoading && LoadingData()}
@@ -150,11 +139,11 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
               {boolRender && <div></div>}
               <div id="profile-level-container">
                 <div id="profile-level-text">
-                  <h2>Level {obj.level}</h2>
-                  <h2>{levelStart}/1000</h2>
+                  <h2>Level {Math.floor(obj.level / 1000)}</h2>
+                  <h2>{obj.level}/1000</h2>
                 </div>
                 <div id="profile-level-bar">
-                  <progress id="progress-bar" value={levelStart} max={1000} />
+                  <progress id="progress-bar" value={obj.level} max={1000} />
                 </div>
               </div>
               {boolRender && (

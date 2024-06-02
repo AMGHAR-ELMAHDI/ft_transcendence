@@ -84,7 +84,7 @@ function ProfileHistory() {
                 >
                   <div className="history-tabs-left-container">
                     <div id="dashboard-history-opponent">
-                      <h3>{game.opponent}</h3>
+                      <h3>{game?.opponent_username[0]?.username}</h3>
                     </div>
                     {getScore(game.player_score, game.opponent_score)}
                     <div id="dashboard-history-mode">

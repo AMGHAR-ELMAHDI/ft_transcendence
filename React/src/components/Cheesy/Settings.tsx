@@ -9,8 +9,6 @@ import SettingsGeneralInfo from "./SettingsGeneralInfo";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
-import GetCorrectImage from "./GetCorrectImage";
-import LoadingData from "./LoadingData";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 
 function getSecurity() {

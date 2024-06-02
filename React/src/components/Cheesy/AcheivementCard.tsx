@@ -10,7 +10,12 @@ function AcheivementCard({ title, desc, path, Obtaining_date }: CardProps) {
       onMouseEnter={() => setShowDate(true)}
       onMouseLeave={() => setShowDate(false)}
     >
-      <img src={path} alt={title} />
+      <img
+        src={
+          "https://github.com/AMGHAR-ELMAHDI/GameHub/blob/main/Images/GameHubDesktop.png?raw=true"
+        }
+        alt={title}
+      />
       <div className="ProfileItemInfo">
         <h2>{title}</h2>
         <p>{desc}</p>
