@@ -38,6 +38,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path="/settings" element={<Settings />} />
       </Route>
+
       <Route path="*" element={<NotFound />} />
     </>
   )

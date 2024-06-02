@@ -27,7 +27,6 @@ function SettingsGeneralInfo({ image }: Props) {
 
     try {
       const response = await api.put("player/setting/", obj);
-      console.log(response.data);
       setData(response.data);
     } catch (error) {
       console.log(error);

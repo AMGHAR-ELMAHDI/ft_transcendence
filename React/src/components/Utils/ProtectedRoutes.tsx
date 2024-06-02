@@ -1,10 +1,7 @@
-import { Outlet, Navigate } from 'react-router-dom'
-import { useRecoilValue } from 'recoil'
-import IsLogged from "../../Atoms/IsLogged";
-
+import { Outlet, Navigate } from "react-router-dom";
 function ProtectedRoutes() {
-    const Logged =  useRecoilValue(IsLogged);
+  const Logged = localStorage.getItem("token") ? true : false;
   return Logged ? <Outlet /> : <Navigate to="/login" />;
 }
 
-export default ProtectedRoutes
+export default ProtectedRoutes;

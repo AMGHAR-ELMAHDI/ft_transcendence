@@ -29,7 +29,6 @@ function getRegister() {
     axios
       .post(url + "auth/users/", obj)
       .then((response) => {
-        // console.log(response.data);
         if (response.status === 201) {
           setLoged(true);
           navigate("/login");

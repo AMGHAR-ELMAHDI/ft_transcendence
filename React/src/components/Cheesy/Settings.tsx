@@ -63,12 +63,10 @@ function MainSettings() {
       formData.append("last_name", obj.last_name);
       formData.append("username", obj.username);
 
-      if (fileInputRef.current?.files?.[0]) {
+      if (fileInputRef.current?.files?.[0])
         formData.append("image", fileInputRef.current.files[0]);
-      }
 
       const response = await api.put("player/setting/", formData);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

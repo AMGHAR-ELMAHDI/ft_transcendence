@@ -86,7 +86,6 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   const url = useRecoilValue(Url);
   const [isLoading, setIsLoading] = useState(true);
 
-  setAuthToken();
   const getData = async () => {
     try {
       const response = await api.get("player/me");

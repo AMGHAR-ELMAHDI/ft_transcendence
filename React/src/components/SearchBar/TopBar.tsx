@@ -133,7 +133,7 @@ function TopBar() {
             )}
           </div>
           <div className="NotifProfile">
-            {Notif()}
+            {<Notif />}
             <div
               className="div-relat"
               onMouseEnter={() => setDropdownVisible(true)}

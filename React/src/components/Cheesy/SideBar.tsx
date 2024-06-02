@@ -23,7 +23,6 @@ function SideBar() {
       setTokenValue("");
       localStorage.removeItem("token");
       setLogged(false);
-      console.log("USER LOGGED OUT");
     };
 
     const handleCancelLogout = () => {

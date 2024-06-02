@@ -38,7 +38,6 @@ function ChatSystem() {
     try {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
-      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }
