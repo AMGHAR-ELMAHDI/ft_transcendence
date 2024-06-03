@@ -177,12 +177,9 @@ function ChatTyping() {
 
     newSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
-      const hour = data["timestamp"].hour;
-      const minute = data["timestamp"].minute;
-      const time = hour + ":" + minute;
       const msg = {
         content: data["message"],
-        time: time,
+        timestamp: data["timestamp"],
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
@@ -211,6 +208,12 @@ function ChatTyping() {
     }
   };
 
+  function extractTime(timestampString : any) {
+    const dateObject = new Date(timestampString);
+    const desiredTime = dateObject.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return desiredTime;
+  }
+
   return (
     <>
       <div className="Type-wrapper">
@@ -218,9 +221,13 @@ function ChatTyping() {
           {allMessages.map((msg: any, index) => (
             <div key={index}>
               {msg.sender !== id ? (
-                <Sender message={msg.content} time={msg.time} name="You" />
+                <Sender message={msg.content} time={extractTime(msg.timestamp)} name="You" />
               ) : (
-                <Receiver message={msg.content} time={msg.time} name="Friend" />
+                <Receiver
+                  message={msg.content}
+                  time={extractTime(msg.timestamp)}
+                  name="Friend"
+                />
               )}
             </div>
           ))}
