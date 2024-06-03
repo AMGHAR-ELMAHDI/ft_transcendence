@@ -115,6 +115,7 @@ function ChatFriends() {
 interface MessageInfo {
   name: string;
   message: string;
+  time: string;
 }
 
 function Receiver({ message }: MessageInfo) {
@@ -129,7 +130,7 @@ function Receiver({ message }: MessageInfo) {
   );
 }
 
-function Sender({ name, message}: MessageInfo) {
+function Sender({ name, message, time }: MessageInfo) {
   return (
     <>
       <div className="Sender">
@@ -139,7 +140,7 @@ function Sender({ name, message}: MessageInfo) {
           </div>
           <div className="Sender-name-img">
             <div className="Sender-message-name">
-              {/* <p>{time}</p> */}
+              <p>{time}</p>
               <li>{name}</li>
             </div>
             <div className="Sender-message-img">
@@ -176,9 +177,12 @@ function ChatTyping() {
 
     newSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
+      const hour = data["timestamp"].hour;
+      const minute = data["timestamp"].minute;
+      const time = hour + ":" + minute;
       const msg = {
         content: data["message"],
-        timestamp: data["timestamp"],
+        time: time,
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
@@ -214,12 +218,9 @@ function ChatTyping() {
           {allMessages.map((msg: any, index) => (
             <div key={index}>
               {msg.sender !== id ? (
-                <Sender message={msg.content} name="You" />
+                <Sender message={msg.content} time={msg.time} name="You" />
               ) : (
-                <Receiver
-                  message={msg.content}
-                  name="Friend"
-                />
+                <Receiver message={msg.content} time={msg.time} name="Friend" />
               )}
             </div>
           ))}

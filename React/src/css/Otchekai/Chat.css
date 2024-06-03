@@ -141,7 +141,7 @@
 }
 .Receiver {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   margin-bottom: .5rem;
 }
 
