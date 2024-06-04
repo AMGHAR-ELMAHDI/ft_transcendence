@@ -208,9 +208,12 @@ function ChatTyping() {
     }
   };
 
-  function extractTime(timestampString : any) {
+  function extractTime(timestampString: any) {
     const dateObject = new Date(timestampString);
-    const desiredTime = dateObject.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const desiredTime = dateObject.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     return desiredTime;
   }
 
@@ -221,7 +224,11 @@ function ChatTyping() {
           {allMessages.map((msg: any, index) => (
             <div key={index}>
               {msg.sender !== id ? (
-                <Sender message={msg.content} time={extractTime(msg.timestamp)} name="You" />
+                <Sender
+                  message={msg.content}
+                  time={extractTime(msg.timestamp)}
+                  name="You"
+                />
               ) : (
                 <Receiver
                   message={msg.content}
@@ -240,9 +247,9 @@ function ChatTyping() {
               placeholder="Type Something ..."
             />
           </div>
-          <div className="Chat-send-button">
+          <button type="submit" className="Chat-send-button">
             <img src="/Send-button.svg" id="bottona" />
-          </div>
+          </button>
         </form>
       </div>
     </>

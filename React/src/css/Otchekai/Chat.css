@@ -295,6 +295,11 @@
     rgba(30, 142, 243, 1) 0px 0px 0px 1px;
 }
 
+.Chat-send-button {
+	background: none;
+	border: none;
+}
+
 #bottona {
   padding: 12px;
   border-radius: 12px;
