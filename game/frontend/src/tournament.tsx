@@ -143,7 +143,9 @@ function tournament({NetType}: OnlineGame) {
 
 		if (NetType === 'local' || NetType === 'local2' || NetType === 'local3' || NetType === 'final') return
 
-		// if (NetType === 'final') {
+
+		console.log(NetType)
+		// if (NetType === 'endT') {
 
 		// }
 
@@ -219,8 +221,12 @@ function tournament({NetType}: OnlineGame) {
 				if (name === final_1?.textContent || name === final_2?.textContent)
 					setTimeout(()=> SetFinal2(true), 3000)
 			}
-			if (NetType === 'final') {
-				console.log(winner?.textContent)
+			if (NetType === 'endT') {
+				const parent = document!.querySelector('.tournCont')
+				if (name === winner?.textContent)
+					parent!.classList.add('win_')
+				else
+					parent?.classList.add('lost_2')
 				if (winner?.textContent != '?')
 				{
 					TnSocket.send(JSON.stringify({

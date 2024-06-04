@@ -13,49 +13,6 @@ interface LocalGameProps {
 	Name2: string;
 }
 
-function _tournaments() {
-	return (
-		<>
-			<_title title='nothing'/>
-			<div className="tournCont">
-				<div className="tournament">
-					<div className="LeftJoin">
-						<div className="first call">
-							<h1>Me</h1>
-						</div>
-						<div className="second call">
-							<h1>...</h1>
-						</div>
-					</div>
-					<img className='cup' src='/cup.svg'></img>
-					<div className="middle">
-						<div className="CupWinner">
-							<h1>?</h1>
-						</div>
-						<span id="candidary">
-							<div className="final_1">
-								<h1>...</h1>
-							</div>
-							<div className="final_2">
-								<h1>...</h1>
-							</div>
-						</span>
-					</div>
-					<div className="RightJoin">
-						<div className="first call">
-							<h1>...</h1>
-						</div>
-						<div className="second call">
-							<h1>...</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-		</>
-	)
-}
-
-
 function GameInterface({Type, Name, Name2}:LocalGameProps) {
 	return (
 		<>
@@ -211,7 +168,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			objSocket.send(JSON.stringify({
 				'type': 'it_ends_now',
 				'room': room_group_name,
-				'winner': paddle.player
+				'winner': paddle.player,
 			}))
 		}
 
@@ -289,9 +246,10 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 				if (data?.message?.winner2 != undefined && firstwinner)
 					secondwinner!.innerHTML = data!.message!.winner2
 			}
-			if (data?.message?.type === 'finals') {
-				SetLastGame(true)
+			else if (data?.message?.type === 'finals') {
 				const winner = document!.querySelector('.CupWinner')
+				if (Type === 'final')
+					SetLastGame(true)
 				if (data?.message?.index != index) {
 					const parent = document!.querySelector('.tournCont')
 					parent?.classList.add('lost_2')
@@ -301,7 +259,8 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 					document!.querySelector('.tournCont')?.classList.add('win_')
 					SetWinner(true)
 				}
-				winner!.innerHTML = data!.message!.winner
+				if (winner)
+					winner!.innerHTML = data!.message!.winner
 			}
 
 			if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
@@ -344,7 +303,7 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			{WON && <_Queue TheTitle='YOU WON'/>}
 			{(!Exit && !Exit2 && !lastGame) && <GameInterface Type='' Name={Name} Name2={Name2}/>}
 			{(Exit || Exit2) && <_tournament NetType='FinalGame'/>}
-			{lastGame && <_tournament NetType='final'/>}
+			{lastGame && <_tournament NetType='endT'/>}
 		</>
 	);
 }

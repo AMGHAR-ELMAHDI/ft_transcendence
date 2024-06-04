@@ -12,9 +12,27 @@ class GameConsumer(AsyncWebsocketConsumer):
 
     seconds = 0
     roomnb = 1
+    finalnb = 3
     data = ""
     rooms = {}
     task = ""
+
+    async def Qualification(self, index):
+        while True:
+            GameConsumer.roomnb = index
+            tempRoom = f'bertouch_{index}'
+            if tempRoom not in self.rooms and (GameConsumer.roomnb % 3 == 1 or GameConsumer.roomnb % 3 == 2):
+                self.room_group_name = tempRoom
+                break
+            index += 1
+
+    async def FinalGame(self):
+        tempRoom = f'bertouch_{GameConsumer.finalnb}'
+
+        if tempRoom in self.rooms and self.rooms[tempRoom]['index'] + 1 >= 3:
+            GameConsumer.finalnb += 3
+            tempRoom = f'bertouch_{GameConsumer.finalnb}'
+        self.room_group_name = tempRoom
 
     async def connect(self):
         user = self.scope['user']
@@ -24,7 +42,23 @@ class GameConsumer(AsyncWebsocketConsumer):
         else:
             return JsonResponse({'error': 'The user is not Authenticated or the room is already started'}, status=403)
 
-        self.room_group_name = f'bertouch_{GameConsumer.roomnb}'
+        UserExist = False
+
+        if GameConsumer.roomnb > 1:
+            for skey, value in self.rooms.items():
+                for key in value['players']:
+                    if key == self.username:
+                        UserExist = True
+                        break
+
+        if not GameConsumer.roomnb % 3:
+            GameConsumer.roomnb += 1
+
+
+        if UserExist:
+            await self.FinalGame()
+        else:
+            self.room_group_name = f'bertouch_{GameConsumer.roomnb}'
 
         if self.room_group_name not in self.rooms:
             print(f' -> {self.room_group_name}')
@@ -53,7 +87,7 @@ class GameConsumer(AsyncWebsocketConsumer):
             "name": self.username,
         }))
 
-        print('\nplayers: ', ThisRoom, '\nlen = ', Index['index'], '\nroomnb: ', GameConsumer.roomnb)
+        # print('\nplayers: ', ThisRoom, '\nlen = ', Index['index'], '\nroomnb: ', GameConsumer.roomnb)
 
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
 
@@ -62,6 +96,16 @@ class GameConsumer(AsyncWebsocketConsumer):
 
         if (Index['index'] == 2):
             self.task = asyncio.ensure_future(self.sendBallPos())
+
+    async def reset(self, room_group_name):
+        room = self.rooms[room_group_name]
+        room['winner'] = ''
+        room['players'].clear()
+        room['index'] = 0
+        room['ball'] = views.Ball(67, 67, 7, 7, 10)
+        room['paddle1'] = views.Paddle(0, 20, 5, 5, 20, 160)
+        room['paddle2'] = views.Paddle(0, 50, 5, 5, 20, 160)
+
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
@@ -92,14 +136,17 @@ class GameConsumer(AsyncWebsocketConsumer):
                     "posY": self.rooms[self.room_group_name]['paddle2'].posY,
                 }
             await self.custom_Async(message, "paddleChan")
-
             await asyncio.sleep(0.002)
 
         if message_type == 'it_ends_now':
             self.rooms[infos['room']]['winner'] = infos['winner']
 
-            if not GameConsumer.roomnb % 3:
-                TempOne = GameConsumer.roomnb - 1
+            roomName = infos['room']
+            pos = roomName.find('_')
+            roomId = roomName[pos + 1:len(roomName)]
+
+            if not (int(roomId) + 1) % 3:
+                TempOne = int(roomId)
                 winner1 = self.rooms[f'bertouch_{TempOne - 1}']['winner']
                 winner2 = self.rooms[f'bertouch_{TempOne}']['winner']
 
@@ -120,8 +167,8 @@ class GameConsumer(AsyncWebsocketConsumer):
                     await self.sendMultipleRooms(message, 'winner', TempOne - 1)
                     await self.sendMultipleRooms(message, 'winner', TempOne)
 
-            if not (GameConsumer.roomnb - 1) % 3:
-                TempOne = GameConsumer.roomnb - 1
+            if not (int(roomId)) % 3:
+                TempOne = int(roomId)
                 winner = self.rooms[f'bertouch_{TempOne}']['winner']
 
                 if winner in self.rooms[f'bertouch_{TempOne}']['players']:
@@ -131,6 +178,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                     'type': 'finals',
                     'winner': winner,
                     'index': index,
+                    'game': self.room_group_name,
                 }
                 await self.sendMultipleRooms(message, 'winner', TempOne)
 
@@ -140,7 +188,8 @@ class GameConsumer(AsyncWebsocketConsumer):
             try:
                 await self.task
             except asyncio.CancelledError:
-                print("Task cancellation confirmed")
+                # print("Task cancellation confirmed")
+                pass
 
     async def sendMultipleRooms(self, message, type, roomnb):
         await self.channel_layer.group_send(
@@ -233,12 +282,13 @@ class TournamentM_(AsyncWebsocketConsumer):
         if TournamentM_.RoomNb > 0:
             for skey, value in self.rooms.items():
                 for key in value['players']:
-                    if key == self.username:
+                    if key == self.username: # and value['winner'] != ''
                         UserExist = True
-                        TournamentM_.RoomNb -= 1
+                        self.room_group_name = skey
                         break
 
-        self.room_group_name = f"tournament_{TournamentM_.RoomNb}"
+        if not UserExist:
+            self.room_group_name = f"tournament_{TournamentM_.RoomNb}"
         if self.room_group_name not in self.rooms:
             print(f' -> {self.room_group_name}')
             self.rooms[self.room_group_name] = {
@@ -294,14 +344,6 @@ class TournamentM_(AsyncWebsocketConsumer):
                 "message": message,
             },
         )
-
-    async def final(self, event):
-        message = event['message']
-        await self.send(json.dumps({
-            'type': 'final',
-            'message': message,
-        }))
-
 
     async def receive(self, text_data):
         data = json.loads(text_data)
