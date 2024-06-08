@@ -322,6 +322,7 @@
 }
 
 #lonely > p {
+  font-family: cool;
   color: gray;
   font-size: 70px;
 }

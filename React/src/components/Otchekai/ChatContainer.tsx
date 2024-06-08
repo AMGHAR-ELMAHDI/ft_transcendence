@@ -49,7 +49,7 @@ function ChatSystem() {
     return (
       <>
         <div id="lonely">
-          <p>You don't have any friends yet add them to chat !!</p>
+          <p>You dont have any friends yet. Add some to chat with them!</p>
         </div>
       </>
     );
@@ -112,7 +112,6 @@ function ChatFriends() {
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
-              {/* <p id="Last-message">mbanch lik dek mahdi bghit n...</p> */}
             </div>
           </div>
         ))}
@@ -161,7 +160,10 @@ function Sender({ name, message, time }: MessageInfo) {
     </>
   );
 }
-
+//TODO:sort messages by time
+//FIXME:responsive design
+//TODO:hard code the time (font end)
+//TODO:check whether on two clients at the same time (receiver and sender)
 function ChatTyping() {
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
@@ -186,9 +188,10 @@ function ChatTyping() {
 
     newSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
+      console.log(data);
       const msg = {
         content: data["message"],
-        timestamp: data["timestamp"],
+        timestamp: new Date(),
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
@@ -218,6 +221,7 @@ function ChatTyping() {
   };
 
   function extractTime(timestampString: any) {
+    console.log("hahowa", timestampString);
     const dateObject = new Date(timestampString);
     const desiredTime = dateObject.toLocaleTimeString([], {
       hour: "2-digit",
