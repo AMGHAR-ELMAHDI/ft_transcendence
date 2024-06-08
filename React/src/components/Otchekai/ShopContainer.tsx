@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
-import LoadingData from "../Cheesy/LoadingData";
 
 interface CardProps {
   name: string;
@@ -113,17 +112,14 @@ function GetAvatar() {
 function ShopDesign() {
   const [shopItems, setShopItems] = useRecoilState(ShopItems);
   const [ownedItems, setownedItems] = useRecoilState(OwnedItems);
-  const [isLoading, setIsLoading] = useState(true);
   //get items shop
   setAuthToken();
   const getData = async () => {
     try {
       const response = await api.get("shop/");
       setShopItems(response.data.all_items);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -144,19 +140,15 @@ function ShopDesign() {
   }, []);
   return (
     <>
-      {isLoading ? (
-        LoadingData()
-      ) : (
-        <div className="container">
-          <div className="wrapper">
-            <div className="Items">
-              <GetPaddle />
-              <GetBackground />
-              <GetAvatar />
-            </div>
+      <div className="container">
+        <div className="wrapper">
+          <div className="Items">
+            <GetPaddle />
+            <GetBackground />
+            <GetAvatar />
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

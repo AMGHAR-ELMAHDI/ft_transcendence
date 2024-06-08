@@ -141,7 +141,7 @@
 }
 .Receiver {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   margin-bottom: .5rem;
 }
 
@@ -293,6 +293,11 @@
 .Input-box > input:hover {
   box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
     rgba(30, 142, 243, 1) 0px 0px 0px 1px;
+}
+
+.Chat-send-button {
+	background: none;
+	border: none;
 }
 
 #bottona {
