@@ -45,28 +45,38 @@ function ChatSystem() {
   useEffect(() => {
     getData();
   }, []);
-  return (
-    <>
-      <div className="Chat-wrapper">
-        <div className="Chat-headers">
-          <h1 id="Chatlogo">Friends</h1>
-          <div className="Friend-header">
-            <div className="Friend-header-img">
-              <img src="/bacharG.svg" id="bachar" />
-            </div>
-            <div className="Friend-header-name">
-              <li>Micheal The Nigger</li>
-              <p>online</p>
+  if (FriendsChat.length === 0) {
+    return (
+      <>
+        <div id="lonely">
+          <p>You don't have any friends yet add them to chat !!</p>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className="Chat-wrapper">
+          <div className="Chat-headers">
+            <h1 id="Chatlogo">Friends</h1>
+            <div className="Friend-header">
+              <div className="Friend-header-img">
+                <img src="/bacharG.svg" id="bachar" />
+              </div>
+              <div className="Friend-header-name">
+                <li>Micheal The Nigger</li>
+                <p>online</p>
+              </div>
             </div>
           </div>
+          <div className="Chat-container">
+            <ChatFriends />
+            <ChatTyping />
+          </div>
         </div>
-        <div className="Chat-container">
-          <ChatFriends />
-          <ChatTyping />
-        </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 
 function ChatFriends() {
@@ -91,7 +101,6 @@ function ChatFriends() {
   return (
     <>
       <div className="Friends-wrapper">
-        {/* <p id="LastMessages">Messages (TBD)</p> */}
         {Friends.map((item: any) => (
           <div
             className="Chat-Friendslist"
@@ -103,7 +112,7 @@ function ChatFriends() {
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
-              <p id="Last-message">mbanch lik dek mahdi bghit n...</p>
+              {/* <p id="Last-message">mbanch lik dek mahdi bghit n...</p> */}
             </div>
           </div>
         ))}

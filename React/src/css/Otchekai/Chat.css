@@ -32,6 +32,7 @@
   max-height: 1000px;
   margin-top: 8rem;
   overflow-y: scroll;
+  width: 20%;
 }
 
 .Chat-Friendslist {
@@ -73,8 +74,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 2;
-  /* width: 1628px; */
+  width: 80%;
 }
 
 .Chat-container {
@@ -142,7 +142,7 @@
 .Receiver {
   display: flex;
   flex-direction: column-reverse;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .First-message {
@@ -296,8 +296,8 @@
 }
 
 .Chat-send-button {
-	background: none;
-	border: none;
+  background: none;
+  border: none;
   padding: 0;
 }
 
@@ -312,4 +312,16 @@
 #bottona:hover {
   box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
     rgba(30, 142, 243, 1) 0px 0px 0px 1px;
+}
+
+#lonely {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lonely > p {
+  color: gray;
+  font-size: 70px;
 }
