@@ -35,6 +35,9 @@ def authenticate_user(authorization_header):
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        print("-------------")
+        print (self.scope['headers'])
+        print("-------------")
         authorization_header = next((value for name, value in self.scope['headers'] if name == b'authorization'), None)
         
         if not authorization_header:

@@ -1,5 +1,6 @@
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
+import Game from "../Mnassi/Game/Game";
 
 export default function GameContainer() {
   return (
@@ -8,6 +9,7 @@ export default function GameContainer() {
         <SideBar />
         <div className="main">
           <TopBar />
+          <Game />
         </div>
       </div>
     </>

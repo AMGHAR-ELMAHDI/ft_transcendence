@@ -1,0 +1,60 @@
+:root {
+	--custBack: #0C0E14;
+	--NeonEffect: #1D90F5;
+	--fadedFColor: #000E15;
+	--fadedSColor: #005379;
+	--BallX: 50%;
+	--BallY: 50%;
+	--interfaceX: 1359px;
+	--interfaceY: 841px;
+	--PaddleX: 25px;
+	--PaddleY: 30px;
+}
+#root {
+	width: 100%;
+	height: 100svh;
+}
+@font-face {
+	font-family: lightpant;
+	src: url(/Panton-Trial-Light.ttf);
+}
+@font-face {
+	font-family: pant;
+	src: url(/Panton-Trial-Bold.ttf);
+}
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: pant;
+}
+body {
+	overflow: hidden;
+	height: 100svh;
+	background: var(--custBack);
+	background-size: cover;
+	background-position: center;
+	padding: 0;
+	margin: 0;
+}
+._mods {
+	position: absolute;
+	right: 160px;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	top: 50%;
+	transform: translateY(-50%);
+	gap: 60px;
+}
+._mods img {
+	border: 2px solid var(--NeonEffect);
+	border-radius: 15px;
+	box-shadow: 0 0 23px 0px var(--NeonEffect);
+	cursor: pointer;
+	transition: .2s;
+}
+._mods img:hover {
+	box-shadow: 0 0 30px 3px var(--NeonEffect);
+}

@@ -8,6 +8,39 @@ from . import models
 import asyncio
 from channels.db import database_sync_to_async
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from django.conf import settings
+from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.db import database_sync_to_async
+from asgiref.sync import sync_to_async
+from userman.models import Player
+from .models import Message
+import datetime
+import json
+import jwt
+
+@sync_to_async
+def authenticate_user(authorization_header):
+    
+    if not authorization_header:
+        return None, "Authorization header not found"
+    
+    try:
+        token = authorization_header.decode('utf-8').split()[1]
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+        user_id = payload['user_id']
+        user = get_object_or_404(get_user_model(), pk=user_id)
+        return user, None
+    except IndexError:
+        return None, "Invalid token format"
+    except jwt.ExpiredSignatureError:
+        return None, "Token expired"
+    except (jwt.InvalidTokenError, KeyError):
+        return None, "Invalid token"
+
 class GameConsumer(AsyncWebsocketConsumer):
 
     seconds = 0
@@ -35,10 +68,15 @@ class GameConsumer(AsyncWebsocketConsumer):
         self.room_group_name = tempRoom
 
     async def connect(self):
-        user = self.scope['user']
-        if user.is_authenticated:
-            self.username = user.username
+
+        authorization_header = next((value for name, value in self.scope['headers'] if name == b'authorization'), None)
+        user, zbel = authenticate_user(authorization_header)
+        if user is not None:
+        # user = self.scope['user']
+        # if user.is_authenticated:
+            self.username = user
             await self.accept()
+            print("---------> Connected to WebSocket")
         else:
             return JsonResponse({'error': 'The user is not Authenticated or the room is already started'}, status=403)
 
