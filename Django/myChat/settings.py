@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -46,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'userman',
 	'purshase',
-    
+	'online',
+	'loginPage',
 ]
 
 MIDDLEWARE = [
@@ -149,10 +152,21 @@ EMAIL_USE_SSL = False
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db5.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db5.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ft_transcendence',
+		'USER' : 'mnassi',
+		'PASSWORD': 'password',
+		'HOST' : 'localhost',
+		'PORT': '5432',
     }
 }
 

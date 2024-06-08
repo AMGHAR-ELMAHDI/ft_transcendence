@@ -32,10 +32,12 @@ class Player(AbstractBaseUser):
     
     STATUS_ONLINE = 'O'
     STATUS_OFFLINE = 'F'
+    STATUS_IN_GAME = 'G'
 
     STATUS_CHOICES = [
         (STATUS_ONLINE, 'ONLINE'),
         (STATUS_OFFLINE, 'OFFLINE'),
+        (STATUS_IN_GAME, 'IN_GAME'),
     ]
     coins = models.IntegerField(default=0)
     status = models.CharField(

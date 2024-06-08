@@ -12,7 +12,7 @@ import LeaderBoardContainer from "./components/Cheesy/LeaderBoardContainer";
 import NotFound from "./components/Cheesy/NotFound";
 import Settings from "./components/Cheesy/Settings";
 import ShopContainer from "./components/Otchekai/ShopContainer";
-import Login from "./components/Cheesy/Login";
+import Login from "./components/Mnassi/LoginRegister/Login";
 import Register from "./components/Cheesy/Register";
 import Users, { UsersLoader } from "./components/Cheesy/Users";
 import ProfileLayout from "./components/Cheesy/ProfileLayout";
@@ -26,7 +26,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      <Route element={<ProtectedRoutes />}>
+      {/* <Route element={<ProtectedRoutes />}> */}
         <Route path="/" element={<DashboardContainer />} />
         <Route path="/chat" element={<ChatContainer />} />
         <Route path="/game" element={<GameContainer />} />
@@ -37,7 +37,7 @@ const router = createBrowserRouter(
           <Route path=":username" element={<Users />} loader={UsersLoader} />
         </Route>
         <Route path="/settings" element={<Settings />} />
-      </Route>
+      {/* </Route> */}
 
       <Route path="*" element={<NotFound />} />
     </>
