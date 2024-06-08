@@ -1,0 +1,120 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	color: white;
+}
+:root {
+	--backForm: #1B1D26;
+	--ledBlue: #5FCAE4;
+	--ledRed: #e45f5f;
+	--ledGreen: #67c74f;
+}
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.cmon {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	align-items: center;
+	height: 80svh;
+	flex-flow: column;
+}
+.ci {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 70%;
+	background-color: var(--backForm);
+	box-shadow: 0 -10px 4px #1b1d267d,
+				-10px 0px 4px #1b1d267d,
+				0 10px 4px #1b1d267d,
+				10px 0px 4px #1b1d267d;
+	width: 1400px;
+	position: relative;
+
+}
+.log {
+	width: 130px;
+	height: 130px;
+	border-radius: 50%;
+	background-color: var(--ledBlue);
+	border: 7px solid #0C0E14;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: -10%;
+}
+.inputs-h {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-flow: column wrap-reverse;
+	height: 100%;
+}
+.inpone, .inptwo, .inptree, .inpfour {
+	width: 430px;
+	height: 52px;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.115);
+	outline: none;
+	border: none;
+	font-size: 23px;
+	border-bottom: 3px solid white;
+	color: white;
+	transition: .3s;
+}
+.inputs-h div {
+	display: flex;
+	flex-flow: column;
+	align-items: flex-start;
+}
+.inputs-h div label {
+	font-size: 24px;
+}
+#btn-reg {
+	width: 183px;
+	height: 45px;
+	background-color: var(--ledBlue);
+	text-transform: uppercase;
+	position: relative;
+	border-radius: 0;
+	overflow: hidden;
+}
+#btn-reg::before {
+	content: 'register';
+	background-color: var(--ledGreen);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	transform: translateX(100%);
+	transition: .3s;
+	text-transform: uppercase;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#btn-reg:hover::before {
+	transform: translateX(0);
+}
+#btn-reg:hover, #btn-reg:focus {
+	outline: none;
+	border: none;
+}
+.empty {
+	background: rgba(198, 88, 88, 0.356);
+	border-bottom: 3px solid red;
+}
+.inputs-h div input:hover {
+	background-color: transparent;
+}
+.VirParent {
+	width: 100%;
+	height: 100svh;
+}

@@ -70,8 +70,8 @@ function Notif() {
   useEffect(() => {
     getPlayers();
     getData();
-    const interval = setInterval(getData, 5000);
-    return () => clearInterval(interval);
+    // const interval = setInterval(getData, 5000);
+    // return () => clearInterval(interval);
   }, []);
 
   const filteredItems = received.filter((user: any) =>
