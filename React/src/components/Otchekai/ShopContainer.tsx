@@ -34,8 +34,8 @@ function ShopContainer() {
 
 export default ShopContainer;
 
-function FilterItems(ownedItems: any, name: string) {
-  const Filter = ownedItems.find((obj: any) => obj.name === name);
+function FilterItems(ownedItems: any[], name: string) {
+  const Filter = Array(ownedItems).find((obj: any) => obj.name === name);
   if (Filter) return true;
   else return false;
 }
@@ -154,7 +154,6 @@ function ShopDesign() {
 }
 
 //TODO:Add UseState to rerender the Items when bought, ADD Shake effect(green and red color)
-
 function Card({ name, price, image, id }: CardProps) {
   const obj = {
     item_id: id,

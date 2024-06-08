@@ -1,0 +1,78 @@
+:root {
+  --bg-color: #0c0e14;
+  --font-color: white;
+  --grey-bg-color: hsl(227, 15%, 23%);
+  --blue-glow: #5fcae4;
+}
+
+* {
+  /* border: 0.1px solid gray; */
+}
+
+#ProfileFriendsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  border: 1px solid var(--blue-glow);
+  border-radius: 25px;
+  overflow-y: scroll;
+  max-height: 930px;
+  padding: 2rem;
+}
+
+.ProfileFriendsSpacer {
+  background-color: red;
+  display: flex;
+  height: 10px;
+}
+
+.ProfileFriendsToolTip > th > h1 {
+  font-size: 1.7rem;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.ProfileFriendsContainer > table > tbody > tr {
+  border: 1px solid var(--blue-glow);
+}
+
+.ProfileFriendsContent > td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--blue-glow);
+}
+
+.ProfileFriendsContent > td > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ProfileFriendH1 {
+  font-size: 1.6rem;
+}
+
+.ProfileFriendImg {
+  max-width: 8rem;
+  border-radius: 50%;
+  box-shadow: 0 5px 5px 0 var(--blue-glow);
+}
+
+.ProfileFriendImg {
+  cursor: pointer;
+}
+
+.ProfileFriendUsername {
+  cursor: pointer;
+  color: var(--blue-glow);
+}
+
+@media only screen and (max-width: 2880px) {
+  .ProfileFriendsContainer {
+    height: 50vh !important;
+  }
+}
+
+@media only screen and (max-width: 2560px) {
+}

@@ -44,6 +44,7 @@
   opacity: 1;
   scale: 1.01;
   cursor: pointer;
+  transition: all 0.4s ease-in-out;
 }
 
 #Dashboard-Main-GameModeContainer:hover::before {
@@ -65,6 +66,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 #Dashboard-Secondary-GameModeContainer > * {
@@ -72,7 +74,8 @@
   background-size: cover;
   background-position: center;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  height: 290px;
+  /* height: 290px; */
+  height: calc(52vh / 3);
   transition: all 0.3s ease-in-out;
   opacity: 0.6;
   cursor: pointer;
@@ -82,6 +85,7 @@
 #Dashboard-Secondary-GameModeContainer > *:hover {
   opacity: 1;
   scale: 1.01;
+  transition: all 0.4s ease-in-out;
 }
 
 #Dashboard-Secondary-GameModeContainer > *:hover::before {
@@ -133,10 +137,37 @@
   font-size: 3.5rem;
 }
 
-.extraModes {
-  height: 260px;
-  object-fit: cover;
-  border-radius: var(--edge);
+@media only screen and (max-width: 3000px) {
+  #Dashboard-Secondary-GameModeContainer > * {
+    height: calc(50vh / 3);
+  }
+}
+
+@media only screen and (max-width: 2880px) {
+  #Dashboard-Secondary-GameModeContainer > * {
+    height: calc(47vh / 3);
+  }
+  #Dashboard-Main-GameModeContainer:hover::before {
+    top: 45%;
+    left: 24%;
+    font-size: 4rem;
+    letter-spacing: 4px;
+  }
+  #Dashboard-Secondary-tournament:hover::before {
+    top: 18.5%;
+    left: 21%;
+    font-size: 3.2rem;
+  }
+  #Dashboard-Secondary-bot:hover::before {
+    top: 25%;
+    font-size: 3.5rem;
+  }
+  #Dashboard-Secondary-practice:hover::before {
+    content: "PRACTICE";
+    top: 31.5%;
+    left: 18%;
+    font-size: 3rem;
+  }
 }
 
 @media only screen and (max-width: 2560px) {
@@ -144,6 +175,25 @@
   #Dashboard-Main-GameModeContainer,
   #Dashboard-Secondary-GameModeContainer {
     width: 700px;
+  }
+  #Dashboard-Main-GameModeContainer:hover::before {
+    top: 46%;
+    left: 24%;
+    font-size: 3.4rem;
+  }
+  #Dashboard-Secondary-tournament:hover::before {
+    top: 19%;
+    left: 21.6%;
+    font-size: 2.7rem;
+  }
+  #Dashboard-Secondary-bot:hover::before {
+    top: 26.4%;
+    font-size: 2.9rem;
+  }
+  #Dashboard-Secondary-practice:hover::before {
+    top: 33%;
+    left: 20%;
+    font-size: 2.5rem;
   }
 }
 

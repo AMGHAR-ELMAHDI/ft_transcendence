@@ -102,20 +102,17 @@ td > h1 {
   font-size: 1.1rem;
 }
 
-#PlayerScoreProfile{
+#PlayerScoreProfile {
   font-family: Zekton !important;
   font-size: 1.1rem !important;
   color: #1f6561;
 }
 
-
-
-#PlayerScoreOpponent{
+#PlayerScoreOpponent {
   font-family: Zekton !important;
   font-size: 1.1rem !important;
   color: #9f4146;
 }
-
 
 .Toruk > h1 {
   font-family: Bank;
@@ -127,4 +124,14 @@ td > h1 {
 
 .OppScore {
   color: #e25c5c !important;
+}
+
+@media only screen and (max-width: 2880px) {
+  .tableau {
+    height: 50vh !important;
+  }
+  .Won:hover,
+  .Lost:hover {
+    scale: 1.01 !important;
+  }
 }

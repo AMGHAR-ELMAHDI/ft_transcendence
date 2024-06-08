@@ -1,53 +1,24 @@
-import { setAuthToken } from "../Utils/setAuthToken";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
-import { useRecoilState, useRecoilValue } from "recoil";
-import Players from "../../Atoms/Players";
+import { useRecoilState } from "recoil";
 import RenderNotif from "../../Atoms/RenderNotif";
-import Url from "../../Atoms/Url";
 import api from "../../api";
+import LoadingData from "./LoadingData";
 
-// function getUserName(
-//   filteredItems: {
-//     id: number;
-//     from_user: number;
-//     to_user: number;
-//     status: string;
-//   },
-//   players: any
-// ) {
-//   console.log("from_user:" + filteredItems.from_user);
+function GetUserName(players: any, from_user: number) {
+  let name: string = "";
+  if (Array.isArray(players) && players.length) {
+    players?.map((user: any) => {
+      if (user?.id === from_user) name = user?.username;
+    });
+  }
+  return name;
+}
 
-//   players.map((user: any) => {
-//     console.log("players: " + user?.id);
-//   });
+// if (localStorage.getItem(`FriendPending user1-${UserName}`))
+//   localStorage.removeItem(`FriendPending user1-${UserName}`);
 
-//   const player = players.filter((user: any) =>
-//     user?.id?.includes(filteredItems.from_user)
-//   );
-//   return player.username;
-// }
-
-// const [players, setPlayers] = useRecoilState(Players);
-
-// setAuthToken();
-// const getPlayers = async () => {
-//   try {
-//     const response = await axios.get("http://localhost:2500/player/");
-//     // console.log(response.data);
-//     setPlayers(response.data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// useEffect(() => {
-//   getPlayers();
-// }, []);
-
-const accept = async (id: number) => {
-  console.log("accept: " + id);
-
+const accept = async (id: number, UserName: string) => {
   try {
     const response = await api.put("reqs/", {
       from_user: id,
@@ -57,9 +28,8 @@ const accept = async (id: number) => {
     console.log(error);
   }
 };
-const decline = async (id: number) => {
-  console.log("decline: " + id);
 
+const decline = async (id: number, UserName: string) => {
   try {
     const response = await api.put("reqs/", {
       from_user: id,
@@ -73,19 +43,35 @@ const decline = async (id: number) => {
 function Notif() {
   const [received, setReceived] = useState<any>([]);
   const [render, setRender] = useRecoilState(RenderNotif);
-  const url = useRecoilValue(Url);
+  const [isLoading, setLoading] = useState(true);
+  // const [displayRedDot, setDisplayRedDot] = useState(false);
+  const [players, setPlayers] = useState<any>([]);
 
-  const getData = async () => {
+  const getPlayers = async () => {
     try {
-      const response = await api.get("reqs/");
-      setReceived(response.data?.recieved);
+      const response = await api.get("player/");
+      setPlayers(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getData = async () => {
+    try {
+      const response = await api.get("reqs/");
+      setReceived(response.data?.recieved);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
+    getPlayers();
     getData();
+    const interval = setInterval(getData, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const filteredItems = received.filter((user: any) =>
@@ -94,25 +80,42 @@ function Notif() {
 
   const reRender = () => {
     setRender(!render);
+    getPlayers();
     getData();
   };
 
   return (
-    <div className="notif-relative" onClick={reRender}>
-      <IoNotificationsOutline id="notif" />
-      {render && filteredItems.length != 0 && (
-        <div id="NotifPopUp">
-          {filteredItems.map((notif: any) => (
-            <div className="notif-item" key={notif.id}>
-              <h4>{"fromUser:" + notif.from_user}</h4>
-              {/* <h4>{"Username:" + getUserName(notif, players)}</h4> */}
-              <button onClick={() => accept(notif.from_user)}>Accept</button>
-              <button onClick={() => decline(notif.from_user)}>Decline</button>
+    <>
+      {isLoading ? (
+        LoadingData()
+      ) : (
+        <div className="notif-relative" onClick={reRender}>
+          <div>
+            <IoNotificationsOutline id="notif" />
+            {filteredItems.length > 0 && <div id="notifRedDot"></div>}
+          </div>
+          {render && filteredItems.length > 0 && (
+            <div id="NotifPopUp">
+              {filteredItems.map((notif: any) => (
+                <div className="notif-item" key={notif.id}>
+                  <h4>{GetUserName(players, notif?.from_user)}</h4>
+                  <button
+                    onClick={() => accept(notif?.from_user, notif?.to_user)}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => decline(notif?.from_user, notif?.to_user)}
+                  >
+                    Decline
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
 

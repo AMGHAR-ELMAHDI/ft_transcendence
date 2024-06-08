@@ -31,8 +31,6 @@ function getGeneralInfo() {
         if (response.status === 200) {
           setTokenValue(str.access);
           setLogged(true);
-          console.log(str.access);
-
           localStorage.setItem("token", str.access);
           navigate("/");
         }
@@ -41,10 +39,6 @@ function getGeneralInfo() {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    if (Logged) setAuthToken();
-  }, []);
 
   return (
     <div>

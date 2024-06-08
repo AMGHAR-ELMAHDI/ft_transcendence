@@ -3,65 +3,52 @@
   flex-direction: column;
   flex: 1;
   border-radius: 5px;
-  max-height: 930px;
+  height: 55vh;
   padding: 0 0.5rem;
   width: 100%;
   overflow-y: scroll;
 }
 
-/* .HistoryShadow {
-  position: fixed;
-  bottom: 0rem;
-  width: 2530px;
-  height: 4rem;
-  background: linear-gradient(transparent, rgb(0, 0, 0));
-} */
+#HistoryNogamesPlayed {
+  width: 800px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  border: 1px solid #5fcae4;
+  box-shadow: -10px 10px 5px #1c212f;
+  transition: all 0.3s ease-in-out;
+}
 
-.HistoryShadowDashboard {
+#HistoryNogamesPlayed:hover {
+  scale: 1.01;
+}
+
+#HistoryNogamesPlayed > h1 {
+  text-shadow: 0 0 5px #0c0e14;
+  letter-spacing: 5px;
+  font-size: 4rem;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+/* .HistoryShadowDashboard {
   position: fixed;
   bottom: 50px;
   width: 800px;
   left: 2070px;
   height: 2rem;
   background: linear-gradient(transparent, rgb(0, 0, 0, 0.8));
-}
-
-.history-top-text {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.history-top-text h6 {
-  color: #b2b2b2;
-  font-size: 1rem;
-}
-
-.history-container {
-  display: flex;
-  flex: 1;
-  position: relative;
-}
-
-#dashboard-history-pic {
-  height: 100px;
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#dashboard-history-pic > * {
-  font-family: cool;
-}
-
-.tabs-acheivements {
-  display: flex;
-}
+} */
 
 .history-tabs {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   width: 100%;
   height: 140px;
@@ -101,7 +88,7 @@
 
 .dashboard-history-right-rect {
   width: 15px;
-  height: 140px;
+  height: 100%;
   background-color: #1e8ef3;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -134,6 +121,11 @@
   font-family: cool;
 }
 
+#dashboard-history-mode {
+  width: 6.5rem;
+  text-align: center;
+}
+
 #tabs-container {
   display: flex;
   flex-direction: column;
@@ -158,9 +150,51 @@
   color: #9f4146;
 }
 
+@media only screen and (max-width: 1920px) {
+  #HistoryNogamesPlayed,
+  #history {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 3000px) {
+  #history {
+    height: 53vh;
+  }
+}
+
+@media only screen and (max-width: 2880px) {
+  #history {
+    height: 50vh;
+  }
+}
+
 @media only screen and (max-width: 2560px) {
   .HistoryShadow,
   .HistoryShadowDashboard {
     display: none;
+  }
+  .history-tabs {
+    height: 100px;
+  }
+  #dashboard-history-opponent > *,
+  #dashboard-history-mode > *,
+  #dashboard-history-date > * {
+    font-size: 1rem !important;
+  }
+  .Dashboard-History-Score > * {
+    font-size: 1rem !important;
+  }
+  .dashboard-history-right-rect {
+    width: 12px;
+  }
+  .history-tabs-left-container {
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+  }
+  #dashboard-history-mode {
+    width: 6.5rem;
+    text-align: center;
   }
 }

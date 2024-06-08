@@ -3,14 +3,11 @@ import FriendBar from "../Cheesy/FriendBar";
 import SideBar from "../Cheesy/SideBar";
 import TopBar from "../SearchBar/TopBar";
 import { setAuthToken } from "../Utils/setAuthToken";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Friendschat from "../../Atoms/Chatfriends";
-import Chatmessages from "../../Atoms/ChatMessages";
 import FriendId from "../../Atoms/FriendId";
+import api from "../../api";
 import Url from "../../Atoms/Url";
-import Input from "../../Atoms/Input";
-import ChatSocket from "../../Atoms/ChatSocket";
 
 const host = "localhost";
 const port = 2500;
@@ -37,10 +34,9 @@ function ChatSystem() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await axios.get(
-        `http://${host}:${port}/player/friends/`
-      );
+      const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
+      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -74,25 +70,12 @@ function ChatSystem() {
 
 function ChatFriends() {
   const Friends = useRecoilValue(Friendschat);
-  const [ChatMessages, SetMessages] = useRecoilState(Chatmessages);
-
   const [Friendid, setId] = useRecoilState(FriendId);
-  const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
-  // const url = useRecoilValue(Url);
+  const url = useRecoilValue(Url);
   const getInfoChat = async (id: number) => {
-    const socket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
-    socket.onopen = function (event) {
-      console.log("WebSocket connection established.");
-      event.preventDefault();
-    };
-
-    // setChatSoc(socket);
     try {
-      const response = await axios.get(
-        `http://${host}:${port}/messages/${id}/`
-      );
-      SetMessages(response.data);
-      console.log(response.data);
+      const response = await api.get(`messages/${id}/`);
+      console.table(response.data);
       setId(id);
     } catch (error) {
       console.log(error);
@@ -104,7 +87,6 @@ function ChatFriends() {
     // getInfoChat(Friends[0].id);
     // }
   }, [Friends]);
-
   return (
     <>
       <div className="Friends-wrapper">
@@ -116,10 +98,7 @@ function ChatFriends() {
             onClick={() => getInfoChat(item.id)}
           >
             <div className="Friend-img">
-              <img
-                src={`http://${host}:${port}/${item.avatar}`}
-                className="bachar"
-              />
+              <img src={`${url}${item.avatar}`} className="bachar" />
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
@@ -174,61 +153,102 @@ function Sender({ name, message, time }: MessageInfo) {
 }
 
 function ChatTyping() {
-  const messages = useRecoilValue(Chatmessages);
-
   const id = useRecoilValue(FriendId);
-  const [input, setInput] = useRecoilState(Input);
-  const [submit, setSubmit] = useState(true);
-  const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
-  // if (input == " ") setSubmit(false);
-  // else setSubmit(true);
+  const [allMessages, setAllMessages] = useState<any[]>([]);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
 
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    const message = {
-      content: input,
+  useEffect(() => {
+    const newSocket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
+    setSocket(newSocket);
+    newSocket.onopen = function () {
+      console.log("WebSocket connection established.");
     };
 
-    // Check if WebSocket is in OPEN state before sending message
-    if (chatSoc && chatSoc.readyState === WebSocket.OPEN) {
-      // Send the message as JSON
-      chatSoc.send(JSON.stringify(message));
-      setInput(""); // Assuming setInput is a function to update input state
-    } else {
-      console.error("WebSocket connection not open yet.");
+    const fetchInitialMessages = async () => {
+      try {
+        const response = await api.get(`messages/${id}/`);
+        setAllMessages(response.data);
+      } catch (error) {
+        console.error("Error fetching initial messages:", error);
+      }
+    };
+    fetchInitialMessages();
+
+    newSocket.onmessage = function (e) {
+      const data = JSON.parse(e.data);
+      const msg = {
+        content: data["message"],
+        timestamp: data["timestamp"],
+      };
+      setAllMessages((prevMessages) => [...prevMessages, msg]);
+    };
+
+    return () => {
+      newSocket.close();
+    };
+  }, [id]);
+
+  const sendMessage = (e: any) => {
+    e.preventDefault();
+    if (!socket || socket.readyState !== WebSocket.OPEN) {
+      console.error("WebSocket connection not open.");
+      return;
+    }
+
+    const input = document.getElementById("message-input");
+    const messageContent = (input as HTMLInputElement).value.trim();
+
+    if (messageContent !== "") {
+      const message = {
+        content: messageContent,
+      };
+      socket.send(JSON.stringify(message));
+      (input as HTMLInputElement).value = "";
     }
   };
+
+  function extractTime(timestampString: any) {
+    const dateObject = new Date(timestampString);
+    const desiredTime = dateObject.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return desiredTime;
+  }
 
   return (
     <>
       <div className="Type-wrapper">
         <div className="Chat-box">
-          {messages.map((msg: any, index: any) => (
+          {allMessages.map((msg: any, index) => (
             <div key={index}>
-              {msg.sender != id ? (
-                <Sender message={msg.content} time={msg.timestamp} name="You" />
+              {msg.sender !== id ? (
+                <Sender
+                  message={msg.content}
+                  time={extractTime(msg.timestamp)}
+                  name="You"
+                />
               ) : (
                 <Receiver
                   message={msg.content}
-                  time={msg.timestamp}
-                  name="khona"
+                  time={extractTime(msg.timestamp)}
+                  name="Friend"
                 />
               )}
             </div>
           ))}
         </div>
-        <form onSubmit={(e) => onSubmit(e)} className="Chat-input">
+        <form onSubmit={sendMessage} id="Chat-input">
           <div className="Input-box">
             <input
+              id="message-input"
               type="text"
               placeholder="Type Something ..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
             />
           </div>
-          <div className="Chat-send-button">
+          <button type="submit" className="Chat-send-button">
             <img src="/Send-button.svg" id="bottona" />
-          </div>
+          </button>
         </form>
       </div>
     </>

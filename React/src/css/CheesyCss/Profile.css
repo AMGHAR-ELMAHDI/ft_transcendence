@@ -10,7 +10,6 @@
   border-radius: 25px;
   display: flex;
   justify-content: space-between;
-  /* flex: 1; */
   flex-wrap: wrap;
   height: 500px;
   background-image: radial-gradient(#5fcae4 1px, transparent 1px),
@@ -49,12 +48,14 @@
   height: 100%;
 }
 
-#profile-usr > h1 {
+#user-name {
   font-size: 2rem;
 }
 
 #profile-img {
   width: 15rem;
+  /* height: 15rem; */
+  object-fit: cover;
   border: 5px solid var(--blue-glow);
   border-radius: 50%;
   box-shadow: var(--blue-glow) 0px 20px 30px -10px;
@@ -89,7 +90,6 @@
 .profile-level {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   flex: 1;
   gap: 1rem;
   height: 100%;
@@ -154,12 +154,8 @@ progress[value]::-webkit-progress-value {
   flex: 2;
 }
 
-.progress-circle {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
-    conic-gradient(#5fcae4 75%, #323644 0);
+#circles > * {
+  max-width: 13rem;
 }
 
 #profile-tabs > button {
@@ -188,6 +184,30 @@ progress[value]::-webkit-progress-value {
 #ProfileaddFriend > * {
   height: 100%;
   width: 100%;
+}
+
+@media only screen and (max-width: 2560px) {
+  #Profile {
+    max-height: 400px;
+  }
+  #profile-img {
+    max-width: 10rem;
+  }
+  #user-name {
+    font-size: 1.7rem;
+  }
+  #profile-level-text > * {
+    font-size: 1.3rem;
+  }
+  progress[value] {
+    height: 30px;
+  }
+  #profile-tabs > * {
+    font-size: 1.3rem;
+  }
+  #circles > * > * {
+    font-size: 1.3rem !important;
+  }
 }
 
 @media only screen and (max-width: 1440px) {
@@ -224,9 +244,6 @@ progress[value]::-webkit-progress-value {
   }
   #circles {
     display: none;
-  }
-  #profile-img {
-    width: 10rem;
   }
 
   progress[value] {

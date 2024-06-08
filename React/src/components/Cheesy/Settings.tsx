@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import { CgProfile } from "react-icons/cg";
 import { IoShieldHalfSharp } from "react-icons/io5";
-
-function getLanguage() {
-  return (
-    <>
-      <h1>Language</h1>
-    </>
-  );
-}
+import api from "../../api";
+import SettingsGeneralInfo from "./SettingsGeneralInfo";
+import { useRecoilValue } from "recoil";
+import Url from "../../Atoms/Url";
+import { BiEdit } from "react-icons/bi";
+import { GetCorrect } from "./LeaderBoardGetTop3";
 
 function getSecurity() {
   return (
@@ -21,88 +19,117 @@ function getSecurity() {
   );
 }
 
-function getGeneralInfo() {
-  return (
-    <div className="GeneralInfoContainer">
-      <form action="">
-        <div>
-          <input
-            className="GeneralInfoInput"
-            type="text"
-            id="username"
-            name="username"
-            placeholder={"Username"}
-          />
-        </div>
-        <div className="FirstSecondName">
-          <input
-            type="text"
-            id="FirstName"
-            name="FirstName"
-            className="GeneralInfoInput firstSecond"
-            placeholder={"First Name"}
-          />
-          <input
-            type="text"
-            id="SecondName"
-            name="SecondName"
-            className="GeneralInfoInput firstSecond"
-            placeholder={"Second Name"}
-          />
-        </div>
-
-        <div>
-          <input
-            className="GeneralInfoInput"
-            type="email"
-            id="email"
-            name="email"
-            placeholder={"Email"}
-          />
-        </div>
-        <div>
-          <input
-            className="GeneralInfoInput"
-            type="password"
-            id="password"
-            name="password"
-            placeholder={"Password"}
-          />
-        </div>
-
-        <div className="ButtonContainer">
-          <button className="SetButton SetCancel" type="reset">
-            Cancel
-          </button>
-          <button className="SetButton SetSubmit" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
 function MainSettings() {
+  const [data, setData] = useState<any>();
   const [render, setRender] = useState<string>("GeneralInfo");
+  const [renderButton, setRenderButton] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const url = useRecoilValue(Url);
+  const [file, setFile] = useState<any>();
+  // const [isLoading, setIsLoading] = useState(true);
+
+  let obj = {
+    id: "1",
+    email: data?.email,
+    first_name: data?.first_name,
+    last_name: data?.last_name,
+    username: data?.username,
+    image: null,
+  };
+
+  const getData = async () => {
+    try {
+      const response = await api.get("player/setting/");
+      setData(response.data);
+      // setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      // setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const onImageChange = (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(URL.createObjectURL(event.target.files[0]));
+    }
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setRenderButton(false);
+
+    try {
+      const formData = new FormData();
+      formData.append("id", obj.id);
+      formData.append("email", obj.email);
+      formData.append("first_name", obj.first_name);
+      formData.append("last_name", obj.last_name);
+      formData.append("username", obj.username);
+
+      if (fileInputRef.current?.files?.[0])
+        formData.append("image", fileInputRef.current.files[0]);
+
+      const response = await api.put("player/setting/", formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
+      {/* {isLoading ? (
+        LoadingData()
+      ) : ( */}
       <div className="MainSettings">
-        <h1 className="SettingsH1">SETTINGS</h1>
         <div className="SettingsContent">
           <div className="SettingsLeft">
             <div className="SettingsData">
               <div className="SettingsImg">
-                <img src="/60sGirl.png" alt="SettingProfilesimg" />
+                <img
+                  src={file || GetCorrect(data?.image, url)}
+                  alt="SettingImg"
+                />
+
+                <div className="SettingsImgEdit">
+                  <label>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={onImageChange}
+                    />
+                    <div
+                      id="SettingsEdit"
+                      onClick={() => setRenderButton(true)}
+                    >
+                      <BiEdit />
+                    </div>
+                  </label>
+                </div>
               </div>
-              <div className="SettingsUsrName">
-                <h1 className="wht">{"Cheesy"}</h1>
-              </div>
-              <div className="SettingsFullName">
-                <h1 className="wht">{"ELMAHDI AMGHAR"}</h1>
-              </div>
+
+              {renderButton && (
+                <button id="buttonTest" onClick={handleSubmit}>
+                  Change Image
+                </button>
+              )}
+              {!renderButton && (
+                <div className="SettingsDataContainer">
+                  <div className="SettingsUsrName">
+                    <h1 className="wht">{obj.username}</h1>
+                  </div>
+                  <div className="SettingsFullName">
+                    <h1 className="wht">
+                      {obj.first_name + " " + obj.last_name}
+                    </h1>
+                  </div>
+                </div>
+              )}
             </div>
+
             <div className="SettingsComponents">
               <div className="LeftSpacer">
                 <div
@@ -122,25 +149,16 @@ function MainSettings() {
                   <h1 className="blk">Security</h1>
                 </div>
               </div>
-
-              <div className="LeftSpacer">
-                <div
-                  onClick={() => setRender("Language")}
-                  className="SetInfo Language"
-                >
-                  <img className="SetIcon" src="/SetLang.svg" alt="Icon" />
-                  <h1 className="blk">Language</h1>
-                </div>
-              </div>
             </div>
           </div>
+
           <div className="SettingsRight">
-            {render === "GeneralInfo" && getGeneralInfo()}
+            {render === "GeneralInfo" && <SettingsGeneralInfo />}
             {render === "Security" && getSecurity()}
-            {render === "Language" && getLanguage()}
           </div>
         </div>
       </div>
+      {/* )} */}
     </>
   );
 }
