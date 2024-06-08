@@ -14,3 +14,4 @@ import "./css/CheesyCss/Logout.css";
 import "./css/CheesyCss/ProfileFriends.css";
 import "./css/Otchekai/Shop.css";
 import "./css/Otchekai/Chat.css";
+import "./components/Mnassi/LoginRegister/idx.css";

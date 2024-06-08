@@ -10,7 +10,7 @@ import os
 
 def	readJsonFile(code):
 	env_var = dotenv_values()
-	with open('/Users/mnassi/Desktop/1337/ft_transcendence/login&register/backend/authentification/loginPage/data.json') as file:
+	with open('/goinfre/zmakhkha/zmakhkha/Django/loginPage/data.json') as file:
 		body = json.load(file)
 	body['code'] = code
 	for key, value in env_var.items():
