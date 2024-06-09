@@ -15,6 +15,7 @@ export function GetCorrect(image: string, url: string) {
   else if (image?.includes("media/store/")) correctImage = url + image;
   else if (image?.includes("/media/"))
     correctImage = url.slice(0, url.length - 1) + image;
+  else correctImage = url + "media/" + image;
 
   return correctImage;
 }

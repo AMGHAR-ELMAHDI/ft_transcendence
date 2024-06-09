@@ -58,6 +58,7 @@ function FriendBar() {
                 className="friend-sb"
                 src={GetCorrect(friend?.avatar, url)}
               />
+
               {renderName && (
                 <h1 className="friend-bar-username">{friend?.username}</h1>
               )}
