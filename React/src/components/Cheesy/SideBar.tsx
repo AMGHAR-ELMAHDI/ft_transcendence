@@ -61,6 +61,7 @@ function DrawerLinks() {
 
   return (
     <div className="DrawerLinks">
+
       <h1 onClick={() => navigate("/")}>Home</h1>
       <h1 onClick={() => navigate("/chat")}>Chat</h1>
       <h1 onClick={() => navigate("/game")}>Game</h1>
