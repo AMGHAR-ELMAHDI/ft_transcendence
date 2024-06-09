@@ -222,7 +222,7 @@ progress[value]::-webkit-progress-value {
   }
   .profile-right {
     min-width: 1000px;
-    padding: 1rem;
+    /* padding: 1rem; */
     gap: 1rem;
   }
   #profile-usr {
@@ -261,7 +261,7 @@ progress[value]::-webkit-progress-value {
   #circles {
     justify-content: space-around;
     gap: 2rem;
-    padding: 0 1rem;
+    margin-right: 1rem;
   }
 }
 
@@ -269,15 +269,26 @@ progress[value]::-webkit-progress-value {
   #Profile {
     height: 300px;
   }
-  #circles > * {
-    padding: 0 1rem;
+}
+@media only screen and (max-width: 1900px) {
+  #circles {
+    display: none;
+  }
+  .profile-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  .profile-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 
 @media only screen and (max-width: 1600px) {
-  #circles {
-    display: none;
-  }
   .profile-level {
     padding: 0 3rem;
     justify-content: center;

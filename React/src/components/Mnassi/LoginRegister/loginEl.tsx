@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import IsLogged from "../../../Atoms/IsLogged";
 import Url from "../../../Atoms/Url";
 import AcessToken from "../../../Atoms/AccessToken";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setAuthToken } from "../../Utils/setAuthToken";
 
@@ -31,7 +31,7 @@ function loginEl() {
         if (response.status === 200) {
           setTokenValue(str.access);
           setLogged(true);
-          setAuthToken()
+          setAuthToken();
           console.log(str.access);
           localStorage.setItem("token", str.access);
           navigate("/");
@@ -95,7 +95,7 @@ function loginEl() {
         </div>
         <div className="member">
           <p>
-            don't have an account ? <a className="regis">register</a>
+            don't have an account ? <Link to={"/register"}> register</Link>
           </p>
         </div>
         <div className="email">

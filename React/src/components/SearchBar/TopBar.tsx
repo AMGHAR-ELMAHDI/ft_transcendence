@@ -63,8 +63,11 @@ function TopBar() {
       const response = await api.get("player/me");
       setData(response.data);
       setIsLoading(false);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.request) {
+        console.log("Error request:", error.request);
+        navigate("/login");
+      } else console.log("Error message:", error.message);
       setIsLoading(false);
     }
   };
