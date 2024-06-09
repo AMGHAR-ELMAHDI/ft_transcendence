@@ -29,7 +29,7 @@
 	font-family: pant;
 }
 body {
-	overflow: hidden;
+	/* overflow: hidden; */
 	height: 100svh;
 	background: var(--custBack);
 	background-size: cover;

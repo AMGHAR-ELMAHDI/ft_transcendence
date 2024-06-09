@@ -31,6 +31,7 @@ function getGeneralInfo() {
         if (response.status === 200) {
           setTokenValue(str.access);
           setLogged(true);
+          setAuthToken();
           localStorage.setItem("token", str.access);
           navigate("/");
         }

@@ -11,6 +11,7 @@ export function getPageName() {
   let pageName = window.location.pathname;
 
   if (window.location.pathname?.includes("/profile/")) return "User Profile";
+  if (window.location.pathname?.includes("/game")) return "";
   pageName = pageName.slice(1);
   pageName = pageName.charAt(0).toUpperCase() + pageName.slice(1);
   return pageName;

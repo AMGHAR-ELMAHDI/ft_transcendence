@@ -31,11 +31,21 @@ export default ChatContainer;
 
 function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
+  const [data, setData] = useState({});
   setAuthToken();
   const getData = async () => {
     try {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
+      console.log(response.data.friends);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getMyData = async () => {
+    try {
+      const response = await api.get("player/me");
+      setData(response.data.friends);
       console.log(response.data.friends);
     } catch (error) {
       console.log(error);

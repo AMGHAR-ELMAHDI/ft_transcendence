@@ -266,6 +266,15 @@ progress[value]::-webkit-progress-value {
 }
 
 @media only screen and (max-width: 1920px) {
+  #Profile {
+    height: 300px;
+  }
+  #circles > * {
+    padding: 0 1rem;
+  }
+}
+
+@media only screen and (max-width: 1600px) {
   #circles {
     display: none;
   }

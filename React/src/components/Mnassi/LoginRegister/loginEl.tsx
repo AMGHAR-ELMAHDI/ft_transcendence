@@ -6,6 +6,7 @@ import Url from "../../../Atoms/Url";
 import AcessToken from "../../../Atoms/AccessToken";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { setAuthToken } from "../../Utils/setAuthToken";
 
 function loginEl() {
   const [error, setError] = useState("");
@@ -30,8 +31,8 @@ function loginEl() {
         if (response.status === 200) {
           setTokenValue(str.access);
           setLogged(true);
+          setAuthToken()
           console.log(str.access);
-          
           localStorage.setItem("token", str.access);
           navigate("/");
         }

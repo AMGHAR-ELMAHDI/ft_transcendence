@@ -211,16 +211,27 @@
 }
 
 @media only screen and (max-width: 1920px) {
-  #Dashboard-Main-GameModeContainer,
-  #Dashboard-Secondary-GameModeContainer {
-    width: 500px;
-  }
   #DashboardHistory {
-    width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+    display: none;
   }
-  #Dashboard-Secondary-GameModeContainer {
-    gap: 1rem;
+  #Dashboard > * {
+    width: 50%;
+  }
+  #Dashboard-Main-GameModeContainer:hover::before {
+    left: 25%;
+  }
+  #Dashboard-Secondary-tournament:hover::before {
+    top: 8%;
+    left: 24.5%;
+    font-size: 2.6rem;
+  }
+  #Dashboard-Secondary-bot:hover::before {
+    top: 21%;
+    font-size: 2.6rem;
+  }
+  #Dashboard-Secondary-practice:hover::before {
+    top: 26%;
+    left: 21%;
+    font-size: 2.5rem;
   }
 }
