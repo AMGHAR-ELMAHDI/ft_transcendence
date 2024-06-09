@@ -8,6 +8,9 @@ import Friendschat from "../../Atoms/Chatfriends";
 import FriendId from "../../Atoms/FriendId";
 import api from "../../api";
 import Url from "../../Atoms/Url";
+import Chatmessages from "../../Atoms/ChatMessages";
+import ChatSocket from "../../Atoms/ChatSocket";
+import axios from "axios";
 
 const host = "localhost";
 const port = 2500;
@@ -175,7 +178,11 @@ function ChatTyping() {
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    const newSocket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
+    const token = localStorage.getItem("token");
+    const newSocket = new WebSocket(
+      `ws://localhost:2500/ws/chat/${id}/${token}`
+    );
+
     setSocket(newSocket);
     newSocket.onopen = function () {
       console.log("WebSocket connection established.");
