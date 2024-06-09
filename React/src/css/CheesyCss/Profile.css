@@ -188,7 +188,7 @@ progress[value]::-webkit-progress-value {
 
 @media only screen and (max-width: 2560px) {
   #Profile {
-    max-height: 400px;
+    height: 400px;
   }
   #profile-img {
     max-width: 10rem;
@@ -210,20 +210,54 @@ progress[value]::-webkit-progress-value {
   }
 }
 
-@media only screen and (max-width: 1440px) {
-  .AppClass > * {
-    height: auto;
+@media only screen and (max-width: 2200px) {
+  .profile-level {
+    margin: 0 2rem;
   }
+  #circles {
+    justify-content: space-around;
+    gap: 2rem;
+    margin-right: 1rem;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
   #Profile {
-    justify-content: center;
+    height: 300px;
   }
-  .profile-left {
-    justify-content: center;
+}
+
+@media only screen and (max-width: 1900px) {
+  #circles {
+    display: none;
   }
   .profile-right {
-    min-width: 1000px;
-    /* padding: 1rem; */
+    justify-content: center;
+    align-items: center;
+    margin-right: 5rem;
+    flex: 1;
+  }
+  .profile-left {
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  #Profile {
+    justify-content: center;
+    height: fit-content;
+    padding: 2rem 0;
+  }
+
+  .profile-left {
+    justify-content: center;
+    min-width: 350px;
+  }
+  .profile-right {
+    padding: 1rem;
     gap: 1rem;
+    margin-right: 0;
   }
   #profile-usr {
     width: 100%;
@@ -254,43 +288,3 @@ progress[value]::-webkit-progress-value {
   }
 }
 
-@media only screen and (max-width: 2200px) {
-  .profile-level {
-    margin: 0 2rem;
-  }
-  #circles {
-    justify-content: space-around;
-    gap: 2rem;
-    margin-right: 1rem;
-  }
-}
-
-@media only screen and (max-width: 1920px) {
-  #Profile {
-    height: 300px;
-  }
-}
-@media only screen and (max-width: 1900px) {
-  #circles {
-    display: none;
-  }
-  .profile-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-  }
-  .profile-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-}
-
-@media only screen and (max-width: 1600px) {
-  .profile-level {
-    padding: 0 3rem;
-    justify-content: center;
-  }
-}

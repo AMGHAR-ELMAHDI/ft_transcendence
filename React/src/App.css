@@ -75,9 +75,9 @@ body {
   }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 900px) {
   .main {
-    padding-right: 2rem;
+    padding-right: 2rem !important;
   }
 }
 
@@ -104,6 +104,7 @@ body {
   mask-composite: subtract;
   animation: l3 1s infinite linear;
 }
+
 @keyframes l3 {
   to {
     transform: rotate(1turn);
