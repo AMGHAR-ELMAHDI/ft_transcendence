@@ -13,77 +13,74 @@ import json
 import jwt
 
     
-@sync_to_async
-def authenticate_user(authorization_header):
-    
+@database_sync_to_async
+def get_user_by_id(user_id):
+    return get_object_or_404(get_user_model(), pk=user_id)
+
+
+
+async def getUser(authorization_header):
+    print(f"|{authorization_header}|")
     if not authorization_header:
-        return None, "Authorization header not found"
-    
+        print("---------> Connection rejected: Authorization header not found.")
+        return
+
+    token = authorization_header
+
     try:
-        token = authorization_header.decode('utf-8').split()[1]
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-        user_id = payload['user_id']
-        user = get_object_or_404(get_user_model(), pk=user_id)
-        return user, None
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+        user_id = payload["user_id"]
+        user = await get_user_by_id(user_id)
+        return user
+
     except IndexError:
-        return None, "Invalid token format"
+        print("--------------------------------------------")
+        print("Invalid token format")
+        print("--------------------------------------------")
+        return None
     except jwt.ExpiredSignatureError:
-        return None, "Token expired"
-    except (jwt.InvalidTokenError, KeyError):
-        return None, "Invalid token"
+        print("--------------------------------------------")
+        print("---------> Connection rejected: Token expired.")
+        print("--------------------------------------------")
+        return None
+    except jwt.InvalidTokenError:
+        print("--------------------------------------------")
+        print("---------> Connection rejected: Invalid token.")
+        print("--------------------------------------------")
+        return None
+    except Player.DoesNotExist:
+        print("--------------------------------------------")
+        print("Player does not exist with ID:", user_id)
+        print("--------------------------------------------")
+        return None
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print("-------------")
-        print (self.scope['headers'])
-        print("-------------")
-        authorization_header = next((value for name, value in self.scope['headers'] if name == b'authorization'), None)
-        
+        authorization_header = self.scope["url_route"]["kwargs"]["token"]
+        print("--------------")
+        print(f"|{authorization_header}|")
+        print("--------------")
         if not authorization_header:
             print("---------> Connection rejected: Authorization header not found.")
             await self.close()
-            return
 
-        token = authorization_header.decode('utf-8')
-        token_parts = token.split()
-        if len(token_parts) != 2:
-            print("---------> Connection rejected: Invalid token format.")
-            await self.close()
+        user = await getUser(authorization_header=authorization_header)
+        if user is None:
+            print("user not found !!!!!")
+            await self.close
             return
+        self.scope["user"] = user
 
-        token = token_parts[1]
-        try:
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-            user_id = payload['user_id']
-            
-            usr = await self.get_user_by_id( user_id)
-            self.scope['user'] = usr
-            print("---------> Connected to WebSocket")
-            await self.accept()
-            sender_id = self.scope['user'].id
-            print("---------> User n°:", sender_id, " connected !")
-            receiver_id = self.scope['url_route']['kwargs']['receiver_id']
-            group_name = self.get_group_name(sender_id, receiver_id)
-            print("---------> Group n°:", group_name, " created !")
-            await self.channel_layer.group_add(group_name, self.channel_name)
-            print("---------> Channel name : ", self.channel_name)
-            
-        except ...:
-            print("---------> Connection rejected: Token expired.")
-            await self.close()
-        except jwt.ExpiredSignatureError:
-            print("---------> Connection rejected: Token expired.")
-            await self.close()
-        except jwt.InvalidTokenError:
-            print("---------> Connection rejected: Invalid token.")
-            await self.close()
-        except Player.DoesNotExist:
-            print("--------------------------------------------")
-            print(user_id)
-            print("--------------------------------------------")
-            print("Player does not exist with ID:", user_id)
-            await self.close()
+        print("---------> Connected to WebSocket")
+        await self.accept()
+        sender_id = self.scope["user"].id
+        print("---------> User n°:", sender_id, " connected !")
+        receiver_id = self.scope["url_route"]["kwargs"]["receiver_id"]
+        group_name = self.get_group_name(sender_id, receiver_id)
+        print("---------> Group n°:", group_name, " created !")
+        await self.channel_layer.group_add(group_name, self.channel_name)
+        print("---------> Channel name : ", self.channel_name)
 
 
 

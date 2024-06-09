@@ -8,6 +8,9 @@ import Friendschat from "../../Atoms/Chatfriends";
 import FriendId from "../../Atoms/FriendId";
 import api from "../../api";
 import Url from "../../Atoms/Url";
+import Chatmessages from "../../Atoms/ChatMessages";
+import ChatSocket from "../../Atoms/ChatSocket";
+import axios from "axios";
 
 const host = "localhost";
 const port = 2500;
@@ -77,15 +80,29 @@ function ChatSystem() {
     </>
   );
 }
-
 function ChatFriends() {
   const Friends = useRecoilValue(Friendschat);
+  const [ChatMessages, SetMessages] = useRecoilState(Chatmessages);
+
   const [Friendid, setId] = useRecoilState(FriendId);
-  const url = useRecoilValue(Url);
+  const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
+  // const url = useRecoilValue(Url);
+  const token = localStorage.getItem("token");
   const getInfoChat = async (id: number) => {
+    //const socket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
+    const socket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/${token}`);
+    socket.onopen = function (event) {
+      console.log("WebSocket connection established.");
+      event.preventDefault();
+    };
+
+    // setChatSoc(socket);
     try {
-      const response = await api.get(`messages/${id}/`);
-      console.table(response.data);
+      const response = await axios.get(
+        `http://${host}:${port}/messages/${id}/`
+      );
+      SetMessages(response.data);
+      console.log(response.data);
       setId(id);
     } catch (error) {
       console.log(error);
@@ -97,6 +114,7 @@ function ChatFriends() {
     // getInfoChat(Friends[0].id);
     // }
   }, [Friends]);
+
   return (
     <>
       <div className="Friends-wrapper">
@@ -108,7 +126,10 @@ function ChatFriends() {
             onClick={() => getInfoChat(item.id)}
           >
             <div className="Friend-img">
-              <img src={`${url}${item.avatar}`} className="bachar" />
+              <img
+                src={`http://${host}:${port}/${item.avatar}`}
+                className="bachar"
+              />
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
@@ -120,7 +141,6 @@ function ChatFriends() {
     </>
   );
 }
-
 interface MessageInfo {
   name: string;
   message: string;
@@ -168,7 +188,11 @@ function ChatTyping() {
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    const newSocket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
+    const token = localStorage.getItem("token");
+    const newSocket = new WebSocket(
+      `ws://localhost:2500/ws/chat/${id}/${token}`
+    );
+
     setSocket(newSocket);
     newSocket.onopen = function () {
       console.log("WebSocket connection established.");

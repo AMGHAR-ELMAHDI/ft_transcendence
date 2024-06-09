@@ -12,7 +12,9 @@ application = ProtocolTypeRouter({
   'websocket': URLRouter([
       re_path(r'game/host/socket-server/', consumers.GameConsumer.as_asgi()),
 	    re_path(r'ws/game/tn/', consumers.TournamentM_.as_asgi()),
-      path("ws/chat/<int:receiver_id>/", ChatConsumer.as_asgi()),
+      #path("ws/chat/<int:receiver_id>/", ChatConsumer.as_asgi()),
+      path("ws/chat/<int:receiver_id>/<str:token>", ChatConsumer.as_asgi()),
+      
   ]
     ),
 })
