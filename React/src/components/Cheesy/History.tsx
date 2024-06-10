@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { setAuthToken } from "../Utils/setAuthToken";
-import axios from "axios";
-import { useRecoilValue } from "recoil";
-import Url from "../../Atoms/Url";
+import { useEffect, useState } from "react";
 import api from "../../api";
 import LoadingData from "./LoadingData";
 import { UserDataProps } from "./ProfileItems";
@@ -24,7 +20,7 @@ function getTooltip() {
           <th>
             <h1>GAME MODE</h1>
           </th>
-          <th>
+          <th className="DontRender">
             <h1>LENGTH</h1>
           </th>
         </tr>
@@ -65,7 +61,9 @@ function getHistoryTabs(player_score: number, opponent_score: number) {
   if (player_score >= opponent_score) return "Won";
   else return "Lost";
 }
+
 function History({ UserData, UseUserData }: UserDataProps) {
+  const [render, setRender] = useState(screen.width >= 1024 ? true : false);
   const [data, setData] = useState<any>([]);
   const [isLoading, setLoading] = useState(true);
 
@@ -101,27 +99,27 @@ function History({ UserData, UseUserData }: UserDataProps) {
         <table>
           {getTooltip()}
           {data?.map((game: any) => (
-            <tbody key={game.id}>
+            <tbody key={game?.id}>
               <tr
                 className={getHistoryTabs(
-                  game.player_score,
-                  game.opponent_score
+                  game?.player_score,
+                  game?.opponent_score
                 )}
               >
                 <td className="leftTd zekton">
                   <h1>{getDate(game?.date)}</h1>
                 </td>
                 <td className="Toruk">
-                  <h1>{game?.opponent_username[0]?.username}</h1>
+                  <h1>{game?.opponent_username[0].username}</h1>
                 </td>
                 <td className="ScoreTd Toruk">
-                  {getScore(game.player_score, game.opponent_score)}
+                  {getScore(game?.player_score, game?.opponent_score)}
                 </td>
-                <td className="zekton">
+                <td className="zekton Render">
                   <h1>{getGameMode(game?.game_mode)}</h1>
                 </td>
-                <td className="rightTd zekton">
-                  <h1>{game.game_duration_minutes + "min"}</h1>
+                <td className="rightTd zekton DontRender">
+                  <h1>{game?.game_duration_minutes + "min"}</h1>
                 </td>
               </tr>
               <tr>

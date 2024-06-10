@@ -1,3 +1,10 @@
+:root {
+  --bg-color: #0c0e14;
+  --font-color: white;
+  --grey-bg-color: hsl(227, 15%, 23%);
+  --blue-glow: #5fcae4;
+}
+
 #SideBar {
   display: flex;
   flex-direction: column;
@@ -12,7 +19,6 @@
   width: 6rem;
   margin-top: 1.5rem;
   cursor: pointer;
-
 }
 
 .sidebar-links {
@@ -26,7 +32,6 @@
 .sidebar-links > * > * {
   text-align: center;
   cursor: pointer;
-  /* width: 3rem; */
 }
 
 .sidebarImgs {
@@ -86,5 +91,18 @@
   }
   .LeaderSide > * {
     width: 2.5rem;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  #SideBar {
+    display: none;
+  }
+  #logo {
+    width: 6rem;
+    padding: 0;
+    margin-top: -1rem;
+    margin-left: -1rem;
+    margin-right: 1rem;
   }
 }

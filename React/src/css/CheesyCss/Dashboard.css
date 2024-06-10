@@ -6,14 +6,6 @@
   --edge: 25px;
 }
 
-/* #DashboardProfileContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  flex: 1;
-  margin-bottom: 1rem;
-} */
-
 #Dashboard {
   border-radius: var(--edge);
   display: flex;
@@ -24,11 +16,13 @@
 #DashboardHistory {
   display: flex;
   width: 800px;
+  min-width: 600px;
   border-radius: 25px;
 }
 
 #Dashboard-Main-GameModeContainer {
   width: 800px;
+  min-width: 300px;
   background-image: url("/vs4.png");
   border-radius: 25px;
   background-size: cover;
@@ -63,6 +57,7 @@
 
 #Dashboard-Secondary-GameModeContainer {
   width: 800px;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -171,11 +166,10 @@
 }
 
 @media only screen and (max-width: 2560px) {
-  #DashboardHistory,
-  #Dashboard-Main-GameModeContainer,
-  #Dashboard-Secondary-GameModeContainer {
-    width: 700px;
+  #Dashboard > * {
+    width: calc(100% / 3);
   }
+
   #Dashboard-Main-GameModeContainer:hover::before {
     top: 46%;
     left: 24%;
@@ -197,29 +191,55 @@
   }
 }
 
+@media only screen and (max-width: 1920px) {
+  #DashboardHistory {
+    display: none;
+  }
+  #Dashboard > * {
+    width: 50%;
+  }
+  #Dashboard-Main-GameModeContainer:hover::before {
+    left: 25%;
+  }
+  #Dashboard-Secondary-tournament:hover::before {
+    top: 8%;
+    left: 24.5%;
+    font-size: 2.6rem;
+  }
+  #Dashboard-Secondary-bot:hover::before {
+    top: 21%;
+    font-size: 2.6rem;
+  }
+  #Dashboard-Secondary-practice:hover::before {
+    top: 26%;
+    left: 21%;
+    font-size: 2.5rem;
+  }
+}
+
+@media only screen and (max-width: 1900px) {
+  #Dashboard-Main-GameModeContainer:hover::before {
+    display: none;
+  }
+  #Dashboard-Secondary-tournament:hover::before {
+    display: none;
+  }
+  #Dashboard-Secondary-bot:hover::before {
+    display: none;
+  }
+  #Dashboard-Secondary-practice:hover::before {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 1440px) {
   #Dashboard-Main-GameModeContainer,
   #Dashboard-Secondary-GameModeContainer {
     width: 350px;
   }
-  #DashboardHistory {
+  /* #DashboardHistory {
     width: 1000px;
-  }
-  #Dashboard-Secondary-GameModeContainer {
-    gap: 1rem;
-  }
-}
-
-@media only screen and (max-width: 1920px) {
-  #Dashboard-Main-GameModeContainer,
-  #Dashboard-Secondary-GameModeContainer {
-    width: 500px;
-  }
-  #DashboardHistory {
-    width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  } */
   #Dashboard-Secondary-GameModeContainer {
     gap: 1rem;
   }

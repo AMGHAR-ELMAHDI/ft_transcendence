@@ -23,17 +23,11 @@
 
 .HistoryToolTipTable {
   background-color: var(--bg-color);
-  height: 1rem;
-  position: sticky;
-  top: 0;
   height: 3rem;
-  z-index: 100;
-  margin-bottom: 3rem;
 }
 
 .Won,
 .Lost {
-  height: 8rem;
   text-align: center;
   transition: 0.5s all;
 }
@@ -62,11 +56,6 @@
   height: 2rem;
 }
 
-td {
-  /* color: #401a20; */
-  font-size: 1.3rem;
-}
-
 .ScoreTd {
   display: flex;
   align-items: center;
@@ -87,7 +76,6 @@ td {
 .HistoryToolTipTable > th > h1 {
   color: hsl(232, 7%, 40%);
   font-family: Futurass;
-  font-size: 900;
   letter-spacing: 2px;
   font-size: 1.35rem;
 }
@@ -133,5 +121,71 @@ td > h1 {
   .Won:hover,
   .Lost:hover {
     scale: 1.01 !important;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  .HistoryToolTipTable {
+    height: 1rem;
+  }
+
+  .spacing {
+    height: 1rem;
+  }
+
+  .ScoreTd {
+    height: 6rem;
+  }
+  .zekton > h1 {
+    font-size: 0.9rem;
+  }
+
+  #PlayerScoreProfile {
+    font-size: 1rem !important;
+  }
+
+  #PlayerScoreOpponent {
+    font-size: 1rem !important;
+  }
+  .Toruk > h1 {
+    font-size: 1rem !important;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .spacing {
+    height: 0.8rem;
+  }
+  .ScoreTd {
+    height: 4rem;
+  }
+  .zekton > h1 {
+    font-size: 0.7rem;
+  }
+
+  #PlayerScoreProfile {
+    font-size: 0.9rem !important;
+  }
+
+  #PlayerScoreOpponent {
+    font-size: 0.9rem !important;
+  }
+  .Toruk > h1 {
+    font-size: 0.8rem !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .DontRender {
+    display: none;
+  }
+  .leftTd {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding: 0 1rem;
+  }
+  .RenderRadius {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
   }
 }

@@ -7,43 +7,84 @@ import LogoutPopUp from "../SideBar/Logout";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { PiChatCircleTextLight } from "react-icons/pi";
 import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AcessToken from "../../Atoms/AccessToken";
 import IsLogged from "../../Atoms/IsLogged";
 import { useRecoilState } from "recoil";
 
+function SideBarLinks() {
+  return (
+    <div className="sidebar-links">
+      <Link to={"/"}>
+        <Home />
+      </Link>
+      <Link to={"/chat"}>
+        <PiChatCircleTextLight
+          color="#757889"
+          className={
+            window.location.pathname === "/chat"
+              ? "sidebarImgsBlue"
+              : "sidebarImgs"
+          }
+        />
+      </Link>
+      <Link to={"/game"}>
+        <IoGameControllerOutline
+          className={
+            window.location.pathname === "/game"
+              ? "sidebarImgsBlue"
+              : "sidebarImgs"
+          }
+        />
+      </Link>
+      <Link to={"/leaderboard"}>
+        <div className="LeaderSide">
+          <Leaderboard />
+        </div>
+      </Link>
+      <Link to={"/shop"}>
+        <Shop />
+      </Link>
+      <Link to={"/profile"}>
+        <ProfileSideBar />
+      </Link>
+    </div>
+  );
+}
 
 function SideBar() {
-    const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-    const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
-    const [Logged, setLogged] = useRecoilState(IsLogged);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
+  const [Logged, setLogged] = useRecoilState(IsLogged);
 
-    const handleConfirmLogout = () => {
-      setShowLogoutPopup(false);
-      setTokenValue("");
-      localStorage.removeItem("token");
-      setLogged(false);
-    };
+  const handleConfirmLogout = () => {
+    setShowLogoutPopup(false);
+    setTokenValue("");
+    localStorage.removeItem("token");
+    setLogged(false);
+  };
 
-    const handleCancelLogout = () => {
-      setShowLogoutPopup(false);
-    };
-    const navigate = useNavigate();
+  const handleCancelLogout = () => {
+    setShowLogoutPopup(false);
+  };
+
+  const navigate = useNavigate();
 
   return (
     <div id="SideBar">
       <img onClick={() => navigate("/")} id="logo" src="/logo.svg" alt="logo" />
-      <div className="sidebar-links">
-        <Link to={"/"}> <Home /></Link>
-        <Link to={"/chat"}> <PiChatCircleTextLight color="#757889" className={ window.location.pathname === "/chat" ? "sidebarImgsBlue" : "sidebarImgs" }/></Link>
-        <Link to={"/game"}> <IoGameControllerOutline className={ window.location.pathname === "/game" ? "sidebarImgsBlue" : "sidebarImgs"}/></Link>
-        <Link to={"/leaderboard"}><div className="LeaderSide"><Leaderboard /></div></Link>
-        <Link to={"/shop"}><Shop /></Link>
-        <Link to={"/profile"}><ProfileSideBar /></Link>
-      </div>
-      <div className="SideBottom" onClick={() => (setShowLogoutPopup(!showLogoutPopup))}>
+      <SideBarLinks />
+      <div
+        className="SideBottom"
+        onClick={() => setShowLogoutPopup(!showLogoutPopup)}
+      >
         <LogOutSideBar />
-        {showLogoutPopup && <LogoutPopUp onConfirm={handleConfirmLogout} onCancel={handleCancelLogout}/>}
+        {showLogoutPopup && (
+          <LogoutPopUp
+            onConfirm={handleConfirmLogout}
+            onCancel={handleCancelLogout}
+          />
+        )}
       </div>
     </div>
   );

@@ -6,11 +6,21 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 import LoadingData from "../Cheesy/LoadingData";
+import Drawer from "react-modern-drawer";
+import "react-modern-drawer/dist/index.css";
+import { IoHome } from "react-icons/io5";
+import { PiChatsCircleBold } from "react-icons/pi";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { FaRankingStar } from "react-icons/fa6";
+import { CiShop } from "react-icons/ci";
+import { FaRegUserCircle } from "react-icons/fa";
+import { TiThMenu } from "react-icons/ti";
 
 export function getPageName() {
   let pageName = window.location.pathname;
 
   if (window.location.pathname?.includes("/profile/")) return "User Profile";
+  if (window.location.pathname?.includes("/game")) return "";
   pageName = pageName.slice(1);
   pageName = pageName.charAt(0).toUpperCase() + pageName.slice(1);
   return pageName;
@@ -31,6 +41,39 @@ const DropdownMenu = () => {
   );
 };
 
+function DrawerLinks() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="DrawerLinks">
+      <div onClick={() => navigate("/")}>
+        <IoHome />
+        <h1 className="DrawerText">Home</h1>
+      </div>
+      <div onClick={() => navigate("/chat")}>
+        <PiChatsCircleBold />
+        <h1 className="DrawerText">Chat</h1>
+      </div>
+      <div onClick={() => navigate("/game")}>
+        <IoGameControllerOutline />
+        <h1 className="DrawerText">Game</h1>
+      </div>
+      <div onClick={() => navigate("/leaderboard")}>
+        <FaRankingStar />
+        <h1 className="DrawerText">Leaderboard</h1>
+      </div>
+      <div onClick={() => navigate("/shop")}>
+        <CiShop />
+        <h1 className="DrawerText">Shop</h1>
+      </div>
+      <div onClick={() => navigate("/profile")}>
+        <FaRegUserCircle />
+        <h1 className="DrawerText">Profile</h1>
+      </div>
+    </div>
+  );
+}
+
 function TopBar() {
   const [data, setData] = React.useState<any>({});
   const [isDropdownVisible, setDropdownVisible] = React.useState(false);
@@ -40,6 +83,8 @@ function TopBar() {
   const [isFocused, setIsFocused] = useState(false);
   const url = useRecoilValue(Url);
   const [isLoading, setIsLoading] = useState(true);
+  const [render, setRender] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleInputChange = (e: any) => {
     const searchTerm = e.target.value;
@@ -62,8 +107,12 @@ function TopBar() {
       const response = await api.get("player/me");
       setData(response.data);
       setIsLoading(false);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.request) {
+        console.log("Error request:", error.request);
+        navigate("/login");
+        window.location.href = "/login";
+      } else console.log("Error message:", error.message);
       setIsLoading(false);
     }
   };
@@ -90,7 +139,9 @@ function TopBar() {
   useEffect(() => {
     getData();
     getPlayers();
+    setRender(screen.width >= 1024 ? true : false);
   }, []);
+
   const navigate = useNavigate();
 
   let print = <h1>Good Evening,</h1>;
@@ -99,6 +150,20 @@ function TopBar() {
     <>
       {isLoading && LoadingData()}
       <div id="TopBar">
+        <div className="absolute">
+          <div className="BurgerMenu">
+            <TiThMenu onClick={() => setIsOpen(!isOpen)} />
+          </div>
+          <Drawer
+            open={isOpen}
+            onClose={() => setIsOpen(!isOpen)}
+            direction="left"
+            className="Drawer"
+          >
+            <DrawerLinks />
+          </Drawer>
+        </div>
+
         <div id="welcome-bar">
           {window.location.pathname === "/" && print}
           {window.location.pathname === "/" && username}
