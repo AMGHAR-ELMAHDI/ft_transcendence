@@ -1,74 +1,74 @@
 {
-    "games": [
-        {
-            "id": 1,
-            "date": "2024-05-11T16:35:58.852097Z",
-            "player": 1,
-            "opponent": 2,
-            "player_score": 10.0,
-            "opponent_score": 5.0,
-            "game_mode": "O",
-            "game_duration_minutes": 5.0
-        },
-        {
-            "id": 2,
-            "date": "2024-05-11T16:35:58.852097Z",
-            "player": 1,
-            "opponent": 2,
-            "player_score": 13.0,
-            "opponent_score": 27.0,
-            "game_mode": "B",
-            "game_duration_minutes": 5.0
-        },
-        {
-            "id": 3,
-            "date": "2024-05-11T16:35:58.852097Z",
-            "player": 1,
-            "opponent": 2,
-            "player_score": 15.0,
-            "opponent_score": 25.0,
-            "game_mode": "T",
-            "game_duration_minutes": 5.0
-        },
-        {
-            "id": 4,
-            "date": "2024-05-11T16:35:58.852097Z",
-            "player": 1,
-            "opponent": 2,
-            "player_score": 17.0,
-            "opponent_score": 16.0,
-            "game_mode": "O",
-            "game_duration_minutes": 5.0
-        },
-        {
-            "id": 5,
-            "date": "2024-05-11T16:35:58.852097Z",
-            "player": 1,
-            "opponent": 2,
-            "player_score": 15.0,
-            "opponent_score": 20.0,
-            "game_mode": "O",
-            "game_duration_minutes": 5.0
-        },
-        {
-            "id": 6,
-            "date": "2024-05-11T16:35:58.852097Z",
-            "player": 1,
-            "opponent": 2,
-            "player_score": 11.0,
-            "opponent_score": 11.0,
-            "game_mode": "O",
-            "game_duration_minutes": 5.0
-        },
-        {
-            "id": 7,
-            "date": "2024-05-11T16:35:58.852097Z",
-            "player": 1,
-            "opponent": 2,
-            "player_score": 8.0,
-            "opponent_score": 14.0,
-            "game_mode": "O",
-            "game_duration_minutes": 5.0
-        }
-    ]
+  "games": [
+    {
+      "id": 1,
+      "date": "2024-05-11T16:35:58.852097Z",
+      "player": 1,
+      "opponent": 2,
+      "player_score": 10.0,
+      "opponent_score": 5.0,
+      "game_mode": "O",
+      "game_duration_minutes": 5.0
+    },
+    {
+      "id": 2,
+      "date": "2024-05-11T16:35:58.852097Z",
+      "player": 1,
+      "opponent": 2,
+      "player_score": 13.0,
+      "opponent_score": 27.0,
+      "game_mode": "B",
+      "game_duration_minutes": 5.0
+    },
+    {
+      "id": 3,
+      "date": "2024-05-11T16:35:58.852097Z",
+      "player": 1,
+      "opponent": 2,
+      "player_score": 15.0,
+      "opponent_score": 25.0,
+      "game_mode": "T",
+      "game_duration_minutes": 5.0
+    },
+    {
+      "id": 4,
+      "date": "2024-05-11T16:35:58.852097Z",
+      "player": 1,
+      "opponent": 2,
+      "player_score": 17.0,
+      "opponent_score": 16.0,
+      "game_mode": "O",
+      "game_duration_minutes": 5.0
+    },
+    {
+      "id": 5,
+      "date": "2024-05-11T16:35:58.852097Z",
+      "player": 1,
+      "opponent": 2,
+      "player_score": 15.0,
+      "opponent_score": 20.0,
+      "game_mode": "O",
+      "game_duration_minutes": 5.0
+    },
+    {
+      "id": 6,
+      "date": "2024-05-11T16:35:58.852097Z",
+      "player": 1,
+      "opponent": 2,
+      "player_score": 11.0,
+      "opponent_score": 11.0,
+      "game_mode": "O",
+      "game_duration_minutes": 5.0
+    },
+    {
+      "id": 7,
+      "date": "2024-05-11T16:35:58.852097Z",
+      "player": 1,
+      "opponent": 2,
+      "player_score": 8.0,
+      "opponent_score": 14.0,
+      "game_mode": "O",
+      "game_duration_minutes": 5.0
+    }
+  ]
 }

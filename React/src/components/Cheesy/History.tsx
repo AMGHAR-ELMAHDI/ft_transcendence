@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { setAuthToken } from "../Utils/setAuthToken";
-import axios from "axios";
-import { useRecoilValue } from "recoil";
-import Url from "../../Atoms/Url";
+import { useEffect, useState } from "react";
 import api from "../../api";
 import LoadingData from "./LoadingData";
 import { UserDataProps } from "./ProfileItems";
 
-function getTooltip() {
+interface Props {
+  render: boolean;
+}
+
+function getTooltip({ render }: Props) {
+  console.log("render: ", render);
+
   return (
     <>
       <thead>
@@ -24,9 +26,11 @@ function getTooltip() {
           <th>
             <h1>GAME MODE</h1>
           </th>
-          <th>
-            <h1>LENGTH</h1>
-          </th>
+          {render && (
+            <th>
+              <h1>LENGTH</h1>
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
@@ -65,74 +69,157 @@ function getHistoryTabs(player_score: number, opponent_score: number) {
   if (player_score >= opponent_score) return "Won";
   else return "Lost";
 }
+
 function History({ UserData, UseUserData }: UserDataProps) {
-  const [data, setData] = useState<any>([]);
-  const [isLoading, setLoading] = useState(true);
+  const [render, setRender] = useState(false);
+  // const [data, setData] = useState<any>([]);
+  // const [isLoading, setLoading] = useState(true);
 
-  let url;
-  if (!UseUserData) url = "player/games/";
-  else url = `player/${UserData?.username}/games/`;
+  // let url;
+  // if (!UseUserData) url = "player/games/";
+  // else url = `player/${UserData?.username}/games/`;
 
-  const getData = async () => {
-    try {
-      const response = await api.get(url);
-      setData(response.data?.games);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const response = await api.get(url);
+  //     setData(response.data?.games);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
-  const length: boolean = data?.length ? true : false;
+  const obj = [
+    {
+      id: 1,
+      date: "2024-05-11T16:35:58.852097Z",
+      player: 1,
+      opponent: 2,
+      player_score: 10.0,
+      opponent_score: 5.0,
+      opponent_username: "dawdaw",
+      game_mode: "O",
+      game_duration_minutes: 5.0,
+    },
+    {
+      id: 2,
+      date: "2024-05-11T16:35:58.852097Z",
+      player: 1,
+      opponent: 2,
+      player_score: 13.0,
+      opponent_score: 27.0,
+      opponent_username: "dawdaw",
+      game_mode: "B",
+      game_duration_minutes: 5.0,
+    },
+    {
+      id: 3,
+      date: "2024-05-11T16:35:58.852097Z",
+      player: 1,
+      opponent: 2,
+      player_score: 15.0,
+      opponent_score: 25.0,
+      opponent_username: "dawdaw",
+
+      game_mode: "T",
+      game_duration_minutes: 5.0,
+    },
+    {
+      id: 4,
+      date: "2024-05-11T16:35:58.852097Z",
+      player: 1,
+      opponent: 2,
+      player_score: 17.0,
+      opponent_score: 16.0,
+      opponent_username: "dawdaw",
+
+      game_mode: "O",
+      game_duration_minutes: 5.0,
+    },
+    {
+      id: 5,
+      date: "2024-05-11T16:35:58.852097Z",
+      player: 1,
+      opponent: 2,
+      player_score: 15.0,
+      opponent_score: 20.0,
+      opponent_username: "dawdaw",
+
+      game_mode: "O",
+      game_duration_minutes: 5.0,
+    },
+    {
+      id: 6,
+      date: "2024-05-11T16:35:58.852097Z",
+      player: 1,
+      opponent: 2,
+      player_score: 11.0,
+      opponent_score: 11.0,
+      opponent_username: "dawdaw",
+
+      game_mode: "O",
+      game_duration_minutes: 5.0,
+    },
+    {
+      id: 7,
+      date: "2024-05-11T16:35:58.852097Z",
+      player: 1,
+      opponent: 2,
+      player_score: 8.0,
+      opponent_score: 14.0,
+      opponent_username: "dawdaw",
+      game_mode: "O",
+      game_duration_minutes: 5.0,
+    },
+  ];
+  // console.log(data);
+
+  // const length: boolean = data?.length ? true : false;
+  setRender(screen.width >= 1024 ? true : false);
 
   return (
     <div className="tableau">
-      {isLoading && LoadingData()}
-      {!isLoading && !length ? (
-        <div className="ProfileItems">
-          <h1 className="emptyData">No Games History</h1>
-        </div>
-      ) : (
-        <table>
-          {getTooltip()}
-          {data?.map((game: any) => (
-            <tbody key={game.id}>
-              <tr
-                className={getHistoryTabs(
-                  game.player_score,
-                  game.opponent_score
-                )}
-              >
-                <td className="leftTd zekton">
-                  <h1>{getDate(game?.date)}</h1>
-                </td>
-                <td className="Toruk">
-                  <h1>{game?.opponent_username[0]?.username}</h1>
-                </td>
-                <td className="ScoreTd Toruk">
-                  {getScore(game.player_score, game.opponent_score)}
-                </td>
-                <td className="zekton">
-                  <h1>{getGameMode(game?.game_mode)}</h1>
-                </td>
+      <table>
+        {getTooltip(render ? { render: true } : { render: false })}
+        {obj?.map((game: any) => (
+          <tbody key={game?.id}>
+            <tr
+              className={getHistoryTabs(
+                game?.player_score,
+                game?.opponent_score
+              )}
+            >
+              <td className="leftTd zekton">
+                <h1>{getDate(game?.date)}</h1>
+              </td>
+              <td className="Toruk">
+                <h1>{game?.opponent_username}</h1>
+              </td>
+              <td className="ScoreTd Toruk">
+                {getScore(game?.player_score, game?.opponent_score)}
+              </td>
+              <td className="zekton">
+                <h1>{getGameMode(game?.game_mode)}</h1>
+              </td>
+              {render && (
                 <td className="rightTd zekton">
-                  <h1>{game.game_duration_minutes + "min"}</h1>
+                  <h1>{game?.game_duration_minutes + "min"}</h1>
                 </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="spacing"></div>
-                </td>
-              </tr>
-            </tbody>
-          ))}
-        </table>
-      )}
+              )}
+            </tr>
+            <tr>
+              <td>
+                <div className="spacing"></div>
+              </td>
+            </tr>
+          </tbody>
+        ))}
+      </table>
     </div>
   );
 }
