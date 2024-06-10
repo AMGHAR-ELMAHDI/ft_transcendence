@@ -70,13 +70,9 @@ function SideBar() {
 
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    // navigate("/");
-  };
-
   return (
     <div id="SideBar">
-      <img id="logo" src="/logo.svg" alt="logo" />
+      <img onClick={() => navigate("/")} id="logo" src="/logo.svg" alt="logo" />
       <SideBarLinks />
       <div
         className="SideBottom"

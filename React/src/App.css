@@ -33,7 +33,7 @@
   box-sizing: border-box;
   font-size: 1.2rem;
   color: var(--font-color);
-  border: 0.1px solid gray;
+  /* border: 0.1px solid gray; */
 }
 
 body {

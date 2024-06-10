@@ -319,9 +319,7 @@ ul {
 }
 
 .absolute {
-  position: absolute;
-  left: 0;
-  top: 0;
+  display: none;
 }
 
 .Drawer {
@@ -353,7 +351,7 @@ ul {
     display: none;
   }
   .absolute {
-    position: static;
+    display: block;
   }
   #welcome-bar {
     display: none;
