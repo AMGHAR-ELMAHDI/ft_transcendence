@@ -64,151 +64,73 @@ function getHistoryTabs(player_score: number, opponent_score: number) {
 
 function History({ UserData, UseUserData }: UserDataProps) {
   const [render, setRender] = useState(screen.width >= 1024 ? true : false);
-  // const [data, setData] = useState<any>([]);
-  // const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState<any>([]);
+  const [isLoading, setLoading] = useState(true);
 
-  // let url;
-  // if (!UseUserData) url = "player/games/";
-  // else url = `player/${UserData?.username}/games/`;
+  let url;
+  if (!UseUserData) url = "player/games/";
+  else url = `player/${UserData?.username}/games/`;
 
-  // const getData = async () => {
-  //   try {
-  //     const response = await api.get(url);
-  //     setData(response.data?.games);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setLoading(false);
-  //   }
-  // };
+  const getData = async () => {
+    try {
+      const response = await api.get(url);
+      setData(response.data?.games);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    getData();
+  }, []);
 
-  const obj = [
-    {
-      id: 1,
-      date: "2024-05-11T16:35:58.852097Z",
-      player: 1,
-      opponent: 2,
-      player_score: 10.0,
-      opponent_score: 5.0,
-      opponent_username: "dawdaw",
-      game_mode: "O",
-      game_duration_minutes: 5.0,
-    },
-    {
-      id: 2,
-      date: "2024-05-11T16:35:58.852097Z",
-      player: 1,
-      opponent: 2,
-      player_score: 13.0,
-      opponent_score: 27.0,
-      opponent_username: "dawdaw",
-      game_mode: "B",
-      game_duration_minutes: 5.0,
-    },
-    {
-      id: 3,
-      date: "2024-05-11T16:35:58.852097Z",
-      player: 1,
-      opponent: 2,
-      player_score: 15.0,
-      opponent_score: 25.0,
-      opponent_username: "dawdaw",
-
-      game_mode: "T",
-      game_duration_minutes: 5.0,
-    },
-    {
-      id: 4,
-      date: "2024-05-11T16:35:58.852097Z",
-      player: 1,
-      opponent: 2,
-      player_score: 17.0,
-      opponent_score: 16.0,
-      opponent_username: "dawdaw",
-
-      game_mode: "O",
-      game_duration_minutes: 5.0,
-    },
-    {
-      id: 5,
-      date: "2024-05-11T16:35:58.852097Z",
-      player: 1,
-      opponent: 2,
-      player_score: 15.0,
-      opponent_score: 20.0,
-      opponent_username: "dawdaw",
-
-      game_mode: "O",
-      game_duration_minutes: 5.0,
-    },
-    {
-      id: 6,
-      date: "2024-05-11T16:35:58.852097Z",
-      player: 1,
-      opponent: 2,
-      player_score: 11.0,
-      opponent_score: 11.0,
-      opponent_username: "dawdaw",
-
-      game_mode: "O",
-      game_duration_minutes: 5.0,
-    },
-    {
-      id: 7,
-      date: "2024-05-11T16:35:58.852097Z",
-      player: 1,
-      opponent: 2,
-      player_score: 8.0,
-      opponent_score: 14.0,
-      opponent_username: "dawdaw",
-      game_mode: "O",
-      game_duration_minutes: 5.0,
-    },
-  ];
-  // const length: boolean = data?.length ? true : false;
+  const length: boolean = data?.length ? true : false;
 
   return (
     <div className="tableau">
-      <table>
-        {getTooltip()}
-        {obj?.map((game: any) => (
-          <tbody key={game?.id}>
-            <tr
-              className={getHistoryTabs(
-                game?.player_score,
-                game?.opponent_score
-              )}
-            >
-              <td className="leftTd zekton">
-                <h1>{getDate(game?.date)}</h1>
-              </td>
-              <td className="Toruk">
-                <h1>{game?.opponent_username}</h1>
-              </td>
-              <td className="ScoreTd Toruk">
-                {getScore(game?.player_score, game?.opponent_score)}
-              </td>
-              <td className="zekton Render">
-                <h1>{getGameMode(game?.game_mode)}</h1>
-              </td>
-              {/* {render && ( */}
-              <td className="rightTd zekton DontRender">
-                <h1>{game?.game_duration_minutes + "min"}</h1>
-              </td>
-              {/* )} */}
-            </tr>
-            <tr>
-              <td>
-                <div className="spacing"></div>
-              </td>
-            </tr>
-          </tbody>
-        ))}
-      </table>
+      {isLoading && LoadingData()}
+      {!isLoading && !length ? (
+        <div className="ProfileItems">
+          <h1 className="emptyData">No Games History</h1>
+        </div>
+      ) : (
+        <table>
+          {getTooltip()}
+          {data?.map((game: any) => (
+            <tbody key={game?.id}>
+              <tr
+                className={getHistoryTabs(
+                  game?.player_score,
+                  game?.opponent_score
+                )}
+              >
+                <td className="leftTd zekton">
+                  <h1>{getDate(game?.date)}</h1>
+                </td>
+                <td className="Toruk">
+                  <h1>{game?.opponent_username[0].username}</h1>
+                </td>
+                <td className="ScoreTd Toruk">
+                  {getScore(game?.player_score, game?.opponent_score)}
+                </td>
+                <td className="zekton Render">
+                  <h1>{getGameMode(game?.game_mode)}</h1>
+                </td>
+                <td className="rightTd zekton DontRender">
+                  <h1>{game?.game_duration_minutes + "min"}</h1>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className="spacing"></div>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      )}
     </div>
   );
 }

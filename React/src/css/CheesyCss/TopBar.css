@@ -58,6 +58,7 @@
   background-color: #0c0e14;
   border: 1px solid var(--blue-glow);
   width: 35rem;
+  min-width: 10rem;
   border-radius: 30px;
   padding: 20px 20px;
   background-image: url(/search-icon.svg);
@@ -330,19 +331,20 @@ ul {
 .DrawerLinks {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   padding: 2rem;
 }
 
 .DrawerLinks > h1 {
   font-size: 1.5rem;
+  color: #a5b4c9;
   cursor: pointer;
-
   transition: all 0.3s ease-in-out;
 }
 
 .DrawerLinks > h1:hover {
   text-decoration: underline;
+  text-decoration-color: #5fcae4;
   scale: 1.1;
 }
 
@@ -374,10 +376,17 @@ ul {
   #search:placeholder-shown,
   #search {
     max-width: 20rem;
-    width: 150%;
+    width: 200%;
   }
   #TopBar {
     align-items: flex-start;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #search:placeholder-shown,
+  #search {
+    width: 150%;
   }
 }
 
