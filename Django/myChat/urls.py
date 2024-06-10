@@ -24,15 +24,14 @@ urlpatterns = [
    path('', include('chat.urls')),
    path('', include('userman.urls')),
    path('', include('purshase.urls')),
+	path('', include('loginPage.urls')),
+   path('game/', include('online.urls')),
+
    path('auth/', include('djoser.urls')),
    path('auth/', include('djoser.urls.jwt')),
    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-   path('admin/', admin.site.urls),
-	path('', include('loginPage.urls')),
-   path('admin/', admin.site.urls),
-   path('game/', include('online.urls')),
 ]
 
 if settings.DEBUG:
