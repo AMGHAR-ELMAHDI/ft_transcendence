@@ -8,6 +8,13 @@ import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 import LoadingData from "../Cheesy/LoadingData";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
+import { IoHome } from "react-icons/io5";
+import { PiChatsCircleBold } from "react-icons/pi";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { FaRankingStar } from "react-icons/fa6";
+import { CiShop } from "react-icons/ci";
+import { FaRegUserCircle } from "react-icons/fa";
+import { TiThMenu } from "react-icons/ti";
 
 export function getPageName() {
   let pageName = window.location.pathname;
@@ -39,12 +46,30 @@ function DrawerLinks() {
 
   return (
     <div className="DrawerLinks">
-      <h1 onClick={() => navigate("/")}>Home</h1>
-      <h1 onClick={() => navigate("/chat")}>Chat</h1>
-      <h1 onClick={() => navigate("/game")}>Game</h1>
-      <h1 onClick={() => navigate("/leaderboard")}>Leaderboard</h1>
-      <h1 onClick={() => navigate("/shop")}>Shop</h1>
-      <h1 onClick={() => navigate("/profile")}>Profile</h1>
+      <div onClick={() => navigate("/")}>
+        <IoHome />
+        <h1 className="DrawerText">Home</h1>
+      </div>
+      <div onClick={() => navigate("/chat")}>
+        <PiChatsCircleBold />
+        <h1 className="DrawerText">Chat</h1>
+      </div>
+      <div onClick={() => navigate("/game")}>
+        <IoGameControllerOutline />
+        <h1 className="DrawerText">Game</h1>
+      </div>
+      <div onClick={() => navigate("/leaderboard")}>
+        <FaRankingStar />
+        <h1 className="DrawerText">Leaderboard</h1>
+      </div>
+      <div onClick={() => navigate("/shop")}>
+        <CiShop />
+        <h1 className="DrawerText">Shop</h1>
+      </div>
+      <div onClick={() => navigate("/profile")}>
+        <FaRegUserCircle />
+        <h1 className="DrawerText">Profile</h1>
+      </div>
     </div>
   );
 }
@@ -125,12 +150,9 @@ function TopBar() {
       {isLoading && LoadingData()}
       <div id="TopBar">
         <div className="absolute">
-          <img
-            onClick={() => setIsOpen(!isOpen)}
-            id="logo"
-            src="/logo.svg"
-            alt="logo"
-          />
+          <div className="BurgerMenu">
+            <TiThMenu onClick={() => setIsOpen(!isOpen)} />
+          </div>
           <Drawer
             open={isOpen}
             onClose={() => setIsOpen(!isOpen)}

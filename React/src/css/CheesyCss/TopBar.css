@@ -326,6 +326,7 @@ ul {
 .Drawer {
   background-color: var(--bg-color) !important;
   height: 100% !important;
+  width: fit-content !important;
 }
 
 .DrawerLinks {
@@ -335,17 +336,44 @@ ul {
   padding: 2rem;
 }
 
-.DrawerLinks > h1 {
+.DrawerLinks > div {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.DrawerLinks > div:checked {
+  background-color: #5fcae4;
+}
+
+.DrawerLinks > div:hover {
+  scale: 1.1;
+}
+
+.DrawerLinks > div > *:not(.DrawerText) {
+  font-size: 2rem;
+  color: #a5b4c9;
+  stroke: #a5b4c9;
+  fill: #a5b4c9;
+}
+
+.DrawerLinks > div > h1 {
   font-size: 1.5rem;
   color: #a5b4c9;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
 }
 
-.DrawerLinks > h1:hover {
-  text-decoration: underline;
-  text-decoration-color: #5fcae4;
-  scale: 1.1;
+.BurgerMenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.BurgerMenu > * {
+  font-size: 2rem;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -353,7 +381,8 @@ ul {
     display: none;
   }
   .absolute {
-    display: block;
+    display: flex;
+    height: 100%;
   }
   #welcome-bar {
     display: none;

@@ -191,19 +191,6 @@
   }
 }
 
-@media only screen and (max-width: 1440px) {
-  #Dashboard-Main-GameModeContainer,
-  #Dashboard-Secondary-GameModeContainer {
-    width: 350px;
-  }
-  /* #DashboardHistory {
-    width: 1000px;
-  } */
-  #Dashboard-Secondary-GameModeContainer {
-    gap: 1rem;
-  }
-}
-
 @media only screen and (max-width: 1920px) {
   #DashboardHistory {
     display: none;
@@ -227,5 +214,33 @@
     top: 26%;
     left: 21%;
     font-size: 2.5rem;
+  }
+}
+
+@media only screen and (max-width: 1900px) {
+  #Dashboard-Main-GameModeContainer:hover::before {
+    display: none;
+  }
+  #Dashboard-Secondary-tournament:hover::before {
+    display: none;
+  }
+  #Dashboard-Secondary-bot:hover::before {
+    display: none;
+  }
+  #Dashboard-Secondary-practice:hover::before {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  #Dashboard-Main-GameModeContainer,
+  #Dashboard-Secondary-GameModeContainer {
+    width: 350px;
+  }
+  /* #DashboardHistory {
+    width: 1000px;
+  } */
+  #Dashboard-Secondary-GameModeContainer {
+    gap: 1rem;
   }
 }

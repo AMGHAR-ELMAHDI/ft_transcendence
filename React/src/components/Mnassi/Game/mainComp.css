@@ -37,11 +37,11 @@ body {
 	padding: 0;
 	margin: 0;
 }
-#logo {
+/* #logo {
 	width: 153px;
 	position: relative;
 	left: 12px;
-}
+} */
 .header {
 	display: flex;
 	justify-content: space-between;
