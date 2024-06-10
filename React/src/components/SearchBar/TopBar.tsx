@@ -111,6 +111,7 @@ function TopBar() {
       if (error.request) {
         console.log("Error request:", error.request);
         navigate("/login");
+        window.location.href = "/login";
       } else console.log("Error message:", error.message);
       setIsLoading(false);
     }
