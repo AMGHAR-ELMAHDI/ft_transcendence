@@ -73,6 +73,10 @@ class Player(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_superuser
 
+    #@property
+    #def blocked_users(self):
+    #    return self.get_blocked_users()
+    
     
     @property
     def won_matches(self):

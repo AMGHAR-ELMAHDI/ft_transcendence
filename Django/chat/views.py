@@ -15,9 +15,7 @@ from rest_framework import status
 from django.db.models import Q
 from rest_framework.decorators import APIView
 
-
-
-class BlockAPIView(APIView):
+class UnblockAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
@@ -26,11 +24,32 @@ class BlockAPIView(APIView):
         print('---------------------')
         blocker = request.user
         blocked_id = request.data.get('blocked')
+        
         if not blocked_id:
             return Response({'error': 'Blocked user ID is required'}, status=status.HTTP_400_BAD_REQUEST)
         
         blocked_user = get_object_or_404(get_user_model(), id=blocked_id)
         
+        block_relationship = Block.objects.filter(blocker=blocker, blocked=blocked_user)
+        
+        if block_relationship.exists():
+            block_relationship.delete()
+            return Response({'message': 'User unblocked successfully!'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Block relationship does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    
+class BlockAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        blocker = request.user
+        blocked_id = request.data.get('blocked')
+
+        if not blocked_id:
+            return Response({'error': 'Blocked user ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        blocked_user = get_object_or_404(get_user_model(), id=blocked_id)
+
         if blocked_user == blocker:
             return Response({'error': 'You cannot block yourself mate!'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -43,10 +62,7 @@ class BlockAPIView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response({'message': 'User blocked successfully!'}, status=status.HTTP_201_CREATED)
-        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-        
-        
-        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         
         
