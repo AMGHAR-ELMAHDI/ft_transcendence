@@ -12,10 +12,6 @@ import AcessToken from "../../Atoms/AccessToken";
 import IsLogged from "../../Atoms/IsLogged";
 import { useRecoilState } from "recoil";
 
-import Drawer from "react-modern-drawer";
-
-import "react-modern-drawer/dist/index.css";
-
 function SideBarLinks() {
   return (
     <div className="sidebar-links">
@@ -56,31 +52,10 @@ function SideBarLinks() {
   );
 }
 
-function DrawerLinks() {
-  const navigate = useNavigate();
-
-  return (
-    <div className="DrawerLinks">
-
-      <h1 onClick={() => navigate("/")}>Home</h1>
-      <h1 onClick={() => navigate("/chat")}>Chat</h1>
-      <h1 onClick={() => navigate("/game")}>Game</h1>
-      <h1 onClick={() => navigate("/leaderboard")}>Leaderboard</h1>
-      <h1 onClick={() => navigate("/shop")}>Shop</h1>
-      <h1 onClick={() => navigate("/profile")}>Profile</h1>
-    </div>
-  );
-}
-
 function SideBar() {
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
   const [Logged, setLogged] = useRecoilState(IsLogged);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDrawer = () => {
-    setIsOpen((prevState) => !prevState);
-  };
 
   const handleConfirmLogout = () => {
     setShowLogoutPopup(false);
@@ -101,17 +76,7 @@ function SideBar() {
 
   return (
     <div id="SideBar">
-      <div className="absolute">
-        <Drawer
-          open={isOpen}
-          onClose={toggleDrawer}
-          direction="left"
-          className="Drawer"
-        >
-          <DrawerLinks />
-        </Drawer>
-      </div>
-      <img onClick={toggleDrawer} id="logo" src="/logo.svg" alt="logo" />
+      <img id="logo" src="/logo.svg" alt="logo" />
       <SideBarLinks />
       <div
         className="SideBottom"

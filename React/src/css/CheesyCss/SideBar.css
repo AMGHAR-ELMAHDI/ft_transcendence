@@ -32,7 +32,6 @@
 .sidebar-links > * > * {
   text-align: center;
   cursor: pointer;
-  /* width: 3rem; */
 }
 
 .sidebarImgs {
@@ -95,31 +94,13 @@
   }
 }
 
-.absolute {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.Drawer {
-  background-color: var(--bg-color) !important;
-}
-
-.DrawerLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-}
-
-.DrawerLinks > h1 {
-  font-size: 1.5rem;
-  cursor: pointer;
-
-  transition: all 0.3s ease-in-out;
-}
-
-.DrawerLinks > h1:hover {
-  text-decoration: underline;
-  scale: 1.1;
+@media only screen and (max-width: 1024px) {
+  #SideBar {
+    display: none;
+  }
+  #logo {
+    width: 4rem;
+    margin-top: 0;
+    margin-right: 1rem;
+  }
 }

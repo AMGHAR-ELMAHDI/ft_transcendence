@@ -318,6 +318,71 @@ ul {
   }
 }
 
+.absolute {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.Drawer {
+  background-color: var(--bg-color) !important;
+  height: 100% !important;
+}
+
+.DrawerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.DrawerLinks > h1 {
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.DrawerLinks > h1:hover {
+  text-decoration: underline;
+  scale: 1.1;
+}
+
+@media only screen and (max-width: 1024px) {
+  #SideBar {
+    display: none;
+  }
+  .absolute {
+    position: static;
+  }
+  #welcome-bar {
+    display: none;
+  }
+  #search-bar,
+  .NotifProfile {
+    gap: 0;
+  }
+  #search-bar {
+    align-items: center;
+  }
+  #search-bar {
+    justify-content: space-between;
+    margin-right: 0;
+  }
+  .NotifProfile {
+    gap: 1rem;
+  }
+
+  #search:placeholder-shown,
+  #search {
+    max-width: 20rem;
+    width: 150%;
+  }
+  #TopBar {
+    align-items: flex-start;
+  }
+}
+
 @keyframes lights {
   0% {
     color: hsl(230, 40%, 80%);

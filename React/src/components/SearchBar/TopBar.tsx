@@ -6,6 +6,8 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 import LoadingData from "../Cheesy/LoadingData";
+import Drawer from "react-modern-drawer";
+import "react-modern-drawer/dist/index.css";
 
 export function getPageName() {
   let pageName = window.location.pathname;
@@ -32,6 +34,21 @@ const DropdownMenu = () => {
   );
 };
 
+function DrawerLinks() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="DrawerLinks">
+      <h1 onClick={() => navigate("/")}>Home</h1>
+      <h1 onClick={() => navigate("/chat")}>Chat</h1>
+      <h1 onClick={() => navigate("/game")}>Game</h1>
+      <h1 onClick={() => navigate("/leaderboard")}>Leaderboard</h1>
+      <h1 onClick={() => navigate("/shop")}>Shop</h1>
+      <h1 onClick={() => navigate("/profile")}>Profile</h1>
+    </div>
+  );
+}
+
 function TopBar() {
   const [data, setData] = React.useState<any>({});
   const [isDropdownVisible, setDropdownVisible] = React.useState(false);
@@ -41,6 +58,8 @@ function TopBar() {
   const [isFocused, setIsFocused] = useState(false);
   const url = useRecoilValue(Url);
   const [isLoading, setIsLoading] = useState(true);
+  const [render, setRender] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleInputChange = (e: any) => {
     const searchTerm = e.target.value;
@@ -94,7 +113,9 @@ function TopBar() {
   useEffect(() => {
     getData();
     getPlayers();
+    setRender(screen.width >= 1024 ? true : false);
   }, []);
+
   const navigate = useNavigate();
 
   let print = <h1>Good Evening,</h1>;
@@ -103,6 +124,23 @@ function TopBar() {
     <>
       {isLoading && LoadingData()}
       <div id="TopBar">
+        <div className="absolute">
+          <img
+            onClick={() => setIsOpen(!isOpen)}
+            id="logo"
+            src="/logo.svg"
+            alt="logo"
+          />
+          <Drawer
+            open={isOpen}
+            onClose={() => setIsOpen(!isOpen)}
+            direction="left"
+            className="Drawer"
+          >
+            <DrawerLinks />
+          </Drawer>
+        </div>
+
         <div id="welcome-bar">
           {window.location.pathname === "/" && print}
           {window.location.pathname === "/" && username}

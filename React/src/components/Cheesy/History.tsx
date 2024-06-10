@@ -3,13 +3,7 @@ import api from "../../api";
 import LoadingData from "./LoadingData";
 import { UserDataProps } from "./ProfileItems";
 
-interface Props {
-  render: boolean;
-}
-
-function getTooltip({ render }: Props) {
-  console.log("render: ", render);
-
+function getTooltip() {
   return (
     <>
       <thead>
@@ -26,11 +20,9 @@ function getTooltip({ render }: Props) {
           <th>
             <h1>GAME MODE</h1>
           </th>
-          {render && (
-            <th>
-              <h1>LENGTH</h1>
-            </th>
-          )}
+          <th className="DontRender">
+            <h1>LENGTH</h1>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -71,7 +63,7 @@ function getHistoryTabs(player_score: number, opponent_score: number) {
 }
 
 function History({ UserData, UseUserData }: UserDataProps) {
-  const [render, setRender] = useState(false);
+  const [render, setRender] = useState(screen.width >= 1024 ? true : false);
   // const [data, setData] = useState<any>([]);
   // const [isLoading, setLoading] = useState(true);
 
@@ -177,15 +169,12 @@ function History({ UserData, UseUserData }: UserDataProps) {
       game_duration_minutes: 5.0,
     },
   ];
-  // console.log(data);
-
   // const length: boolean = data?.length ? true : false;
-  setRender(screen.width >= 1024 ? true : false);
 
   return (
     <div className="tableau">
       <table>
-        {getTooltip(render ? { render: true } : { render: false })}
+        {getTooltip()}
         {obj?.map((game: any) => (
           <tbody key={game?.id}>
             <tr
@@ -203,14 +192,14 @@ function History({ UserData, UseUserData }: UserDataProps) {
               <td className="ScoreTd Toruk">
                 {getScore(game?.player_score, game?.opponent_score)}
               </td>
-              <td className="zekton">
+              <td className="zekton Render">
                 <h1>{getGameMode(game?.game_mode)}</h1>
               </td>
-              {render && (
-                <td className="rightTd zekton">
-                  <h1>{game?.game_duration_minutes + "min"}</h1>
-                </td>
-              )}
+              {/* {render && ( */}
+              <td className="rightTd zekton DontRender">
+                <h1>{game?.game_duration_minutes + "min"}</h1>
+              </td>
+              {/* )} */}
             </tr>
             <tr>
               <td>
