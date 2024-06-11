@@ -15,6 +15,8 @@ from rest_framework import status
 from django.db.models import Q
 from rest_framework.decorators import APIView
 
+from userman.models import Friendship
+
 class UnblockAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -91,10 +93,24 @@ class MessageAPIView(APIView):
     
     def post(self, request, receiver_id):
         sender = request.user
+        sender_id = sender.id
+        
         if sender:
             receiver = get_object_or_404(get_user_model(), pk=receiver_id)
             content = request.data.get('content')
             if content:
+                is_blocked_me = Block.objects.filter(blocker=receiver_id, blocked=sender_id).exists()
+                if is_blocked_me:
+                    return Response({'error': 'You cannot send messages to this user. [Blocked You]'}, status=status.HTTP_401_UNAUTHORIZED)
+                is_blocked = Block.objects.filter(blocker=sender_id, blocked=receiver_id).exists()
+                if is_blocked:
+                    return Response({'error': 'You cannot send messages to this user. [You Blocked Him]'}, status=status.HTTP_401_UNAUTHORIZED)
+                is_friend =  Friendship.objects.filter(
+                 Q(player1=sender_id, player2=receiver_id) |
+                Q(player1=receiver_id, player2=sender_id)
+                ).exists()
+                if not is_friend:
+                    return Response({'error': 'You cannot send messages to this user. [Not a friend]'}, status=status.HTTP_401_UNAUTHORIZED)
                 message = Message.objects.create(sender=sender, receiver=receiver, content=content)
                 serialized_msg = MessageSerializer(message)
                 return Response(serialized_msg.data, status=status.HTTP_201_CREATED)
