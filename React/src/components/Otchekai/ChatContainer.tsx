@@ -44,33 +44,31 @@ function ChatSystem() {
   };
   useEffect(() => {
     getData();
+    var RealText: string =
+      "You dont have any friends yet. Add some to chat with them!";
+    var text = document.getElementById("text");
+    let i = 0;
+
+    const exit = setInterval(() => {
+      if (i == RealText.length - 1) clearInterval(exit);
+      if (text) text!.innerHTML += RealText[i];
+      i++;
+    }, 50);
   }, []);
   if (FriendsChat.length === 0) {
     return (
-      <>
-        <div id="lonely">
-          <p>You dont have any friends yet. Add some to chat with them!</p>
-        </div>
-      </>
+      <div id="lonely">
+        <p id="text"></p>
+      </div>
     );
   } else {
     return (
       <>
         <div className="Chat-wrapper">
-          <div className="Chat-headers">
-            <h1 id="Chatlogo">Friends</h1>
-            <div className="Friend-header">
-              <div className="Friend-header-img">
-                <img src="/bacharG.svg" id="bachar" />
-              </div>
-              <div className="Friend-header-name">
-                <li>Micheal The Nigger</li>
-                <p>online</p>
-              </div>
-            </div>
-          </div>
-          <div className="Chat-container">
+          <div className="Friends-menu">
             <ChatFriends />
+          </div>
+          <div className="Chat-box-menu">
             <ChatTyping />
           </div>
         </div>
@@ -101,6 +99,7 @@ function ChatFriends() {
   return (
     <>
       <div className="Friends-wrapper">
+        <h1 id="Chatlogo">Friends</h1>
         {Friends.map((item: any) => (
           <div
             className="Chat-Friendslist"
@@ -126,18 +125,6 @@ interface MessageInfo {
   time: string;
 }
 
-function Receiver({ message }: MessageInfo) {
-  return (
-    <>
-      <div className="Receiver">
-        <div className="First-message">
-          <p>{message}</p>
-        </div>
-      </div>
-    </>
-  );
-}
-
 function Sender({ name, message, time }: MessageInfo) {
   return (
     <>
@@ -160,11 +147,13 @@ function Sender({ name, message, time }: MessageInfo) {
     </>
   );
 }
+
 //TODO:sort messages by time
 //FIXME:responsive design
-//TODO:hard code the time (font end)
 //TODO:check whether on two clients at the same time (receiver and sender)
 function ChatTyping() {
+  const friendInfo = useRecoilValue(Friendschat);
+  const url = useRecoilValue(Url);
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const [socket, setSocket] = useState<WebSocket | null>(null);
@@ -173,7 +162,7 @@ function ChatTyping() {
     const newSocket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
     setSocket(newSocket);
     newSocket.onopen = function () {
-      console.log("WebSocket connection established.");
+      console.log("WebSocket connection established (tcha9lib blawr).");
     };
 
     const fetchInitialMessages = async () => {
@@ -188,7 +177,7 @@ function ChatTyping() {
 
     newSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
-      console.log(data);
+      console.log("hihi", e.data);
       const msg = {
         content: data["message"],
         timestamp: new Date(),
@@ -204,7 +193,7 @@ function ChatTyping() {
   const sendMessage = (e: any) => {
     e.preventDefault();
     if (!socket || socket.readyState !== WebSocket.OPEN) {
-      console.error("WebSocket connection not open.");
+      console.error("WebSocket connection not open (ga3ma tcha9lib).");
       return;
     }
 
@@ -221,7 +210,6 @@ function ChatTyping() {
   };
 
   function extractTime(timestampString: any) {
-    console.log("hahowa", timestampString);
     const dateObject = new Date(timestampString);
     const desiredTime = dateObject.toLocaleTimeString([], {
       hour: "2-digit",
@@ -232,38 +220,46 @@ function ChatTyping() {
 
   return (
     <>
-      <div className="Type-wrapper">
-        <div className="Chat-box">
-          {allMessages.map((msg: any, index) => (
-            <div key={index}>
-              {msg.sender !== id ? (
-                <Sender
-                  message={msg.content}
-                  time={extractTime(msg.timestamp)}
-                  name="You"
-                />
-              ) : (
-                <Receiver
-                  message={msg.content}
-                  time={extractTime(msg.timestamp)}
-                  name="Friend"
-                />
-              )}
-            </div>
-          ))}
-        </div>
-        <form onSubmit={sendMessage} id="Chat-input">
-          <div className="Input-box">
-            <input
-              id="message-input"
-              type="text"
-              placeholder="Type Something ..."
-            />
+      <div className="Chat-typer-wrapper">
+        <div className="Header-box-chat">
+          <div className="Friend-header">
+            {friendInfo.map((item: any, index) => (
+              <>
+                <div key={index} className="Friend-header-img">
+                  <img src={`${url}${item.avatar}`} id="chatperson" />
+                </div>
+                <div className="Friend-header-name">
+                  <li>{item.username}</li>
+                  <p>online</p>
+                </div>
+              </>
+            ))}
           </div>
-          <button type="submit" className="Chat-send-button">
-            <img src="/Send-button.svg" id="bottona" />
-          </button>
-        </form>
+        </div>
+        <div className="Type-wrapper">
+          <div className="Chat-box">
+            {allMessages.map((msg: any) => (
+              <Sender
+                key={msg.id}
+                message={msg.content}
+                time={extractTime(msg.timestamp)}
+                name="You"
+              />
+            ))}
+          </div>
+          <form onSubmit={sendMessage} id="Chat-input">
+            <div className="Input-box">
+              <input
+                id="message-input"
+                type="text"
+                placeholder="Type Something ..."
+              />
+            </div>
+            <button type="submit" className="Chat-send-button">
+              <img src="/Send-button.svg" id="bottona" />
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
