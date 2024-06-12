@@ -9,6 +9,7 @@ import FriendId from "../../Atoms/FriendId";
 import api from "../../api";
 import Url from "../../Atoms/Url";
 import { ImBlocked } from "react-icons/im";
+import ChatSocket from "../../Atoms/ChatSocket";
 
 const host = "localhost";
 const port = 2500;
@@ -97,11 +98,12 @@ function ChatFriends() {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
   const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
-  // const url = useRecoilValue(Url);
+  
   const token = localStorage.getItem("token");
   const getInfoChat = async (id: number) => {
     try {
       const response = await api.get(`messages/${id}/`);
+      
       console.table(response.data);
       setId(id);
     } catch (error) {
@@ -180,7 +182,10 @@ function ChatTyping() {
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    const newSocket = new WebSocket(`ws://localhost:2500/ws/chat/${id}/`);
+    const token = localStorage.getItem("token");
+    const newSocket = new WebSocket(
+      `ws://localhost:2500/ws/chat/${id}/${token}`
+    );
     setSocket(newSocket);
     newSocket.onopen = function () {
       console.log("WebSocket connection established (tcha9lib blawr).");
