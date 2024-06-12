@@ -21,7 +21,6 @@
 .Chat-box-menu {
   width: 80%;
   height: 100%;
-  /* border: solid orange; */
 }
 
 #Chatlogo {
@@ -114,18 +113,18 @@
   width: 70px;
 }
 
+.zabi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 .Header-box-chat {
   margin-top: 8rem;
   display: flex;
   justify-content: flex-start;
   width: 85%;
-}
-
-.Friend-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 }
 
 .Friend-header-name > li {
@@ -362,4 +361,10 @@
   font-family: cool;
   color: gray;
   font-size: 70px;
+}
+
+.Block-button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }

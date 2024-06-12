@@ -9,6 +9,7 @@ import Friendschat from "../../Atoms/Chatfriends";
 import FriendId from "../../Atoms/FriendId";
 import api from "../../api";
 import Url from "../../Atoms/Url";
+import { ImBlocked } from "react-icons/im";
 
 const host = "localhost";
 const port = 2500;
@@ -77,8 +78,14 @@ function ChatSystem() {
   }
 }
 
+interface Friend {
+  id: number;
+  username: string;
+  avatar: string;
+}
+
 function ChatFriends() {
-  const Friends = useRecoilValue(Friendschat);
+  const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
   const url = useRecoilValue(Url);
   const getInfoChat = async (id: number) => {
@@ -92,10 +99,11 @@ function ChatFriends() {
   };
 
   useEffect(() => {
-    // if (Friends.length > 0) {
-    // getInfoChat(Friends[0].id);
-    // }
+    if (Friends.length > 0) {
+      getInfoChat(Friends[0].id);
+    }
   }, [Friends]);
+  //TODO:ADD block button
   return (
     <>
       <div className="Friends-wrapper">
@@ -224,15 +232,15 @@ function ChatTyping() {
         <div className="Header-box-chat">
           <div className="Friend-header">
             {friendInfo.map((item: any, index) => (
-              <>
-                <div key={index} className="Friend-header-img">
+              <div className="zabi" key={index}>
+                <div className="Friend-header-img">
                   <img src={`${url}${item.avatar}`} id="chatperson" />
                 </div>
                 <div className="Friend-header-name">
                   <li>{item.username}</li>
                   <p>online</p>
                 </div>
-              </>
+              </div>
             ))}
           </div>
         </div>
