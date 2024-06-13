@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from two_factor.urls import urlpatterns as tf_urls
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -27,6 +28,7 @@ urlpatterns = [
 	path('', include('loginPage.urls')),
    path('game/', include('online.urls')),
 
+   path('', include(tf_urls)),
    path('auth/', include('djoser.urls')),
    path('auth/', include('djoser.urls.jwt')),
    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

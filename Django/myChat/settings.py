@@ -51,6 +51,10 @@ INSTALLED_APPS = [
 	'purshase',
 	'online',
 	'loginPage',
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +64,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -156,7 +161,7 @@ EMAIL_USE_SSL = False
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db5.sqlite3',
+            'NAME': BASE_DIR / 'db5-otp.sqlite3',
         }
     }
 
@@ -226,3 +231,5 @@ GRAPH_MODELS = {
 GRAPH_MODELS = {
   'app_labels': ["chat", "purshase", "userman"],
 }
+
+LOGIN_REDIRECT_URL='http://localhost:2500/auth/jwt/create'
