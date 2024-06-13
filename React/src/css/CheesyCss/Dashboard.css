@@ -192,6 +192,18 @@
 }
 
 @media only screen and (max-width: 1920px) {
+  .main{
+    gap: 20px;
+  }
+  #Dashboard {
+    max-height: 45vh;
+  }
+  #Dashboard-Main-GameModeContainer{
+    height: 100%;
+  }
+  #Dashboard-Secondary-GameModeContainer {
+    height: 100%;
+  }
   #DashboardHistory {
     display: none;
   }

@@ -377,9 +377,7 @@ ul {
 }
 
 @media only screen and (max-width: 1024px) {
-  #SideBar {
-    display: none;
-  }
+
   .absolute {
     display: flex;
     height: 100%;
