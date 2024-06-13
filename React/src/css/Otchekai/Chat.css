@@ -113,7 +113,7 @@
   width: 70px;
 }
 
-.zabi {
+.negotiator {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -364,7 +364,6 @@
 }
 
 .Block-button {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
+  cursor: pointer;
+  width: 50px;
 }
