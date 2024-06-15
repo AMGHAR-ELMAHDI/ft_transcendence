@@ -9,6 +9,7 @@ import FriendId from "../../Atoms/FriendId";
 import api from "../../api";
 import Url from "../../Atoms/Url";
 import { ImBlocked } from "react-icons/im";
+import { CgUnblock } from "react-icons/cg";
 import ChatSocket from "../../Atoms/ChatSocket";
 
 const host = "localhost";
@@ -48,7 +49,7 @@ function ChatSystem() {
     try {
       const response = await api.get("player/me");
       setData(response.data.friends);
-      console.log(response.data.friends);
+      console.table(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -98,12 +99,12 @@ function ChatFriends() {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
   const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
-  
+
   const token = localStorage.getItem("token");
   const getInfoChat = async (id: number) => {
     try {
       const response = await api.get(`messages/${id}/`);
-      
+
       console.table(response.data);
       setId(id);
     } catch (error) {
@@ -135,6 +136,9 @@ function ChatFriends() {
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
+            </div>
+            <div className="Block-button">
+              <ImBlocked />
             </div>
           </div>
         ))}
@@ -174,6 +178,7 @@ function Sender({ name, message, time }: MessageInfo) {
 //TODO:sort messages by time
 //FIXME:responsive design
 //TODO:check whether on two clients at the same time (receiver and sender)
+//TODO:automatic scrollwheel
 function ChatTyping() {
   const friendInfo = useRecoilValue(Friendschat);
   const url = useRecoilValue(Url);
@@ -203,14 +208,12 @@ function ChatTyping() {
 
     newSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
-      console.log("hihi", e.data);
       const msg = {
         content: data["message"],
         timestamp: new Date(),
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
-
     return () => {
       newSocket.close();
     };
@@ -250,7 +253,7 @@ function ChatTyping() {
         <div className="Header-box-chat">
           <div className="Friend-header">
             {friendInfo.map((item: any, index) => (
-              <div className="zabi" key={index}>
+              <div className="negotiator" key={index}>
                 <div className="Friend-header-img">
                   <img src={`${url}${item.avatar}`} id="chatperson" />
                 </div>
@@ -283,6 +286,9 @@ function ChatTyping() {
             </div>
             <button type="submit" className="Chat-send-button">
               <img src="/Send-button.svg" id="bottona" />
+            </button>
+            <button type="submit" className="Chat-send-button">
+              <img src="/GameInvite.svg" id="bottona" />
             </button>
           </form>
         </div>
