@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib import admin
 from .validators import max_size_validator
 from django.db.models import F
+from chat.models import Block
 
 
 class PlayerManager(BaseUserManager):
@@ -72,7 +73,6 @@ class Player(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return self.is_superuser
-
     
     @property
     def won_matches(self):
@@ -152,7 +152,6 @@ class Player(AbstractBaseUser):
                 'player' : g.player_id,
                 'opponent' : g.opponent_id,
                 'opponent_username' : Player.objects.filter(id = g.opponent_id).values('username'),
-                #'username' : g.opponent_username,
                 'player_score' : g.player_score,
                 'opponent_score' : g.opponent_score,
                 'opponent_avatar' : Player.objects.filter(id = g.opponent_id).values('image'),

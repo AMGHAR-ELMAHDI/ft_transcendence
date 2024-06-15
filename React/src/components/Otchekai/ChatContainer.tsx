@@ -49,7 +49,7 @@ function ChatSystem() {
     try {
       const response = await api.get("player/me");
       setData(response.data.friends);
-      console.log(response.data.friends);
+      console.table(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -178,6 +178,7 @@ function Sender({ name, message, time }: MessageInfo) {
 //TODO:sort messages by time
 //FIXME:responsive design
 //TODO:check whether on two clients at the same time (receiver and sender)
+//TODO:automatic scrollwheel
 function ChatTyping() {
   const friendInfo = useRecoilValue(Friendschat);
   const url = useRecoilValue(Url);
@@ -213,7 +214,6 @@ function ChatTyping() {
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
-
     return () => {
       newSocket.close();
     };
@@ -286,6 +286,9 @@ function ChatTyping() {
             </div>
             <button type="submit" className="Chat-send-button">
               <img src="/Send-button.svg" id="bottona" />
+            </button>
+            <button type="submit" className="Chat-send-button">
+              <img src="/GameInvite.svg" id="bottona" />
             </button>
           </form>
         </div>

@@ -189,7 +189,22 @@ class PlayerViewSet(viewsets.ModelViewSet):
             earned_achievement = AchievementPerUser.objects.filter(user=player)
             earned_achievement_count = earned_achievement.count()
             achievements_rate = earned_achievement_count / total_trophies if total_trophies > 0 else 0
-
+            
+            #blocked_lst = player.blocked_users
+            
+            blocked_users = Block.objects.filter(blocker=player).select_related('blocked')
+            blocked_me = Block.objects.filter(blocked=player).select_related('blocked')
+            blocked_list = [
+            {'id': block.blocked.id, 'username': block.blocked.username} for block in blocked_users
+            ]
+            
+            blocked_me_list = [
+                {'id': b.blocker.id, 'username' : b.blocker.username} for b in blocked_me
+            ]
+            print('-----------++++++++-------------')
+            print(blocked_list)
+            print('------------------------')
+            
             data = {
                 'id' : serializer.data['id'],
                 'username': serializer.data['username'],
@@ -199,7 +214,9 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 'coins' : player.coins,
                 'level': player.level,
                 'win_rate': round(win_rate, 2),
-                'achievements_rate': round(achievements_rate,2),
+                'achievements_rate': round(achievements_rate, 2),
+                'blocked_users' : blocked_list,
+                'blocked_me' : blocked_me_list
             }
             return Response(data)
         elif request.method == 'PUT':

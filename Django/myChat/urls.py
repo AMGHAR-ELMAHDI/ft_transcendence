@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from two_factor.urls import urlpatterns as tf_urls
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -24,15 +25,15 @@ urlpatterns = [
    path('', include('chat.urls')),
    path('', include('userman.urls')),
    path('', include('purshase.urls')),
+	path('', include('loginPage.urls')),
+   path('game/', include('online.urls')),
+
+   path('', include(tf_urls)),
    path('auth/', include('djoser.urls')),
    path('auth/', include('djoser.urls.jwt')),
    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-   path('admin/', admin.site.urls),
-	path('', include('loginPage.urls')),
-   path('admin/', admin.site.urls),
-   path('game/', include('online.urls')),
 ]
 
 if settings.DEBUG:

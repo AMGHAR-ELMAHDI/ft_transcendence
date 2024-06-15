@@ -46,10 +46,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'drf_yasg',
     'rest_framework_simplejwt',
+    'django_extensions',
     'userman',
 	'purshase',
 	'online',
 	'loginPage',
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +64,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -152,23 +158,23 @@ EMAIL_USE_SSL = False
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db5.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ft_transcendence',
-		'USER' : 'mnassi',
-		'PASSWORD': 'password',
-		'HOST' : 'localhost',
-		'PORT': '5432',
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db5-otp.sqlite3',
+        }
     }
-}
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'ft_transcendence',
+#		'USER' : 'mnassi',
+#		'PASSWORD': 'password',
+#		'HOST' : 'localhost',
+#		'PORT': '5432',
+#    }
+#}
 
 
 # Password validation
@@ -225,3 +231,5 @@ GRAPH_MODELS = {
 GRAPH_MODELS = {
   'app_labels': ["chat", "purshase", "userman"],
 }
+
+LOGIN_REDIRECT_URL='http://localhost:2500/auth/jwt/create'
