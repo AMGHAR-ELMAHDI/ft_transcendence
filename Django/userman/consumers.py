@@ -4,6 +4,11 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from django.db.models import F
 from userman.models import Player
 from channels.db import database_sync_to_async
+import jwt
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
+
 
 
 @database_sync_to_async
@@ -50,9 +55,13 @@ class StatusConsumer(AsyncWebsocketConsumer):
             return
 
         self.scope["user"] = user
-        user.status = Player.STATUS_ONLINE
+        ConnType = self.scope["url_route"]["kwargs"]["type"]
+        if ConnType == 1:
+            user.status = Player.STATUS_ONLINE 
+        elif ConnType == 2:
+            user.status = Player.STATUS_IN_GAME 
         await database_sync_to_async(user.save)()
-        print(f"[{user.username}] Connected !!")
+        print(f"[{user.username}] Connected !!, status = {ConnType}")
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -65,3 +74,4 @@ class StatusConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         pass
+

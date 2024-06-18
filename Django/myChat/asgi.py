@@ -15,7 +15,7 @@ application = ProtocolTypeRouter({
 	    re_path(r'ws/game/tn/', consumers.TournamentM_.as_asgi()),
       #path("ws/chat/<int:receiver_id>/", ChatConsumer.as_asgi()),
       path("ws/chat/<int:receiver_id>/<str:token>", ChatConsumer.as_asgi()),
-      path("ws/status/<str:token>", StatusConsumer.as_asgi()),
+      path("ws/status/<str:token>/<int:type>", StatusConsumer.as_asgi()),
   ]
     ),
 })
