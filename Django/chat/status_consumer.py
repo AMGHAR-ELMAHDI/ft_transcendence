@@ -16,7 +16,6 @@ def get_user_by_id(user_id):
     return get_object_or_404(get_user_model(), pk=user_id)
 
 async def getUser(authorization_header):
-    print(f"|{authorization_header}|")
     if not authorization_header:
         print("---------> Connection rejected: Authorization header not found.")
         return None
@@ -39,39 +38,42 @@ async def getUser(authorization_header):
         print(f"Player does not exist with ID: {user_id}")
         return None
 
+
 class StatusConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print("+++++++++++connect++++++++++++++++")
-        print("+++++++++++-------++++++++++++++++")
+        print("[Socket Connection] Attempting to connect...")
         authorization_header = self.scope["url_route"]["kwargs"]["token"]
         if not authorization_header:
             await self.close()
             return
 
-        user = await getUser(authorization_header=authorization_header)
+        user = await getUser(authorization_header)
         if user is None:
-            print("user not found !!!!!")
+            print("[Socket Connection] Connection rejected: User not found.")
             await self.close()
             return
 
         self.scope["user"] = user
         ConnType = self.scope["url_route"]["kwargs"]["type"]
+        status_message = ""
+        
         if ConnType == 1:
-            user.status = Player.STATUS_ONLINE 
+            user.status = Player.STATUS_ONLINE
+            status_message = "ONLINE"
         elif ConnType == 2:
-            user.status = Player.STATUS_IN_GAME 
-        await database_sync_to_async(user.save)()
-        print(f"[{user.username}] Connected !!, status = {ConnType}")
+            user.status = Player.STATUS_IN_GAME
+            status_message = "IN_GAME"
+        
+        await sync_to_async(user.save)()
+        print(f"[Socket Connection] Player {user.id} ({user.username}) connected with status: {status_message}")
         await self.accept()
 
     async def disconnect(self, close_code):
         user = self.scope.get("user")
         if user:
             user.status = Player.STATUS_OFFLINE
-            await database_sync_to_async(user.save)()
-            print(f"[{user.username}] Disconnected !!")
-
+            await sync_to_async(user.save)()
+            print(f"[Socket Connection] Player {user.id} ({user.username}) disconnected.")
 
     async def receive(self, text_data):
         pass
-

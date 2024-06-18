@@ -2,9 +2,10 @@ import os
 from django.core.asgi import get_asgi_application
 from django.urls import path,re_path
 from channels.routing import ProtocolTypeRouter, URLRouter
-from chat.consumers import ChatConsumer
+from chat.chat_consumer import ChatConsumer
 from online import consumers 
-from userman.consumers import StatusConsumer
+from chat.status_consumer import StatusConsumer
+from chat.blockUnblock_consumer import BlockUnblockConsumer
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myChat.settings')
 
@@ -16,6 +17,7 @@ application = ProtocolTypeRouter({
       #path("ws/chat/<int:receiver_id>/", ChatConsumer.as_asgi()),
       path("ws/chat/<int:receiver_id>/<str:token>", ChatConsumer.as_asgi()),
       path("ws/status/<str:token>/<int:type>", StatusConsumer.as_asgi()),
+	    path('ws/block-unblock/<str:token>', BlockUnblockConsumer.as_asgi()),
   ]
     ),
 })

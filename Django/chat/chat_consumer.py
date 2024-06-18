@@ -20,7 +20,7 @@ def get_user_by_id(user_id):
 
 
 async def getUser(authorization_header):
-    print(f"|{authorization_header}|")
+    # print(f"|{authorization_header}|")
     if not authorization_header:
         print("---------> Connection rejected: Authorization header not found.")
         return
