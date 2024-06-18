@@ -110,8 +110,8 @@ function TopBar() {
     } catch (error: any) {
       if (error.request) {
         console.log("Error request:", error.request);
-        // window.location.href = "/login";
-        // navigate("/login");
+        window.location.href = "/login";
+        navigate("/login");
       } else console.log("Error message:", error.message);
       setIsLoading(false);
     }

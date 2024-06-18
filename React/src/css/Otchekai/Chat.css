@@ -24,6 +24,7 @@
 }
 
 #Chatlogo {
+  margin-bottom: 8rem;
   font-size: 3.5rem;
   font-family: cool;
   width: fit-content;
@@ -35,10 +36,8 @@
 }
 
 .Friends-wrapper {
-  /* border: solid green; */
   display: flex;
   flex-direction: column;
-  gap: 8rem;
   max-height: 1200px;
   flex: 1;
   margin-top: 8rem;
@@ -53,6 +52,7 @@
   max-width: 400px;
   border-radius: 20px;
   cursor: pointer;
+  margin-bottom: 2rem;
 }
 
 .Friend-img {
@@ -343,6 +343,19 @@
   background-color: #1d90f5;
   transition: 0.4s;
   cursor: pointer;
+}
+
+#bottona-dyal-les-jox {
+  padding: 9px;
+  border-radius: 12px;
+  background-color: #1d90f5;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+#bottona-dyal-les-jox:hover {
+  box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
+    rgba(30, 142, 243, 1) 0px 0px 0px 1px;
 }
 
 #bottona:hover {

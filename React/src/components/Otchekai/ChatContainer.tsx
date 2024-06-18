@@ -10,7 +10,6 @@ import api from "../../api";
 import Url from "../../Atoms/Url";
 import { ImBlocked } from "react-icons/im";
 import { CgUnblock } from "react-icons/cg";
-import ChatSocket from "../../Atoms/ChatSocket";
 
 const host = "localhost";
 const port = 2500;
@@ -35,6 +34,7 @@ export default ChatContainer;
 function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
   const [data, setData] = useState({});
+  const [block, setBlock] = useState<boolean>(false);
   setAuthToken();
   const getData = async () => {
     try {
@@ -45,28 +45,31 @@ function ChatSystem() {
       console.log(error);
     }
   };
+
   const getMyData = async () => {
     try {
       const response = await api.get("player/me");
       setData(response.data.friends);
-      console.table(response.data.friends);
+      console.table("data hnaya", response.data);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getData();
+    getMyData();
     var RealText: string =
       "You dont have any friends yet. Add some to chat with them!";
     var text = document.getElementById("text");
     let i = 0;
-
     const exit = setInterval(() => {
       if (i == RealText.length - 1) clearInterval(exit);
       if (text) text!.innerHTML += RealText[i];
       i++;
     }, 50);
   }, []);
+
   if (FriendsChat.length === 0) {
     return (
       <div id="lonely">
@@ -78,10 +81,10 @@ function ChatSystem() {
       <>
         <div className="Chat-wrapper">
           <div className="Friends-menu">
-            <ChatFriends />
+            <ChatFriends setBlock={setBlock} />
           </div>
           <div className="Chat-box-menu">
-            <ChatTyping />
+            <ChatTyping block={block} />
           </div>
         </div>
       </>
@@ -95,10 +98,13 @@ interface Friend {
   avatar: string;
 }
 
-function ChatFriends() {
+function ChatFriends({
+  setBlock,
+}: {
+  setBlock: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
-  const [chatSoc, setChatSoc] = useRecoilState(ChatSocket);
 
   const token = localStorage.getItem("token");
   const getInfoChat = async (id: number) => {
@@ -117,6 +123,7 @@ function ChatFriends() {
       getInfoChat(Friends[0].id);
     }
   }, [Friends]);
+
   //TODO:ADD block button
   return (
     <>
@@ -137,7 +144,12 @@ function ChatFriends() {
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
             </div>
-            <div className="Block-button">
+            <div
+              onClick={() => {
+                setBlock((prev) => !prev);
+              }}
+              className="Block-button"
+            >
               <ImBlocked />
             </div>
           </div>
@@ -146,6 +158,7 @@ function ChatFriends() {
     </>
   );
 }
+
 interface MessageInfo {
   name: string;
   message: string;
@@ -179,7 +192,7 @@ function Sender({ name, message, time }: MessageInfo) {
 //FIXME:responsive design
 //TODO:check whether on two clients at the same time (receiver and sender)
 //TODO:automatic scrollwheel
-function ChatTyping() {
+function ChatTyping({ block }: any) {
   const friendInfo = useRecoilValue(Friendschat);
   const url = useRecoilValue(Url);
   const id = useRecoilValue(FriendId);
@@ -219,6 +232,10 @@ function ChatTyping() {
     };
   }, [id]);
 
+  useEffect(() => {
+    console.log("You Have Clicked The Block Button");
+  }, [block]);
+
   const sendMessage = (e: any) => {
     e.preventDefault();
     if (!socket || socket.readyState !== WebSocket.OPEN) {
@@ -252,24 +269,22 @@ function ChatTyping() {
       <div className="Chat-typer-wrapper">
         <div className="Header-box-chat">
           <div className="Friend-header">
-            {friendInfo.map((item: any, index) => (
-              <div className="negotiator" key={index}>
-                <div className="Friend-header-img">
-                  <img src={`${url}${item.avatar}`} id="chatperson" />
-                </div>
-                <div className="Friend-header-name">
-                  <li>{item.username}</li>
-                  <p>online</p>
-                </div>
+            <div className="negotiator">
+              <div className="Friend-header-img">
+                <img src="/bacharG.svg" id="chatperson" />
               </div>
-            ))}
+              <div className="Friend-header-name">
+                <li>DawDaw</li>
+                <p>online</p>
+              </div>
+            </div>
           </div>
         </div>
         <div className="Type-wrapper">
           <div className="Chat-box">
-            {allMessages.map((msg: any) => (
+            {allMessages.map((msg: any, index) => (
               <Sender
-                key={msg.id}
+                key={index}
                 message={msg.content}
                 time={extractTime(msg.timestamp)}
                 name="You"
@@ -288,7 +303,7 @@ function ChatTyping() {
               <img src="/Send-button.svg" id="bottona" />
             </button>
             <button type="submit" className="Chat-send-button">
-              <img src="/GameInvite.svg" id="bottona" />
+              <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
             </button>
           </form>
         </div>

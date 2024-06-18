@@ -51,5 +51,9 @@ player/username/games/ : other players | player/games/ : logged players
 player/username/achievements/ : other players | player/achievements/ : logged players
 player/username/items/ : other players | player/items/ : logged players
 
+http://localhost:2500/block/ [ONLY POST]
+blocker : authenticated user
+blocked : chkun baghi tbloki user
+{"blocker": "1", "blocked": "3"}
 
 need to modify image links -------------
