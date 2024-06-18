@@ -103,11 +103,9 @@ class BlockUnblockConsumer(AsyncWebsocketConsumer):
             await self.send(text_data=json.dumps({'error': 'Blocked user does not exist'}))
             return
         
-        # Check if the block relationship exists asynchronously
         block_relationship_exists = await self.block_user_by_id(blocked_user.id)
         
         if block_relationship_exists:
-            # Delete the block relationship asynchronously
             await database_sync_to_async(
                 Block.objects.filter(blocker=self.user, blocked=blocked_user).delete
             )()

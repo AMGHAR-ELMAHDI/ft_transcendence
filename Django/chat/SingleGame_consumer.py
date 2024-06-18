@@ -1,16 +1,14 @@
-import json
-from channels.generic.websocket import AsyncWebsocketConsumer
-from django.contrib.auth.models import User
-from channels.db import database_sync_to_async
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
-from django.db.models import F
-from userman.models import Player
 from channels.db import database_sync_to_async
-import jwt
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from django.db.models import F
+from django.shortcuts import get_object_or_404
+from userman.models import Player
+import json
+import jwt
 
 def get_group_name(self, user_id1, user_id2):
     if user_id1 is not None and user_id2 is not None:

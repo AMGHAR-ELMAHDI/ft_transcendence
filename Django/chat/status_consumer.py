@@ -65,8 +65,8 @@ class StatusConsumer(AsyncWebsocketConsumer):
             status_message = "IN_GAME"
         
         await sync_to_async(user.save)()
-        print(f"[Socket Connection] Player {user.id} ({user.username}) connected with status: {status_message}")
         await self.accept()
+        print(f"[Socket Connection] Player {user.id} ({user.username}) connected with status: {status_message}")
 
     async def disconnect(self, close_code):
         user = self.scope.get("user")
