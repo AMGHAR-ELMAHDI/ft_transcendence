@@ -3,13 +3,11 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
-from django.db.models import F
 from django.shortcuts import get_object_or_404
-from userman.models import Player
 import json
 import jwt
-from userman.models import FriendshipRequest, Friendship
+from userman.models import FriendshipRequest, Player, Friendship
+from django.db.models import F
 
 @database_sync_to_async
 def get_user_by_id(user_id):
@@ -17,10 +15,11 @@ def get_user_by_id(user_id):
 
 async def getUser(authorization_header):
     if not authorization_header:
-        print("---------> Connection rejected: Authorization header not found.")
+        print("[getUser] Connection rejected: Authorization header not found.")
         return None
 
     token = authorization_header
+    print(F"token : |{token}|")
 
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
@@ -29,30 +28,30 @@ async def getUser(authorization_header):
         return user
 
     except jwt.ExpiredSignatureError:
-        print("---------> Connection rejected: Token expired.")
+        print("[getUser] Connection rejected: Token expired.")
         return None
     except jwt.InvalidTokenError:
-        print("---------> Connection rejected: Invalid token.")
+        print("[getUser] Connection rejected: Invalid token.")
         return None
     except Player.DoesNotExist:
         print(f"Player does not exist with ID: {user_id}")
         return None
-    
 
-class RequestSingleGameConsumer(AsyncWebsocketConsumer):
+class FriendshipRequestConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.token = self.scope['url_route']['kwargs']['token']
-        user = await getUser(self.token)
+        self.user = await getUser(self.token)
         if not self.user:
             await self.close()
             return
-        self.user = user
+
         await self.accept()
-        print(F"[RequestSingleGameConsumer] {self.user.usernam} connected !")
+        await self.channel_layer.group_add("friendship", self.channel_name)
+        print(f"[RequestSingleGameConsumer] {self.user.username} connected!")
 
     async def disconnect(self, close_code):
-        pass
-    
+        await self.channel_layer.group_discard("friendship", self.channel_name)
+
     async def receive(self, text_data):
         data = json.loads(text_data)
         print('---------')
@@ -67,49 +66,94 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
         elif action == 'deny':
             await self.denyReq(data)
 
-    async def create(self, data):
+    async def createReq(self, data):
         friend_id = data.get('friend')
-        if not friend:
+        if not friend_id:
             await self.send(text_data=json.dumps({'error': 'user ID is required'}))
             return
+
         friend = await get_user_by_id(friend_id)
         if not friend:
             await self.send(text_data=json.dumps({'error': 'user does not exist'}))
             return
+
         if friend == self.user:
             await self.send(text_data=json.dumps({'error': 'You cannot send an invitation to yourself'}))
             return
-        new_friendshipRequest = FriendshipRequest(from_user=friend, to_user=self.user)
-        await sync_to_async(new_friendshipRequest.save)()
+
+        new_friendship_request = FriendshipRequest(from_user=self.user, to_user=friend)
+        await sync_to_async(new_friendship_request.save)()
+
+        await self.channel_layer.group_send(
+            self.group_name,
+            {
+                'type': 'friend_request.update',
+                'message': 'new_friend_request'
+            }
+        )
 
     async def acceptReq(self, data):
         friend_id = data.get('friend')
-        if not friend:
+        if not friend_id:
             await self.send(text_data=json.dumps({'error': 'user ID is required'}))
             return
+
         friend = await get_user_by_id(friend_id)
         if not friend:
             await self.send(text_data=json.dumps({'error': 'user does not exist'}))
             return
-        update_FriendshipRequest_relation = update_friendship(from_user=friend, to_user=self.user, status="A")
+
+        await update_friendship(from_user=friend, to_user=self.user, status="A")
+
+        await self.channel_layer.group_send(
+            self.group_name,
+            {
+                'type': 'friend_request.update',
+                'message': 'friend_request_accepted'
+            }
+        )
 
     async def denyReq(self, data):
         friend_id = data.get('friend')
-        if not friend:
+        if not friend_id:
             await self.send(text_data=json.dumps({'error': 'user ID is required'}))
             return
+
         friend = await get_user_by_id(friend_id)
         if not friend:
             await self.send(text_data=json.dumps({'error': 'user does not exist'}))
             return
-        update_FriendshipRequest_relation = update_friendship(from_user=friend, to_user=self.user, status="R")
+
+        await update_friendship(from_user=friend, to_user=self.user, status="R")
+
+        await self.channel_layer.group_send(
+            self.group_name,
+            {
+                'type': 'friend_request.update',
+                'message': 'friend_request_denied'
+            }
+        )
+
+    async def friend_request_update(self, event):
+        message = event['message']
+        await self.send(text_data=json.dumps({
+            'action': message,
+        }))
+    
 
 @database_sync_to_async
 def update_friendship(from_user, to_user, status):
+    print('[update_friendship]')
     try:
-            friendship_request = FriendshipRequest.objects.get(from_user__id=from_user, to_user=to_user)
+        friendship_request = FriendshipRequest.objects.get(from_user=from_user, to_user=to_user)
     except FriendshipRequest.DoesNotExist:
         return {'message': 'Friendship request not found'}
     friendship_request.status = status
     friendship_request.save()
-    
+    if status == 'A':
+        print('[update_friendship] [A]')
+        # f = Friendship(player1=from_user_id, player2=user)
+        p1 = Player.objects.get(id=from_user.id)
+        p2 = Player.objects.get(id=to_user.id)
+        f = Friendship(player1=p1, player2=p2)
+        f.save()

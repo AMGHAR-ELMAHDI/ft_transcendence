@@ -2,37 +2,25 @@ import { useEffect, useState, useRef } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { useRecoilState } from "recoil";
 import RenderNotif from "../../Atoms/RenderNotif";
-import api from "../../api";
 import LoadingData from "./LoadingData";
+import api from "../../api";
 
-interface Player {
-  id: number;
-  username: string;
-}
-
-interface FriendshipRequest {
-  id: number;
-  from_user: number;
-  to_user: number;
-  status: string;
-}
-
-function GetUserName(players: Player[], from_user: number): string {
+function GetUserName(players, from_user) {
   let name = "";
-  players.forEach((user) => {
-    if (user.id === from_user) {
-      name = user.username;
-    }
-  });
+  if (Array.isArray(players) && players.length) {
+    players.forEach((user) => {
+      if (user.id === from_user) name = user.username;
+    });
+  }
   return name;
 }
 
-const Notif: React.FC = () => {
-  const [received, setReceived] = useState<FriendshipRequest[]>([]);
+const Notif = () => {
+  const [received, setReceived] = useState([]);
   const [render, setRender] = useRecoilState(RenderNotif);
   const [isLoading, setLoading] = useState(true);
-  const [players, setPlayers] = useState<Player[]>([]);
-  const socket = useRef<WebSocket | null>(null);
+  const [players, setPlayers] = useState([]);
+  const socket = useRef(null);
 
   const getPlayers = async () => {
     try {
@@ -64,7 +52,7 @@ const Notif: React.FC = () => {
       console.log("[Notif] WebSocket connection established");
     };
 
-    socket.current.onmessage = (event: MessageEvent) => {
+    socket.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.action === "new_friend_request") {
         getData(); // Fetch updated friend requests
@@ -80,35 +68,31 @@ const Notif: React.FC = () => {
     };
   }, []);
 
-  const handleAccept = (from_user: number) => {
-    console.log('accepted the user')
+  const handleAccept = (from_user) => {
     socket.current?.send(JSON.stringify({
       action: "accept",
       friend: from_user,
     }));
   };
 
-  const handleDecline = (from_user: number) => {
+  const handleDecline = (from_user) => {
     socket.current?.send(JSON.stringify({
       action: "deny",
       friend: from_user,
     }));
   };
 
-  const filteredItems = received.filter((user) =>
-    user.status.includes("P")
-  );
+  const filteredItems = received.filter((user) => user.status === "P");
 
   const reRender = () => {
     setRender(!render);
     getPlayers();
-    getData();
   };
 
   return (
     <>
       {isLoading ? (
-        <LoadingData />
+        LoadingData()
       ) : (
         <div className="notif-relative" onClick={reRender}>
           <div>

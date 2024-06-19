@@ -6,6 +6,7 @@ from chat.chat_consumer import ChatConsumer
 from online import consumers 
 from chat.status_consumer import StatusConsumer
 from chat.blockUnblock_consumer import BlockUnblockConsumer
+from chat.friend_requests_consumer import FriendshipRequestConsumer
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myChat.settings')
 
@@ -18,6 +19,7 @@ application = ProtocolTypeRouter({
       path("ws/chat/<int:receiver_id>/<str:token>", ChatConsumer.as_asgi()),
       path("ws/status/<str:token>/<int:type>", StatusConsumer.as_asgi()),
 	    path('ws/block-unblock/<str:token>', BlockUnblockConsumer.as_asgi()),
+	    path('ws/friend-reqs/<str:token>', FriendshipRequestConsumer.as_asgi()),
   ]
     ),
 })
