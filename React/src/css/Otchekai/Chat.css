@@ -8,18 +8,17 @@
 
 .Chat-wrapper {
   display: flex;
-  /* border: 1px solid #1e8ef3; */
   width: 100%;
   height: 100%;
 }
 
 .Friends-menu {
-  width: 20%;
+  width: 25%;
   height: 100%;
 }
 
 .Chat-box-menu {
-  width: 80%;
+  width: 100%;
   height: 100%;
 }
 
@@ -39,7 +38,6 @@
   display: flex;
   flex-direction: column;
   max-height: 1200px;
-  flex: 1;
   margin-top: 8rem;
 }
 
@@ -48,8 +46,8 @@
   justify-content: space-around;
   align-items: center;
   background-color: #15171f;
+  max-width: 350px;
   padding: 0.7rem 0;
-  max-width: 400px;
   border-radius: 20px;
   cursor: pointer;
   margin-bottom: 2rem;
@@ -138,7 +136,7 @@
 }
 
 .Chat-box {
-  height: 1000px;
+  height: 820px;
   width: 100%;
   background: #323644;
   background: linear-gradient(
@@ -257,7 +255,7 @@
 
 .Sender-message {
   margin-right: 4rem;
-  max-width: 700px;
+  max-width: 450px;
   background-color: #1d90f5;
   border-radius: 34px;
   padding: 30px;
@@ -313,7 +311,7 @@
   background-color: #424656;
   border-radius: 17px;
   padding: 15px;
-  width: 800px;
+  width: 25vw;
   border: 1px solid #1e8ef3;
   outline: 1px solid #1e8ef3;
   font-size: medium;
@@ -379,4 +377,85 @@
 .Block-button {
   cursor: pointer;
   width: 50px;
+}
+
+@media (max-width: 1700px) {
+  .Friends-menu {
+    width: 40%;
+    height: 100%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .Sender-message {
+    margin-right: 4rem;
+    max-width: 250px;
+    background-color: #1d90f5;
+    border-radius: 34px;
+    padding: 25px;
+  }
+  .Sender-message > p {
+    font-size: 18px;
+  }
+  #Chatlogo {
+    margin-bottom: 8rem;
+    font-size: 2.5rem;
+    font-family: cool;
+    width: fit-content;
+  }
+  #chatperson {
+    width: 3rem;
+    border-radius: 50%;
+    padding: 5px;
+    border: 1px solid #5fcae4;
+  }
+  .Friends-menu {
+    width: 45%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 1120px) {
+  .Sender-message {
+    margin-right: 4rem;
+    max-width: 200px;
+    background-color: #1d90f5;
+    border-radius: 34px;
+    padding: 25px;
+  }
+  .Sender-message > p {
+    font-size: 15px;
+  }
+  #Chatlogo {
+    margin-bottom: 6rem;
+    font-size: 2.5rem;
+    font-family: cool;
+    width: fit-content;
+  }
+  .Chat-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  .Friends-wrapper {
+    display: flex;
+    width: 600px;
+    height: 300px;
+    margin-top: 5rem;
+  }
+  .Chat-Friendslist {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 250px;
+    background-color: #15171f;
+    padding: 0.7rem 0;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 2rem;
+  }
+  .Chat-box::before {
+    z-index: -1;
+  }
 }
