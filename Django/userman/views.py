@@ -298,6 +298,28 @@ class PlayerViewSet(viewsets.ModelViewSet):
 
 
 @action(detail=False, methods=['GET', 'PUT', 'POST'])
+class InvitesAPIView(APIView):
+    queryset = Invites.objects.all()
+    serializer_class = InvitesSerializer
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        print('---------[GET]')
+        print(request.data)
+        print('---------')
+        user = request.user
+        # sent = Invites.objects.filter(sender=user)
+        recieved = Invites.objects.filter(receiver=user)
+        # serialized_sent = InvitesSerializer(sent, many=True)
+        serialized_recieved = InvitesSerializer(recieved, many=True)
+        data = {
+            # 'sent' : serialized_sent.data,
+            'recieved' : serialized_recieved.data,
+        }
+        return Response(data, status = 200)
+
+
+
+@action(detail=False, methods=['GET', 'PUT', 'POST'])
 class FriendshipAPIView(APIView):
     queryset = FriendshipRequest.objects.all()
     serializer_class = FriendshipRequestSerializer

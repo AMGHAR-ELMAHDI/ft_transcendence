@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from userman.models import Player
 import json
 import jwt
+from userman.models import Invites
 
 def get_group_name(self, user_id1, user_id2):
     if user_id1 is not None and user_id2 is not None:
@@ -47,20 +48,14 @@ async def getUser(authorization_header):
 class RequestSingleGameConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.token = self.scope['url_route']['kwargs']['token']
-        receiver_id = self.scope["url_route"]["kwargs"]["receiver_id"]
-        self.user = await getUser(self.token)
+        user = await getUser(self.token)
 
-        if not self.user:
+        if not user:
             await self.close()
             return
-
+        self.user = user
         await self.accept()
-        print("[RequestSingleGameConsumer]")
-        sender_id = self.scope["user"].id
-        group_name = self.get_group_name(sender_id, receiver_id)
-        print("Group n°:", group_name, " created !")
-        await self.channel_layer.group_add(group_name, self.channel_name)
-        print("Channel name : ", self.channel_name)
+        print("[RequestSingleGameConsumer] connected successfully ")
 
     async def disconnect(self, close_code):
         pass
@@ -72,7 +67,32 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
         if action == 'invite':
             invite_to_player_id = data.get('invite_to')
             await self.send_invite(invite_to_player_id)
+        elif action == 'accept':
+            pass
+        elif action == 'deny':
+            pass
 
     async def send_invite(self, invite_to_player_id):
         # Logic to send an invitation to another player
-        print(f"Sending game invite from {self.user.username} to player ID {invite_to_player_id}")
+        if self.user.id == invite_to_player_id:
+            print('You cannot invite yourself to play a game !!')
+            return
+        print(f"Sending game invite from player ID {self.user.id} to player ID {invite_to_player_id}")
+        room_id = get_group_name(self, self.user.id, invite_to_player_id)
+        await self.create_invite(self.user.id, invite_to_player_id, room_id )
+
+    @database_sync_to_async
+    def create_invite(self, sender_id, receiver_id, room_id):
+
+        sender = get_object_or_404(Player, pk=sender_id)
+        receiver = get_object_or_404(Player, pk=receiver_id)
+        invite = Invites(sender=sender, receiver=receiver, room_id=room_id)
+        invite.save()
+        return invite
+
+    async def game_invite(self, event):
+        action = event['action']
+        await self.send(text_data=json.dumps({
+            'type': 'game_invite',
+            'action': action,
+        }))

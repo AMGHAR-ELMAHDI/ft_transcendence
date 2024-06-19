@@ -46,6 +46,7 @@ function Notif (){
   const getData = async () => {
     try {
       const response = await api.get("reqs/");
+      // const response = await api.get("game-invites/");
       setReceived(response.data?.recieved);
       setLoading(false);
     } catch (error) {

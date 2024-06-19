@@ -185,6 +185,8 @@ function ChatTyping() {
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [gameSocket, setGameSocket] = useState<WebSocket | null>(null);
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -247,6 +249,37 @@ function ChatTyping() {
     return desiredTime;
   }
 
+  const handleInvite = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in localStorage.");
+      return;
+    }
+
+    const gameSocket = new WebSocket(
+      `ws://localhost:2500/ws/single-game/${token}`
+    );
+    setSocket(gameSocket);
+
+
+    gameSocket.onopen = function () {
+      console.log("[GameSocket] Connection established successfully.");
+      const inviteMessage = {
+        action: "invite",
+        invite_to: id,
+      };
+      gameSocket.send(JSON.stringify(inviteMessage));
+    };
+
+    gameSocket.onclose = function () {
+      console.log("[GameSocket] Connection closed successfully.");
+    };
+
+    return () => {
+      gameSocket.close();
+    };
+  };
+
   return (
     <>
       <div className="Chat-typer-wrapper">
@@ -288,7 +321,7 @@ function ChatTyping() {
               <img src="/Send-button.svg" id="bottona" />
             </button>
             <button type="submit" className="Chat-send-button">
-              <img src="/GameInvite.svg" id="bottona" />
+              <img src="/GameInvite.svg" id="bottona" onClick={handleInvite}/>
             </button>
           </form>
         </div>

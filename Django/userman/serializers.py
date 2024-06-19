@@ -102,3 +102,7 @@ class FriendshipPlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'image']
+class InvitesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invites
+        fields = ['id', 'sender', 'receiver', 'status', 'room_id', 'date']

@@ -202,7 +202,7 @@ class Invites(models.Model):
     sender = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='sent_invites')
     receiver = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='received_invites')
     date = models.DateField(auto_now=True)
-    msg = models.TextField(null=False, blank=False)
+    room_id = models.TextField(null=False, blank=False)
 
 
 class Item(models.Model):
