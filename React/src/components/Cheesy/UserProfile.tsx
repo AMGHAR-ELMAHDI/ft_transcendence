@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
-import AddFriend from "./AddFriend";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import { BsPersonFillAdd } from "react-icons/bs";
 import {
@@ -69,13 +68,14 @@ function UserProfile({ show, setRender, data }: UserProps) {
   const [pending, setPending] = useState<boolean>(false);
   const [friends, setFriends] = useState<any>({});
   let Dont: boolean = false;
+  const [socket, setSocket] = useState<WebSocket | null>(null);
 
   const getFriends = async () => {
     try {
       const response = await api.get("player/friends/");
       setFriends(response.data?.friends);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -83,22 +83,48 @@ function UserProfile({ show, setRender, data }: UserProps) {
     getFriends();
   }, []);
 
-  const obj = {
-    UserName: data.username,
-    UserId: data.id,
-  };
+  useEffect(() => {
+    getFriends();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
+    const newSocket = new WebSocket(`ws://localhost:2500/ws/friend-reqs/${token}`);
+    newSocket.onopen = () => {
+      console.log('WebSocket connection established');
+    };
+    newSocket.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
+    newSocket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    setSocket(newSocket);
+
+    return () => {
+      if (newSocket) {
+        newSocket.close();
+      }
+    };
+  }, []);
 
   const sendRequest = () => {
     setPending(true);
-    // localStorage.setItem(`FriendPending user1-${obj.UserName}`, "P");
-    AddFriend(obj);
+    if (socket) {
+      socket.send(JSON.stringify({
+        action: 'create',
+        friend: data.id
+      }));
+    }
   };
 
   if (Array.isArray(friends)) {
     console.log(friends);
 
     friends?.map((friend: any) => {
-      if (friend.username == data.username) Dont = true;
+      if (friend.username === data.username) Dont = true;
     });
   }
   console.log(pending);
