@@ -79,7 +79,7 @@ class PlayerSearchSerializer(serializers.ModelSerializer):
 class LeaderBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['username', 'first_name', 'last_name', 'image', 'level', 'coins', 'won_matches']
+        fields = ['username', 'first_name', 'last_name', 'image', 'level', 'coins', 'won_matches', 'points']
     def get_won_matches(self, player):
         return player.get_won_games_count
 

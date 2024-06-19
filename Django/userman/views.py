@@ -161,7 +161,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['GET'])
     def leaderboard(self, request):
-        player = Player.objects.all().order_by('-level') # todo : Won games for each user to be added later
+        player = Player.objects.all().order_by('-points') # todo : Won games for each user to be added later
         leaderboard_serializer = LeaderBoardSerializer(player, many=True)
         return Response(leaderboard_serializer.data)
         

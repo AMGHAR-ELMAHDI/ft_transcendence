@@ -82,12 +82,15 @@ function Notif (){
     };
   }, []);
 
-  const handleAccept = (from_user: number) => {
+  const handleAccept = (from_user: number, notif_id: number) => {
     console.log('accepted the user')
     socket.current?.send(JSON.stringify({
       action: "accept",
       friend: from_user,
     }));
+    const notif = document.getElementById(notif_id.toString())
+    notif?.classList.add('hideIt')
+    notif!.textContent = "Friend Request Accepted"
   };
 
   const handleDecline = (from_user: number) => {
@@ -120,9 +123,9 @@ function Notif (){
           {render && filteredItems.length > 0 && (
             <div id="NotifPopUp">
               {filteredItems.map((notif) => (
-                <div className="notif-item" key={notif.id}>
+                <div className="notif-item" key={notif.id} id={notif.id.toString()}>
                   <h4>{GetUserName(players, notif.from_user)}</h4>
-                  <button onClick={() => handleAccept(notif.from_user)}>
+                  <button onClick={() => handleAccept(notif.from_user, notif.id)}>
                     Accept
                   </button>
                   <button onClick={() => handleDecline(notif.from_user)}>

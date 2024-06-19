@@ -44,6 +44,7 @@ class Player(AbstractBaseUser):
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=STATUS_OFFLINE)
     level = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
     friends = models.ManyToManyField('self', through='Friendship', symmetrical=False)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=30, unique=True, blank=True)
