@@ -73,3 +73,11 @@ url : ws://localhost:2500/ws/block-unblock/${token}
 data : 
 {'action': 'block', 'blocked': '2'}
 {'action': 'unblock', 'blocked': '2'}
+
+FriendshipRequest : 
+url : ws/friend-reqs/<str:token>
+data:
+{'action': 'accept', 'friend': 1}
+{'action': 'create', 'friend': 1}
+{'action': 'deny', 'friend': 1}
+still to link the add button with the socket

@@ -27,7 +27,7 @@ function GetUserName(players: Player[], from_user: number): string {
   return name;
 }
 
-const Notif: React.FC = () => {
+function Notif (){
   const [received, setReceived] = useState<FriendshipRequest[]>([]);
   const [render, setRender] = useRecoilState(RenderNotif);
   const [isLoading, setLoading] = useState(true);
@@ -63,16 +63,17 @@ const Notif: React.FC = () => {
     socket.current.onopen = () => {
       console.log("[Notif] WebSocket connection established");
     };
-
+    
     socket.current.onmessage = (event: MessageEvent) => {
       const data = JSON.parse(event.data);
-      if (data.action === "new_friend_request") {
+      console.log(`[Notif] ${data.type}`);
+      if (data.type === "new_friend_request" || data.type === "friend_request_accepted" || data.type === "friend_request_denied") {
         getData(); // Fetch updated friend requests
       }
     };
 
     socket.current.onclose = () => {
-      console.log("WebSocket connection closed");
+      console.log("[Notif] WebSocket connection closed");
     };
 
     return () => {

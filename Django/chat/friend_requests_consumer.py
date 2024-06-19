@@ -7,7 +7,6 @@ from django.shortcuts import get_object_or_404
 import json
 import jwt
 from userman.models import FriendshipRequest, Player, Friendship
-from django.db.models import F
 
 @database_sync_to_async
 def get_user_by_id(user_id):
@@ -19,7 +18,7 @@ async def getUser(authorization_header):
         return None
 
     token = authorization_header
-    print(F"token : |{token}|")
+    print(f"token : |{token}|")
 
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
@@ -47,7 +46,7 @@ class FriendshipRequestConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
         await self.channel_layer.group_add("friendship", self.channel_name)
-        print(f"[RequestSingleGameConsumer] {self.user.username} connected!")
+        print(f"[FriendshipRequestConsumer] {self.user.username} connected!")
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard("friendship", self.channel_name)
@@ -85,9 +84,9 @@ class FriendshipRequestConsumer(AsyncWebsocketConsumer):
         await sync_to_async(new_friendship_request.save)()
 
         await self.channel_layer.group_send(
-            self.group_name,
+            "friendship",
             {
-                'type': 'friend_request.update',
+                'type': 'friend_request_update',
                 'message': 'new_friend_request'
             }
         )
@@ -106,10 +105,18 @@ class FriendshipRequestConsumer(AsyncWebsocketConsumer):
         await update_friendship(from_user=friend, to_user=self.user, status="A")
 
         await self.channel_layer.group_send(
-            self.group_name,
+            "friendship",
             {
-                'type': 'friend_request.update',
-                'message': 'friend_request_accepted'
+                'type': 'notif_message',
+                'user': self.user.username,
+                'content': 'friend_request_accepted'
+            }
+        )
+        await self.channel_layer.group_send(
+            "friendship",
+            {
+                'type': 'friend_request_update',
+                'message': 'new_friend_request'
             }
         )
 
@@ -127,19 +134,36 @@ class FriendshipRequestConsumer(AsyncWebsocketConsumer):
         await update_friendship(from_user=friend, to_user=self.user, status="R")
 
         await self.channel_layer.group_send(
-            self.group_name,
+            "friendship",
             {
-                'type': 'friend_request.update',
-                'message': 'friend_request_denied'
+                'type': 'notif_message',
+                'user': self.user.username,
+                'content': 'friend_request_denied'
+            }
+        )
+        await self.channel_layer.group_send(
+            "friendship",
+            {
+                'type': 'friend_request_update',
+                'message': 'new_friend_request'
             }
         )
 
     async def friend_request_update(self, event):
         message = event['message']
         await self.send(text_data=json.dumps({
-            'action': message,
+            'type': message,
         }))
-    
+        
+    async def notif_message(self, event):
+        type = event['type']
+        user = event['user']
+        content = event['content']
+        await self.send(text_data=json.dumps({
+            'type': type,
+            'user': user,
+            'content': content,
+        }))
 
 @database_sync_to_async
 def update_friendship(from_user, to_user, status):
@@ -152,8 +176,9 @@ def update_friendship(from_user, to_user, status):
     friendship_request.save()
     if status == 'A':
         print('[update_friendship] [A]')
-        # f = Friendship(player1=from_user_id, player2=user)
         p1 = Player.objects.get(id=from_user.id)
         p2 = Player.objects.get(id=to_user.id)
         f = Friendship(player1=p1, player2=p2)
         f.save()
+    if status == 'R':
+        friendship_request.delete()
