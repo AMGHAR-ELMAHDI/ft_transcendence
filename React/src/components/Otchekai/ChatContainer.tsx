@@ -34,7 +34,7 @@ export default ChatContainer;
 function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
   const [data, setData] = useState({});
-  const [block, setBlock] = useState<boolean>(false);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
   setAuthToken();
   const getData = async () => {
     try {
@@ -81,10 +81,10 @@ function ChatSystem() {
       <>
         <div className="Chat-wrapper">
           <div className="Friends-menu">
-            <ChatFriends setBlock={setBlock} />
+            <ChatFriends socket={socket} setSocket={setSocket} />
           </div>
           <div className="Chat-box-menu">
-            <ChatTyping block={block} />
+            <ChatTyping socket={socket} setSocket={setSocket} />
           </div>
         </div>
       </>
@@ -98,11 +98,7 @@ interface Friend {
   avatar: string;
 }
 
-function ChatFriends({
-  setBlock,
-}: {
-  setBlock: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
 
@@ -116,6 +112,66 @@ function ChatFriends({
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleBlock = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in localStorage.");
+      return;
+    }
+
+    const blockSocket = new WebSocket(
+      `ws://localhost:2500/ws/block-unblock/${token}`
+    );
+    setSocket(blockSocket);
+
+    blockSocket.onopen = function () {
+      console.log("[blockSocket] Connection established successfully.");
+      const inviteMessage = {
+        action: "block",
+        blocked: Friendid,
+      };
+      blockSocket.send(JSON.stringify(inviteMessage));
+    };
+
+    blockSocket.onclose = function () {
+      console.log("[blockSocket] Connection closed successfully.");
+    };
+
+    return () => {
+      blockSocket.close();
+    };
+  };
+
+  const handleUnblock = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in localStorage.");
+      return;
+    }
+
+    const unblockSocket = new WebSocket(
+      `ws://localhost:2500/ws/block-unblock/${token}`
+    );
+    setSocket(unblockSocket);
+
+    unblockSocket.onopen = function () {
+      console.log("[unblockSocket] Connection established successfully.");
+      const inviteMessage = {
+        action: "block",
+        blocked: Friendid,
+      };
+      unblockSocket.send(JSON.stringify(inviteMessage));
+    };
+
+    unblockSocket.onclose = function () {
+      console.log("[unblockSocket] Connection closed successfully.");
+    };
+
+    return () => {
+      unblockSocket.close();
+    };
   };
 
   useEffect(() => {
@@ -141,12 +197,7 @@ function ChatFriends({
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
             </div>
-            <div
-              onClick={() => {
-                setBlock((prev) => !prev);
-              }}
-              className="Block-button"
-            >
+            <div onClick={handleBlock} className="Block-button">
               <ImBlocked />
             </div>
           </div>
@@ -182,12 +233,11 @@ function Sender({ message, time }: MessageInfo) {
 //FIXME:responsive design
 //TODO:check whether on two clients at the same time (receiver and sender)
 //TODO:automatic scrollwheel
-function ChatTyping({ block }: any) {
+function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
   const friendInfo = useRecoilValue(Friendschat);
   const url = useRecoilValue(Url);
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -222,10 +272,6 @@ function ChatTyping({ block }: any) {
     };
   }, [id]);
 
-  useEffect(() => {
-    console.log("You Have Clicked The Block Button");
-  }, [block]);
-
   const sendMessage = (e: any) => {
     e.preventDefault();
     if (!socket || socket.readyState !== WebSocket.OPEN) {
@@ -253,66 +299,6 @@ function ChatTyping({ block }: any) {
     });
     return desiredTime;
   }
-
-  const handleBlock = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found in localStorage.");
-      return;
-    }
-
-    const blockSocket = new WebSocket(
-      `ws://localhost:2500/ws/block-unblock/${token}`
-    );
-    setSocket(blockSocket);
-
-    blockSocket.onopen = function () {
-      console.log("[blockSocket] Connection established successfully.");
-      const inviteMessage = {
-        action: "block",
-        blocked: id,
-      };
-      blockSocket.send(JSON.stringify(inviteMessage));
-    };
-
-    blockSocket.onclose = function () {
-      console.log("[blockSocket] Connection closed successfully.");
-    };
-
-    return () => {
-      blockSocket.close();
-    };
-  };
-
-  const handleUnblock = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found in localStorage.");
-      return;
-    }
-
-    const unblockSocket = new WebSocket(
-      `ws://localhost:2500/ws/block-unblock/${token}`
-    );
-    setSocket(unblockSocket);
-
-    unblockSocket.onopen = function () {
-      console.log("[unblockSocket] Connection established successfully.");
-      const inviteMessage = {
-        action: "block",
-        blocked: id,
-      };
-      unblockSocket.send(JSON.stringify(inviteMessage));
-    };
-
-    unblockSocket.onclose = function () {
-      console.log("[unblockSocket] Connection closed successfully.");
-    };
-
-    return () => {
-      unblockSocket.close();
-    };
-  };
 
   const handleInvite = () => {
     const token = localStorage.getItem("token");

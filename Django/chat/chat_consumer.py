@@ -20,7 +20,7 @@ def get_user_by_id(user_id):
 
 
 async def getUser(authorization_header):
-    print(f"|{authorization_header}|")
+    # print(f"|{authorization_header}|")
     if not authorization_header:
         print("---------> Connection rejected: Authorization header not found.")
         return
@@ -58,9 +58,9 @@ async def getUser(authorization_header):
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         authorization_header = self.scope["url_route"]["kwargs"]["token"]
-        print("--------------")
-        print(f"|{authorization_header}|")
-        print("--------------")
+        # print("--------------")
+        # print(f"|{authorization_header}|")
+        # print("--------------")
         if not authorization_header:
             print("---------> Connection rejected: Authorization header not found.")
             await self.close()
@@ -72,15 +72,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             return
         self.scope["user"] = user
 
-        print("---------> Connected to WebSocket")
+        print(F"[Chat] {user.username} Connected successfully")
         await self.accept()
         sender_id = self.scope["user"].id
-        print("---------> User n°:", sender_id, " connected !")
         receiver_id = self.scope["url_route"]["kwargs"]["receiver_id"]
         group_name = self.get_group_name(sender_id, receiver_id)
-        print("---------> Group n°:", group_name, " created !")
         await self.channel_layer.group_add(group_name, self.channel_name)
-        print("---------> Channel name : ", self.channel_name)
 
 
 

@@ -79,7 +79,7 @@ class PlayerSearchSerializer(serializers.ModelSerializer):
 class LeaderBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['username', 'first_name', 'last_name', 'image', 'level', 'coins', 'won_matches']
+        fields = ['username', 'first_name', 'last_name', 'image', 'level', 'coins', 'won_matches', 'points']
     def get_won_matches(self, player):
         return player.get_won_games_count
 
@@ -102,3 +102,13 @@ class FriendshipPlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'image']
+        
+class InvitesSerializer(serializers.ModelSerializer):
+    sender_username = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Invites
+        fields = ['id', 'sender', 'sender_username', 'receiver', 'status', 'room_id', 'date']
+    
+    def get_sender_username(self, obj):
+        return obj.sender.username

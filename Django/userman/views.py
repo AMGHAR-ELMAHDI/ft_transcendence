@@ -161,7 +161,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['GET'])
     def leaderboard(self, request):
-        player = Player.objects.all().order_by('-level') # todo : Won games for each user to be added later
+        player = Player.objects.all().order_by('-points') # todo : Won games for each user to be added later
         leaderboard_serializer = LeaderBoardSerializer(player, many=True)
         return Response(leaderboard_serializer.data)
         
@@ -242,7 +242,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : '--An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : '--An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
         
     @action(detail=False, methods=['GET'])
     def friends(self, request):
@@ -254,7 +254,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
     
 
     @action(detail=False, methods=['GET'])
@@ -273,7 +273,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
     
     
     @action(detail=False, methods=['GET'])
@@ -292,8 +292,31 @@ class PlayerViewSet(viewsets.ModelViewSet):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
+@action(detail=False, methods=['GET', 'PUT', 'POST'])
+class InvitesAPIView(APIView):
+    queryset = Invites.objects.all()
+    serializer_class = InvitesSerializer
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        user = request.user
+        pending = Invites.objects.filter(receiver=user, status = 'P')
+        accepted = Invites.objects.filter(receiver=user, status = 'A')
+        sent = Invites.objects.filter(sender=user, status = 'A')
+        serialized_pending = InvitesSerializer(pending, many=True)
+        serialized_accepted = InvitesSerializer(accepted, many=True)
+        serialized_sent = InvitesSerializer(sent, many=True)
+        data = {
+            # 'sent' : serialized_sent.data,
+            'pending' : serialized_pending.data,
+            'accepted' : serialized_accepted.data,
+            'sent' : serialized_sent.data
+        }
+        return Response(data, status = 200)
 
 
 

@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core.serializers import serialize
 from django.shortcuts import render, redirect
 from dotenv import dotenv_values
-from .models import Player
+from userman.models import Player
 import requests
 import json
 import os
