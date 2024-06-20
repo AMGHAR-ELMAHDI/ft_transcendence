@@ -306,12 +306,15 @@ class InvitesAPIView(APIView):
         user = request.user
         pending = Invites.objects.filter(receiver=user, status = 'P')
         accepted = Invites.objects.filter(receiver=user, status = 'A')
+        sent = Invites.objects.filter(sender=user, status = 'A')
         serialized_pending = InvitesSerializer(pending, many=True)
-        serialized_accepted = InvitesSerializer(pending, many=True)
+        serialized_accepted = InvitesSerializer(accepted, many=True)
+        serialized_sent = InvitesSerializer(sent, many=True)
         data = {
             # 'sent' : serialized_sent.data,
             'pending' : serialized_pending.data,
             'accepted' : serialized_accepted.data,
+            'sent' : serialized_sent.data
         }
         return Response(data, status = 200)
 

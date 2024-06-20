@@ -81,3 +81,12 @@ data:
 {'action': 'create', 'friend': 1}
 {'action': 'deny', 'friend': 1}
 still to link the add button with the socket
+
+
+
+
+
+
+
+npx error : 
+npx tsc --noEmit
