@@ -68,18 +68,47 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
             invite_to_player_id = data.get('invite_to')
             await self.send_invite(invite_to_player_id)
         elif action == 'accept':
-            pass
+            print("[RequestSingleGameConsumer] accept scoop ")
+            invite_id = data.get('id')
+            if invite_id:
+                invite = await self.get_invite_by_id(invite_id)
+                if invite:
+                    await self.change_invite_status(invite, 'A')
         elif action == 'deny':
-            pass
+            print("[RequestSingleGameConsumer] deny scoop ")
+            invite_id = data.get('id')
+            print(F"[RequestSingleGameConsumer] deny scoop invite_id : {invite_id} ")
+            if invite_id:
+                invite = await self.get_invite_by_id(invite_id)
+                if invite:
+                    await self.change_invite_status(invite, 'R')
+
 
     async def send_invite(self, invite_to_player_id):
-        # Logic to send an invitation to another player
         if self.user.id == invite_to_player_id:
             print('You cannot invite yourself to play a game !!')
             return
         print(f"Sending game invite from player ID {self.user.id} to player ID {invite_to_player_id}")
         room_id = get_group_name(self, self.user.id, invite_to_player_id)
-        await self.create_invite(self.user.id, invite_to_player_id, room_id )
+        await self.create_invite(self.user.id, invite_to_player_id, room_id)
+
+    @database_sync_to_async
+    def get_invite_by_id(self, invite_id):
+        try:
+            invite = get_object_or_404(Invites, pk=invite_id)
+        except Invites.DoesNotExist:
+            print(F"[RequestSingleGameConsumer] Invitations {invite_id} does not exist !!")
+        return invite
+
+    @database_sync_to_async
+    def change_invite_status(self, invite, status):
+        if status == 'A':
+            invite.status = status
+            invite.save()
+            print(F"[RequestSingleGameConsumer] Invitation {invite.id} Accepted by {self.user.username} !!")
+            return invite
+        elif status == 'R':
+            invite.delete()
 
     @database_sync_to_async
     def create_invite(self, sender_id, receiver_id, room_id):

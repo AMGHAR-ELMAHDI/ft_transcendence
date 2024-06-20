@@ -187,7 +187,6 @@ function ChatTyping() {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [gameSocket, setGameSocket] = useState<WebSocket | null>(null);
 
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     const newSocket = new WebSocket(
@@ -249,20 +248,18 @@ function ChatTyping() {
     return desiredTime;
   }
 
-  const handleBlock = ()=>{
-
+  const handleBlock = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       console.error("No token found in localStorage.");
       return;
     }
-  
+
     const blockSocket = new WebSocket(
       `ws://localhost:2500/ws/block-unblock/${token}`
     );
     setSocket(blockSocket);
-  
-  
+
     blockSocket.onopen = function () {
       console.log("[blockSocket] Connection established successfully.");
       const inviteMessage = {
@@ -271,29 +268,27 @@ function ChatTyping() {
       };
       blockSocket.send(JSON.stringify(inviteMessage));
     };
-  
+
     blockSocket.onclose = function () {
       console.log("[blockSocket] Connection closed successfully.");
     };
-  
+
     return () => {
       blockSocket.close();
     };
   };
-  const handleUnblock = ()=>{
-
+  const handleUnblock = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       console.error("No token found in localStorage.");
       return;
     }
-  
+
     const unblockSocket = new WebSocket(
       `ws://localhost:2500/ws/block-unblock/${token}`
     );
     setSocket(unblockSocket);
-  
-  
+
     unblockSocket.onopen = function () {
       console.log("[unblockSocket] Connection established successfully.");
       const inviteMessage = {
@@ -302,11 +297,11 @@ function ChatTyping() {
       };
       unblockSocket.send(JSON.stringify(inviteMessage));
     };
-  
+
     unblockSocket.onclose = function () {
       console.log("[unblockSocket] Connection closed successfully.");
     };
-  
+
     return () => {
       unblockSocket.close();
     };
@@ -323,7 +318,6 @@ function ChatTyping() {
       `ws://localhost:2500/ws/single-game/${token}`
     );
     setSocket(gameSocket);
-
 
     gameSocket.onopen = function () {
       console.log("[GameSocket] Connection established successfully.");
@@ -384,7 +378,7 @@ function ChatTyping() {
               <img src="/Send-button.svg" id="bottona" />
             </button>
             <button type="submit" className="Chat-send-button">
-              <img src="/GameInvite.svg" id="bottona" onClick={handleInvite}/>
+              <img src="/GameInvite.svg" id="bottona" onClick={handleInvite} />
             </button>
           </form>
         </div>

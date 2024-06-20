@@ -17,6 +17,7 @@ import Register from "./components/Cheesy/Register";
 import Users, { UsersLoader } from "./components/Cheesy/Users";
 import ProfileLayout from "./components/Cheesy/ProfileLayout";
 import ProtectedRoutes from "./components/Utils/ProtectedRoutes";
+import TestContainer from "./components/zmakhkha/TestContainer";
 
 import "./Imports";
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
 
       <Route element={<ProtectedRoutes />}>
         <Route path="/" element={<DashboardContainer />} />
+        <Route path="/test" element={<TestContainer />} />
         <Route path="/chat" element={<ChatContainer />} />
         <Route path="/game" element={<GameContainer />} />
         <Route path="/leaderboard" element={<LeaderBoardContainer />} />

@@ -304,13 +304,14 @@ class InvitesAPIView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         user = request.user
-        # sent = Invites.objects.filter(sender=user)
-        recieved = Invites.objects.filter(receiver=user)
-        # serialized_sent = InvitesSerializer(sent, many=True)
-        serialized_recieved = InvitesSerializer(recieved, many=True)
+        pending = Invites.objects.filter(receiver=user, status = 'P')
+        accepted = Invites.objects.filter(receiver=user, status = 'A')
+        serialized_pending = InvitesSerializer(pending, many=True)
+        serialized_accepted = InvitesSerializer(pending, many=True)
         data = {
             # 'sent' : serialized_sent.data,
-            'recieved' : serialized_recieved.data,
+            'pending' : serialized_pending.data,
+            'accepted' : serialized_accepted.data,
         }
         return Response(data, status = 200)
 

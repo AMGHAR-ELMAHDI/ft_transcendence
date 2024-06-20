@@ -102,7 +102,13 @@ class FriendshipPlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'image']
+        
 class InvitesSerializer(serializers.ModelSerializer):
+    sender_username = serializers.SerializerMethodField()
+
     class Meta:
         model = Invites
-        fields = ['id', 'sender', 'receiver', 'status', 'room_id', 'date']
+        fields = ['id', 'sender', 'sender_username', 'receiver', 'status', 'room_id', 'date']
+    
+    def get_sender_username(self, obj):
+        return obj.sender.username
