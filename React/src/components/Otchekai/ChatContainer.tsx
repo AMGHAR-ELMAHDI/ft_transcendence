@@ -249,6 +249,69 @@ function ChatTyping() {
     return desiredTime;
   }
 
+  const handleBlock = ()=>{
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in localStorage.");
+      return;
+    }
+  
+    const blockSocket = new WebSocket(
+      `ws://localhost:2500/ws/block-unblock/${token}`
+    );
+    setSocket(blockSocket);
+  
+  
+    blockSocket.onopen = function () {
+      console.log("[blockSocket] Connection established successfully.");
+      const inviteMessage = {
+        action: "block",
+        blocked: id,
+      };
+      blockSocket.send(JSON.stringify(inviteMessage));
+    };
+  
+    blockSocket.onclose = function () {
+      console.log("[blockSocket] Connection closed successfully.");
+    };
+  
+    return () => {
+      blockSocket.close();
+    };
+  };
+  const handleUnblock = ()=>{
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in localStorage.");
+      return;
+    }
+  
+    const unblockSocket = new WebSocket(
+      `ws://localhost:2500/ws/block-unblock/${token}`
+    );
+    setSocket(unblockSocket);
+  
+  
+    unblockSocket.onopen = function () {
+      console.log("[unblockSocket] Connection established successfully.");
+      const inviteMessage = {
+        action: "block",
+        blocked: id,
+      };
+      unblockSocket.send(JSON.stringify(inviteMessage));
+    };
+  
+    unblockSocket.onclose = function () {
+      console.log("[unblockSocket] Connection closed successfully.");
+    };
+  
+    return () => {
+      unblockSocket.close();
+    };
+  };
+
   const handleInvite = () => {
     const token = localStorage.getItem("token");
     if (!token) {
