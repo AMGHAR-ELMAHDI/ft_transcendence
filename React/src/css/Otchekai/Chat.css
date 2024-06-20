@@ -51,6 +51,7 @@
   border-radius: 20px;
   cursor: pointer;
   margin-bottom: 2rem;
+  gap: 1rem;
 }
 
 .Friend-img {
@@ -164,15 +165,6 @@
   background-color: transparent;
 }
 
-.Receiver {
-  position: relative;
-  top: 5%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
 .First-message {
   width: 400px;
   margin-left: 4rem;
@@ -201,43 +193,11 @@
 }
 
 .bachar {
-  width: 4rem;
+  width: 3.5rem;
   border-radius: 50%;
   padding: 5px;
   border: 1px solid #5fcae4;
-}
-
-.First-message > p {
-  font-size: 18px;
-}
-
-.First-message-img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-
-.Receiver-name-img {
-  margin-left: 4rem;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.First-message-name {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.First-message-name > li {
-  list-style: none;
-  font-size: 16px;
-}
-
-.First-message-name > p {
-  color: gray;
-  font-size: 13px;
+  margin-left: 6px;
 }
 
 .Sender {
@@ -255,10 +215,11 @@
 
 .Sender-message {
   margin-right: 4rem;
-  max-width: 450px;
+  min-width: 120px;
+  max-width: 500px;
   background-color: #1d90f5;
-  border-radius: 34px;
-  padding: 30px;
+  border-radius: 15px;
+  padding: 10px;
 }
 
 .Sender-message > p {
@@ -279,20 +240,16 @@
 }
 
 .Sender-message-name {
+  width: 100%;
+  height: fit-content;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
 }
 
-.Sender-message-name > li {
-  list-style: none;
-  font-size: 16px;
-}
-
 .Sender-message-name > p {
-  color: gray;
-  font-size: 13px;
+  color: rgba(255, 255, 255, 0.559);
+  font-size: 14px;
 }
 
 #Chat-input {
@@ -421,7 +378,7 @@
     max-width: 200px;
     background-color: #1d90f5;
     border-radius: 34px;
-    padding: 25px;
+    padding: 20px;
   }
   .Sender-message > p {
     font-size: 15px;
