@@ -242,7 +242,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : '--An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : '--An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
         
     @action(detail=False, methods=['GET'])
     def friends(self, request):
@@ -254,7 +254,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
     
 
     @action(detail=False, methods=['GET'])
@@ -273,7 +273,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
     
     
     @action(detail=False, methods=['GET'])
@@ -292,7 +292,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             }
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message' : 'An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -303,9 +303,6 @@ class InvitesAPIView(APIView):
     serializer_class = InvitesSerializer
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        print('---------[GET]')
-        print(request.data)
-        print('---------')
         user = request.user
         # sent = Invites.objects.filter(sender=user)
         recieved = Invites.objects.filter(receiver=user)
