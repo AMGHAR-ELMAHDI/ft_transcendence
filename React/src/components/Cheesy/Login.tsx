@@ -25,7 +25,8 @@ function getGeneralInfo() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      .post(url + "auth/jwt/create", obj)
+      // .post(url + "auth/jwt/create", obj)
+      .post(url + "sign-in/", obj)
       .then((response) => {
         var str = response.data;
         if (response.status === 200) {

@@ -112,3 +112,12 @@ class InvitesSerializer(serializers.ModelSerializer):
     
     def get_sender_username(self, obj):
         return obj.sender.username
+    
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['id', 'username', 'password', 'email']
+
+    def create(self, validated_data):
+        user = Player.objects.create_user(**validated_data)
+        return user
