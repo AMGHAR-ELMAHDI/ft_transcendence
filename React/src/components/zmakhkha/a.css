@@ -11,7 +11,7 @@
 	flex-direction: column;
 	justify-content: center;
 }
-img {
+.invite-img {
 	height: 10ch;
 	border-radius: 10%;
 	margin-right: 2ch;

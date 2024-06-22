@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import *
-from .login_views import SignInAPIView, SignUpAPIView
+from .login_views import SignInAPIView, SignUpAPIView, TwoFactorSetupView, TwoFactorVerifyView
 
 router = DefaultRouter()
 router.register('player', PlayerViewSet, basename = 'player')
@@ -22,8 +22,10 @@ urlpatterns = [
 
 	path('password/reset/confirm/<str:uid>/<str:token>', ResetPasswordAPIView.as_view()),
 
-	path('sign-in/',SignInAPIView.as_view(), name='sign-in'),
-	path('sign-up/',SignUpAPIView.as_view(), name='sign-up'),
+	path('sign-in/', SignInAPIView.as_view(), name='sign_in'),
+    path('sign-up/', SignUpAPIView.as_view(), name='sign_up'),
+    path('setup-2fa/', TwoFactorSetupView.as_view(), name='setup_2fa'),
+    path('verify-2fa/', TwoFactorVerifyView.as_view(), name='verify_2fa'),
 
 
 ]

@@ -8,10 +8,11 @@ from .serializers import UserSerializer
 from .models import Player
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
+from django.shortcuts import render, redirect
+from django_otp import user_has_device
+from django_otp.plugins.otp_totp.models import TOTPDevice
+from django_otp.forms import OTPTokenForm
 
-
-
-@action(detail=False, methods=['POST'])
 class SignInAPIView(APIView):
     queryset = Player.objects.all()
     serializer_class = UserSerializer
@@ -23,17 +24,19 @@ class SignInAPIView(APIView):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            refresh = RefreshToken.for_user(user)
-            login(request, user)
-            return Response({
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }, status=status.HTTP_200_OK)
+            if user_has_device(user):
+                request.session['pre_2fa_user_id'] = user.id
+                return Response({'detail': '2fa_required'}, status=status.HTTP_200_OK)
+            else:
+                refresh = RefreshToken.for_user(user)
+                login(request, user)
+                return Response({
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                }, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-# the password validator is not working
-@action(detail=False, methods=['POST'])
 class SignUpAPIView(APIView):
     queryset = Player.objects.all()
     serializer_class = UserSerializer
@@ -48,7 +51,27 @@ class SignUpAPIView(APIView):
             return Response({'status': 'Account created successfully'}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
 
+class TwoFactorSetupView(APIView):
+    permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+        user = request.user
+        device, created = TOTPDevice.objects.get_or_create(user=user, name='default')
+        return Response({'secret': device.config_url}, status=status.HTTP_200_OK)
 
+class TwoFactorVerifyView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        user_id = request.session.get('pre_2fa_user_id')
+        user = User.objects.get(id=user_id)
+        form = OTPTokenForm(user, data=request.data)
+        if form.is_valid():
+            login(request, user)
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }, status=status.HTTP_200_OK)
+        return Response({'error': 'Invalid 2FA code'}, status=status.HTTP_400_BAD_REQUEST)

@@ -99,7 +99,7 @@ function TestContainer() {
               <div key={index}>
                 <div id="container" className="flex-container-row">
                   <div id="image">
-                    <img
+                    <img id="invite-img"
                       src="https://cdn.intra.42.fr/users/fe126cc601d93b711a24bbd332f6184b/zmakhkha.jpg"
                       alt=""
                     />
