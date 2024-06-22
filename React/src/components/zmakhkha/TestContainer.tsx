@@ -11,6 +11,8 @@ import api from "../../api";
 import Url from "../../Atoms/Url";
 import LoadingData from "../Cheesy/LoadingData";
 
+import OnlineStatus from "./OnlineStatus";
+
 interface GameInviteProps {
   id: number;
   receiver: number;
@@ -29,6 +31,8 @@ function TestContainer() {
   const [isLoading, setLoading] = useState(true);
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
+  const token = localStorage.getItem("token");
+  const connType = 1
   const sendResponse = (index: number, status: string) => {
     console.log(`[${index}]haaaahua accepta !!`);
     const token = localStorage.getItem("token");
@@ -83,6 +87,7 @@ function TestContainer() {
     setLoading(false);
   };
   useEffect(() => {
+
     getData();
     getUserData();
   }, []);
@@ -93,6 +98,7 @@ function TestContainer() {
         <SideBar />
         <div className="main">
           <TopBar />
+          <OnlineStatus token={token} type={connType}/>
           <h1>users invites</h1>
           <div>
             {pending.map((invite, index) => (
