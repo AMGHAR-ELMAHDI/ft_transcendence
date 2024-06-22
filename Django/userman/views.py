@@ -201,9 +201,9 @@ class PlayerViewSet(viewsets.ModelViewSet):
             blocked_me_list = [
                 {'id': b.blocker.id, 'username' : b.blocker.username} for b in blocked_me
             ]
-            print('-----------++++++++-------------')
-            print(blocked_list)
-            print('------------------------')
+            # print('-----------++++++++-------------')
+            # print(blocked_list)
+            # print('-----------++++++++-------------')
             
             data = {
                 'id' : serializer.data['id'],
