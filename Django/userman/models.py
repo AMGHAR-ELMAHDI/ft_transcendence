@@ -96,6 +96,7 @@ class Player(AbstractBaseUser):
             friend = friendship.player1 if friendship.player2 == self else friendship.player2
             friends_info.append({
                 'id': friend.id,
+                'status': friend.status,
                 'username': friend.username,
                 'first_name': friend.first_name,
                 'last_name': friend.last_name,
