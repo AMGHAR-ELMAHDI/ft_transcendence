@@ -100,11 +100,13 @@ interface Friend {
 function ChatFriends() {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
+  const [selectedFriend, setSelectedFriend] = useState<number | null>(null);
 
   const getID = (id: number) => {
     setId(id);
+    setSelectedFriend(id);
   };
-
+  console.log(selectedFriend);
   const handleBlock = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -174,7 +176,9 @@ function ChatFriends() {
         <h1 id="Chatlogo">Friends</h1>
         {Friends.map((item: any) => (
           <div
-            className="Chat-Friendslist"
+            className={`Chat-Friendslist ${
+              selectedFriend === item.id ? "Other-Chat-Friendslist" : ""
+            }`}
             key={item.id}
             onClick={() => getID(item.id)}
           >
@@ -184,6 +188,7 @@ function ChatFriends() {
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
             </div>
+            <div className="status-circle"></div>
             <div onClick={handleBlock} className="Block-button">
               <ImBlocked />
             </div>
