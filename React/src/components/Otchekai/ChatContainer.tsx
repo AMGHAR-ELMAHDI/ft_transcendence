@@ -168,7 +168,7 @@ function ChatFriends() {
   useEffect(() => {
     if (Friends.length > 0) getID(Friends[0].id);
   }, [Friends]);
-
+  const Status = "O";
   //TODO:ADD block button
   return (
     <>
@@ -184,11 +184,15 @@ function ChatFriends() {
           >
             <div className="Friend-img">
               <img src="/avatar.svg" className="bachar" />
+              <div
+                className={`status-circle ${
+                  Status === "O" ? "status-circle-online" : ""
+                }`}
+              ></div>
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
             </div>
-            <div className="status-circle"></div>
             <div onClick={handleBlock} className="Block-button">
               <ImBlocked />
             </div>
