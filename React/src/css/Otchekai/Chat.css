@@ -252,6 +252,28 @@
   font-size: 14px;
 }
 
+.Sender-other {
+  justify-content: flex-start;
+}
+
+.Sender-other .Sender-message {
+  margin-right: 0;
+  margin-left: 4rem;
+  background-color: #e5e5ea;
+}
+
+.Sender-other .Sender-message > p {
+  color: #000;
+}
+
+.Sender-other .Sender-message-name {
+  justify-content: flex-start;
+}
+
+.Sender-other .Sender-message-name > p {
+  color: rgba(0, 0, 0, 0.5);
+}
+
 #Chat-input {
   display: flex;
   justify-content: center;
@@ -268,7 +290,7 @@
   background-color: #424656;
   border-radius: 17px;
   padding: 15px;
-  width: 25vw;
+  width: 27vw;
   border: 1px solid #1e8ef3;
   outline: 1px solid #1e8ef3;
   font-size: medium;

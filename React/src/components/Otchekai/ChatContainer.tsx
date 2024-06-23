@@ -35,7 +35,7 @@ function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
   const [data, setData] = useState({});
   const [socket, setSocket] = useState<WebSocket | null>(null);
-  setAuthToken();
+  const [BlockedUsers, setBlockedUsers] = useState([]);
   const getData = async () => {
     try {
       const response = await api.get("player/friends/");
@@ -49,8 +49,9 @@ function ChatSystem() {
   const getMyData = async () => {
     try {
       const response = await api.get("player/me");
-      setData(response.data.friends);
-      console.table("data hnaya", response.data);
+      console.table("data hnaya", response.data.blocked_users);
+      setData(response.data);
+      setBlockedUsers(response.data.blocked_users);
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +85,11 @@ function ChatSystem() {
             <ChatFriends socket={socket} setSocket={setSocket} />
           </div>
           <div className="Chat-box-menu">
-            <ChatTyping socket={socket} setSocket={setSocket} />
+            <ChatTyping
+              BlockedUsers={BlockedUsers}
+              socket={socket}
+              setSocket={setSocket}
+            />
           </div>
         </div>
       </>
@@ -102,16 +107,8 @@ function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
 
-  const token = localStorage.getItem("token");
-  const getInfoChat = async (id: number) => {
-    try {
-      const response = await api.get(`messages/${id}/`);
-
-      console.table(response.data);
-      setId(id);
-    } catch (error) {
-      console.log(error);
-    }
+  const getID = (id: number) => {
+    setId(id);
   };
 
   const handleBlock = () => {
@@ -176,7 +173,7 @@ function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
 
   useEffect(() => {
     if (Friends.length > 0) {
-      getInfoChat(Friends[0].id);
+      getID(Friends[0].id);
     }
   }, [Friends]);
 
@@ -189,10 +186,10 @@ function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
           <div
             className="Chat-Friendslist"
             key={item.id}
-            onClick={() => getInfoChat(item.id)}
+            onClick={() => getID(item.id)}
           >
             <div className="Friend-img">
-              <img src="/bacharG.svg" className="bachar" />
+              <img src="/avatar.svg" className="bachar" />
             </div>
             <div className="Name-messages">
               <li id="Friend-name">{item.username}</li>
@@ -210,30 +207,38 @@ function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
 interface MessageInfo {
   message: string;
   time: string;
+  sender: number;
+  currentUserId: number;
 }
 
-function Sender({ message, time }: MessageInfo) {
+function Sender({ message, time, sender, currentUserId }: MessageInfo) {
+  const isCurrentUser = sender === currentUserId;
   return (
-    <>
-      <div className="Sender">
-        <div className="Sender-container">
-          <div className="Sender-message">
-            <p>{message}</p>
-            <div className="Sender-message-name">
-              <p>{time}</p>
-            </div>
+    <div
+      className={`Sender ${isCurrentUser ? "Sender-other" : "Sender-current"}`}
+    >
+      <div className="Sender-container">
+        <div className="Sender-message">
+          <p>{message}</p>
+          <div className="Sender-message-name">
+            <p>{time}</p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-//TODO:sort messages by time
-//FIXME:responsive design
-//TODO:check whether on two clients at the same time (receiver and sender)
 //TODO:automatic scrollwheel
-function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
+function ChatTyping({
+  socket,
+  setSocket,
+  BlockedUsers,
+}: {
+  socket: any;
+  setSocket: any;
+  BlockedUsers: any;
+}) {
   const friendInfo = useRecoilValue(Friendschat);
   const url = useRecoilValue(Url);
   const id = useRecoilValue(FriendId);
@@ -252,6 +257,7 @@ function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
     const fetchInitialMessages = async () => {
       try {
         const response = await api.get(`messages/${id}/`);
+        console.log(response.data);
         setAllMessages(response.data);
       } catch (error) {
         console.error("Error fetching initial messages:", error);
@@ -261,9 +267,11 @@ function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
 
     newSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
+      console.log("current messages", e.data);
       const msg = {
         content: data["message"],
         timestamp: new Date(),
+        sender: data["sender"],
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
@@ -337,7 +345,7 @@ function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
           <div className="Friend-header">
             <div className="negotiator">
               <div className="Friend-header-img">
-                <img src="/bacharG.svg" id="chatperson" />
+                <img src="/avatar.svg" id="chatperson" />
               </div>
               <div className="Friend-header-name">
                 <li>DawDaw</li>
@@ -353,6 +361,8 @@ function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
                 key={index}
                 message={msg.content}
                 time={extractTime(msg.timestamp)}
+                sender={msg.sender}
+                currentUserId={id}
               />
             ))}
           </div>
