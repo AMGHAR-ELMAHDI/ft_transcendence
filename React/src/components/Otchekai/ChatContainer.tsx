@@ -265,6 +265,9 @@ function ChatTyping({
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
+    return () => {
+      newSocket.close();
+    };
   }, [id]);
 
   const sendMessage = (e: any) => {

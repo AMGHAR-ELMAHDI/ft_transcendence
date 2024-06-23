@@ -215,7 +215,7 @@
 
 .Sender-message {
   margin-right: 4rem;
-  min-width: 120px;
+  min-width: 130px;
   max-width: 500px;
   background-color: #1d90f5;
   border-radius: 20px;
@@ -245,7 +245,6 @@
   height: fit-content;
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
 }
 
 .Sender-message-name > p {
