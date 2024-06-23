@@ -220,7 +220,6 @@ function Sender({ message, time, sender, currentUserId }: MessageInfo) {
 }
 
 //TODO:automatic scrollwheel
-//TODO:Sort Messages By Id
 function ChatTyping({
   socket,
   setSocket,
@@ -246,7 +245,6 @@ function ChatTyping({
     const fetchInitialMessages = async () => {
       try {
         const response = await api.get(`messages/${id}/`);
-        console.table(response.data);
         setAllMessages(
           response.data.sort(
             (a: { id: number }, b: { id: number }) => a.id - b.id
