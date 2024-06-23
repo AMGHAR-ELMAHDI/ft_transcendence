@@ -2,7 +2,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import FriendBar from "../Cheesy/FriendBar";
 import SideBar from "../Cheesy/SideBar";
 import TopBar from "../SearchBar/TopBar";
-import { setAuthToken } from "../Utils/setAuthToken";
 import { useEffect, useState } from "react";
 import Friendschat from "../../Atoms/Chatfriends";
 import FriendId from "../../Atoms/FriendId";
@@ -10,9 +9,6 @@ import api from "../../api";
 import Url from "../../Atoms/Url";
 import { ImBlocked } from "react-icons/im";
 import { CgUnblock } from "react-icons/cg";
-
-const host = "localhost";
-const port = 2500;
 
 function ChatContainer() {
   return (
@@ -40,7 +36,6 @@ function ChatSystem() {
     try {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
-      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +44,6 @@ function ChatSystem() {
   const getMyData = async () => {
     try {
       const response = await api.get("player/me");
-      console.table("data hnaya", response.data.blocked_users);
       setData(response.data);
       setBlockedUsers(response.data.blocked_users);
     } catch (error) {
@@ -82,7 +76,7 @@ function ChatSystem() {
       <>
         <div className="Chat-wrapper">
           <div className="Friends-menu">
-            <ChatFriends socket={socket} setSocket={setSocket} />
+            <ChatFriends />
           </div>
           <div className="Chat-box-menu">
             <ChatTyping
@@ -103,7 +97,7 @@ interface Friend {
   avatar: string;
 }
 
-function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
+function ChatFriends() {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
 
@@ -121,7 +115,6 @@ function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
     const blockSocket = new WebSocket(
       `ws://localhost:2500/ws/block-unblock/${token}`
     );
-    setSocket(blockSocket);
 
     blockSocket.onopen = function () {
       console.log("[blockSocket] Connection established successfully.");
@@ -151,7 +144,6 @@ function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
     const unblockSocket = new WebSocket(
       `ws://localhost:2500/ws/block-unblock/${token}`
     );
-    setSocket(unblockSocket);
 
     unblockSocket.onopen = function () {
       console.log("[unblockSocket] Connection established successfully.");
@@ -172,9 +164,7 @@ function ChatFriends({ socket, setSocket }: { socket: any; setSocket: any }) {
   };
 
   useEffect(() => {
-    if (Friends.length > 0) {
-      getID(Friends[0].id);
-    }
+    if (Friends.length > 0) getID(Friends[0].id);
   }, [Friends]);
 
   //TODO:ADD block button
@@ -230,6 +220,7 @@ function Sender({ message, time, sender, currentUserId }: MessageInfo) {
 }
 
 //TODO:automatic scrollwheel
+//TODO:Sort Messages By Id
 function ChatTyping({
   socket,
   setSocket,
@@ -239,8 +230,6 @@ function ChatTyping({
   setSocket: any;
   BlockedUsers: any;
 }) {
-  const friendInfo = useRecoilValue(Friendschat);
-  const url = useRecoilValue(Url);
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
 
@@ -257,8 +246,12 @@ function ChatTyping({
     const fetchInitialMessages = async () => {
       try {
         const response = await api.get(`messages/${id}/`);
-        console.log(response.data);
-        setAllMessages(response.data);
+        console.table(response.data);
+        setAllMessages(
+          response.data.sort(
+            (a: { id: number }, b: { id: number }) => a.id - b.id
+          )
+        );
       } catch (error) {
         console.error("Error fetching initial messages:", error);
       }
@@ -267,16 +260,12 @@ function ChatTyping({
 
     newSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
-      console.log("current messages", e.data);
       const msg = {
         content: data["message"],
         timestamp: new Date(),
         sender: data["sender"],
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
-    };
-    return () => {
-      newSocket.close();
     };
   }, [id]);
 
@@ -307,36 +296,6 @@ function ChatTyping({
     });
     return desiredTime;
   }
-
-  const handleInvite = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found in localStorage.");
-      return;
-    }
-
-    const gameSocket = new WebSocket(
-      `ws://localhost:2500/ws/single-game/${token}`
-    );
-    setSocket(gameSocket);
-
-    gameSocket.onopen = function () {
-      console.log("[GameSocket] Connection established successfully.");
-      const inviteMessage = {
-        action: "invite",
-        invite_to: id,
-      };
-      gameSocket.send(JSON.stringify(inviteMessage));
-    };
-
-    gameSocket.onclose = function () {
-      console.log("[GameSocket] Connection closed successfully.");
-    };
-
-    return () => {
-      gameSocket.close();
-    };
-  };
 
   return (
     <>
