@@ -27,12 +27,28 @@ function GetUserName(players: Player[], from_user: number): string {
   return name;
 }
 
+interface GameInviteProps {
+  id: number;
+  receiver: number;
+  sender: number;
+  room_id: number;
+  status: string;
+  sender_username: string;
+}
+
 function Notif() {
   const [received, setReceived] = useState<FriendshipRequest[]>([]);
   const [render, setRender] = useRecoilState(RenderNotif);
   const [isLoading, setLoading] = useState(true);
   const [players, setPlayers] = useState<Player[]>([]);
   const socket = useRef<WebSocket | null>(null);
+  //-------------------------game invite
+  const [pending, setPending] = useState<GameInviteProps[]>([]);
+  const [accepted, setAccepted] = useState<GameInviteProps[]>([]);
+  const [sent, setSent] = useState<GameInviteProps[]>([]);
+  const gameSocket = useRef<WebSocket | null>(null);
+
+  //-------------------------
 
   const getPlayers = async () => {
     try {
@@ -55,10 +71,21 @@ function Notif() {
     }
   };
 
+  const getGameInvites = async () => {
+    try {
+      const response = await api.get("game-invites/");
+      setPending(response.data?.pending);
+      setAccepted(response.data?.accepted);
+      setSent(response.data?.sent);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getPlayers();
     getData();
-    //Friend Invite
+    //------------------------------------------Friend Invite
     const token = localStorage.getItem("token");
     socket.current = new WebSocket(
       `ws://localhost:2500/ws/friend-reqs/${token}`
@@ -79,8 +106,27 @@ function Notif() {
       }
     };
 
-    return () => socket.current?.close();
-    //game Invite
+    //------------------------------------------game Invite start
+    getGameInvites();
+    gameSocket.current = new WebSocket(
+      `ws://localhost:2500/ws/single-game/${token}`
+    );
+    console.log("here1");
+
+    gameSocket.current.onmessage = (event: MessageEvent) => {
+      console.log("here2");
+      const data = JSON.parse(event.data);
+      console.log(`[Game] data Type:  ${data.type}`);
+      const message = data["message"];
+      console.log(`[Message] ${message}`);
+      getGameInvites();
+    };
+
+    return () => {
+      socket.current?.close();
+      gameSocket.current?.close();
+    };
+    //------------------------------------------game Invite end
   }, []);
 
   const handleAccept = (from_user: number) => {
@@ -108,6 +154,10 @@ function Notif() {
     getPlayers();
     getData();
   };
+
+  // console.log("pending", pending);
+  // console.log("accepted", accepted);
+  // console.log("sent", sent);
 
   return (
     <>

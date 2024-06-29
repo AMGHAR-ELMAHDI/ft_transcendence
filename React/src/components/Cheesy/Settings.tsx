@@ -10,6 +10,7 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
+import OnlineStatus from "../zmakhkha/OnlineStatus";
 
 function getSecurity() {
   return (
@@ -164,6 +165,9 @@ function MainSettings() {
 }
 
 function Settings() {
+  const token: any = localStorage.getItem("token");
+  OnlineStatus(token, 1);
+
   return (
     <>
       <div className="AppClass">

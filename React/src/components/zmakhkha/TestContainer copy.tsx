@@ -19,6 +19,8 @@ function TestContainer() {
   const [accepted, setAccepted] = useState<GameInviteProps[]>([]);
   const [sent, setSent] = useState<GameInviteProps[]>([]);
 
+  // const [userData, setUserData] = useState<GameInviteProps[]>([]);
+  // const [userId, setUserId] = useState<number>(-1);
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
   const token = localStorage.getItem("token");
@@ -50,6 +52,16 @@ function TestContainer() {
     };
   };
 
+  // const getUserData = async () => {
+  //   try {
+  //     const response = await api.get("player/me");
+  //     // setUserData(response.data);
+  //     // setUserId(response.data?.id);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const getData = async () => {
     try {
       const response = await api.get("game-invites/");
@@ -63,6 +75,7 @@ function TestContainer() {
 
   useEffect(() => {
     getData();
+    // getUserData();
   }, []);
 
   return (

@@ -1,8 +1,11 @@
 import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import Game from "../Mnassi/Game/Game";
+import OnlineStatus from "../zmakhkha/OnlineStatus";
 
 export default function GameContainer() {
+  const token: any = localStorage.getItem("token");
+  OnlineStatus(token, 1);
   return (
     <>
       <div className="AppClass">
