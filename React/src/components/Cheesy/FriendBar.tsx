@@ -39,7 +39,12 @@ function FriendBar() {
         onMouseLeave={() => setShowList(false)}
         id="friend-container"
       >
-        <img className="friend-svg" id="logo-friend-svg" src="/friends.svg" />
+        <img
+          onClick={getData}
+          className="friend-svg"
+          id="logo-friend-svg"
+          src="/friends.svg"
+        />
         {isLoading && LoadingData()}
         {!isLoading &&
           Array.isArray(data) &&

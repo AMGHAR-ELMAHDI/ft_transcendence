@@ -58,6 +58,7 @@ function Notif() {
   useEffect(() => {
     getPlayers();
     getData();
+    //Friend Invite
     const token = localStorage.getItem("token");
     socket.current = new WebSocket(
       `ws://localhost:2500/ws/friend-reqs/${token}`
@@ -79,18 +80,16 @@ function Notif() {
     };
 
     return () => socket.current?.close();
+    //game Invite
   }, []);
 
-  const handleAccept = (from_user: number, notif_id: number) => {
+  const handleAccept = (from_user: number) => {
     socket.current?.send(
       JSON.stringify({
         action: "accept",
         friend: from_user,
       })
     );
-    // const notif = document.getElementById(notif_id.toString());
-    // notif?.classList.add("hideIt");
-    // notif!.textContent = "Friend Request Accepted";
   };
 
   const handleDecline = (from_user: number) => {
@@ -129,9 +128,7 @@ function Notif() {
                   id={notif.id.toString()}
                 >
                   <h4>{GetUserName(players, notif.from_user)}</h4>
-                  <button
-                    onClick={() => handleAccept(notif.from_user, notif.id)}
-                  >
+                  <button onClick={() => handleAccept(notif.from_user)}>
                     Accept
                   </button>
                   <button onClick={() => handleDecline(notif.from_user)}>
