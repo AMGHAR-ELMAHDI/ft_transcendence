@@ -3,46 +3,11 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import { BsPersonFillAdd } from "react-icons/bs";
-import {
-  CircularProgressbarWithChildren,
-  buildStyles,
-} from "react-circular-progressbar";
-import api from "../../api";
 
-function getCircles(person: { win_rate: number; achievements_rate: number }) {
-  return (
-    <div id="circles">
-      <CircularProgressbarWithChildren
-        value={person.win_rate}
-        styles={buildStyles({
-          pathColor: `rgba(95, 202, 228, 1)`,
-          textColor: "#FFFFFF",
-          trailColor: "#323644",
-          backgroundColor: "#3e98c7",
-        })}
-      >
-        <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
-          Win Rate
-        </div>
-        <div style={{ fontSize: 50 }}>{person.win_rate}%</div>
-      </CircularProgressbarWithChildren>
-      <CircularProgressbarWithChildren
-        value={person.achievements_rate}
-        styles={buildStyles({
-          pathColor: `rgba(95, 202, 228, 1)`,
-          textColor: "#FFFFFF",
-          trailColor: "#323644",
-          backgroundColor: "#3e98c7",
-        })}
-      >
-        <div style={{ fontSize: 30, color: "#B2B2B2", marginTop: -20 }}>
-          Trophies
-        </div>
-        <div style={{ fontSize: 50 }}>{person.achievements_rate}%</div>
-      </CircularProgressbarWithChildren>
-    </div>
-  );
-}
+import api from "../../api";
+import GetCircles from "./GetCircles";
+
+
 
 interface UserProps {
   show: string;
@@ -81,53 +46,44 @@ function UserProfile({ show, setRender, data }: UserProps) {
 
   useEffect(() => {
     getFriends();
-  }, []);
-
-  useEffect(() => {
-    getFriends();
     const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found");
-      return;
-    }
-    const newSocket = new WebSocket(`ws://localhost:2500/ws/friend-reqs/${token}`);
+    const newSocket = new WebSocket(
+      `ws://localhost:2500/ws/friend-reqs/${token}`
+    );
     newSocket.onopen = () => {
-      console.log('WebSocket connection established');
+      console.log("WebSocket connection established");
     };
     newSocket.onclose = () => {
-      console.log('WebSocket connection closed');
+      console.log("WebSocket connection closed");
     };
     newSocket.onerror = (error) => {
-      console.error('WebSocket error:', error);
+      console.error("WebSocket error:", error);
     };
 
     setSocket(newSocket);
 
     return () => {
-      if (newSocket) {
-        newSocket.close();
-      }
+      if (newSocket) newSocket.close();
     };
   }, []);
 
   const sendRequest = () => {
     setPending(true);
     if (socket) {
-      socket.send(JSON.stringify({
-        action: 'create',
-        friend: data.id
-      }));
+      socket.send(
+        JSON.stringify({
+          action: "create",
+          friend: data.id,
+        })
+      );
     }
   };
 
   if (Array.isArray(friends)) {
-    console.log(friends);
-
     friends?.map((friend: any) => {
       if (friend.username === data.username) Dont = true;
     });
   }
-  console.log(pending);
 
   return (
     <div id="Profile">
@@ -185,7 +141,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
             </button>
           </div>
         </div>
-        {getCircles(data)}
+        {GetCircles(data)}
       </div>
     </div>
   );
