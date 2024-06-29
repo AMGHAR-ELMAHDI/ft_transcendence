@@ -7,8 +7,6 @@ import { BsPersonFillAdd } from "react-icons/bs";
 import api from "../../api";
 import GetCircles from "./GetCircles";
 
-
-
 interface UserProps {
   show: string;
   setRender: React.Dispatch<React.SetStateAction<string>>;
