@@ -17,7 +17,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from asgiref.sync import sync_to_async
 from userman.models import Player
-from .models import Message
+from chat.models import Message
 import datetime
 import json
 import jwt

@@ -19,6 +19,7 @@ schema_view = get_schema_view(
    public=True,
    permission_classes=(permissions.AllowAny,),
 )
+# from two_factor.urls import urlpatterns as tf_urls
 
 urlpatterns = [
    path('admin/', admin.site.urls),
@@ -29,11 +30,12 @@ urlpatterns = [
    path('game/', include('online.urls')),
 
    path('', include(tf_urls)),
-   path('auth/', include('djoser.urls')),
-   path('auth/', include('djoser.urls.jwt')),
+   # path('auth/', include('djoser.urls')),
+   # path('auth/', include('djoser.urls.jwt')),
    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+   path('', include(tf_urls)),
 ]
 
 if settings.DEBUG:

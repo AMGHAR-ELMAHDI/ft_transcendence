@@ -241,7 +241,14 @@ ul {
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   border: 0.1px solid var(--grey-bg-color);
 }
-
+.hideIt {
+  visibility: hidden;
+  color: green;
+  font-size: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .notif-item {
   display: flex;
   gap: 0.5rem;

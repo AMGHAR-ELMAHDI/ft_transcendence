@@ -44,6 +44,7 @@ class Player(AbstractBaseUser):
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=STATUS_OFFLINE)
     level = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
     friends = models.ManyToManyField('self', through='Friendship', symmetrical=False)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=30, unique=True, blank=True)
@@ -95,6 +96,7 @@ class Player(AbstractBaseUser):
             friend = friendship.player1 if friendship.player2 == self else friendship.player2
             friends_info.append({
                 'id': friend.id,
+                'status': friend.status,
                 'username': friend.username,
                 'first_name': friend.first_name,
                 'last_name': friend.last_name,
@@ -202,7 +204,7 @@ class Invites(models.Model):
     sender = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='sent_invites')
     receiver = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='received_invites')
     date = models.DateField(auto_now=True)
-    msg = models.TextField(null=False, blank=False)
+    room_id = models.TextField(null=False, blank=False)
 
 
 class Item(models.Model):
