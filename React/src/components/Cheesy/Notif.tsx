@@ -116,9 +116,7 @@ function Notif() {
     gameSocket.current.onmessage = (event: MessageEvent) => {
       console.log("here2");
       const data = JSON.parse(event.data);
-      console.log(`[Game] data Type:  ${data.type}`);
-      const message = data["message"];
-      console.log(`[Message] ${message}`);
+      console.log(JSON.stringify(data));
       getGameInvites();
     };
 
@@ -154,10 +152,9 @@ function Notif() {
     getPlayers();
     getData();
   };
-
-  // console.log("pending", pending);
-  // console.log("accepted", accepted);
-  // console.log("sent", sent);
+  console.log("pending", JSON.stringify(pending));
+  console.log("accepted", JSON.stringify(accepted));
+  console.log("sent", JSON.stringify(sent));
 
   return (
     <>
@@ -168,6 +165,7 @@ function Notif() {
           <div>
             <IoNotificationsOutline id="notif" />
             {filteredItems.length > 0 && <div id="notifRedDot"></div>}
+            {pending.length > 0 && <div id="notifRedDot"></div>}
           </div>
           {render && filteredItems.length > 0 && (
             <div id="NotifPopUp">
@@ -182,6 +180,25 @@ function Notif() {
                     Accept
                   </button>
                   <button onClick={() => handleDecline(notif.from_user)}>
+                    Decline
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          {render && pending.length > 0 && (
+            <div id="NotifPopUp">
+              {pending.map((notif) => (
+                <div
+                  className="notif-item"
+                  key={notif.id}
+                  id={notif.id.toString()}
+                >
+                  <h4>Game Invite From:{notif?.sender_username}</h4>
+                  <button onClick={() => handleAccept(Number(notif?.sender_username))}>
+                    Accept
+                  </button>
+                  <button onClick={() => handleDecline(Number(notif?.sender_username))}>
                     Decline
                   </button>
                 </div>

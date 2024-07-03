@@ -136,15 +136,10 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
             'type': 'game_invite',
             'action': action,
         }))
-    async def game_notif(self, event):
-        action = event['action']
-        await self.send(text_data=json.dumps({
-            'type': 'game_notif',
-            'action': 'a player invited another one',
-        }))
 
     async def game_request_update(self, event):
         message = event['message']
         await self.send(text_data=json.dumps({
-            'type': message,
+            'type': 'game_update',
+            'message': message,
         }))

@@ -41,6 +41,17 @@ function TestContainer() {
       getData();
     };
 
+    gameSocket.onmessage = (event: MessageEvent) => {
+      const data = JSON.parse(event.data);
+      console.log(`[GAME] data Type:  ${data.type}`);
+      console.log(`[Message-+|] ${JSON.stringify(data)}`);
+
+      if (data.type === "game_request_update") {
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaah')
+        getData();
+      }
+    };
+
     gameSocket.onclose = function () {
       console.log("[GameSocket] Connection closed successfully.");
     };
@@ -63,7 +74,7 @@ function TestContainer() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [socket]);
 
   return (
     <>
