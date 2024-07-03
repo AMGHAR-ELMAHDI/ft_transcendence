@@ -55,10 +55,12 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
             return
         self.user = user
         await self.accept()
+        await self.channel_layer.group_add("gameInvites", self.channel_name)
         print("[RequestSingleGameConsumer] connected successfully ")
 
     async def disconnect(self, close_code):
-        pass
+        await self.channel_layer.group_discard("gameInvites", self.channel_name)
+
 
     async def receive(self, text_data):
         data = json.loads(text_data)
@@ -82,6 +84,15 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
                 invite = await self.get_invite_by_id(invite_id)
                 if invite:
                     await self.change_invite_status(invite, 'R')
+        
+        await self.channel_layer.group_send(
+            "gameInvites",
+            {
+                'type': 'game_request_update',
+                'message': 'game play update !!'
+            }
+        )
+            
 
 
     async def send_invite(self, invite_to_player_id):
@@ -124,4 +135,16 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'type': 'game_invite',
             'action': action,
+        }))
+    async def game_notif(self, event):
+        action = event['action']
+        await self.send(text_data=json.dumps({
+            'type': 'game_notif',
+            'action': 'a player invited another one',
+        }))
+
+    async def game_request_update(self, event):
+        message = event['message']
+        await self.send(text_data=json.dumps({
+            'type': message,
         }))
