@@ -112,8 +112,10 @@ body {
 }
 
 .toaster {
-  background-color: var(--bg-color);
-  border: 0.1px solid var(--blue-glow);
+  background-color: #343538;
+  background-color: #43444A;
+  background-color: var(--grey-bg-color);
+  /* border: 0.1px solid var(--blue-glow); */
   min-width: fit-content;
 }
 
@@ -126,11 +128,11 @@ body {
 }
 
 .notifContainer > h1 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   white-space: nowrap;
 }
 
-.notifButtonContainer{
+.notifButtonContainer {
   display: flex;
   gap: 0.5rem;
 }
@@ -142,4 +144,5 @@ body {
   color: white;
   padding: 0.3rem 0.6rem;
   border-radius: 10px;
+  font-size: 0.9rem;
 }

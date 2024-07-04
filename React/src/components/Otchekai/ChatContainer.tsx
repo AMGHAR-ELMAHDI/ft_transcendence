@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import Friendschat from "../../Atoms/Chatfriends";
 import FriendId from "../../Atoms/FriendId";
 import api from "../../api";
-import Url from "../../Atoms/Url";
 import { ImBlocked } from "react-icons/im";
-import { CgUnblock } from "react-icons/cg";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
+
 function ChatContainer() {
   return (
     <>
