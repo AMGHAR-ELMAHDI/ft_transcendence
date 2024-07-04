@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import RenderNotif from "../../Atoms/RenderNotif";
 import api from "../../api";
 import LoadingData from "./LoadingData";
+import toast from "react-hot-toast";
 
 interface Player {
   id: number;
@@ -152,9 +153,49 @@ function Notif() {
     getPlayers();
     getData();
   };
-  console.log("pending", JSON.stringify(pending));
-  console.log("accepted", JSON.stringify(accepted));
-  console.log("sent", JSON.stringify(sent));
+
+  for (let index = 0; index < filteredItems.length; index++) {
+    let num = filteredItems[index]?.from_user;
+
+    toast(
+      <>
+        <h1>Friend Request From :</h1>
+        <h1>{GetUserName(players, num)}</h1>
+        <button className="notifButton" onClick={() => handleAccept(num)}>
+          Accept
+        </button>
+        <button className="notifButton" onClick={() => handleDecline(num)}>
+          Accept
+        </button>
+      </>,
+      { id: String(num), duration: 10000 }
+    );
+  }
+
+  for (let index = 0; index < pending.length && index < 5; index++) {
+    let num: number = Number(pending[index].sender_username);
+
+    toast(
+      <div className="notifContainer">
+        <h1>Game Invite From {pending[index].sender_username}</h1>
+        <div className="notifButtonContainer">
+          <button
+            className="notifButton"
+            onClick={() => {
+              handleAccept(num);
+              toast.remove();
+            }}
+          >
+            Join
+          </button>
+          <button className="notifButton" onClick={() => handleDecline(num)}>
+            Decline
+          </button>
+        </div>
+      </div>,
+      { id: String(num), duration: 2000 }
+    );
+  }
 
   return (
     <>
@@ -167,44 +208,6 @@ function Notif() {
             {filteredItems.length > 0 && <div id="notifRedDot"></div>}
             {pending.length > 0 && <div id="notifRedDot"></div>}
           </div>
-          {render && filteredItems.length > 0 && (
-            <div id="NotifPopUp">
-              {filteredItems.map((notif) => (
-                <div
-                  className="notif-item"
-                  key={notif.id}
-                  id={notif.id.toString()}
-                >
-                  <h4>{GetUserName(players, notif.from_user)}</h4>
-                  <button onClick={() => handleAccept(notif.from_user)}>
-                    Accept
-                  </button>
-                  <button onClick={() => handleDecline(notif.from_user)}>
-                    Decline
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-          {render && pending.length > 0 && (
-            <div id="NotifPopUp">
-              {pending.map((notif) => (
-                <div
-                  className="notif-item"
-                  key={notif.id}
-                  id={notif.id.toString()}
-                >
-                  <h4>Game Invite From:{notif?.sender_username}</h4>
-                  <button onClick={() => handleAccept(Number(notif?.sender_username))}>
-                    Accept
-                  </button>
-                  <button onClick={() => handleDecline(Number(notif?.sender_username))}>
-                    Decline
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       )}
     </>

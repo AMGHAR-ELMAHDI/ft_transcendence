@@ -20,9 +20,10 @@ interface CardProps {
 
 function ShopContainer() {
   const token: any = localStorage.getItem("token");
-  OnlineStatus(token, 1);
+
   return (
     <>
+      <OnlineStatus token={token} type={1} />
       <div className="AppClass">
         <SideBar />
         <div className="main">

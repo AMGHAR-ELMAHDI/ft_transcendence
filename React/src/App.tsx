@@ -20,6 +20,7 @@ import ProtectedRoutes from "./components/Utils/ProtectedRoutes";
 import TestContainer from "./components/zmakhkha/TestContainer";
 import Setup2FA from "./components/zmakhkha/Setup2FA";
 import Verify2FA from "./components/zmakhkha/Verify2FA";
+import { Toaster } from "react-hot-toast";
 
 import "./Imports";
 
@@ -51,7 +52,16 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster
+        toastOptions={{
+          className: "toaster",
+        }}
+      />
+    </>
+  );
 }
 
 export default App;

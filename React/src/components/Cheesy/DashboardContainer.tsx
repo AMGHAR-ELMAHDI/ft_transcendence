@@ -9,10 +9,10 @@ import OnlineStatus from "../zmakhkha/OnlineStatus";
 function DashboardContainer() {
   const [render, setRender] = useState<string>("History");
   const token: any = localStorage.getItem("token");
-  OnlineStatus(token, 1);
 
   return (
     <>
+      <OnlineStatus token={token} type={1} />
       <div className="AppClass">
         <SideBar />
         <div className="main">

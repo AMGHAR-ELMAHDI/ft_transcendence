@@ -110,3 +110,36 @@ body {
     transform: rotate(1turn);
   }
 }
+
+.toaster {
+  background-color: var(--bg-color);
+  border: 0.1px solid var(--blue-glow);
+  min-width: fit-content;
+}
+
+.notifContainer {
+  font-size: 1rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.notifContainer > h1 {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.notifButtonContainer{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.notifButton {
+  background-color: transparent;
+  border: 1px solid var(--blue-glow);
+  height: fit-content;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+}
