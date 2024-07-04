@@ -1,32 +1,12 @@
 import React from "react";
 import toast from "react-hot-toast";
+import { FriendshipRequest, GameInviteProps, Player } from "./Notif";
 
 interface NotifProps {
   players: Player[];
   pending: GameInviteProps[];
   filteredItems: FriendshipRequest[];
   socket: React.MutableRefObject<WebSocket | null>;
-}
-
-interface FriendshipRequest {
-  id: number;
-  from_user: number;
-  to_user: number;
-  status: string;
-}
-
-interface GameInviteProps {
-  id: number;
-  receiver: number;
-  sender: number;
-  room_id: number;
-  status: string;
-  sender_username: string;
-}
-
-interface Player {
-  id: number;
-  username: string;
 }
 
 function GetUserName(players: Player[], from_user: number): string {
@@ -47,15 +27,27 @@ function DisplayNotif({ players, pending, filteredItems, socket }: NotifProps) {
       <div className="notifContainer">
         <h1>Friend Request From {GetUserName(players, num)}</h1>
         <div className="notifButtonContainer">
-          <button className="notifButton" onClick={() => handleAccept(num)}>
+          <button
+            className="notifButton"
+            onClick={() => {
+              handleAccept(num);
+              toast.dismiss(String(num));
+            }}
+          >
             Accept
           </button>
-          <button className="notifButton" onClick={() => handleDecline(num)}>
+          <button
+            className="notifButton"
+            onClick={() => {
+              handleDecline(num);
+              toast.dismiss(String(num));
+            }}
+          >
             Decline
           </button>
         </div>
       </div>,
-      { id: String(num), duration: 10000 }
+      { id: String(num), duration: 100000 }
     );
   }
 
@@ -69,8 +61,8 @@ function DisplayNotif({ players, pending, filteredItems, socket }: NotifProps) {
           <button
             className="notifButton"
             onClick={() => {
+              toast.dismiss(String(num));
               handleAccept(num);
-              toast.remove();
             }}
           >
             Join
@@ -80,7 +72,7 @@ function DisplayNotif({ players, pending, filteredItems, socket }: NotifProps) {
           </button>
         </div>
       </div>,
-      { id: String(num), duration: 10000 }
+      { id: String(num), duration: 100000 }
     );
   }
 

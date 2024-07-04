@@ -3,19 +3,19 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import api from "../../api";
 import DisplayNotif from "./DisplayNotif";
 
-interface Player {
+export interface Player {
   id: number;
   username: string;
 }
 
-interface FriendshipRequest {
+export interface FriendshipRequest {
   id: number;
   from_user: number;
   to_user: number;
   status: string;
 }
 
-interface GameInviteProps {
+export interface GameInviteProps {
   id: number;
   receiver: number;
   sender: number;
