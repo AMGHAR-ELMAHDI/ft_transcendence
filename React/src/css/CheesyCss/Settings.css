@@ -12,21 +12,22 @@
 .MainSettingsContainer {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
   flex: 1;
 }
 
 .MainSettings {
+  background-color: blue;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
-  /* max-width: 1440px; */
+  max-width: 1440px;
 }
 
 .SettingsContent {
   display: flex;
+  flex: 1;
   flex-wrap: wrap;
   /* border: 2px solid var(--blue-glow); */
   border-radius: 25px;
@@ -39,6 +40,7 @@
 
 .SettingsLeft {
   flex: 1;
+  min-width: 320px;
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
@@ -47,6 +49,7 @@
 }
 
 .SettingsRight {
+  min-width: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,7 +360,13 @@ input:-webkit-autofill:active {
     gap: 1rem;
   }
   .ButtonContainer * {
-    width: 100%;
+    /* width: 100%; */
+  }
+  .SetButton {
+    padding: 0.5rem 1rem;
+    font-weight: 400;
+    border-radius: 10px;
+    font-size: 1rem;
   }
 }
 
