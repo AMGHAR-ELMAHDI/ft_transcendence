@@ -1,33 +1,11 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import Url from "../../Atoms/Url";
-import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
-import Notif from "../Cheesy/Notif";
 import api from "../../api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const DropdownMenu = () => {
-  return (
-    <div className="dropdown-menu">
-      <ul>
-        <li>
-          <Link to={"/profile"}> Profile</Link>
-        </li>
-        <li>
-          <Link to={"/settings"}> Settings</Link>
-        </li>
-      </ul>
-    </div>
-  );
-};
-
-function SearchBar(avatar: string) {
-  const [isFocused, setIsFocused] = useState(false);
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
+function SearchBar() {
   const [players, setPlayers] = useState<any>([]);
   const [filteredUsers, setFilteredUsers] = useState<any>(players);
   const [search, setSearch] = useState<string>("");
-  const url = useRecoilValue(Url);
 
   const navigate = useNavigate();
 
@@ -43,11 +21,9 @@ function SearchBar(avatar: string) {
   const handleInputChange = (e: any) => {
     const searchTerm = e.target.value;
     setSearch(searchTerm);
-
     const filteredItems = players.filter((user: any) =>
       user.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
     setFilteredUsers(filteredItems);
   };
 
@@ -62,11 +38,7 @@ function SearchBar(avatar: string) {
 
   return (
     <div id="search-bar">
-      <div
-        className="Search-input-container"
-        onMouseEnter={() => setIsFocused(true)}
-        onMouseLeave={() => setIsFocused(false)}
-      >
+      <div className="Search-input-container">
         <input
           id="search"
           type="text"
@@ -74,8 +46,8 @@ function SearchBar(avatar: string) {
           value={search}
           onChange={handleInputChange}
         />
-        {search && isFocused && (
-          <div className="SearchUsers" onClick={() => setIsFocused(false)}>
+        {search && (
+          <div className="SearchUsers">
             {filteredUsers.length == 0 && <h1>No User Found</h1>}
             {filteredUsers.map((player: any) => (
               <h1 key={player.username} onClick={() => func(player)}>
@@ -84,18 +56,6 @@ function SearchBar(avatar: string) {
             ))}
           </div>
         )}
-      </div>
-      <div className="NotifProfile">
-        {<Notif />}
-        <div
-          className="div-relat"
-          onMouseEnter={() => setDropdownVisible(true)}
-          onClick={() => setDropdownVisible(true)}
-          onMouseLeave={() => setDropdownVisible(false)}
-        >
-          <img className="NotifProfilePic" src={GetCorrect(avatar, url)} />
-          {isDropdownVisible && <DropdownMenu />}
-        </div>
       </div>
     </div>
   );

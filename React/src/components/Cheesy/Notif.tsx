@@ -107,7 +107,13 @@ function Notif() {
   DisplayNotif({ players, pending, filteredItems, socketFriend, socketGame });
 
   return (
-    <div className="notif-relative">
+    <div
+      className="notif-relative"
+      onClick={() => {
+        getData();
+        getGameInvites();
+      }}
+    >
       <IoNotificationsOutline id="notif" />
       {filteredItems.length > 0 && <div id="notifRedDot"></div>}
       {pending.length > 0 && <div id="notifRedDot"></div>}

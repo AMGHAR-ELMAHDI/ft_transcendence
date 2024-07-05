@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingData from "../Cheesy/LoadingData";
 import Drawer from "react-modern-drawer";
-import "react-modern-drawer/dist/index.css";
 import { TiThMenu } from "react-icons/ti";
+import "react-modern-drawer/dist/index.css";
 import SearchBar from "./SearchBar";
 import DrawerLinks from "./DrawerLinks";
 import api from "../../api";
 import GetGreeting, { getPageName } from "./GetGreeting";
+import DropDownMenuContainer from "./DropDownMenuContainer";
+import Notif from "../Cheesy/Notif";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
-
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -62,7 +63,11 @@ function TopBar() {
             <h1 id="nickName">{getPageName()}</h1>
           )}
         </div>
-        {SearchBar(data?.avatar)}
+        {<SearchBar />}
+        <div className="NotifProfile">
+          {<Notif />}
+          {<DropDownMenuContainer avatar={data?.avatar} />}
+        </div>
       </div>
     </>
   );
