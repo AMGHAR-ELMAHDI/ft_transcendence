@@ -14,7 +14,6 @@ function Users() {
   const username = useRecoilValue(Username);
 
   const UserData: any = useLoaderData();
-  console.log("here: " + UserData?.username);
   const myProfile: boolean = UserData?.username == username ? true : false;
 
   if (UserData === null) {

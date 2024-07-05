@@ -114,6 +114,7 @@ body {
 .toaster {
   background-color: var(--grey-bg-color) !important;
   min-width: fit-content !important;
+  color: white !important;
 }
 
 .notifContainer {
@@ -142,4 +143,48 @@ body {
   padding: 0.3rem 0.6rem;
   border-radius: 10px;
   font-size: 0.9rem;
+}
+
+.twofaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.twofaContainerFirst {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.twofaInput {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--blue-glow);
+  width: fit-content;
+}
+
+.twofaInput > * {
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid var(--blue-glow);
+  border-radius: 5px;
+  width: 2rem;
+  height: 2rem;
+}
+
+.twofaButton {
+  background-color: #f6f5f5;
+  border: 1px solid black;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
 }
