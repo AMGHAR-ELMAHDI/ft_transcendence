@@ -1,7 +1,7 @@
 all : up
 
 up : 
-	@mkdir Database
+	@mkdir -p Database
 	@chmod 777 Database
 	@docker-compose -f docker-compose.yml up -d
 
