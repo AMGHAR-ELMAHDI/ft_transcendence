@@ -21,15 +21,7 @@ const DropdownMenu = () => {
   );
 };
 
-interface obj {
-  username: string;
-  id: number;
-  avatar: string;
-  friends: any[];
-  level: number;
-}
-
-function SearchBar(obj: obj) {
+function SearchBar(avatar: string) {
   const [isFocused, setIsFocused] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [players, setPlayers] = useState<any>([]);
@@ -101,7 +93,7 @@ function SearchBar(obj: obj) {
           onClick={() => setDropdownVisible(true)}
           onMouseLeave={() => setDropdownVisible(false)}
         >
-          <img className="NotifProfilePic" src={GetCorrect(obj.avatar, url)} />
+          <img className="NotifProfilePic" src={GetCorrect(avatar, url)} />
           {isDropdownVisible && <DropdownMenu />}
         </div>
       </div>

@@ -116,15 +116,18 @@ function DisplayNotif({
           <button
             className="notifButton"
             onClick={() => {
-              toast.dismiss(String(num));
               acceptGame(num, socketGame);
+              toast.dismiss(String(num));
             }}
           >
             Join
           </button>
           <button
             className="notifButton"
-            onClick={() => declineFriend(num, socketGame)}
+            onClick={() => {
+              declineGame(num, socketGame);
+              toast.dismiss(String(num));
+            }}
           >
             Decline
           </button>
