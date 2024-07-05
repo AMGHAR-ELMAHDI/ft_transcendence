@@ -1,52 +1,48 @@
-import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import AcessToken from "../../Atoms/AccessToken";
-import { setAuthToken } from "../Utils/setAuthToken";
+import { useState } from "react";
+import api from "../../api";
+import toast from "react-hot-toast";
+import AuthCode from "react-auth-code-input";
 
 function Verify2FA() {
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
-  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
-  const navigate = useNavigate();
+  const [result, setResult] = useState("");
 
-  const handleVerifyCode = async (e) => {
-    e.preventDefault();
+  const handleOnChange = (res: string) => {
+    setResult(res);
+  };
+
+  const obj = {
+    code: result,
+  };
+
+  const SetupTwoFa = async () => {
     try {
-      const response = await axios.post(url + "verify-2fa/", { code });
-      const { data } = response;
-      if (response.status === 200) {
-        handleLoginSuccess(data);
-      }
+      console.log(result);
+      
+      const response = await api.post("verify-2fa/", obj);
+      console.log("response login: " + response);
+      toast.success("2FA has been enabled");
     } catch (error) {
+      toast.error("2FA Code is incorrect");
       console.log(error);
-      setError("Invalid code");
     }
   };
-
-  const handleLoginSuccess = (data) => {
-    setTokenValue(data.access);
-    setAuthToken();
-    localStorage.setItem("token", data.access);
-    navigate("/");
-  };
+  const show2FA: boolean = result.length === 6 ? true : false;
 
   return (
-    <div className="content">
-      <div className="verify-2fa">
-        <h1>Enter 2FA Code</h1>
-        <form onSubmit={handleVerifyCode}>
-          <input
-            type="text"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            placeholder="Enter your 2FA code"
-            required
+    <div className="AppClass">
+      <div className="main">
+        <div className="login">
+          <AuthCode
+            onChange={handleOnChange}
+            allowedCharacters="numeric"
+            containerClassName={"twofaInput"}
           />
-          <button type="submit">Verify Code</button>
-          {error && <div className="statusError">{error}</div>}
-        </form>
+          {show2FA && (
+            <button className="twofaButton" onClick={SetupTwoFa}>
+              Verify 2FA Code
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

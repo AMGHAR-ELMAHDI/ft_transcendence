@@ -7,7 +7,7 @@ import AcessToken from "../../../Atoms/AccessToken";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setAuthToken } from "../../Utils/setAuthToken";
-
+import toast from "react-hot-toast";
 
 function loginEl() {
   const [error, setError] = useState("");
@@ -26,11 +26,14 @@ function loginEl() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      // .post(url + "auth/jwt/create", obj)
       .post(url + "sign-in/", obj)
       .then((response) => {
         var str = response.data;
+        if (str.access === undefined)
+          return toast.error("2FA REQUIRED"), navigate("/verify-2fa");
+
         if (response.status === 200) {
+          toast.success("Logged in successfully");
           localStorage.setItem("token", str.access);
           setTokenValue(str.access);
           setLogged(true);
@@ -40,10 +43,10 @@ function loginEl() {
         }
       })
       .catch((error) => {
+        toast.error(error);
         console.log(error);
       });
   };
-
   // useEffect(() => {
 
   // 	function EmailSyntax(input: string) : boolean {
