@@ -102,7 +102,7 @@ function DisplayNotif({
           </button>
         </div>
       </div>,
-      { id: String(num), duration: 100000 }
+      { id: String(num), duration: 1000 }
     );
   }
 
@@ -133,7 +133,7 @@ function DisplayNotif({
           </button>
         </div>
       </div>,
-      { id: String(num), duration: 100000 }
+      { id: String(num), duration: 1000 }
     );
   }
 }
