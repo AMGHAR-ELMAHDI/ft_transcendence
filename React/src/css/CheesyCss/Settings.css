@@ -20,23 +20,19 @@
   flex-direction: column;
   justify-content: center;
   max-width: 1440px;
-  /* flex: 1; */
-  /* gap: 5rem; */
-  flex-wrap: wrap;
+  flex: 1;
 }
 
 .SettingsContent {
   display: flex;
-  /* flex-wrap: wrap; */
-  border: 2px solid var(--blue-glow);
+  flex-wrap: wrap;
+  /* border: 2px solid var(--blue-glow); */
   border-radius: 25px;
   background-image: url("/blob-scene-haikei.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
-  /* flex: 1; */
-  /* max-height: 75%; */
+  box-shadow: 0 0 20px 10px black;
 }
 
 .SettingsLeft {
@@ -57,9 +53,7 @@
   padding: 4rem 2rem;
   border-radius: 25px;
   border: 2px solid var(--blue-glow);
-  min-width: 40rem;
   background: transparent;
-  /* backdrop-filter: blur(8.2px); */
   -webkit-backdrop-filter: blur(8.2px);
 }
 
@@ -184,6 +178,8 @@
 .SettingsComponents {
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -200,14 +196,12 @@
 
 .GeneralInfoInput {
   border: 2px solid var(--blue-glow);
-  width: 35rem;
   border-radius: 15px;
   padding: 20px 20px;
   transition: all 0.3s;
   height: 4rem;
   color: white;
   width: 100%;
-  /* background-color: #0c0e14; */
   font-size: 1.3rem;
   background-color: transparent;
 }
@@ -314,19 +308,65 @@ input:-webkit-autofill:active {
   box-shadow: 0px 0px 20px 10px rgba(95, 202, 228, 1);
 }
 
-@media screen and (max-width: 425px) {
-  .SettingsContent {
-    flex-wrap: wrap;
+@media screen and (max-width: 1400px) {
+  .SettingsLeft {
+    padding: 0.5rem 0;
+    gap: 0.5rem;
   }
   .SettingsComponents {
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
-  .LeftSpacer {
-    width: 50%;
+  .SettingsImg > img {
+    height: 12rem;
+  }
+  .SettingsRight {
+    flex: 1;
+    margin: 0;
+    padding: 1rem 0.5rem;
+    border-radius: 15px;
+  }
+  .SettingsData {
+    justify-content: center;
+    padding-left: 13%;
+    flex-direction: row;
+    align-items: center;
+  }
+  .SettingsDataContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .SetInfo {
+    padding: 0.3rem;
+    width: 100%;
   }
 
-  .SettingsLeft {
-    padding: 0 2rem;
-    gap: 3rem;
+  /*----------------- Settings Right -------------------*/
+
+  .GeneralInfoContainer > * {
+    gap: 1rem;
+  }
+  .GeneralInfoInput {
+    border: 1px solid var(--blue-glow);
+    padding: 10px 10px;
+    border-radius: 5px;
+    height: 2rem;
+    font-size: 1rem;
+  }
+  .ButtonContainer {
+    gap: 1rem;
+  }
+  .ButtonContainer * {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .LeftSpacer {
+    width: 50%;
   }
 }
