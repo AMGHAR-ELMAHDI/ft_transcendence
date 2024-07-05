@@ -13,9 +13,10 @@ from django_otp import user_has_device
 from django_otp.plugins.otp_totp.models import TOTPDevice
 from django_otp.forms import OTPTokenForm
 
+def user_has_device(user):
+    return TOTPDevice.objects.filter(user=user, confirmed=True).exists()
+
 class SignInAPIView(APIView):
-    queryset = Player.objects.all()
-    serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -26,8 +27,10 @@ class SignInAPIView(APIView):
         if user is not None:
             if user_has_device(user):
                 request.session['pre_2fa_user_id'] = user.id
+                print('[SignInAPIView] there is a device')
                 return Response({'detail': '2fa_required'}, status=status.HTTP_200_OK)
             else:
+                print('[SignInAPIView] no device')
                 refresh = RefreshToken.for_user(user)
                 login(request, user)
                 return Response({
@@ -38,8 +41,6 @@ class SignInAPIView(APIView):
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class SignUpAPIView(APIView):
-    queryset = Player.objects.all()
-    serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -49,8 +50,7 @@ class SignUpAPIView(APIView):
             user.set_password(serializer.validated_data['password'])
             user.save()
             return Response({'status': 'Account created successfully'}, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TwoFactorSetupView(APIView):
     permission_classes = [IsAuthenticated]
@@ -60,14 +60,29 @@ class TwoFactorSetupView(APIView):
         device, created = TOTPDevice.objects.get_or_create(user=user, name='default')
         return Response({'secret': device.config_url}, status=status.HTTP_200_OK)
 
+    def post(self, request):
+        user = request.user
+        device, created = TOTPDevice.objects.get_or_create(user=user, name='default')
+        code = request.data.get('code')
+        if code and device.verify_token(code):
+            device.confirmed = True
+            device.save()
+            return Response({'status': '2FA set up successfully!'}, status=status.HTTP_200_OK)
+        return Response({'status': '2FA setup failed!'}, status=status.HTTP_400_BAD_REQUEST)
+
 class TwoFactorVerifyView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         user_id = request.session.get('pre_2fa_user_id')
-        user = User.objects.get(id=user_id)
-        form = OTPTokenForm(user, data=request.data)
-        if form.is_valid():
+        if not user_id:
+            return Response({'error': 'No user in session'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        user = Player.objects.get(id=user_id)
+        code = request.data.get('code')
+        device = TOTPDevice.objects.filter(user=user, confirmed=True).first()
+
+        if device and device.verify_token(code):
             login(request, user)
             refresh = RefreshToken.for_user(user)
             return Response({

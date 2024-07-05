@@ -19,6 +19,8 @@ function TestContainer() {
   const [accepted, setAccepted] = useState<GameInviteProps[]>([]);
   const [sent, setSent] = useState<GameInviteProps[]>([]);
 
+  // const [userData, setUserData] = useState<GameInviteProps[]>([]);
+  // const [userId, setUserId] = useState<number>(-1);
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
   const token = localStorage.getItem("token");
@@ -41,17 +43,6 @@ function TestContainer() {
       getData();
     };
 
-    gameSocket.onmessage = (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      console.log(`[GAME] data Type:  ${data.type}`);
-      console.log(`[Message-+|] ${JSON.stringify(data)}`);
-
-      if (data.type === "game_request_update") {
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaah')
-        getData();
-      }
-    };
-
     gameSocket.onclose = function () {
       console.log("[GameSocket] Connection closed successfully.");
     };
@@ -60,6 +51,16 @@ function TestContainer() {
       gameSocket.close();
     };
   };
+
+  // const getUserData = async () => {
+  //   try {
+  //     const response = await api.get("player/me");
+  //     // setUserData(response.data);
+  //     // setUserId(response.data?.id);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const getData = async () => {
     try {
@@ -74,7 +75,8 @@ function TestContainer() {
 
   useEffect(() => {
     getData();
-  }, [socket]);
+    // getUserData();
+  }, []);
 
   return (
     <>

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
+import OnlineStatus from "../zmakhkha/OnlineStatus";
 
 interface CardProps {
   name: string;
@@ -18,6 +19,8 @@ interface CardProps {
 }
 
 function ShopContainer() {
+  const token: any = localStorage.getItem("token");
+  OnlineStatus(token, 1);
   return (
     <>
       <div className="AppClass">

@@ -10,14 +10,8 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
-
-function getSecurity() {
-  return (
-    <>
-      <h1>Security</h1>
-    </>
-  );
-}
+import OnlineStatus from "../zmakhkha/OnlineStatus";
+import GetSecurity from "./GetSecurity";
 
 function MainSettings() {
   const [data, setData] = useState<any>();
@@ -154,7 +148,7 @@ function MainSettings() {
 
           <div className="SettingsRight">
             {render === "GeneralInfo" && <SettingsGeneralInfo />}
-            {render === "Security" && getSecurity()}
+            {render === "Security" && <GetSecurity />}
           </div>
         </div>
       </div>
@@ -164,6 +158,9 @@ function MainSettings() {
 }
 
 function Settings() {
+  const token: any = localStorage.getItem("token");
+  OnlineStatus(token, 1);
+
   return (
     <>
       <div className="AppClass">

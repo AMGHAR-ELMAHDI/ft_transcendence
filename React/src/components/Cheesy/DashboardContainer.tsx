@@ -4,11 +4,18 @@ import Profile from "./Profile";
 import FriendBar from "./FriendBar";
 import Dashboard from "./Dashboard";
 import { useState } from "react";
+import OnlineStatus from "../zmakhkha/OnlineStatus";
 
 function DashboardContainer() {
   const [render, setRender] = useState<string>("History");
+  const token: any = localStorage.getItem("token");
+  console.log(token);
+  // OnlineStatus(token, 1);
+  
+  
   return (
     <>
+      <OnlineStatus type={1} token={token}/>
       <div className="AppClass">
         <SideBar />
         <div className="main">
