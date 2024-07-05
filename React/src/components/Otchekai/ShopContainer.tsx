@@ -170,7 +170,6 @@ function Card({ name, price, image, id }: CardProps) {
   const handleBuy = async () => {
     try {
       const response = await axios.post(url + "shop/", obj);
-      console.log(response.status);
       setPurchased(true);
     } catch (error) {
       console.log(error);

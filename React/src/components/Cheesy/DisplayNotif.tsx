@@ -6,7 +6,8 @@ interface NotifProps {
   players: Player[];
   pending: GameInviteProps[];
   filteredItems: FriendshipRequest[];
-  socket: React.MutableRefObject<WebSocket | null>;
+  socketFriend: React.MutableRefObject<WebSocket | null>;
+  socketGame: React.MutableRefObject<WebSocket | null>;
 }
 
 function GetUserName(players: Player[], from_user: number): string {
@@ -19,7 +20,61 @@ function GetUserName(players: Player[], from_user: number): string {
   return name;
 }
 
-function DisplayNotif({ players, pending, filteredItems, socket }: NotifProps) {
+const acceptFriend = (
+  from_user: number,
+  socket: React.MutableRefObject<WebSocket | null>
+) => {
+  socket.current?.send(
+    JSON.stringify({
+      action: "accept",
+      friend: from_user,
+    })
+  );
+};
+
+const declineFriend = (
+  from_user: number,
+  socket: React.MutableRefObject<WebSocket | null>
+) => {
+  socket.current?.send(
+    JSON.stringify({
+      action: "deny",
+      friend: from_user,
+    })
+  );
+};
+
+const acceptGame = (
+  from_user: number,
+  socket: React.MutableRefObject<WebSocket | null>
+) => {
+  socket.current?.send(
+    JSON.stringify({
+      action: "accept",
+      friend: from_user,
+    })
+  );
+};
+
+const declineGame = (
+  from_user: number,
+  socket: React.MutableRefObject<WebSocket | null>
+) => {
+  socket.current?.send(
+    JSON.stringify({
+      action: "deny",
+      friend: from_user,
+    })
+  );
+};
+
+function DisplayNotif({
+  players,
+  pending,
+  filteredItems,
+  socketFriend,
+  socketGame,
+}: NotifProps) {
   for (let index = 0; index < filteredItems.length; index++) {
     let num = filteredItems[index]?.from_user;
 
@@ -30,7 +85,7 @@ function DisplayNotif({ players, pending, filteredItems, socket }: NotifProps) {
           <button
             className="notifButton"
             onClick={() => {
-              handleAccept(num);
+              acceptFriend(num, socketFriend);
               toast.dismiss(String(num));
             }}
           >
@@ -39,7 +94,7 @@ function DisplayNotif({ players, pending, filteredItems, socket }: NotifProps) {
           <button
             className="notifButton"
             onClick={() => {
-              handleDecline(num);
+              declineFriend(num, socketFriend);
               toast.dismiss(String(num));
             }}
           >
@@ -62,12 +117,15 @@ function DisplayNotif({ players, pending, filteredItems, socket }: NotifProps) {
             className="notifButton"
             onClick={() => {
               toast.dismiss(String(num));
-              handleAccept(num);
+              acceptGame(num, socketGame);
             }}
           >
             Join
           </button>
-          <button className="notifButton" onClick={() => handleDecline(num)}>
+          <button
+            className="notifButton"
+            onClick={() => declineFriend(num, socketGame)}
+          >
             Decline
           </button>
         </div>
@@ -75,23 +133,5 @@ function DisplayNotif({ players, pending, filteredItems, socket }: NotifProps) {
       { id: String(num), duration: 100000 }
     );
   }
-
-  const handleAccept = (from_user: number) => {
-    socket.current?.send(
-      JSON.stringify({
-        action: "accept",
-        friend: from_user,
-      })
-    );
-  };
-
-  const handleDecline = (from_user: number) => {
-    socket.current?.send(
-      JSON.stringify({
-        action: "deny",
-        friend: from_user,
-      })
-    );
-  };
 }
 export default DisplayNotif;

@@ -112,11 +112,8 @@ body {
 }
 
 .toaster {
-  background-color: #343538;
-  background-color: #43444A;
-  background-color: var(--grey-bg-color);
-  /* border: 0.1px solid var(--blue-glow); */
-  min-width: fit-content;
+  background-color: var(--grey-bg-color) !important;
+  min-width: fit-content !important;
 }
 
 .notifContainer {

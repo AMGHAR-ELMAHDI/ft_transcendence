@@ -37,7 +37,6 @@ function ChatSystem() {
     try {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
-      console.log("hh", response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -110,7 +109,7 @@ function ChatFriends() {
     setId(id);
     setSelectedFriend(id);
   };
-  console.log(selectedFriend);
+
   const handleBlock = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -123,16 +122,11 @@ function ChatFriends() {
     );
 
     blockSocket.onopen = function () {
-      console.log("[blockSocket] Connection established successfully.");
       const inviteMessage = {
         action: "block",
         blocked: Friendid,
       };
       blockSocket.send(JSON.stringify(inviteMessage));
-    };
-
-    blockSocket.onclose = function () {
-      console.log("[blockSocket] Connection closed successfully.");
     };
 
     return () => {
@@ -152,16 +146,11 @@ function ChatFriends() {
     );
 
     unblockSocket.onopen = function () {
-      console.log("[unblockSocket] Connection established successfully.");
       const inviteMessage = {
         action: "block",
         blocked: Friendid,
       };
       unblockSocket.send(JSON.stringify(inviteMessage));
-    };
-
-    unblockSocket.onclose = function () {
-      console.log("[unblockSocket] Connection closed successfully.");
     };
 
     return () => {
@@ -252,9 +241,6 @@ function ChatTyping({
       `ws://localhost:2500/ws/chat/${id}/${token}`
     );
     setSocket(newSocket);
-    newSocket.onopen = function () {
-      console.log("WebSocket connection established (tcha9lib blawr).");
-    };
 
     const fetchInitialMessages = async () => {
       try {
@@ -324,16 +310,11 @@ function ChatTyping({
     setGameSocket(gameSocket);
 
     gameSocket.onopen = function () {
-      console.log("[GameSocket] Connection established successfully.");
       const inviteMessage = {
         action: "invite",
         invite_to: id,
       };
       gameSocket.send(JSON.stringify(inviteMessage));
-    };
-
-    gameSocket.onclose = function () {
-      console.log("[GameSocket] Connection closed successfully.");
     };
 
     return () => {

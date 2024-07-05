@@ -48,18 +48,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
     const newSocket = new WebSocket(
       `ws://localhost:2500/ws/friend-reqs/${token}`
     );
-    newSocket.onopen = () => {
-      console.log("WebSocket connection established");
-    };
-    newSocket.onclose = () => {
-      console.log("WebSocket connection closed");
-    };
-    newSocket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
     setSocket(newSocket);
-
     return () => {
       if (newSocket) newSocket.close();
     };

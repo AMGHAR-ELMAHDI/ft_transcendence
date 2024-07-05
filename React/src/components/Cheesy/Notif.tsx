@@ -27,12 +27,12 @@ export interface GameInviteProps {
 function Notif() {
   const [received, setReceived] = useState<FriendshipRequest[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
-  const socket = useRef<WebSocket | null>(null);
+  const socketFriend = useRef<WebSocket | null>(null);
   //-------------------------game invite
   const [pending, setPending] = useState<GameInviteProps[]>([]);
   // const [accepted, setAccepted] = useState<GameInviteProps[]>([]);
   // const [sent, setSent] = useState<GameInviteProps[]>([]);
-  const gameSocket = useRef<WebSocket | null>(null);
+  const socketGame = useRef<WebSocket | null>(null);
 
   //-------------------------
 
@@ -70,11 +70,11 @@ function Notif() {
     getData();
     //------------------------------------------Friend Invite
     const token = localStorage.getItem("token");
-    socket.current = new WebSocket(
+    socketFriend.current = new WebSocket(
       `ws://localhost:2500/ws/friend-reqs/${token}`
     );
 
-    socket.current.onmessage = (event: MessageEvent) => {
+    socketFriend.current.onmessage = (event: MessageEvent) => {
       const data = JSON.parse(event.data);
       // if (
       // data.type === "new_friend_request" ||
@@ -87,24 +87,24 @@ function Notif() {
 
     //------------------------------------------game Invite start
     getGameInvites();
-    gameSocket.current = new WebSocket(
+    socketGame.current = new WebSocket(
       `ws://localhost:2500/ws/single-game/${token}`
     );
 
-    gameSocket.current.onmessage = (event: MessageEvent) => {
+    socketGame.current.onmessage = (event: MessageEvent) => {
       getGameInvites();
     };
 
     return () => {
-      socket.current?.close();
-      gameSocket.current?.close();
+      socketFriend.current?.close();
+      socketGame.current?.close();
     };
     //------------------------------------------game Invite end
   }, []);
 
   const filteredItems = received.filter((user) => user?.status.includes("P"));
 
-  DisplayNotif({ players, pending, filteredItems, socket });
+  DisplayNotif({ players, pending, filteredItems, socketFriend, socketGame });
 
   return (
     <div className="notif-relative">

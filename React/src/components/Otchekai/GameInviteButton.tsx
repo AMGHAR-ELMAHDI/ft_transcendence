@@ -20,16 +20,11 @@ function GameInviteButton({ id }: Props) {
     setSocket(gameSocket);
 
     gameSocket.onopen = function () {
-      console.log("[GameSocket] Connection established successfully.");
       const inviteMessage = {
         action: "invite",
         invite_to: id,
       };
       gameSocket.send(JSON.stringify(inviteMessage));
-    };
-
-    gameSocket.onclose = function () {
-      console.log("[GameSocket] Connection closed successfully.");
     };
 
     return () => {
