@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setAuthToken } from "../../Utils/setAuthToken";
 
+
 function loginEl() {
   const [error, setError] = useState("");
   const [username, setUsername] = useState("");
@@ -30,11 +31,11 @@ function loginEl() {
       .then((response) => {
         var str = response.data;
         if (response.status === 200) {
+          localStorage.setItem("token", str.access);
           setTokenValue(str.access);
           setLogged(true);
           setAuthToken();
           console.log(str.access);
-          localStorage.setItem("token", str.access);
           navigate("/");
         }
       })

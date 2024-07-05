@@ -10,17 +10,22 @@ import api from "../../api";
 import GetGreeting, { getPageName } from "./GetGreeting";
 import DropDownMenuContainer from "./DropDownMenuContainer";
 import Notif from "../Cheesy/Notif";
+import { useRecoilState } from "recoil";
+import Username from "../../Atoms/Username";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [recoilUsername, setRecoilUsername] = useRecoilState(Username);
 
   const getData = async () => {
     try {
       const response = await api.get("player/me");
       setData(response.data);
       setIsLoading(false);
+      setRecoilUsername(response.data?.username);
+      console.log(response.data?.username);
     } catch (error: any) {
       if (error.request) {
         window.location.href = "/login";

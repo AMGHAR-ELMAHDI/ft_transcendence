@@ -22,16 +22,17 @@ interface UserProps {
     win_rate: number;
     achievements_rate: number;
   };
+  myProfile: boolean;
 }
 
-function UserProfile({ show, setRender, data }: UserProps) {
-  const profileLevelStyle = { justifyContent: "space-between" };
-  let levelStart = Math.floor(data.level / 10);
-  const url = useRecoilValue(Url);
+function UserProfile({ show, setRender, data, myProfile }: UserProps) {
   const [pending, setPending] = useState<boolean>(false);
   const [friends, setFriends] = useState<any>({});
-  let Dont: boolean = false;
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const url = useRecoilValue(Url);
+  const profileLevelStyle = { justifyContent: "space-between" };
+  let levelStart = Math.floor(data.level / 10);
+  let Dont: boolean = false;
 
   const getFriends = async () => {
     try {
@@ -71,6 +72,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
       if (friend.username === data.username) Dont = true;
     });
   }
+  if (myProfile) Dont = true;
 
   return (
     <div id="Profile">

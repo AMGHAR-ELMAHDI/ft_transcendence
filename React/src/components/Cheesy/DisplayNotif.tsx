@@ -68,6 +68,8 @@ const declineGame = (
   );
 };
 
+//------------------------------------------------------
+
 function DisplayNotif({
   players,
   pending,
@@ -102,7 +104,7 @@ function DisplayNotif({
           </button>
         </div>
       </div>,
-      { id: String(num), duration: 1000 }
+      { id: String(num) }
     );
   }
 
@@ -133,7 +135,7 @@ function DisplayNotif({
           </button>
         </div>
       </div>,
-      { id: String(num), duration: 1000 }
+      { id: String(num) }
     );
   }
 }
