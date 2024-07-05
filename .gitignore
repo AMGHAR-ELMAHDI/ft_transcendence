@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-
 # python3 manage.py runserver 2500
 *.sqlite3
 token
@@ -35,3 +34,5 @@ venv
 .vscode
 
 **/*.pyc
+
+Database
