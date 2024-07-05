@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN python manage.py migrate
-# RUN python manage.py flush --no-input
+RUN chmod +x run.sh
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:2500"]
+CMD ["bash", "run.sh"]
