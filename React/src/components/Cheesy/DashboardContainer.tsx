@@ -5,12 +5,10 @@ import FriendBar from "./FriendBar";
 import Dashboard from "./Dashboard";
 import { useState } from "react";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
-import OnlineStatus from "../zmakhkha/OnlineStatus";
 
 function DashboardContainer() {
   const [render, setRender] = useState<string>("History");
   const token: any = localStorage.getItem("token");
-
 
   return (
     <>

@@ -11,14 +11,7 @@ import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
-
-function getSecurity() {
-  return (
-    <>
-      <h1>Security</h1>
-    </>
-  );
-}
+import GetSecurity from "./GetSecurity";
 
 function MainSettings() {
   const [data, setData] = useState<any>();

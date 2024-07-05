@@ -3,10 +3,7 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import { BsPersonFillAdd } from "react-icons/bs";
-
-
 import api from "../../api";
-import GetCircles from "./GetCircles";
 import GetCircles from "./GetCircles";
 
 interface UserProps {

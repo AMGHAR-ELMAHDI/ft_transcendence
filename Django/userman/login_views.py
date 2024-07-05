@@ -27,17 +27,10 @@ class SignInAPIView(APIView):
         if user is not None:
             if user_has_device(user):
                 request.session['pre_2fa_user_id'] = user.id
-<<<<<<< HEAD
-                print('[SignInAPIView]  there is a device')
-                return Response({'detail': '2fa_required'}, status=status.HTTP_200_OK)
-            else:
-                print('[SignInAPIView]  no device')
-=======
                 print('[SignInAPIView] there is a device')
                 return Response({'detail': '2fa_required'}, status=status.HTTP_200_OK)
             else:
                 print('[SignInAPIView] no device')
->>>>>>> origin/Backend-Zmakhkha
                 refresh = RefreshToken.for_user(user)
                 login(request, user)
                 return Response({
