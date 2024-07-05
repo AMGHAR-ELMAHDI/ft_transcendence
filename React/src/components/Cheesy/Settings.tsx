@@ -155,7 +155,7 @@ function MainSettings() {
 
           <div className="SettingsRight">
             {render === "GeneralInfo" && <SettingsGeneralInfo />}
-            {render === "Security" && getSecurity()}
+            {render === "Security" && <GetSecurity />}
           </div>
         </div>
       </div>

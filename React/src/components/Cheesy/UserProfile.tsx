@@ -4,7 +4,9 @@ import Url from "../../Atoms/Url";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import { BsPersonFillAdd } from "react-icons/bs";
 
+
 import api from "../../api";
+import GetCircles from "./GetCircles";
 import GetCircles from "./GetCircles";
 
 interface UserProps {
@@ -52,12 +54,19 @@ function UserProfile({ show, setRender, data, myProfile }: UserProps) {
     setSocket(newSocket);
     return () => {
       if (newSocket) newSocket.close();
+      if (newSocket) newSocket.close();
     };
   }, []);
 
   const sendRequest = () => {
     setPending(true);
     if (socket) {
+      socket.send(
+        JSON.stringify({
+          action: "create",
+          friend: data.id,
+        })
+      );
       socket.send(
         JSON.stringify({
           action: "create",
@@ -130,6 +139,7 @@ function UserProfile({ show, setRender, data, myProfile }: UserProps) {
             </button>
           </div>
         </div>
+        {GetCircles(data)}
         {GetCircles(data)}
       </div>
     </div>

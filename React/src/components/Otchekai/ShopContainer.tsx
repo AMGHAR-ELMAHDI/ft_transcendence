@@ -10,6 +10,7 @@ import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
+import OnlineStatus from "../zmakhkha/OnlineStatus";
 
 interface CardProps {
   name: string;

@@ -26,6 +26,4 @@ urlpatterns = [
     path('sign-up/', SignUpAPIView.as_view(), name='sign_up'),
     path('setup-2fa/', TwoFactorSetupView.as_view(), name='setup_2fa'),
     path('verify-2fa/', TwoFactorVerifyView.as_view(), name='verify_2fa'),
-
-
 ]

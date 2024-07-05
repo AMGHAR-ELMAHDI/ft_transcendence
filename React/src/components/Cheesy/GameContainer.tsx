@@ -5,7 +5,6 @@ import OnlineStatus from "../zmakhkha/OnlineStatus";
 
 export default function GameContainer() {
   const token: any = localStorage.getItem("token");
-
   return (
     <>
       <OnlineStatus token={token} type={1} />

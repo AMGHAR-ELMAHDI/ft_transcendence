@@ -49,17 +49,7 @@ function Notif() {
     try {
       const response = await api.get("reqs/");
       setReceived(response.data?.recieved);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getGameInvites = async () => {
-    try {
-      const response = await api.get("game-invites/");
-      setPending(response.data?.pending);
-      // setAccepted(response.data?.accepted);
-      // setSent(response.data?.sent);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -119,6 +109,7 @@ function Notif() {
       {pending.length > 0 && <div id="notifRedDot"></div>}
     </div>
   );
+}
 }
 
 export default Notif;
