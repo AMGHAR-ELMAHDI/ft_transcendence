@@ -10,6 +10,8 @@ import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
+import GetCorrectImage from "../Cheesy/GetCorrectImage";
+import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 interface CardProps {
   name: string;
@@ -49,7 +51,7 @@ function GetPaddle() {
   const paddle = data.filter((item: any) => item?.type === "P");
   return (
     <>
-      <div className="Paddles item">
+      <div className="itemsContainer">
         <h1 id="Paddles-header">Paddles</h1>
         <div className="Paddle-holder">
           {paddle.map((item: any) => (
@@ -72,7 +74,7 @@ function GetBackground() {
   const background = data.filter((item: any) => item?.type === "B");
   return (
     <>
-      <div className="Background item">
+      <div className="itemsContainer">
         <h1 id="Paddles-header">Backgrounds</h1>
         <div className="Paddle-holder">
           {background.map((item: any) => (
@@ -95,7 +97,7 @@ function GetAvatar() {
   const avatar = data.filter((item: any) => item?.type === "A");
   return (
     <>
-      <div className="Avatar item">
+      <div className="itemsContainer">
         <h1 id="Paddles-header">Avatars</h1>
         <div className="Paddle-holder">
           {avatar.map((item: any) => (
@@ -179,30 +181,27 @@ function Card({ name, price, image, id }: CardProps) {
   };
 
   useEffect(() => {
-    if (FilterItems(owned, name)) {
-      setPurchased(true);
-    }
+    if (FilterItems(owned, name)) setPurchased(true);
   }, [owned, name]);
 
   return (
-    <>
-      <div className="Card-container">
-        <div onClick={() => handleBuy()} className="Item-img">
-          <div className="Item-img-animation">
-            <p>BUY IT!</p>
-          </div>
-          <img src={image} alt="item" />
-          <div className="Item-img-animation2"></div>
+    <div className="Card-container">
+      <div onClick={() => handleBuy()} className="Item-img">
+        <div className="Item-img-animation">
+          <p>BUY IT!</p>
         </div>
-        <div className="Item-value">
-          <div className="Item-title">{name}</div>
-          {purchased ? (
-            <div className="Item-price">{"Owned"}</div>
-          ) : (
-            <div className="Item-price">{price + "$"}</div>
-          )}
-        </div>
+        {/* <img src={GetCorrect(image, url)} alt="item" /> */}
+        <img src="/purple-paddle.png" alt="item" />
+        <div className="Item-img-animation2"></div>
       </div>
-    </>
+      <div className="ItemValueContainer">
+        <h1 className="Item-title">{name}</h1>
+        {purchased ? (
+          <div className="Item-price">{"Owned"}</div>
+        ) : (
+          <div className="Item-price">{price + "$"}</div>
+        )}
+      </div>
+    </div>
   );
 }
