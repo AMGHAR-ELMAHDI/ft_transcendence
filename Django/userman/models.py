@@ -223,7 +223,7 @@ class Item(models.Model):
         max_length=1, choices=ITEM_CHOICES)
     name = models.CharField(max_length=32)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    path = models.CharField(max_length=64)
+    path = models.CharField(max_length=256)
 
 
 class ItemsPerUser(models.Model):
