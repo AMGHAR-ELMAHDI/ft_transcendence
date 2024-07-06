@@ -86,7 +86,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.4s ease-in-out;
-  box-shadow: 0 0 20px 10px black;
+  box-shadow: 0 0 20px 0px black;
 }
 
 .Item-img-animation {
@@ -147,13 +147,16 @@
 .Item-title {
   font-weight: 500;
   font-size: 1rem;
+  box-shadow: 0 0 20px 10px black;
 }
 
 .Item-price {
+  font-size: 1rem;
   border-radius: 7px;
   color: black;
   padding: 0.1rem 2rem;
   background-color: var(--blue-glow);
+  box-shadow: 0 0 20px 10px black;
 }
 
 @media only screen and (max-width: 1024px) {
