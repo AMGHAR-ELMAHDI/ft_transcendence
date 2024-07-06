@@ -17,7 +17,6 @@ import Register from "./components/Cheesy/Register";
 import Users, { UsersLoader } from "./components/Cheesy/Users";
 import ProfileLayout from "./components/Cheesy/ProfileLayout";
 import ProtectedRoutes from "./components/Utils/ProtectedRoutes";
-import Setup2FA from "./components/zmakhkha/Setup2FA";
 import Verify2FA from "./components/zmakhkha/Verify2FA";
 import { Toaster } from "react-hot-toast";
 
@@ -28,11 +27,10 @@ const router = createBrowserRouter(
     <>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/twoFa" element={<Verify2FA />} />
 
       <Route element={<ProtectedRoutes />}>
         <Route path="/" element={<DashboardContainer />} />
-        <Route path="/setup-2fa" element={<Setup2FA />} />
-        <Route path="/verify-2fa" element={<Verify2FA />} />
         <Route path="/chat" element={<ChatContainer />} />
         <Route path="/game" element={<GameContainer />} />
         <Route path="/leaderboard" element={<LeaderBoardContainer />} />

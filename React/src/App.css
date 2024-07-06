@@ -176,15 +176,82 @@ body {
   border: 1px solid var(--blue-glow);
   border-radius: 5px;
   width: 2rem;
+  font-weight: 600;
   height: 2rem;
 }
 
 .twofaButton {
   background-color: #f6f5f5;
-  border: 1px solid black;
+  border: none;
   color: black;
   padding: 0.5rem 1rem;
   border-radius: 10px;
   font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0px 0px 5px black;
   cursor: pointer;
+}
+
+.twoFaContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+}
+
+.twoFa {
+  padding: 5rem;
+  box-shadow: 0px 3px 5px var(--blue-glow);
+  border-radius: 15px;
+  border: 1px solid var(--blue-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.twoFaLg {
+  font-size: 1.5rem;
+  color: var(--blue-glow);
+}
+
+.twoFaSm {
+  font-size: 1rem;
+  text-shadow: 0 0 5px black;
+}
+
+.GoLogin2FA {
+  cursor: pointer;
+  animation: lights 4.5s 750ms linear infinite;
+}
+
+@media only screen and (max-width: 768px) {
+  .twoFa {
+    width: 300px;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .twoFaLg {
+    font-size: 1.2rem;
+  }
+
+  .twoFaSm {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .twofaInput {
+    gap: 5px;
+    padding: 0.6rem;
+  }
+
+  .twofaInput > * {
+    width: 1.8rem;
+  }
+  .twofaButton {
+    padding: 0.5rem 1rem;
+  }
 }

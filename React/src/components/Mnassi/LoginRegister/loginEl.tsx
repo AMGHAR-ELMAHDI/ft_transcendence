@@ -30,7 +30,7 @@ function loginEl() {
       .then((response) => {
         var str = response.data;
         if (str.access === undefined)
-          return toast.error("2FA REQUIRED"), navigate("/verify-2fa");
+          return toast.error("2FA REQUIRED"), navigate("/twoFa");
 
         if (response.status === 200) {
           toast.success("Logged in successfully");
