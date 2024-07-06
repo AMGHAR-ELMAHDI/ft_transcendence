@@ -42,7 +42,14 @@
 .NotifProfile {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  /* gap: 1rem; */
+}
+
+.NotifProfileContainer {
+  display: flex;
+  align-items: center;
+  /* gap: 1rem; */
+  cursor: pointer;
 }
 
 .NotifProfilePic {
@@ -57,14 +64,13 @@
 #search {
   background-color: #0c0e14;
   border: 1px solid var(--blue-glow);
-  width: 35rem;
-  min-width: 10rem;
+  width: clamp(100px, 100%, 600px);
   border-radius: 30px;
   padding: 20px 20px;
   background-image: url(/search-icon.svg);
   background-repeat: no-repeat;
   background-position: 20px 20px;
-  transition: all 0.3s;
+  /* transition: all 0.3s; */
   height: 4rem;
 }
 
@@ -271,7 +277,6 @@ ul {
   }
   #search:placeholder-shown,
   #search {
-    width: 35rem;
     padding: 20px 20px;
     background-position: 20px 18px;
     height: 3.5rem;
@@ -295,20 +300,12 @@ ul {
 }
 
 @media only screen and (max-width: 1920px) {
-  #search:placeholder-shown,
-  #search {
-    width: 20rem;
-  }
   #search::placeholder {
     padding: 0 0 0 2rem;
   }
 }
 
 @media only screen and (max-width: 1600px) {
-  #search:placeholder-shown,
-  #search {
-    width: 15rem;
-  }
   #search-bar,
   .NotifProfile {
     gap: 2rem;
@@ -316,11 +313,6 @@ ul {
 }
 
 @media only screen and (max-width: 1440px) {
-  #search:placeholder-shown,
-  #search {
-    width: 70%;
-  }
-
   #search::placeholder {
     padding: 0 0 0 2rem;
   }
@@ -376,7 +368,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 2rem;
+  margin-right: 0rem;
 }
 
 .BurgerMenu > * {
@@ -405,21 +397,8 @@ ul {
   .NotifProfile {
     gap: 1rem;
   }
-
-  #search:placeholder-shown,
-  #search {
-    max-width: 20rem;
-    width: 200%;
-  }
   #TopBar {
     align-items: flex-start;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  #search:placeholder-shown,
-  #search {
-    width: 150%;
   }
 }
 
@@ -464,5 +443,3 @@ ul {
       -1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
   }
 }
-
-

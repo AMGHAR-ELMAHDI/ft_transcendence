@@ -68,10 +68,12 @@ function TopBar() {
             <h1 id="nickName">{getPageName()}</h1>
           )}
         </div>
-        {<SearchBar />}
         <div className="NotifProfile">
-          {<Notif />}
-          {<DropDownMenuContainer avatar={data?.avatar} />}
+          {<SearchBar />}
+          <div className="NotifProfileContainer">
+            {<Notif />}
+            {<DropDownMenuContainer avatar={data?.avatar} />}
+          </div>
         </div>
       </div>
     </>
