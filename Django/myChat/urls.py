@@ -24,6 +24,7 @@ schema_view = get_schema_view(
 urlpatterns = [
    path('admin/', admin.site.urls),
    path('', include('chat.urls')),
+   path('discord/', include('discordOauth.urls')),
    path('', include('userman.urls')),
    path('', include('purshase.urls')),
 	path('', include('loginPage.urls')),
