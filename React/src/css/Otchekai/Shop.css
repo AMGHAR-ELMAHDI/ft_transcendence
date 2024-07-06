@@ -11,13 +11,7 @@
 }
 
 * {
-  /* border: solid red; */
-}
-
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* border: 0.1px solid grey; */
 }
 
 .wrapper {
@@ -29,12 +23,13 @@
 }
 
 .Items {
+  border: 0.1px solid grey;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   height: 1400px;
   overflow-y: scroll;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 
 .Items::-webkit-scrollbar-track {

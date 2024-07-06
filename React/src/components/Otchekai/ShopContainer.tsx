@@ -116,6 +116,7 @@ function GetAvatar() {
 function ShopDesign() {
   const [shopItems, setShopItems] = useRecoilState(ShopItems);
   const [ownedItems, setownedItems] = useRecoilState(OwnedItems);
+
   //get items shop
   setAuthToken();
   const getData = async () => {
@@ -129,6 +130,7 @@ function ShopDesign() {
   useEffect(() => {
     getData();
   }, []);
+
   //get owned items
   setAuthToken();
   const getowned = async () => {
@@ -139,18 +141,18 @@ function ShopDesign() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getowned();
   }, []);
+
   return (
     <>
-      <div className="container">
-        <div className="wrapper">
-          <div className="Items">
-            <GetPaddle />
-            <GetBackground />
-            <GetAvatar />
-          </div>
+      <div className="wrapper">
+        <div className="Items">
+          <GetPaddle />
+          <GetBackground />
+          <GetAvatar />
         </div>
       </div>
     </>
