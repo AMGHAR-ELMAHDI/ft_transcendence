@@ -2,7 +2,6 @@
 -> display names //done
 -> alias //done
 -> reconnecting after losing //done
--> full room // ?? kifesh
 -> ball at the start of the game //done
 -> losing in mid game //done
 -> display animation of the losers // concatinate the roomId with index of the player

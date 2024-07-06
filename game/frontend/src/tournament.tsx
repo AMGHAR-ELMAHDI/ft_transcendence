@@ -159,7 +159,7 @@ function tournament({NetType}: OnlineGame) {
 			players[2].innerHTML = data.message.array.name_3.name
 			players[3].innerHTML = data.message.array.name_4.name
 		}
-	
+
 		TnSocket = new WebSocket('ws://localhost:8000/ws/game/tn/')
 
 		function StoreInStorage(data: any) {

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+</head>
+<body>
+    <h1>Chat</h1>
+    <div id="messages">
+        <!-- Messages will be displayed here -->
+    </div>
+
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+
+    <form id="message-form">
+        <input type="text" id="message-input">
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        // Get the receiver ID from the template
+        const receiverId = "{{ receiver_id }}";
+
+        // Establish websocket connection with the dynamic receiver ID
+        const socket = new WebSocket(`ws://localhost:2500/ws/chat/${receiverId}/`);
+        socket.onopen = function(event) {
+            console.log("WebSocket connection established.");
+            
+            // Add event listener for form submission
+            const form = document.getElementById("message-form");
+            form.addEventListener("submit", function(event) {
+                console.log("form submit.");
+
+                event.preventDefault();
+                const input = document.getElementById("message-input");
+                const messageContent = input.value.trim();
+                if (messageContent !== "") {
+                    // Create a JSON object with the message content
+                    const message = {
+                        content: messageContent
+                    };
+
+                    // Check if WebSocket is in OPEN state before sending message
+                    if (socket.readyState === WebSocket.OPEN) {
+                        // Send the message as JSON
+                        socket.send(JSON.stringify(message));
+                        input.value = "";
+                    } else {
+                        console.error("WebSocket connection not open yet.");
+                    }
+                }
+            });
+            socket.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                console.log(data['user'])
+                console.log(data['timestamp'])
+                const msg = data['user'] + " : " + data['message']
+                document.querySelector('#chat-log').value += (msg + '\n');
+            };
+
+        };
+        socket.onmessage = function(event) {
+            console.log("Message received:", event.data);
+            // Handle received message, e.g., display it in the chat interface
+            const messagesDiv = document.getElementById("messages");
+            const messageParagraph = document.createElement("p");
+            messageParagraph.textContent = event.data;
+            messagesDiv.appendChild(messageParagraph);
+        };
+        socket.onerror = function(error) {
+            console.error("WebSocket error:", error);
+        };
+        socket.onclose = function(event) {
+            console.log("WebSocket connection closed.");
+        };
+    </script>
+</body>
+</html>

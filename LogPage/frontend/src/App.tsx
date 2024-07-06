@@ -22,19 +22,19 @@ function App() {
 
   useEffect(()=> {
     // saving the client with 42 auth
-    axios.defaults.withCredentials = true;
-    axios?.get('http://localhost:8000/check/', {
-      withCredentials: true,
-    })
-    .then(response => {
-      if (response?.status == 200)
-        getStatus(response?.status)
-      else
-        getStatus(response.status)
-    })
-    .catch(error => {
-      console.log('error', error)
-    })
+    // axios.defaults.withCredentials = true;
+    // axios?.get('http://localhost:8000/check/', {
+    //   withCredentials: true,
+    // })
+    // .then(response => {
+    //   if (response?.status == 200)
+    //     getStatus(response?.status)
+    //   else
+    //     getStatus(response.status)
+    // })
+    // .catch(error => {
+    //   console.log('error', error)
+    // })
 
     const login = document.querySelector('.create') as HTMLElement;
     // saving the client without 42 auth

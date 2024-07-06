@@ -276,19 +276,19 @@ function multiplayer2({type, Name1, Name2}: LocalGameProps) {
 
 	}, [])
 
-	useEffect(()=> {
-		axios.defaults.withCredentials = true;
-		axios.get('http://localhost:8001/check/', {
-			withCredentials: true,	
-		})
-		.then(response=> {
-			if (response.status === 200)
-				StatusCode(true)
-		})
-		.catch(error=> {
-			console.log(error)
-		})
-	}, [])
+	// useEffect(()=> {
+		// axios.defaults.withCredentials = true;
+		// axios.get('http://localhost:8001/check/', {
+		// 	withCredentials: true,	
+		// })
+		// .then(response=> {
+		// 	if (response.status === 200)
+		// 		StatusCode(true)
+		// })
+		// .catch(error=> {
+		// 	console.log(error)
+		// })
+	// }, [])
 	return (
 		<div>
 			{(!Exit && !Exit2 && !finals) &&

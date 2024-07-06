@@ -5,7 +5,6 @@ import axios from 'axios';
 import './interface.css'
 import _Queue from './inQueue';
 import _title from './title'
-import { RecoilRoot } from 'recoil';
 
 interface LocalGameProps {
 	Type: string;
@@ -13,7 +12,7 @@ interface LocalGameProps {
 	Name2: string;
 }
 
-function GameInterface({Type, Name, Name2}:LocalGameProps) {
+function GameInterface({Name, Name2}:LocalGameProps) {
 	return (
 		<>
 			{<_title title={Name + ' vs ' + Name2}></_title>}
@@ -165,6 +164,8 @@ function multiplayer( {Type, Name, Name2}: LocalGameProps ) {
 			score!.style.display = 'none'
 			canvas!.style.cursor = 'default'
 			winner!.style.opacity = '1'
+			if (Type == '')
+				return
 			objSocket.send(JSON.stringify({
 				'type': 'it_ends_now',
 				'room': room_group_name,

@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
+from . import models
 
 class Ball:
 	def __init__(self, BallX, BallY, radius, VeclocityX, VeclocityY):
@@ -72,6 +73,7 @@ class Paddle:
 		self.canvasw = 1359
 		self.canvash = 841
 		self.score = 0
+		self.name = ""
 	
 	async def HalfWidth(self):
 		return self.width / 2
@@ -104,3 +106,27 @@ def GetSession(request):
 		return JsonResponse({'winner1': winner1, 'winner2': winner2})
 	else:
 		return JsonResponse({'error': 'session is empty'}, status=401)
+
+def StockGame(request):
+	if request.method == 'GET':
+		me = get_object_or_404(models.Player, username='mbachar')
+		opp = get_object_or_404(models.Player, username='mnassi')
+		print(me.username, ' -> ',opp.username)
+		game = models.GameHistory(
+			player=me,
+			opponent=opp,
+			player_score=7,
+			opponent_score=6,
+			game_mode='O',
+			game_duration_minutes=request.GET.get('counter'),
+		)
+		me.points += me.level * 30
+		print(me.level * 1000, ' ', me.points)
+		if me.points >= me.level * 1000:
+			me.level += 1
+			me.points = 0
+			me.save(update_fields=['level'])
+		me.save(update_fields=['points'])
+		game.save()
+		return JsonResponse({'status': 'Success', 'name': me.username, 'progress': me.points, 'level': me.level})
+	return JsonResponse({'status': 'Method Not Allowed'}, status=405)

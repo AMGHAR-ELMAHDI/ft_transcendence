@@ -14,17 +14,17 @@ function MainComp() {
 	})
 
 	useEffect(()=> {
-		axios.defaults.withCredentials = true;
-		axios.get('http://localhost:8000/check/', {
-			withCredentials: true,
-		})
-		.then(response => {
-		  if (response.status === 200)
-			GetName(response.data.data.firstname)
-		})
-		.catch(error => {
-		  console.log(error)
-		})
+	// 	axios.defaults.withCredentials = true;
+	// 	axios.get('http://localhost:8000/check/', {
+	// 		withCredentials: true,
+	// 	})
+	// 	.then(response => {
+	// 	  if (response.status === 200)
+	// 		GetName(response.data.data.firstname)
+	// 	})
+	// 	.catch(error => {
+	// 	  console.log(error)
+	// 	})
   
 	}, [])
 	return (
