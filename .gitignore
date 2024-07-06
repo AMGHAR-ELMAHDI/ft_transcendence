@@ -37,3 +37,6 @@ venv
 **/*.pyc
 
 Database
+*.png
+*.jpg
+*.jpeg
