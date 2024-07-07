@@ -28,8 +28,8 @@ function TopBar() {
       console.log(response.data?.username);
     } catch (error: any) {
       if (error.request) {
-        window.location.href = "/login";
-        navigate("/login");
+        // window.location.href = "/login";
+        // navigate("/login");
       } else console.log("Error message:", error.message);
       setIsLoading(false);
     }
