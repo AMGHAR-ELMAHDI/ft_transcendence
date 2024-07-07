@@ -10,18 +10,10 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 
-
-
-
-
-def home(HttpRequest):
-    return(JsonResponse({'msg' : 'hi there'}))
-
 def discord_login(HttpRequest):
-	return redirect(settings.URI)
+	return redirect(settings.D_URI)
 
 
-# Function to handle Discord login redirect
 def discord_redirect(request: HttpRequest):
     code = request.GET.get('code')
     if code:
@@ -34,8 +26,11 @@ def discord_redirect(request: HttpRequest):
             discord_id = user_info.get('id')
             email = user_info.get('email')
             username = user_info.get('username')
-
-            user = Player.objects.filter(email=email).first()
+            conflicting_user_mail = Player.objects.filter(email=email).exclude(user_type=Player.USER_DISCORD).first()
+            conflicting_user_user = Player.objects.filter(username=username).exclude(user_type=Player.USER_DISCORD).first()
+            if   conflicting_user_mail or conflicting_user_user:
+                return JsonResponse({'error': 'User with conflicting user type exists'}, status=status.HTTP_403_FORBIDDEN)
+            user = Player.objects.filter(username=username).first()
             if not user:
                 random_password = get_random_string(length=12)
                 user = Player.objects.create(
@@ -45,7 +40,6 @@ def discord_redirect(request: HttpRequest):
                 user.set_password(random_password)
                 user.save()
                 
-            user = Player.objects.filter(email=email).first()
             if user is not None:
                 login(request, user)
                 refresh = RefreshToken.for_user(user)
@@ -63,12 +57,12 @@ def discord_redirect(request: HttpRequest):
 
 def exchange_code(code: str):
     data = {
-        "client_id": settings.CLIENT_ID,
-		"client_secret" : settings.CLIENT_SECRET,
-        "grant_type": settings.GRANT_TYPE,
+        "client_id": settings.D_CLIENT_ID,
+		"client_secret" : settings.D_CLIENT_SECRET,
+        "grant_type": settings.D_GRANT_TYPE,
         "code": code,
-        "redirect_uri": settings.REDIRECT_URI,
-        "scope": settings.SCOPE,
+        "redirect_uri": settings.D_REDIRECT_URI,
+        "scope": settings.D_SCOPE,
     }
     headers = {
         'Content-type': 'application/x-www-form-urlencoded'

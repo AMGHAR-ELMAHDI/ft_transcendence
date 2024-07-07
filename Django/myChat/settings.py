@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_otp.plugins.otp_totp',
     'two_factor',
     'discordOauth',
+    'Oauth42',
 ]
 
 MIDDLEWARE = [
@@ -210,9 +211,18 @@ LOGIN_URL = 'two_factor:login'
 
 # Discord Oauth
 
-CLIENT_ID = os.getenv('CLIENT_ID')
-CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-GRANT_TYPE = os.getenv('GRANT_TYPE')
-REDIRECT_URI = os.getenv('REDIRECT_URI')
-SCOPE = os.getenv('SCOPE')
-URI = os.getenv('URI')
+D_CLIENT_ID = os.getenv('D_CLIENT_ID')
+D_CLIENT_SECRET = os.getenv('D_CLIENT_SECRET')
+D_GRANT_TYPE = os.getenv('D_GRANT_TYPE')
+D_REDIRECT_URI = os.getenv('D_REDIRECT_URI')
+D_SCOPE = os.getenv('D_SCOPE')
+D_URI = os.getenv('D_URI')
+
+# 42 Oauth
+
+F_CLIENT_ID = os.getenv('F_CLIENT_ID')
+F_CLIENT_SECRET = os.getenv('F_CLIENT_SECRET')
+F_GRANT_TYPE = os.getenv('F_GRANT_TYPE')
+F_REDIRECT_URI = os.getenv('F_REDIRECT_URI')
+F_SCOPE = os.getenv('F_SCOPE')
+F_URI = os.getenv('F_URI')

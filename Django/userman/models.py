@@ -35,10 +35,19 @@ class Player(AbstractBaseUser):
     STATUS_OFFLINE = 'F'
     STATUS_IN_GAME = 'G'
 
+    USER_NORMAL = 'N'
+    USER_DISCORD = 'D'
+    USER_42 = 'F'
+
     STATUS_CHOICES = [
         (STATUS_ONLINE, 'ONLINE'),
         (STATUS_OFFLINE, 'OFFLINE'),
         (STATUS_IN_GAME, 'IN_GAME'),
+    ]
+    USER_CHOICES = [
+        (USER_NORMAL, 'NORMAL'),
+        (USER_DISCORD, 'DISCORD'),
+        (USER_42, 'FOURTYTWO'),
     ]
     coins = models.IntegerField(default=0)
     status = models.CharField(
@@ -55,6 +64,8 @@ class Player(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='store/images', validators=[max_size_validator], default='default.png')
+    user_type = models.CharField(
+        max_length=1, choices=STATUS_CHOICES, default=USER_NORMAL)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 

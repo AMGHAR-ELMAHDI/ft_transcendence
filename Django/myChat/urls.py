@@ -25,6 +25,7 @@ urlpatterns = [
    path('admin/', admin.site.urls),
    path('', include('chat.urls')),
    path('discord/', include('discordOauth.urls')),
+   path('42/', include('Oauth42.urls')),
    path('', include('userman.urls')),
    path('', include('purshase.urls')),
 	path('', include('loginPage.urls')),
