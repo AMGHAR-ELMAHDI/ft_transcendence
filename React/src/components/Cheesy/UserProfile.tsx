@@ -3,7 +3,6 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import { BsPersonFillAdd } from "react-icons/bs";
-
 import api from "../../api";
 import GetCircles from "./GetCircles";
 
@@ -22,16 +21,17 @@ interface UserProps {
     win_rate: number;
     achievements_rate: number;
   };
+  myProfile: boolean;
 }
 
-function UserProfile({ show, setRender, data }: UserProps) {
-  const profileLevelStyle = { justifyContent: "space-between" };
-  let levelStart = Math.floor(data.level / 10);
-  const url = useRecoilValue(Url);
+function UserProfile({ show, setRender, data, myProfile }: UserProps) {
   const [pending, setPending] = useState<boolean>(false);
   const [friends, setFriends] = useState<any>({});
-  let Dont: boolean = false;
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const url = useRecoilValue(Url);
+  const profileLevelStyle = { justifyContent: "space-between" };
+  let levelStart = Math.floor(data.level / 10);
+  let Dont: boolean = false;
 
   const getFriends = async () => {
     try {
@@ -48,19 +48,9 @@ function UserProfile({ show, setRender, data }: UserProps) {
     const newSocket = new WebSocket(
       `ws://localhost:2500/ws/friend-reqs/${token}`
     );
-    newSocket.onopen = () => {
-      console.log("WebSocket connection established");
-    };
-    newSocket.onclose = () => {
-      console.log("WebSocket connection closed");
-    };
-    newSocket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
     setSocket(newSocket);
-
     return () => {
+      if (newSocket) newSocket.close();
       if (newSocket) newSocket.close();
     };
   }, []);
@@ -68,6 +58,12 @@ function UserProfile({ show, setRender, data }: UserProps) {
   const sendRequest = () => {
     setPending(true);
     if (socket) {
+      socket.send(
+        JSON.stringify({
+          action: "create",
+          friend: data.id,
+        })
+      );
       socket.send(
         JSON.stringify({
           action: "create",
@@ -82,6 +78,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
       if (friend.username === data.username) Dont = true;
     });
   }
+  if (myProfile) Dont = true;
 
   return (
     <div id="Profile">
@@ -139,6 +136,7 @@ function UserProfile({ show, setRender, data }: UserProps) {
             </button>
           </div>
         </div>
+        {GetCircles(data)}
         {GetCircles(data)}
       </div>
     </div>

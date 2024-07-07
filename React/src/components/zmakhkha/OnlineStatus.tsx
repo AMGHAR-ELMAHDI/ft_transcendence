@@ -21,17 +21,14 @@ const OnlineStatus: React.FC<OnlineStatusProps> = ({ token, type }) => {
 
     socket.onopen = () => {
       setConnectionStatus("Connected");
-      console.log("WebSocket connected");
     };
 
     socket.onmessage = (event) => {
       const message: Message = JSON.parse(event.data);
-      console.log(message);
     };
 
     socket.onclose = (event) => {
       setConnectionStatus("Disconnected");
-      console.log("WebSocket closed:", event);
     };
 
     socket.onerror = (error) => {

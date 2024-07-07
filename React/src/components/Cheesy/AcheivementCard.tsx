@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CardProps } from "./ProfileAcheivements";
 
 function AcheivementCard({ title, desc, path, Obtaining_date }: CardProps) {

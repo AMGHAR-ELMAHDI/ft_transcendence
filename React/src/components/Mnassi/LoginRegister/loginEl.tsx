@@ -7,6 +7,9 @@ import AcessToken from "../../../Atoms/AccessToken";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setAuthToken } from "../../Utils/setAuthToken";
+import toast from "react-hot-toast";
+import { FaDiscord } from "react-icons/fa";
+import api from "../../../api";
 
 function loginEl() {
   const [error, setError] = useState("");
@@ -15,6 +18,7 @@ function loginEl() {
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
   const [Logged, setLogged] = useRecoilState(IsLogged);
   const url = useRecoilValue(Url);
+  const [data, setData] = useState<any>({});
 
   const obj = {
     username: username,
@@ -25,67 +29,45 @@ function loginEl() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      // .post(url + "auth/jwt/create", obj)
       .post(url + "sign-in/", obj)
       .then((response) => {
         var str = response.data;
+        if (str.access === undefined)
+          return toast.error("2FA REQUIRED"), navigate("/twoFa");
+
         if (response.status === 200) {
+          toast.success("Logged in successfully");
+          localStorage.setItem("token", str.access);
           setTokenValue(str.access);
           setLogged(true);
           setAuthToken();
           console.log(str.access);
-          localStorage.setItem("token", str.access);
           navigate("/");
         }
       })
       .catch((error) => {
+        toast.error(error);
         console.log(error);
       });
   };
 
-  // useEffect(() => {
+  // const getData = async () => {
+  //   try {
+  //     const response = await axios.get("42/login");
+  //     navigate(response);
+  //     console.dir(response);
 
-  // 	function EmailSyntax(input: string) : boolean {
-  // 		const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // 		return emailRegex.test(input)
-  // 	}
+  //     setData(response.data);
+  //   } catch (error: any) {
+  //     console.log(error);
+  //   }
+  // };
 
-  // 	const register = document?.querySelector('.login_btn') as HTMLElement;
-  // 	const content_ = document?.querySelector('.login') as HTMLElement;
-
-  // 	// loggin in
-  // 	register?.addEventListener('click', () => {
-  // 		let CaseErr: boolean = false
-  // 		const inputs: NodeListOf<HTMLInputElement> = document?.querySelectorAll('.login input');
-  // 		inputs?.forEach((input: HTMLInputElement) => {
-  // 			if (input?.value === "")
-  // 				return input?.classList.add('error'), setTimeout(() => input?.classList.remove('error'), 500), CaseErr = true, 0
-  // 			if (input?.name === 'emailLog')
-  // 				if (!EmailSyntax(input?.value))
-  // 					return input?.classList.add('error'), setTimeout(() => input?.classList.remove('error'), 500), CaseErr = true,0;
-  // 			else
-  // 				input?.classList.add('good');
-  // 		});
-  // 		if (CaseErr)
-  // 			return
-  // 		content_?.classList?.add('swipe');
-  // 		content_?.classList?.remove('show');
-  // 		document?.querySelector('.header')!.classList?.add('move');
-  // 		var headers = {
-  // 		'email' : document?.querySelector<HTMLInputElement>('input[name="emailLog"]')?.value || '',
-  // 		'password' : document?.querySelector<HTMLInputElement>('input[name="passwdLog"]')?.value || ''
-  // 		}
-  // 		setTimeout(() => window.location.href = 'http://localhost:2500/UserLogin/?email=' + encodeURIComponent(headers.email) + "&password=" + encodeURIComponent(headers.password), 1000);
-  // 	})
-
-  // 	var query = location.search
-  // 	var error = query?.split('?')
-  // 	let stats = error[1]?.split('&')
-  // 	for (let i = 0; i < stats?.length; i++)
-  // 		if (stats[i]?.startsWith('status=')) {
-  // 			setError(stats[i]?.replace('status=', '')?.replace(/_/g, ' '))
-  // 	}
-  // })
+  const handle42Auth = () => {
+      // window.location.href = "http://localhost:2500/discord/login/" ;
+      window.location.href = "http://localhost:2500/42/login/" ;
+    // navigate("http://localhost:2500/discord/login/");
+  };
 
   return (
     <div className="content">
@@ -177,11 +159,11 @@ function loginEl() {
         </div>
         {error.length > 0 ? <div className="statusError">{error}</div> : ""}
         <div className="buttons">
-          <button className="fourtytwo">
+          <button className="fourtytwo" onClick={handle42Auth}>
             <img src="../public/42.svg"></img>
           </button>
           <button className="gmail">
-            <img src="../public/google.svg"></img>
+            <FaDiscord />
           </button>
           <button className="login_btn" onClick={handleSubmit}>
             login

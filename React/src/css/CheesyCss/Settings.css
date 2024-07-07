@@ -11,36 +11,35 @@
 
 .MainSettingsContainer {
   display: flex;
+  align-items: center;
   justify-content: center;
   flex: 1;
 }
 
 .MainSettings {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  flex: 1;
   max-width: 1440px;
-  /* flex: 1; */
-  /* gap: 5rem; */
-  flex-wrap: wrap;
 }
 
 .SettingsContent {
   display: flex;
-  /* flex-wrap: wrap; */
-  border: 2px solid var(--blue-glow);
+  flex: 1;
+  flex-wrap: wrap;
+  /* border: 2px solid var(--blue-glow); */
   border-radius: 25px;
   background-image: url("/blob-scene-haikei.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
-  /* flex: 1; */
-  /* max-height: 75%; */
+  box-shadow: 0 0 20px 10px black;
 }
 
 .SettingsLeft {
   flex: 1;
+  min-width: 320px;
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
@@ -49,6 +48,7 @@
 }
 
 .SettingsRight {
+  min-width: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,9 +57,7 @@
   padding: 4rem 2rem;
   border-radius: 25px;
   border: 2px solid var(--blue-glow);
-  min-width: 40rem;
   background: transparent;
-  /* backdrop-filter: blur(8.2px); */
   -webkit-backdrop-filter: blur(8.2px);
 }
 
@@ -184,6 +182,8 @@
 .SettingsComponents {
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -200,14 +200,12 @@
 
 .GeneralInfoInput {
   border: 2px solid var(--blue-glow);
-  width: 35rem;
   border-radius: 15px;
   padding: 20px 20px;
   transition: all 0.3s;
   height: 4rem;
   color: white;
   width: 100%;
-  /* background-color: #0c0e14; */
   font-size: 1.3rem;
   background-color: transparent;
 }
@@ -314,19 +312,94 @@ input:-webkit-autofill:active {
   box-shadow: 0px 0px 20px 10px rgba(95, 202, 228, 1);
 }
 
-@media screen and (max-width: 425px) {
-  .SettingsContent {
-    flex-wrap: wrap;
+@media screen and (max-width: 1400px) {
+  .SettingsLeft {
+    padding: 2rem 1rem;
+    gap: 0.5rem;
+  }
+  .SettingsImg > img {
+    height: 12rem;
+  }
+  .SettingsRight {
+    border: none;
+    flex: 1;
+    margin: 0;
+    padding: 1rem 0.5rem;
+    border-radius: 15px;
+  }
+  .SettingsDataContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .SetInfo {
+    padding: 5px;
+  }
+  .SetInfo > h1 {
+    font-size: 1rem;
+  }
+  .SetIcon {
+    height: 1rem;
+    font-size: 1rem;
+  }
+  /*----------------- Settings Right -------------------*/
+
+  .GeneralInfoContainer > * {
+    gap: 1rem;
+  }
+  .GeneralInfoInput {
+    border: 1px solid var(--blue-glow);
+    padding: 10px 10px;
+    border-radius: 8px;
+    height: 2rem;
+    font-size: 1rem;
+  }
+  .ButtonContainer {
+    gap: 1rem;
+  }
+  .ButtonContainer * {
+    /* width: 100%; */
+  }
+  .SetButton {
+    padding: 0.5rem 1rem;
+    font-weight: 400;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .SettingsLeft {
+    padding: 0.5rem 0;
+    gap: 0.5rem;
+  }
+  .SettingsData {
+    justify-content: center;
+    padding-left: 13%;
+    flex-direction: row;
+    align-items: center;
   }
   .SettingsComponents {
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
+  .SettingsImg > img {
+    height: 8rem;
+  }
+  .SettingsImgEdit {
+    padding: 10px;
+  }
+  #SettingsEdit > * {
+    font-size: 1rem;
+    fill: var(--bg-color);
+  }
+}
+
+@media screen and (max-width: 425px) {
   .LeftSpacer {
     width: 50%;
-  }
-
-  .SettingsLeft {
-    padding: 0 2rem;
-    gap: 3rem;
   }
 }

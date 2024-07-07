@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpRequest,JsonResponse
+from django.http import HttpRequest,JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 import requests
 from django.db.models import F
@@ -35,7 +35,7 @@ def discord_redirect(request: HttpRequest):
 			conflicting_user_mail = Player.objects.filter(email=email).exclude(user_type=Player.USER_42).first()
 			conflicting_user_user = Player.objects.filter(username=username).exclude(user_type=Player.USER_42).first()
 			if   conflicting_user_mail or conflicting_user_user:
-				return JsonResponse({'error': 'User with conflicting user type exists'}, status=status.HTTP_403_FORBIDDEN)
+				return redirect("http://localhost:5173/403")
 			user = Player.objects.filter(username=username).first()
 			if not user:
 				random_password = get_random_string(length=12)
@@ -53,16 +53,36 @@ def discord_redirect(request: HttpRequest):
 			if user is not None:
 				login(request, user)
 				refresh = RefreshToken.for_user(user)
-				return JsonResponse({
-					'refresh': str(refresh),
-					'access': str(refresh.access_token),
-				})
+				request.session['access'] = str(refresh.access_token)
+				data = {
+					'access' : refresh.access_token,
+					'refresh' : refresh
+				}
+				request.session['access'] = str(refresh.access_token)
+				request.session['refresh'] = str(refresh)
+				# request.session['refresh'] = refresh
+				set_cookie(request=request)
+				# print("++++++++++++++++++++++++++|", request.COOKIES['access'])
+				return redirect('http://localhost:2500/42/set-cookie')
 			else:
 				return JsonResponse({'error': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
 		else:
 			return JsonResponse({'error': 'Failed to exchange code for access token'}, status=status.HTTP_400_BAD_REQUEST)
 	else:
 		return JsonResponse({'error': 'No code parameter received'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+def set_cookie(request):
+	access_token = request.session.get('access')
+	refresh_token = request.session.get('refresh')
+
+	if access_token and refresh_token:
+		response = HttpResponseRedirect('http://localhost:5173/')
+		response.set_cookie('access', access_token)
+		response.set_cookie('refresh', refresh_token)
+		return response
+	else:
+		return HttpResponse("Access or Refresh token not found in session.")
 
 
 def exchange_code(code: str):
