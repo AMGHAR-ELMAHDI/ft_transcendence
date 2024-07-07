@@ -31,7 +31,7 @@ const router = createBrowserRouter(
       <Route path="/twoFa" element={<Verify2FA />} />
       <Route path="/403" element={<Error_403/>} />
 
-      <Route element={<ProtectedRoutes />}>
+      {/* <Route element={<ProtectedRoutes />}> */}
         <Route path="/" element={<DashboardContainer />} />
         <Route path="/chat" element={<ChatContainer />} />
         <Route path="/game" element={<GameContainer />} />
@@ -42,7 +42,7 @@ const router = createBrowserRouter(
           <Route path=":username" element={<Users />} loader={UsersLoader} />
         </Route>
         <Route path="/settings" element={<Settings />} />
-      </Route>
+      {/* </Route> */}
 
       <Route path="*" element={<NotFound />} />
     </>

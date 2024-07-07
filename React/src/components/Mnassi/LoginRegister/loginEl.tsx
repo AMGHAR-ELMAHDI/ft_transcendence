@@ -63,10 +63,11 @@ function loginEl() {
   //   }
   // };
 
+  const handleDiscordAuth = () => {
+      window.location.href = "http://localhost:2500/discord/login/" ;
+  };
   const handle42Auth = () => {
-      // window.location.href = "http://localhost:2500/discord/login/" ;
       window.location.href = "http://localhost:2500/42/login/" ;
-    // navigate("http://localhost:2500/discord/login/");
   };
 
   return (
@@ -162,7 +163,7 @@ function loginEl() {
           <button className="fourtytwo" onClick={handle42Auth}>
             <img src="../public/42.svg"></img>
           </button>
-          <button className="gmail">
+          <button className="gmail" onClick={handleDiscordAuth}>
             <FaDiscord />
           </button>
           <button className="login_btn" onClick={handleSubmit}>

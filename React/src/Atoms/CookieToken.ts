@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const AcessToken = atom({
   key: "AcessToken", // unique ID (with respect to other atoms/selectors)
@@ -8,17 +8,17 @@ const AcessToken = atom({
 });
 export default AcessToken;
 
-const { persistAtom } = recoilPersist({
-  key: "userData",
-  storage: {
-    getItem: (key: any) => Cookies.get(key),
-    setItem: (key: any, value: any) =>
-      Cookies.set(key, value, { expires: 7, path: "/" }),
-  },
-});
+// const { persistAtom } = recoilPersist({
+//   key: "userData",
+//   storage: {
+//     getItem: (key: any) => Cookies.get(key),
+//     setItem: (key: any, value: any) =>
+//       Cookies.set(key, value, { expires: 7, path: "/" }),
+//   },
+// });
 
 export const loggedUser = atom<number>({
   key: "loggedUser",
   default: -1,
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
 });
