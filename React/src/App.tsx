@@ -19,6 +19,7 @@ import ProfileLayout from "./components/Cheesy/ProfileLayout";
 import ProtectedRoutes from "./components/Utils/ProtectedRoutes";
 import Verify2FA from "./components/zmakhkha/Verify2FA";
 import { Toaster } from "react-hot-toast";
+import Error_403 from "./components/Cheesy/Error403";
 
 import "./Imports";
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/twoFa" element={<Verify2FA />} />
+      <Route path="/403" element={<Error_403/>} />
 
       <Route element={<ProtectedRoutes />}>
         <Route path="/" element={<DashboardContainer />} />

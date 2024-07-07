@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
     'two_factor',
+    'discordOauth',
+    'Oauth42',
 ]
 
 MIDDLEWARE = [
@@ -133,10 +135,32 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'False') == 'True'
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False') == 'True'
 
+<<<<<<< HEAD
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db5.sqlite3',
+=======
+
+
+# use this to work without docker 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db5.sqlite3',
+    }
+}
+
+# use this to work with docker 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('POSTGRES_DB'),
+#         'USER': os.getenv('POSTGRES_USER'),
+#         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+#         'HOST': os.getenv('POSTGRES_HOST'),
+#         'PORT': int(os.getenv('POSTGRES_PORT')),
+>>>>>>> origin/Backend-Zmakhkha
 #     }
 # }
 
@@ -205,3 +229,22 @@ LOGIN_REDIRECT_URL = 'http://localhost:2500/auth/jwt/create'
 
 
 LOGIN_URL = 'two_factor:login'
+
+
+# Discord Oauth
+
+D_CLIENT_ID = os.getenv('D_CLIENT_ID')
+D_CLIENT_SECRET = os.getenv('D_CLIENT_SECRET')
+D_GRANT_TYPE = os.getenv('D_GRANT_TYPE')
+D_REDIRECT_URI = os.getenv('D_REDIRECT_URI')
+D_SCOPE = os.getenv('D_SCOPE')
+D_URI = os.getenv('D_URI')
+
+# 42 Oauth
+
+F_CLIENT_ID = os.getenv('F_CLIENT_ID')
+F_CLIENT_SECRET = os.getenv('F_CLIENT_SECRET')
+F_GRANT_TYPE = os.getenv('F_GRANT_TYPE')
+F_REDIRECT_URI = os.getenv('F_REDIRECT_URI')
+F_SCOPE = os.getenv('F_SCOPE')
+F_URI = os.getenv('F_URI')

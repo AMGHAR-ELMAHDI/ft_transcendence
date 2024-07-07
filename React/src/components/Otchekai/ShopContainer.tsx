@@ -71,7 +71,7 @@ function GetPaddle() {
 
 function GetBackground() {
   const data = useRecoilValue(ShopItems);
-  const background = data.filter((item: any) => item?.type === "B");
+  const background = data.filter((item: any) => item?.type === "G");
   return (
     <>
       <div className="itemsContainer">
@@ -94,7 +94,7 @@ function GetBackground() {
 
 function GetAvatar() {
   const data = useRecoilValue(ShopItems);
-  const avatar = data.filter((item: any) => item?.type === "A");
+  const avatar = data.filter((item: any) => item?.type === "B");
   return (
     <>
       <div className="itemsContainer">
@@ -190,8 +190,8 @@ function Card({ name, price, image, id }: CardProps) {
         <div className="Item-img-animation">
           <p>BUY IT!</p>
         </div>
-        {/* <img src={GetCorrect(image, url)} alt="item" /> */}
-        <img src="/purple-paddle.png" alt="item" />
+        <img src={image} alt="item" />
+        {/* <img src="/purple-paddle.png" alt="item" /> */}
         <div className="Item-img-animation2"></div>
       </div>
       <div className="ItemValueContainer">

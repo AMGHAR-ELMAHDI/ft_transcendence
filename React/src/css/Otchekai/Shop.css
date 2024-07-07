@@ -65,6 +65,7 @@
 .Item-img > img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .Item-img:hover {
@@ -79,8 +80,7 @@
   width: 280px;
   border-radius: 15px;
   background-color: #c8f1ff;
-  background-position: center;
-  background-size: cover;
+
   cursor: pointer;
   transition: 0.4s;
   position: relative;
