@@ -70,7 +70,7 @@
   background-image: url(/search-icon.svg);
   background-repeat: no-repeat;
   background-position: 20px 20px;
-  /* transition: all 0.3s; */
+  transition: all 0.3s;
   height: 4rem;
 }
 
@@ -405,6 +405,31 @@ ul {
   #TopBar {
     align-items: flex-start;
   }
+}
+
+@media only screen and (max-width: 768px) {
+  .BurgerMenu > * {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+  .div-relat {
+    display: none;
+  }
+  #notif {
+    font-size: 2.5rem;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  #search:placeholder-shown,
+  #search {
+    background-image: none;
+    height: 2.5rem;
+    font-size: 1rem;
+    border-radius: 18px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
 }
 
 @keyframes lights {

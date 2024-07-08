@@ -261,7 +261,6 @@
   #Dashboard {
     width: 90vw;
     gap: 1rem;
-    border: 1px solid white;
   }
   #Dashboard-Main-GameModeContainer {
     width: 50% !important;
@@ -274,7 +273,7 @@
   }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 600px) {
   #Dashboard-Main-GameModeContainer {
     width: 320px;
     height: 200px;
@@ -282,8 +281,26 @@
   }
 
   #Dashboard-Secondary-GameModeContainer {
-    width: 100% !important;
+    width: 320px !important;
+    min-width: 320px !important;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #Dashboard {
+    width: 85vw;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+  #Dashboard-Main-GameModeContainer {
+    width: 200px;
+    min-width: 200px !important;
+  }
+
+  #Dashboard-Secondary-GameModeContainer {
+    width: 200px !important;
     height: 450px;
-    min-width: 100px !important;
+    min-width: 200px !important;
   }
 }
