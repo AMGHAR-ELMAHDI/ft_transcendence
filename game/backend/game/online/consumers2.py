@@ -12,13 +12,9 @@ import asyncio
 
 class GameConsumer_2(AsyncWebsocketConsumer):
 
-    seconds = 0
     roomnb = 1
-    data = ""
     rooms = {}
     task = ""
-    date = ""
-    end_date = ""
 
     async def connect(self):
         user = self.scope['user']
@@ -40,7 +36,7 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                         self.room = skey
 
         if not UserExist:
-            self.room_group_name = f'bertouch_{GameConsumer_2.roomnb}'
+            self.room_group_name = f'invite_{GameConsumer_2.roomnb}'
 
         if self.room_group_name not in self.rooms:
             print(f' -> {self.room_group_name}')
@@ -87,6 +83,54 @@ class GameConsumer_2(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
+    async def createGameObject(self, winner):
+        self.end_date = timezone.now()
+        room = self.rooms[self.room_group_name]['players']
+
+        opp_name = await self.GetOpp()
+
+        user = await sync_to_async(get_object_or_404)(models.Player, username=self.username)
+        opp = await sync_to_async(get_object_or_404)(models.Player,username=opp_name)
+
+        player_index = room[self.username]
+        if player_index == 1:
+            score = self.rooms[self.room_group_name]['paddle1'].score
+        if player_index == 2:
+            score = self.rooms[self.room_group_name]['paddle2'].score
+
+        opp_index = room[opp_name]
+        if opp_index == 1:
+            opp_score = self.rooms[self.room_group_name]['paddle1'].score
+        if opp_index == 2:
+            opp_score = self.rooms[self.room_group_name]['paddle2'].score
+
+        duration = self.end_date - self.date
+
+        winner = await sync_to_async(get_object_or_404)(models.Player,username=winner)
+
+        game = models.GameHistory(
+            date=self.date,
+            player=user,
+            opponent=opp,
+            winner=winner,
+            player_score=score,
+            opponent_score=opp_score,
+            game_mode='O',
+            game_duration_minutes=duration.total_seconds()
+        )
+
+        winner.points += winner.level * 30
+
+        if winner.points >= winner.level * 1000:
+            winner.level += 1
+            winner.points = 0
+            await sync_to_async(winner.save)(update_fields=['level'])
+        await sync_to_async(winner.save)(update_fields=['points'])
+
+        await sync_to_async(game.save)()
+        self.rooms[self.room_group_name]['id'] = game.id
+
+
     async def receive(self, text_data):
         infos = json.loads(text_data)
         message_type = infos.get("type")
@@ -119,63 +163,19 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             await asyncio.sleep(0.002)
 
         if message_type == 'it_ends_now':
-            roomName = infos['room']
-            pos = roomName.find('_')
-            roomId = roomName[pos + 1:len(roomName)]
+            self.end_date = timezone.now()
+            winner = self.rooms[self.room_group_nameo]['winner']
 
-            if not (int(roomId) + 1) % 3:
-                TempOne = int(roomId)
-                winner1 = self.rooms[f'bertouch_{TempOne - 1}']['winner']
-                winner2 = self.rooms[f'bertouch_{TempOne}']['winner']
+            if winner in self.rooms[self.room_group_name]['players']:
+                index = self.rooms[self.room_group_name]['players'][winner]
 
-                # print('->>', TempOne - 1, ' ', winner1, ' -> ', self.rooms[f'bertouch_{TempOne - 1}']['players'], '\n->>', TempOne, ' ', winner2, ' -> ', self.rooms[f'bertouch_{TempOne}']['players'])
-
-                self.rooms[f'bertouch_{TempOne}']['rank'] = 'semi-final'
-                self.rooms[f'bertouch_{TempOne - 1}']['rank'] = 'semi-final'
-
-                if winner1 in self.rooms[f'bertouch_{TempOne - 1}']['players'] and winner2 in self.rooms[f'bertouch_{TempOne}']['players']:
-                    index_1 = self.rooms[f'bertouch_{TempOne - 1}']['players'][winner1]
-                    index_2 = self.rooms[f'bertouch_{TempOne}']['players'][winner2]
-
-                    message = {
-                        'type': 'winner',
-                        'winner1': winner1,
-                        'winner2': winner2,
-                        'index1': index_1,
-                        'index2': index_2,
-                    }
-
-                    await self.sendMultipleRooms(message, 'winner', TempOne - 1)
-                    await self.sendMultipleRooms(message, 'winner', TempOne)
-
-            if not (int(roomId)) % 3:
-                TempOne = int(roomId)
-                winner = self.rooms[f'bertouch_{TempOne}']['winner']
-
-                # print('->>', TempOne, ' ', winner, ' -> ', self.rooms[f'bertouch_{TempOne}']['players'])
-                if winner in self.rooms[f'bertouch_{TempOne}']['players']:
-                    index = self.rooms[f'bertouch_{TempOne}']['players'][winner]
-
-                for i in range(TempOne - 2, TempOne + 1):
-                    self.rooms[f'bertouch_{i}']['rank'] = 'final'
-
-                message = {
-                    'type': 'finals',
-                    'winner': winner,
-                    'index': index,
-                    'game': self.room_group_name,
-                }
-                GameConsumer_2.roomnb -= 1
-
-                tournament = models.Tournament(
-                    game_01_id=self.rooms[f'bertouch_{TempOne - 2}']['id'],
-                    game_02_id=self.rooms[f'bertouch_{TempOne - 1}']['id'],
-                    game_final_id=self.rooms[f'bertouch_{TempOne}']['id'],
-                )
-
-                await sync_to_async(tournament.save)()
-
-                await self.sendMultipleRooms(message, 'winner', TempOne)
+            message = {
+                'type': 'finals',
+                'winner': winner,
+                'index': index,
+                'game': self.room_group_name,
+            }
+            await self.createGameObject(self.rooms[self.room_group_name]['winner'])
 
     async def sendMultipleRooms(self, message, type, roomnb):
         await self.channel_layer.group_send(

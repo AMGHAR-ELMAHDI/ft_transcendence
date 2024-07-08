@@ -46,7 +46,7 @@ class GameConsumer(AsyncWebsocketConsumer):
             self.status = user.status
             await self.accept()
         else:
-            return JsonResponse({'error': 'The user is not Authenticated or the room is already started'}, status=403)
+            return JsonResponse({'error': 'The user is not Authenticated'}, status=403)
 
         UserExist = False
 
@@ -291,7 +291,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 winner=winner,
                 player_score=score,
                 opponent_score=opp_score,
-                game_mode='O',
+                game_mode='T',
                 game_duration_minutes=duration.total_seconds()
             )
 
@@ -374,7 +374,7 @@ class TournamentM_(AsyncWebsocketConsumer):
             self.status = user.status
             await self.accept()
         else:
-            return JsonResponse({'error': 'Not authenticated or The room is full'}, status=403)
+            return JsonResponse({'error': 'Not authenticated'}, status=403)
 
         UserExist = False
 
@@ -429,8 +429,6 @@ class TournamentM_(AsyncWebsocketConsumer):
         }))
 
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
-
-        # print('\nplayers: ', ThisRoom, '\nlen = ', Index['index'], '\nroomnb: ', TournamentM_.RoomNb)
 
     async def custom_Async(self, message, type):
         await self.channel_layer.group_send(

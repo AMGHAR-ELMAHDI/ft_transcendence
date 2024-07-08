@@ -38,7 +38,7 @@ function Options() {
         // type === "2" ?
         <div><_Main/><_tournament NetType=''/></div>
         // type === '3' ?
-        // <div><_Main/><_multiplayer Type='' Name='' Name2=''/></div>:
+        // <div><_Main/><_multiplayer Type='' Name='' Name2=''/></div>
         // <div><_Main/>< _title title='Local Tournament'/>< _LocTn/></div>:
         // <div><_Main />< _title title='Overview'/><_UserViews /><_mods /></div>
         // <div><_Main/><_Animation /></div>
