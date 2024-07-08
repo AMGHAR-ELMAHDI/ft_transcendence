@@ -304,6 +304,19 @@ progress[value]::-webkit-progress-value {
     margin: 0;
     padding: 0;
   }
+  #profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  #profile-tabs > * {
+    font-size: 1rem;
+    border-bottom: 3px solid var(--blue-glow);
+    padding: 0 1rem 0.5rem 1rem;
+    padding: 0 5px;
+    top: 0;
+  }
 }
 
 @media only screen and (max-width: 425px) {
@@ -316,5 +329,14 @@ progress[value]::-webkit-progress-value {
   #Profile {
     width: 84vw;
   }
+  #profile-tabs {
+    gap: 0;
+  }
+  #profile-tabs > * {
+    font-size: 0.8rem;
+    border-bottom: 3px solid var(--blue-glow);
+    padding: 0 10px 5px 10px;
+    padding: 0 5px;
+    top: 0;
+  }
 }
-

@@ -8,6 +8,9 @@ import FriendId from "../../Atoms/FriendId";
 import api from "../../api";
 import { ImBlocked } from "react-icons/im";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
+import GetCorrectImage from "../Cheesy/GetCorrectImage";
+import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
+import Url from "../../Atoms/Url";
 
 function ChatContainer() {
   return (
@@ -161,7 +164,7 @@ function ChatFriends() {
   useEffect(() => {
     if (Friends.length > 0) getID(Friends[0].id);
   }, [Friends]);
-
+  const url = useRecoilValue(Url);
   //TODO:ADD block button
   return (
     <>
@@ -176,7 +179,7 @@ function ChatFriends() {
             onClick={() => getID(item.id)}
           >
             <div className="Friend-img">
-              <img src="/avatar.svg" className="bachar" />
+              <img src={GetCorrect(item?.avatar, url)} className="bachar" />
               <div
                 className={`status-circle ${
                   item.status === "O" ? "status-circle-online" : ""

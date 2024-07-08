@@ -8,7 +8,7 @@ function getTooltip() {
     <>
       <thead>
         <tr className="HistoryToolTipTable">
-          <th>
+          <th className="DontRenderF">
             <h1>DATE</h1>
           </th>
           <th>
@@ -18,7 +18,7 @@ function getTooltip() {
             <h1>SCORE</h1>
           </th>
           <th>
-            <h1>GAME MODE</h1>
+            <h1>MODE</h1>
           </th>
           <th className="DontRender">
             <h1>LENGTH</h1>
@@ -108,7 +108,7 @@ function History({ UserData, UseUserData }: UserDataProps) {
                   game?.opponent_score
                 )}
               >
-                <td className="leftTd zekton">
+                <td className="leftTd zekton DontRenderF">
                   <h1>{getDate(game?.date)}</h1>
                 </td>
                 <td className="Toruk">
