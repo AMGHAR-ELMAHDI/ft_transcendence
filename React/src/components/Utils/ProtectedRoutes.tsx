@@ -14,6 +14,8 @@ function ProtectedRoutes() {
   if (access) {
     Logged = true;
     localStorage.setItem("token", access);
+    console.log(access);
+    
   }
   return Logged ? <Outlet /> : <Navigate to="/login" />;
 }

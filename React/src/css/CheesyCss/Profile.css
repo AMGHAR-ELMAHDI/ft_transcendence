@@ -44,7 +44,7 @@
   justify-content: center;
   align-items: center;
   padding-top: 1rem;
-  gap: 1rem;
+  gap: 0.5rem;
   height: 100%;
 }
 
@@ -53,7 +53,8 @@
 }
 
 #profile-img {
-  width: 15rem;
+  width: 11rem;
+  height: 11rem;
   /* height: 15rem; */
   object-fit: cover;
   border: 5px solid var(--blue-glow);
@@ -190,9 +191,9 @@ progress[value]::-webkit-progress-value {
   #Profile {
     height: 400px;
   }
-  #profile-img {
+  /* #profile-img {
     max-width: 10rem;
-  }
+  } */
   #user-name {
     font-size: 1.7rem;
   }
@@ -287,4 +288,3 @@ progress[value]::-webkit-progress-value {
     height: 30px;
   }
 }
-

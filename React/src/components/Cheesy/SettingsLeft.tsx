@@ -23,7 +23,7 @@ function SettingsLeft({ setRender }: Props) {
     email: data?.email,
     first_name: data?.first_name,
     last_name: data?.last_name,
-    username: data?.username,
+    username: "testuser",
     image: null,
   };
 
@@ -92,9 +92,9 @@ function SettingsLeft({ setRender }: Props) {
             <div className="SettingsUsrName">
               <h1 className="wht">{obj.username}</h1>
             </div>
-            <div className="SettingsFullName">
+            {/* <div className="SettingsFullName">
               <h1 className="wht">{obj.first_name + " " + obj.last_name}</h1>
-            </div>
+            </div> */}
           </div>
         )}
       </div>

@@ -29,7 +29,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/twoFa" element={<Verify2FA />} />
-      <Route path="/403" element={<Error_403/>} />
+      <Route path="/403" element={<Error_403 />} />
 
       <Route element={<ProtectedRoutes />}>
         <Route path="/" element={<DashboardContainer />} />
