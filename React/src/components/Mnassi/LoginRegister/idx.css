@@ -11,11 +11,11 @@
 } */
 @font-face {
 	font-family: lightpant;
-	src: url(../public/Panton-Trial-Light.ttf);
+	src: url(/Panton-Trial-Light.ttf);
 }
 @font-face {
 	font-family: pant;
-	src: url(../public/Panton-Trial-Bold.ttf);
+	src: url(/Panton-Trial-Bold.ttf);
 }
 * {
 	padding: 0;
@@ -25,7 +25,7 @@
 }
 .allComp {
 	height: 100svh;
-	background: url(../public/back.svg);
+	background: url(/back.svg);
 	background-size: cover;
 	background-position: center;
 	padding: 0;

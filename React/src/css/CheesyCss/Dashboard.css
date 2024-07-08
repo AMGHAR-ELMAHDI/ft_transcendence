@@ -192,13 +192,13 @@
 }
 
 @media only screen and (max-width: 1920px) {
-  .main{
+  .main {
     gap: 20px;
   }
   #Dashboard {
     max-height: 45vh;
   }
-  #Dashboard-Main-GameModeContainer{
+  #Dashboard-Main-GameModeContainer {
     height: 100%;
   }
   #Dashboard-Secondary-GameModeContainer {
@@ -254,5 +254,36 @@
   } */
   #Dashboard-Secondary-GameModeContainer {
     gap: 1rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #Dashboard {
+    width: 90vw;
+    gap: 1rem;
+    border: 1px solid white;
+  }
+  #Dashboard-Main-GameModeContainer {
+    width: 50% !important;
+    min-width: 130px !important;
+  }
+
+  #Dashboard-Secondary-GameModeContainer {
+    width: 50% !important;
+    min-width: 130px !important;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #Dashboard-Main-GameModeContainer {
+    width: 320px;
+    height: 200px;
+    min-width: 320px !important;
+  }
+
+  #Dashboard-Secondary-GameModeContainer {
+    width: 100% !important;
+    height: 450px;
+    min-width: 100px !important;
   }
 }

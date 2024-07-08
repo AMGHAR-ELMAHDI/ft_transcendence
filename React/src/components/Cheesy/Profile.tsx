@@ -40,17 +40,13 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
   }, []);
 
   const obj = {
-    username: data.username ? data.username : "Dawdaw",
-    first_name: data.first_name ? data.first_name : "First",
-    last_name: data.last_name ? data.last_name : " Last",
-    avatar: data.avatar ? data.avatar : "https://i.imgur.com/1zj6bqB.png",
-    friends: data.friends ? data.friends : [0],
-    win_rate: data.win_rate ? data.win_rate : 0,
-    level: data.level ? data.level : 0,
-    achievements_rate: data.achievements_rate ? data.achievements_rate : 0,
-    achievements: data.achievements ? data.achievements : [0],
-    items: data.items ? data.items : [0],
-    games: data.games ? data.games : [0],
+    username: data.username,
+    avatar: data.avatar,
+    friends: data.friends,
+    win_rate: data.win_rate,
+    level: data.level,
+    achievements_rate: data.achievements_rate,
+    achievements: data.achievements,
   };
   console.log("avatar: " + obj.avatar);
 

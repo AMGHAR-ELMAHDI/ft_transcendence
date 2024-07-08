@@ -154,7 +154,7 @@ function loginEl() {
         {error.length > 0 ? <div className="statusError">{error}</div> : ""}
         <div className="buttons">
           <button className="fourtytwo" onClick={handle42Auth}>
-            <img src="../public/42.svg"></img>
+            <img src="/42.svg"></img>
           </button>
           <button className="gmail" onClick={handleDiscordAuth}>
             <FaDiscord />

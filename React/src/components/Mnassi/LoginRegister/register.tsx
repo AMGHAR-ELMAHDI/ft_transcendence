@@ -54,8 +54,8 @@ function register() {
 						</svg>
 					</div>
 					<div className="buttons">
-						<button className="fourtytwo"><img src="./public/42.svg"></img></button>
-						<button className="gmail"><img src="./public/google.svg"></img></button>
+						<button className="fourtytwo"><img src="/42.svg"></img></button>
+						<button className="gmail"><img src="/google.svg"></img></button>
 						<button className="create">create account</button>
 					</div>
 				</div>
