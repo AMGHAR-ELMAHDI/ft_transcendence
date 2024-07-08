@@ -43,7 +43,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     username: data.username ? data.username : "Dawdaw",
     first_name: data.first_name ? data.first_name : "First",
     last_name: data.last_name ? data.last_name : " Last",
-    avatar: data.avatar,
+    avatar: data.avatar ? data.avatar : "https://i.imgur.com/1zj6bqB.png",
     friends: data.friends ? data.friends : [0],
     win_rate: data.win_rate ? data.win_rate : 0,
     level: data.level ? data.level : 0,
@@ -52,6 +52,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     items: data.items ? data.items : [0],
     games: data.games ? data.games : [0],
   };
+  console.log("avatar: " + obj.avatar);
 
   return (
     <>
@@ -65,7 +66,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
                 src={GetCorrect(obj.avatar, url)}
                 alt="profilePic"
               />
-              <h1 id="user-name">{obj.first_name + " " + obj.last_name}</h1>
+              <h1 id="user-name">{obj.username}</h1>
             </div>
             <div className="line1">
               <div className="line2"></div>

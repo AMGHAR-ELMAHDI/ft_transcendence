@@ -61,7 +61,6 @@ function SideBar() {
     setShowLogoutPopup(false);
     setTokenValue("");
     localStorage.removeItem("token");
-
     setLogged(false);
   };
 
