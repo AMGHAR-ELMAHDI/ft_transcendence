@@ -46,7 +46,7 @@ function loginEl() {
         }
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error("Wrong Credentials");
         console.log(error);
       });
   };

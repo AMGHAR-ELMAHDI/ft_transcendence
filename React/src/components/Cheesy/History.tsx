@@ -87,6 +87,8 @@ function History({ UserData, UseUserData }: UserDataProps) {
   }, []);
 
   const length: boolean = data?.length ? true : false;
+  let element: any = document.querySelector(".tableau");
+  if (element && !length) element.style.overflow = "hidden";
 
   return (
     <div className="tableau">
