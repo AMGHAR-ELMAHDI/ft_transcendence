@@ -78,13 +78,16 @@ body {
 
 @media only screen and (max-width: 900px) {
   .main {
-    padding-right: 2rem !important;
+    margin: 0.5rem;
   }
 }
 
 @media only screen and (max-width: 768px) {
   body {
     overflow: auto;
+  }
+  .main {
+    margin: 10px;
   }
 }
 
