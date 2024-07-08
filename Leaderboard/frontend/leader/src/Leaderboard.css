@@ -1,0 +1,29 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+#root {
+	width: 100%;
+}
+:root {
+	--BackMain: #1B1D26;
+}
+.cont_ {
+	background-color: var(--BackMain);
+	height: 100svh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+}
+ul li {
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+	list-style: decimal;
+	font-size: 35px;
+}
+li p {
+	color: white;
+	font-size: 35px;
+}

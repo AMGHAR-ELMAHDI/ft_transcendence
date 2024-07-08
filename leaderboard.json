@@ -1,0 +1,54 @@
+[
+    {
+        "model": "engine.player",
+        "pk": 3,
+        "fields": {
+            "username": "borgir",
+            "coins": 0,
+            "status": "F",
+            "level": 40,
+            "email": "mnassi12@gmail.com",
+            "firstname": "jie",
+            "lastname": "joe"
+        }
+    },
+    {
+        "model": "engine.player",
+        "pk": 1,
+        "fields": {
+            "username": "mnassi",
+            "coins": 0,
+            "status": "F",
+            "level": 20,
+            "email": "mnassi@gmail.com",
+            "firstname": "moe",
+            "lastname": "nassi"
+        }
+    },
+    {
+        "model": "engine.player",
+        "pk": 2,
+        "fields": {
+            "username": "hmida",
+            "coins": 0,
+            "status": "F",
+            "level": 10,
+            "email": "example@gmail.com",
+            "firstname": "hmida",
+            "lastname": "ras mayda"
+        }
+    },
+    {
+        "model": "engine.player",
+        "pk": 4,
+        "fields": {
+            "username": "im just a girl",
+            "coins": 0,
+            "status": "F",
+            "level": 5,
+            "email": "tfo@gmail.com",
+            "firstname": "abde",
+            "lastname": "lilah"
+        }
+    }
+]

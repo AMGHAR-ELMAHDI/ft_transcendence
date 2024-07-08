@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100svh;
+			background-color: antiquewhite;
+		}
+		ul {
+			display: flex;
+			flex-flow: column;
+			justify-content: space-evenly;
+			align-items: center;
+			flex-flow: column;
+			flex-wrap: wrap;
+		}
+		.us {
+			color: black;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 25px;
+			list-style: none;
+			border: 2px solid;
+			border-radius: 25px;
+			padding: 20px;
+		}
+		li {
+			display: flex;
+			gap: 20px;
+		}
+		li p {
+			color: rgb(233, 57, 57);
+			text-align: center;
+		}
+	</style>
+<body>
+	<div class="container">
+		<ul>
+			{% for user in users %}
+			<ul class="us">
+				<li>
+					<p>username :</p> {{ user.username }}
+				</li>
+				<li>
+					<p>level :</p> {{ user.level }}
+				</li>
+			</ul>
+			{% endfor %}
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+-> connecting to other room and going back to the old room //done
+-> display names //done
+-> alias //done
+-> reconnecting after losing //done
+-> ball at the start of the game //done
+-> losing in mid game //done
+-> display animation of the losers // concatinate the roomId with index of the player
+-> send winners from backend after i reload the page // done
+-> refresh in queue 
+-> console errors // done
+-> status of the tn because the player will not be able to join multiple tn after finishing the first
