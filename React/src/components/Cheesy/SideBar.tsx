@@ -57,15 +57,11 @@ function SideBar() {
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
   const [Logged, setLogged] = useRecoilState(IsLogged);
 
-  const deleteCookie = (name: string) => {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-  };
-
   const handleConfirmLogout = () => {
     setShowLogoutPopup(false);
     setTokenValue("");
     localStorage.removeItem("token");
-    deleteCookie("access");
+
     setLogged(false);
   };
 

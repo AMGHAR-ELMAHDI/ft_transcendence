@@ -41,7 +41,6 @@ function TopBar() {
 
   const navigate = useNavigate();
   console.log(data?.avatar);
-  
 
   return (
     <>

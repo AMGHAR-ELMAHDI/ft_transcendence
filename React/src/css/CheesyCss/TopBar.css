@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid white;
 }
 
 #welcome-bar {
@@ -48,7 +49,7 @@
 .NotifProfileContainer {
   display: flex;
   align-items: center;
-  /* gap: 1rem; */
+  gap: 1rem;
   cursor: pointer;
 }
 
@@ -305,16 +306,18 @@ ul {
   }
 }
 
-@media only screen and (max-width: 1600px) {
-  #search-bar,
-  .NotifProfile {
-    gap: 2rem;
-  }
-}
-
 @media only screen and (max-width: 1440px) {
   #search::placeholder {
     padding: 0 0 0 2rem;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  #TopBar {
+    justify-content: flex-end;
+  }
+  #welcome-bar {
+    display: none;
   }
 }
 
@@ -376,6 +379,9 @@ ul {
 }
 
 @media only screen and (max-width: 1024px) {
+  #TopBar {
+    justify-content: space-between;
+  }
   .absolute {
     display: flex;
     height: 100%;

@@ -10,6 +10,10 @@ const getCookie = (name: string) => {
   return cookies ? cookies.split("=")[1] : null;
 };
 
+const deleteCookie = (name: string) => {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+};
+
 function ProtectedRoutes() {
   const [data, setData] = useState<any>({});
 
@@ -30,11 +34,10 @@ function ProtectedRoutes() {
     localStorage.setItem("token", access);
     setAuthToken();
     getData();
+    deleteCookie("access");
     console.log("access: |" + access + "|");
   }
   return Logged ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default ProtectedRoutes;
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNTE1OTk3LCJpYXQiOjE3MjA0Mjk1OTcsImp0aSI6IjUzZjgxZGZmYzkzZjRkMTY4MmQwZDdkYmUzNjY4Y2IyIiwidXNlcl9pZCI6MTN9.ARzunFgt36JyIqotGxjbLB-9yEoRsVor89UAarWc_w0
