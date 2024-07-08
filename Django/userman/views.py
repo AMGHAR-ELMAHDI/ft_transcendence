@@ -95,7 +95,7 @@ class ShopView(APIView):
             'all_achievements' : all_serialized_achievements.data,
             'all_items' : all_serialized_items.data,
         }
-        return Response(data)
+        return Response(data, status=HTTP_200_success)
     
     def post(self, request):
         item_id = request.data.get('item_id')
@@ -316,7 +316,7 @@ class InvitesAPIView(APIView):
             'accepted' : serialized_accepted.data,
             'sent' : serialized_sent.data
         }
-        return Response(data, status = 200)
+        return Response(data, status = status.HTTP_200_OK)
 
 
 
@@ -339,7 +339,7 @@ class FriendshipAPIView(APIView):
             # 'sent' : serialized_sent.data,
             'recieved' : serialized_recieved.data,
         }
-        return Response(data, status = 200)
+        return Response(data, status = HTTP_200_OK)
 
     def post(self, request):
         to_user_id = request.data.get('to_user')
@@ -410,5 +410,5 @@ class FriendProfileAPIView(APIView):
             # 'sent' : serialized_sent.data,
             'recieved' : serialized_recieved.data,
         }
-        return Response(data, status = 200)
+        return Response(data, status = status.HTTP_200_OK)
 

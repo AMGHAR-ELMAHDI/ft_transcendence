@@ -56,6 +56,7 @@ function loginEl() {
 
   const handle42Auth = () => {
     window.location.href = "http://localhost:2500/42/login/";
+    window.location.href = "http://localhost:2500/42/login/";
   };
 
   return (

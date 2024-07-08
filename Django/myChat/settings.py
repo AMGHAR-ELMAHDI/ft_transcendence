@@ -230,3 +230,10 @@ F_GRANT_TYPE = os.getenv('F_GRANT_TYPE')
 F_REDIRECT_URI = os.getenv('F_REDIRECT_URI')
 F_SCOPE = os.getenv('F_SCOPE')
 F_URI = os.getenv('F_URI')
+
+
+# Error pages
+
+HTTP_400_BAD_REQUEST = 'http://localhost:5173/400'
+HTTP_401_UNAUTHORIZED = 'http://localhost:5173/401'
+HTTP_403_FORBIDDEN = 'http://localhost:5173/403'

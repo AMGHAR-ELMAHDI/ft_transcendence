@@ -54,22 +54,15 @@ def discord_redirect(request: HttpRequest):
 				login(request, user)
 				refresh = RefreshToken.for_user(user)
 				request.session['access'] = str(refresh.access_token)
-				data = {
-					'access' : refresh.access_token,
-					'refresh' : refresh
-				}
-				request.session['access'] = str(refresh.access_token)
 				request.session['refresh'] = str(refresh)
-				# request.session['refresh'] = refresh
 				set_cookie(request=request)
-				# print("++++++++++++++++++++++++++|", request.COOKIES['access'])
 				return redirect('http://localhost:2500/42/set-cookie')
 			else:
-				return JsonResponse({'error': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
+				return redirect (settings.HTTP_401_UNAUTHORIZED)
 		else:
-			return JsonResponse({'error': 'Failed to exchange code for access token'}, status=status.HTTP_400_BAD_REQUEST)
+			return redirect (settings.HTTP_400_BAD_REQUEST)
 	else:
-		return JsonResponse({'error': 'No code parameter received'}, status=status.HTTP_400_BAD_REQUEST)
+		return redirect (settings.HTTP_400_BAD_REQUEST)
 
 
 def set_cookie(request):
@@ -86,11 +79,6 @@ def set_cookie(request):
 
 
 def exchange_code(code: str):
-
-	print("*********************************")
-	print(F"hada l code {code}")
-	print("*********************************")
-
 	data = {
 		"client_id": settings.F_CLIENT_ID,
 		"client_secret" : settings.F_CLIENT_SECRET,
@@ -99,15 +87,8 @@ def exchange_code(code: str):
 		"redirect_uri": settings.F_REDIRECT_URI,
 		# "scope": settings.F_SCOPE,
 	}
-	print("------------------------")
-	print(f"hadi l body dial req : {data}")
-	print("------------------------")
 
 	response = requests.post("https://api.intra.42.fr/oauth/token", data=data)
-	print("------------------------")
-	print(f"hadi l body dial res: {response.content}")
-	print("------------------------")
-	print(">>>>>>>|", response.content)
 	credentials = response.json()
 	access_token = credentials.get('access_token')
 	return access_token
