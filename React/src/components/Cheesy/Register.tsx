@@ -279,10 +279,10 @@ function Register() {
           </div>
           <div className="buttons">
             <button className="fourtytwo">
-              <img src="./public/42.svg"></img>
+              <img src="/42.svg"></img>
             </button>
             <button className="gmail">
-              <img src="./public/google.svg"></img>
+              <img src="/google.svg"></img>
             </button>
             <button className="create" onClick={handleSubmit}>
               create account

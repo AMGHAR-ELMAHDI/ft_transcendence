@@ -46,7 +46,7 @@ function loginEl() {
         }
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error("Wrong Credentials");
         console.log(error);
       });
   };
@@ -56,8 +56,12 @@ function loginEl() {
 
   const handle42Auth = () => {
     window.location.href = "http://localhost:2500/42/login/";
-    window.location.href = "http://localhost:2500/42/login/";
   };
+
+  useEffect(() => {
+    let Logged = localStorage.getItem("token") ? true : false;
+    if (Logged) navigate("/");
+  }, []);
 
   return (
     <div className="content">
@@ -150,7 +154,7 @@ function loginEl() {
         {error.length > 0 ? <div className="statusError">{error}</div> : ""}
         <div className="buttons">
           <button className="fourtytwo" onClick={handle42Auth}>
-            <img src="../public/42.svg"></img>
+            <img src="/42.svg"></img>
           </button>
           <button className="gmail" onClick={handleDiscordAuth}>
             <FaDiscord />

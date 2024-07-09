@@ -11,6 +11,8 @@ from chat.SingleGame_consumer import RequestSingleGameConsumer
 from online.consumers import TournamentM_
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myChat.settings')
 
+# from chat.StartGame_consumer import StartGame_consumer
+
 application = ProtocolTypeRouter({
   'http': get_asgi_application(),
   'websocket': URLRouter([
@@ -24,6 +26,7 @@ application = ProtocolTypeRouter({
 	    path('ws/single-game/<str:token>', RequestSingleGameConsumer.as_asgi()),
 	    path('ws/game-tn/<str:token>', TournamentM_.as_asgi()),
 	    path('ws/remote/<str:token>', consumers.GameConsumer.as_asgi()),
+	    # path('ws/start-single-game/<str:token>/<str:room>', StartGame_consumer.as_asgi()),
   ]
     ),
 })

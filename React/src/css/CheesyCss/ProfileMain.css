@@ -3,22 +3,22 @@
   --sb-thumb-color: #5fcae4;
 }
 
-*::-webkit-scrollbar {
+.ProfileItems::-webkit-scrollbar {
   width: 14px;
 }
 
-*::-webkit-scrollbar-track {
+.ProfileItems::-webkit-scrollbar-track {
   background: #0c0e14;
   border-radius: 18px;
 }
 
-*::-webkit-scrollbar-thumb {
+.ProfileItems::-webkit-scrollbar-thumb {
   background: #5fcae4;
   border-radius: 18px;
   border: 1px solid #0c0e14;
 }
 
-@supports not selector(::-webkit-scrollbar) {
+@supports not selector(.ProfileItems::-webkit-scrollbar) {
   * {
     scrollbar-color: #5fcae4 #0c0e14;
   }

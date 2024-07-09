@@ -48,7 +48,7 @@
 .NotifProfileContainer {
   display: flex;
   align-items: center;
-  /* gap: 1rem; */
+  gap: 1rem;
   cursor: pointer;
 }
 
@@ -67,10 +67,7 @@
   width: clamp(100px, 100%, 600px);
   border-radius: 30px;
   padding: 20px 20px;
-  background-image: url(/search-icon.svg);
-  background-repeat: no-repeat;
-  background-position: 20px 20px;
-  /* transition: all 0.3s; */
+  transition: all 0.3s;
   height: 4rem;
 }
 
@@ -278,7 +275,6 @@ ul {
   #search:placeholder-shown,
   #search {
     padding: 20px 20px;
-    background-position: 20px 18px;
     height: 3.5rem;
     font-size: 1rem;
   }
@@ -305,16 +301,18 @@ ul {
   }
 }
 
-@media only screen and (max-width: 1600px) {
-  #search-bar,
-  .NotifProfile {
-    gap: 2rem;
-  }
-}
-
 @media only screen and (max-width: 1440px) {
   #search::placeholder {
     padding: 0 0 0 2rem;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  #TopBar {
+    justify-content: flex-end;
+  }
+  #welcome-bar {
+    display: none;
   }
 }
 
@@ -376,6 +374,9 @@ ul {
 }
 
 @media only screen and (max-width: 1024px) {
+  #TopBar {
+    justify-content: space-between;
+  }
   .absolute {
     display: flex;
     height: 100%;
@@ -400,6 +401,31 @@ ul {
   #TopBar {
     align-items: flex-start;
   }
+}
+
+@media only screen and (max-width: 768px) {
+  .BurgerMenu > * {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+  .div-relat {
+    display: none;
+  }
+  #notif {
+    font-size: 2.5rem;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  #search:placeholder-shown,
+  #search {
+    background-image: none;
+    height: 2.5rem;
+    font-size: 1rem;
+    /* border-radius: 18px; */
+  }
+}
+
+@media only screen and (max-width: 768px) {
 }
 
 @keyframes lights {

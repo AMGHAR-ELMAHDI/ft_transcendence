@@ -140,6 +140,27 @@
   padding: 0 2rem;
 }
 
+.LeaderBoardRest::-webkit-scrollbar {
+  width: 8px;
+}
+
+.LeaderBoardRest::-webkit-scrollbar-track {
+  background: #0c0e14;
+  border-radius: 25px;
+}
+
+.LeaderBoardRest::-webkit-scrollbar-thumb {
+  background: hsl(227, 15%, 23%);
+  border-radius: 25px;
+  border: 1px solid #0c0e14;
+}
+
+@supports not selector(.LeaderBoardRest::-webkit-scrollbar) {
+  * {
+    scrollbar-color: hsl(227, 15%, 23%) #0c0e14;
+  }
+}
+
 .LeaderBoardRest > ul {
   display: flex;
   flex-direction: column;
@@ -329,5 +350,76 @@ ul > li > div > * > img {
   }
   .toph1 {
     font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .LeaderBoardRest::-webkit-scrollbar {
+    display: none;
+  }
+  .SecondThird {
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 90vw;
+    gap: 50px;
+    margin-bottom: 20px;
+  }
+  .Second,
+  .Third {
+    /* width: 51%; */
+    padding: 0;
+    margin: 0;
+  }
+  .Top3 {
+    margin: 10px 0;
+  }
+  .First {
+    width: 90vw;
+    margin-bottom: 10px;
+  }
+  .LeaderBoardRest {
+    max-height: 45vh;
+    padding: 0;
+    width: 90vw;
+  }
+  .removeLeader {
+    display: none;
+  }
+  .LeaderBoardRest > ul {
+    gap: 0;
+  }
+
+  .LeaderBoardRest > ul > li {
+    border-radius: 25px;
+    padding: 10px;
+  }
+  .LeaderBoardToolTip {
+    justify-content: flex-start;
+    margin: 0;
+    margin-bottom: 5px;
+    width: 90vw;
+  }
+  .TooltipLeft {
+    flex: 0.5;
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+  .TooltipRight {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    padding: 0;
+  }
+  .TooltipRightUser {
+    display: flex;
+    flex: 0;
+  }
+  .TooltipRightRest {
+    display: flex;
+    flex: 2;
+    gap: 10px;
+    padding: 0;
+    padding-right: 2rem;
   }
 }

@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   setRender: React.Dispatch<React.SetStateAction<string>>;
@@ -17,6 +18,8 @@ function SettingsLeft({ setRender }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const url = useRecoilValue(Url);
   const [file, setFile] = useState<any>();
+  const [avatar, setAvatar] = useState<any>();
+  const [me, setMe] = useState<any>();
 
   let obj = {
     id: "1",
@@ -36,6 +39,15 @@ function SettingsLeft({ setRender }: Props) {
     }
   };
 
+  const getMe = async () => {
+    try {
+      const response = await api.get("player/me/");
+      setMe(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -43,6 +55,7 @@ function SettingsLeft({ setRender }: Props) {
   const onImageChange = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       setFile(URL.createObjectURL(event.target.files[0]));
+      setAvatar(event.target.files[0]);
     }
   };
 
@@ -52,26 +65,27 @@ function SettingsLeft({ setRender }: Props) {
 
     try {
       const formData = new FormData();
-      formData.append("id", obj.id);
       formData.append("email", obj.email);
-      formData.append("first_name", obj.first_name);
-      formData.append("last_name", obj.last_name);
-      formData.append("username", obj.username);
 
-      if (fileInputRef.current?.files?.[0])
-        formData.append("image", fileInputRef.current.files[0]);
+      if (fileInputRef.current?.files?.[0]) {
+        formData.append("image", avatar);
+        console.log(fileInputRef.current.files[0]);
+      }
 
       const response = await api.put("player/setting/", formData);
+
     } catch (error) {
       console.log(error);
     }
   };
 
+  const navigate = useNavigate();
   return (
     <div className="SettingsLeft">
       <div className="SettingsData">
         <div className="SettingsImg">
           <img src={file || GetCorrect(data?.image, url)} alt="SettingImg" />
+          {/* <img src={file} alt="SettingImg" /> */}
           <div className="SettingsImgEdit">
             <label>
               <input type="file" ref={fileInputRef} onChange={onImageChange} />

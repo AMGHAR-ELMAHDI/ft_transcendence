@@ -191,9 +191,6 @@ progress[value]::-webkit-progress-value {
   #Profile {
     height: 400px;
   }
-  /* #profile-img {
-    max-width: 10rem;
-  } */
   #user-name {
     font-size: 1.7rem;
   }
@@ -286,5 +283,60 @@ progress[value]::-webkit-progress-value {
     appearance: none;
     width: 100%;
     height: 30px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #Profile {
+    width: 90vw;
+  }
+  #profile-img {
+    width: 7rem;
+    height: 7rem;
+  }
+  #user-name {
+    font-size: 1.3rem;
+    margin-bottom: 7px;
+  }
+  .profile-level {
+    min-width: 300px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  #profile-tabs > * {
+    font-size: 1rem;
+    border-bottom: 3px solid var(--blue-glow);
+    padding: 0 1rem 0.5rem 1rem;
+    padding: 0 5px;
+    top: 0;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .profile-level {
+    min-width: 220px;
+  }
+  .line1 {
+    width: 270px;
+  }
+  #Profile {
+    width: 84vw;
+  }
+  #profile-tabs {
+    gap: 0;
+  }
+  #profile-tabs > * {
+    font-size: 0.8rem;
+    border-bottom: 3px solid var(--blue-glow);
+    padding: 0 10px 5px 10px;
+    padding: 0 5px;
+    top: 0;
   }
 }

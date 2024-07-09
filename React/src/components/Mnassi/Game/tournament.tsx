@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PlayerId } from "./atoms/Winner";
 import _LocalGame from "./multiplayer2";
 import _title from "./title";
 import _OnlineGame from "./multiplayer";
@@ -7,6 +8,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import "./tournament.css";
 import "./interface.css";
 import axios from "axios";
+import { json } from "stream/consumers";
 
 function _tournament() {
   return (
@@ -156,13 +158,8 @@ function tournament({ NetType }: OnlineGame) {
       players[3].innerHTML = data.message.array.name_4.name;
     }
 
-    const token = localStorage.getItem('token')
+    TnSocket = new WebSocket("ws://localhost:2500/ws/game/tn/");
 
-    TnSocket = new WebSocket(`ws://localhost:2500/ws/game-tn/${token}`);
-
-    TnSocket.onopen = function () {
-      console.log("[InviteSocket] Connection established successfully.");
-    }
     function StoreInStorage(data: any) {
       const Content = {
         player1: data.message.array.name_1.name,

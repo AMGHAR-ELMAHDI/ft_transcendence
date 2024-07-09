@@ -29,7 +29,7 @@ function TopBar() {
     } catch (error: any) {
       if (error.request) {
         // window.location.href = "/login";
-        // navigate("/login");
+        navigate("/login");
       } else console.log("Error message:", error.message);
       setIsLoading(false);
     }
@@ -41,7 +41,6 @@ function TopBar() {
 
   const navigate = useNavigate();
   console.log(data?.avatar);
-  
 
   return (
     <>

@@ -15,19 +15,19 @@ function DashboardContainer() {
       .split("; ")
       .find((row) => row.startsWith(`${name}=`));
     console.log(cookies);
-    
+
     return cookies ? cookies.split("=")[1] : null;
   };
-  
+
   const username = getCookie("access");
   const cookies = document.cookie;
   console.log(cookies);
-  
+
   console.log(username);
 
   return (
     <>
-      {/* <OnlineStatus token={token} type={1} /> */}
+      <OnlineStatus token={token} type={1} />
       <div className="AppClass">
         <SideBar />
         <div className="main">
