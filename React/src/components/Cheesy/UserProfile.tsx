@@ -137,7 +137,6 @@ function UserProfile({ show, setRender, data, myProfile }: UserProps) {
           </div>
         </div>
         {GetCircles(data)}
-        {GetCircles(data)}
       </div>
     </div>
   );

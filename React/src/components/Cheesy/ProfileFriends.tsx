@@ -6,29 +6,29 @@ import { useRecoilValue } from "recoil";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
 
-// function getFriendStatus() {
-//   return "Online";
-// }
+function getFriendStatus() {
+  return "Online";
+}
 
 function getProfileToolTip() {
   return (
     <thead>
       <tr className="ProfileFriendsToolTip">
-        <th>
+        <th className="removeit">
           <h1>PICTURE</h1>
         </th>
         <th>
           <h1>USERNAME</h1>
         </th>
-        <th>
+        <th className="remove">
           <h1>LEVEL</h1>
         </th>
-        <th>
+        <th className="remove">
           <h1>COINS</h1>
         </th>
-        {/* <th>
+        <th>
           <h1>STATUS</h1>
-        </th> */}
+        </th>
       </tr>
     </thead>
   );
@@ -71,7 +71,7 @@ function ProfileFriends() {
             {data.map((friend: any) => (
               <tbody key={friend?.id}>
                 <tr className="ProfileFriendsContent">
-                  <td>
+                  <td className="removeit">
                     <div>
                       <img
                         className="ProfileFriendImg"
@@ -90,21 +90,21 @@ function ProfileFriends() {
                       {friend?.username}
                     </h1>
                   </td>
-                  <td>
+                  <td className="remove">
                     <h1 className="ProfileFriendLevel ProfileFriendH1">
                       {friend?.level}
                     </h1>
                   </td>
-                  <td>
+                  <td className="remove">
                     <h1 className="ProfileFriendCoins ProfileFriendH1">
                       {friend?.coins}
                     </h1>
                   </td>
-                  {/* <td>
+                  <td>
                     <h1 className="ProfileFriendStatus ProfileFriendH1">
                       {getFriendStatus()}
                     </h1>
-                  </td> */}
+                  </td>
                 </tr>
               </tbody>
             ))}

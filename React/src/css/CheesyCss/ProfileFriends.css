@@ -21,10 +21,8 @@
   padding: 2rem;
 }
 
-.ProfileFriendsSpacer {
-  background-color: red;
-  display: flex;
-  height: 10px;
+#ProfileFriendsContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .ProfileFriendsToolTip > th > h1 {
@@ -74,5 +72,51 @@
   }
 }
 
-@media only screen and (max-width: 2560px) {
+@media only screen and (max-width: 1920px) {
+  #ProfileFriendsContainer {
+    padding: 1rem 10px;
+  }
+  .ProfileFriendsToolTip > th > h1 {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  .ProfileFriendsContent > td {
+    padding: 10px 0;
+  }
+  .ProfileFriendH1 {
+    font-size: 1rem;
+  }
+  .ProfileFriendImg {
+    width: 5rem;
+    height: 5rem;
+  }
+  .ProfileFriendUsername {
+    cursor: pointer;
+    color: var(--blue-glow);
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  #ProfileFriendsContainer {
+    padding: 10px;
+    border-radius: 20px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #ProfileFriendsContainer {
+    width: 94%;
+  }
+  .remove {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #ProfileFriendsContainer {
+    width: 90%;
+  }
+  .removeit {
+    display: none;
+  }
 }

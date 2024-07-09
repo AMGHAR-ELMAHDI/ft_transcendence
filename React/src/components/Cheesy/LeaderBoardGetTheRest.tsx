@@ -20,7 +20,7 @@ function getToolTip() {
             <h1 className="ToolTipColor Panton">UserName</h1>
           </div>
           <div className="TooltipRightRest">
-            <h1 className="TooltipRightWins ToolTipColor Panton">Games Won</h1>
+            {/* <h1 className="TooltipRightWins ToolTipColor Panton">Games Won</h1> */}
             <h1 className="TooltipRightLevel ToolTipColor Panton">Level</h1>
           </div>
         </div>
@@ -52,7 +52,7 @@ function LeaderBoardGetTheRest() {
                 </div>
                 <Link to={`/profile/${user.username}`}>
                   <img
-                    className="RestImgs"
+                    className="RestImgs removeLeader"
                     src={GetCorrect(user.image, url)}
                     alt="userPic"
                   />
@@ -65,7 +65,7 @@ function LeaderBoardGetTheRest() {
                   </Link>
                 </div>
                 <div className="LeaderRestRightLvl">
-                  <h1 className="UserGamesWon Panton">{user.games_won}</h1>
+                  {/* <h1 className="UserGamesWon Panton">{user.games_won}</h1> */}
                   <h1 className="UserLevel Panton">{user.level}</h1>
                 </div>
               </div>

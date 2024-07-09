@@ -87,6 +87,7 @@ body {
     overflow: auto;
   }
   .main {
+    gap: 1rem;
     margin: 10px;
   }
 }
