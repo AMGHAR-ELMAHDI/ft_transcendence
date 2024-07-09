@@ -48,13 +48,13 @@ function FilterItems(ownedItems: any[], name: string) {
 
 function GetPaddle() {
   const data = useRecoilValue(ShopItems);
-  const paddle = data.filter((item: any) => item?.type === "P");
+  const paddle = data?.filter((item: any) => item?.type === "P");
   return (
     <>
       <div className="itemsContainer">
         <h1 id="Paddles-header">Paddles</h1>
         <div className="Paddle-holder">
-          {paddle.map((item: any) => (
+          {paddle?.map((item: any) => (
             <Card
               key={item.id}
               name={item.name}
@@ -71,13 +71,13 @@ function GetPaddle() {
 
 function GetBackground() {
   const data = useRecoilValue(ShopItems);
-  const background = data.filter((item: any) => item?.type === "G");
+  const background = data?.filter((item: any) => item?.type === "G");
   return (
     <>
       <div className="itemsContainer">
         <h1 id="Paddles-header">Backgrounds</h1>
         <div className="Paddle-holder">
-          {background.map((item: any) => (
+          {background?.map((item: any) => (
             <Card
               key={item.id}
               name={item.name}
@@ -94,13 +94,13 @@ function GetBackground() {
 
 function GetAvatar() {
   const data = useRecoilValue(ShopItems);
-  const avatar = data.filter((item: any) => item?.type === "B");
+  const avatar = data?.filter((item: any) => item?.type === "B");
   return (
     <>
       <div className="itemsContainer">
         <h1 id="Paddles-header">Avatars</h1>
         <div className="Paddle-holder">
-          {avatar.map((item: any) => (
+          {avatar?.map((item: any) => (
             <Card
               key={item.id}
               name={item.name}
@@ -123,8 +123,10 @@ function ShopDesign() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await api.get("shop/");
-      setShopItems(response.data.all_items);
+      const response = await api.get("items");
+      console.log(response.data);
+      
+      setShopItems(response.data);
     } catch (error) {
       console.log(error);
     }

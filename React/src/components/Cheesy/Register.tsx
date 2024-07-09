@@ -92,13 +92,13 @@ function Register() {
     username: username,
     email: email,
     password: password,
-    re_password: password,
+    password2: password,
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     axios
-      .post(url + "auth/users/", obj)
+      .post(url + "sign-up/", obj)
       .then((response) => {
         if (response.status === 201) {
           setLoged(true);
