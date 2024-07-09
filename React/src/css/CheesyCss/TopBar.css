@@ -67,9 +67,6 @@
   width: clamp(100px, 100%, 600px);
   border-radius: 30px;
   padding: 20px 20px;
-  background-image: url(/search-icon.svg);
-  background-repeat: no-repeat;
-  background-position: 20px 20px;
   transition: all 0.3s;
   height: 4rem;
 }
@@ -278,7 +275,6 @@ ul {
   #search:placeholder-shown,
   #search {
     padding: 20px 20px;
-    background-position: 20px 18px;
     height: 3.5rem;
     font-size: 1rem;
   }
@@ -425,7 +421,7 @@ ul {
     background-image: none;
     height: 2.5rem;
     font-size: 1rem;
-    border-radius: 18px;
+    /* border-radius: 18px; */
   }
 }
 
