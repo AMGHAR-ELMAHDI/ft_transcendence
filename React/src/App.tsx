@@ -22,6 +22,7 @@ import { Toaster } from "react-hot-toast";
 import Error_403 from "./components/Cheesy/Error403";
 
 import "./Imports";
+import Gametst from "./components/zmakhkha/Gametst";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
         <Route path="/game" element={<GameContainer />} />
         <Route path="/leaderboard" element={<LeaderBoardContainer />} />
         <Route path="/shop" element={<ShopContainer />} />
+        <Route path="/gametst" element={<Gametst />} />
         <Route path="/profile" element={<ProfileLayout />}>
           <Route index element={<ProfileContainer />} />
           <Route path=":username" element={<Users />} loader={UsersLoader} />
