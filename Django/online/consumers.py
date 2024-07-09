@@ -5,10 +5,39 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.sessions.models import Session
 from asgiref.sync import sync_to_async
 from django.shortcuts import get_object_or_404
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from channels.db import database_sync_to_async
 from . import views
 from userman import models
-import asyncio
+import asyncio, jwt
+
+@database_sync_to_async
+def get_user_by_id(user_id):
+    return get_object_or_404(get_user_model(), pk=user_id)
+
+async def getUser(authorization_header):
+    if not authorization_header:
+        print("---------> Connection rejected: Authorization header not found.")
+        return None
+
+    token = authorization_header
+
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+        user_id = payload["user_id"]
+        user = await get_user_by_id(user_id)
+        return user
+
+    except jwt.ExpiredSignatureError:
+        print("---------> Connection rejected: Token expired.")
+        return None
+    except jwt.InvalidTokenError:
+        print("---------> Connection rejected: Invalid token.")
+        return None
+    except models.Player.DoesNotExist:
+        print(f"Player does not exist with ID: {user_id}")
+        return None
 
 class GameConsumer(AsyncWebsocketConsumer):
 
@@ -39,13 +68,15 @@ class GameConsumer(AsyncWebsocketConsumer):
         self.room_group_name = tempRoom
 
     async def connect(self):
-        user = self.scope['user']
-        if user.is_authenticated:
+        self.token = self.scope['url_route']['kwargs']['token']
+        user = await getUser(self.token)
+        print(user.username)
+        if user:
             self.username = user.username
-            user = await sync_to_async(models.Player.objects.get)(username__iexact=self.username)
             self.status = user.status
             await self.accept()
         else:
+            await self.close()
             return JsonResponse({'error': 'The user is not Authenticated'}, status=403)
 
         UserExist = False
@@ -367,10 +398,10 @@ class TournamentM_(AsyncWebsocketConsumer):
     task = ""
 
     async def connect(self):
-        user = self.scope['user']
-        if user.is_authenticated:
+        self.token = self.scope['url_route']['kwargs']['token']
+        user = await getUser(self.token)
+        if user:
             self.username = user.username
-            user = await sync_to_async(models.Player.objects.get)(username__iexact=self.username)
             self.status = user.status
             await self.accept()
         else:
@@ -520,12 +551,12 @@ class TournamentM_(AsyncWebsocketConsumer):
                 pass
 
     async def disconnect(self, close_code):
-        user = self.scope['user']
-        if user.is_authenticated:
+        # user = self.scope['user']
+        # if user.is_authenticated:
             # for key, value in self.rooms[self.room_group_name]['Joined'].items():
             #     if value['name'] == user.username:
             #         value['name'] = '...'
             #         print('->>', value['name'])
             # del self.rooms[self.room_group_name]['players'][user.username]
             # self.rooms[self.room_group_name]['index'] -= 1
-            await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
+        await self.channel_layer.group_discard(self.room_group_name, self.channel_name)

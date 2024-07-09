@@ -254,30 +254,6 @@ class AchievementPerUser(models.Model):
     user = models.ForeignKey(Player, on_delete=models.CASCADE)
     achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
     obtaining_date = models.DateTimeField(auto_now_add=True)
-    
-class GameHistory(models.Model):
-    ITEM_TOURNAMENT = 'T'
-    ITEM_OPPONENT = 'O'
-    ITEM_BOT = 'B'
-
-    ITEM_CHOICES = [
-        (ITEM_TOURNAMENT, 'TOURNAMENT'),
-        (ITEM_OPPONENT, 'OPPONENT'),
-        (ITEM_BOT, 'BOT'),
-    ]
-    date = models.DateTimeField(auto_now_add=True)
-    player = models.ForeignKey(Player, related_name='games_as_player', on_delete=models.CASCADE)
-    opponent = models.ForeignKey(Player, related_name='opponent_games', on_delete=models.CASCADE)
-    player_score = models.DecimalField(max_digits=5, decimal_places=2)
-    opponent_score = models.DecimalField(max_digits=5, decimal_places=2)
-    game_mode = models.CharField(
-        max_length=1, choices=ITEM_CHOICES, default=ITEM_OPPONENT)
-    game_duration_minutes = models.DecimalField(max_digits=5, decimal_places=2)
-
-    def __str__(self):
-        return f"Game played on {self.date} between {self.player.username} and {self.opponent.username}"
-    
-
 
 class GameHistory(models.Model):
     ITEM_TOURNAMENT = 'T'
@@ -308,4 +284,4 @@ class Tournament(models.Model):
     game_final_id = models.ForeignKey(GameHistory, related_name='GAMEFINAL', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Tournament Created\n firstGame: {self.game_01_id.player} vs {self.game_01_id.opponent}\n secondGame: {self.game_02_id.player} vs {self.game_02_id.opponent}\n secondGame: {self.game_final_id.player} vs {self.game_final_id.opponent}'
+        return f'Tournament_{self.id}'
