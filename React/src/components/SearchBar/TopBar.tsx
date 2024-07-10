@@ -12,12 +12,14 @@ import DropDownMenuContainer from "./DropDownMenuContainer";
 import Notif from "../Cheesy/Notif";
 import { useRecoilState } from "recoil";
 import Username from "../../Atoms/Username";
+import AcessToken from "../../Atoms/AccessToken";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [recoilUsername, setRecoilUsername] = useRecoilState(Username);
+  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
 
   const getData = async () => {
     try {
@@ -29,6 +31,8 @@ function TopBar() {
     } catch (error: any) {
       if (error.request) {
         // window.location.href = "/login";
+        setTokenValue("");
+        localStorage.removeItem("token");
         navigate("/login");
       } else console.log("Error message:", error.message);
       setIsLoading(false);
