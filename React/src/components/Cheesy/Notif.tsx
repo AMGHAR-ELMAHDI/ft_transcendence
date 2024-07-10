@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import api from "../../api";
 import DisplayNotif from "./DisplayNotif";
+import toast from "react-hot-toast";
 
 export interface Player {
   id: number;
@@ -104,6 +105,7 @@ function Notif() {
 
   const filteredItems = received.filter((user) => user?.status.includes("P"));
 
+  // const callit = () => {
   DisplayNotif({
     players,
     pending,

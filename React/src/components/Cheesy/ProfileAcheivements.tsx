@@ -49,12 +49,6 @@ function ProfileAcheivements({ UserData, UseUserData }: UserDataProps) {
           {data?.map((Trophie: CardProps) => (
             <AcheivementCard key={Trophie.id} {...Trophie} />
           ))}
-          {data?.map((Trophie: CardProps) => (
-            <AcheivementCard key={Trophie.id} {...Trophie} />
-          ))}
-          {data?.map((Trophie: CardProps) => (
-            <AcheivementCard key={Trophie.id} {...Trophie} />
-          ))}
         </div>
       )}
     </>

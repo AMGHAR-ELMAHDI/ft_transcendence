@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { FriendshipRequest, GameInviteProps, Player } from "./Notif";
 import { useNavigate } from "react-router-dom";
@@ -59,151 +59,162 @@ function DisplayNotif({
   socketGame,
 }: NotifProps) {
   const navigate = useNavigate();
-  console.log("accepted: " + accepted);
-  console.log("pending: " + pending);
-  console.log("sent: " + sent);
 
-  for (let index = 0; index < filteredItems.length; index++) {
-    let num = filteredItems[index]?.from_user;
+  const render = () => {
+    for (let index = 0; index < filteredItems.length; index++) {
+      let num = filteredItems[index]?.from_user;
 
-    toast(
-      <div className="notifContainer">
-        <h1>Friend Request From {GetUserName(players, num)}</h1>
-        <div className="notifButtonContainer">
-          <button
-            className="notifButton"
-            onClick={() => {
-              acceptFriend(num, socketFriend);
-              // toast.dismiss(String(num));
-            }}
-          >
-            Accept
-          </button>
-          <button
-            className="notifButton"
-            onClick={() => {
-              declineFriend(num, socketFriend);
-              // toast.dismiss(String(num));
-            }}
-          >
-            Decline
-          </button>
-        </div>
-      </div>,
-      { id: String(num) }
-    );
-  }
+      toast(
+        <div className="notifContainer">
+          <h1>Friend Request From {GetUserName(players, num)}</h1>
+          <div className="notifButtonContainer">
+            <button
+              className="notifButton"
+              onClick={() => {
+                acceptFriend(num, socketFriend);
+                toast.dismiss(String(num));
+              }}
+            >
+              Accept
+            </button>
+            <button
+              className="notifButton"
+              onClick={() => {
+                declineFriend(num, socketFriend);
+                toast.dismiss(String(num));
+              }}
+            >
+              Decline
+            </button>
+          </div>
+        </div>,
+        { id: String(num) }
+      );
+    }
 
-  for (let index = 0; index < pending.length && index < 5; index++) {
-    let num: number = Number(pending[index].sender_username);
+    for (let index = 0; index < pending.length && index < 5; index++) {
+      let num: number = Number(pending[index].sender_username);
 
-    toast(
-      <div className="notifContainer">
-        <h1>Game Invite From {pending[index].sender_username}</h1>
-        <div className="notifButtonContainer">
-          <button
-            className="notifButton"
-            onClick={() => {
-              const inviteMessage = {
-                action: "accept",
-                id: pending[index].id,
-              };
-              socketGame.current?.send(JSON.stringify(inviteMessage));
-              // toast.remove(String(num));
-            }}
-          >
-            Accept
-          </button>
-          <button
-            className="notifButton"
-            onClick={() => {
-              const inviteMessage = {
-                action: "deny",
-                id: pending[index].id,
-              };
-              socketGame.current?.send(JSON.stringify(inviteMessage));
-              // toast.remove(String(num));
-            }}
-          >
-            Decline
-          </button>
-        </div>
-      </div>,
-      { id: String(num) }
-    );
-  }
+      toast(
+        <div className="notifContainer">
+          <h1>Game Invite From {pending[index].sender_username}</h1>
+          <div className="notifButtonContainer">
+            <button
+              className="notifButton"
+              onClick={() => {
+                const inviteMessage = {
+                  action: "accept",
+                  id: pending[index].id,
+                };
+                socketGame.current?.send(JSON.stringify(inviteMessage));
+                // toast.remove(String(num));
+              }}
+            >
+              Accept
+            </button>
+            <button
+              className="notifButton"
+              onClick={() => {
+                const inviteMessage = {
+                  action: "deny",
+                  id: pending[index].id,
+                };
+                socketGame.current?.send(JSON.stringify(inviteMessage));
+                // toast.remove(String(num));
+              }}
+            >
+              Decline
+            </button>
+          </div>
+        </div>,
+        { id: String(num) }
+      );
+    }
 
-  for (let index = 0; index < accepted.length && index < 5; index++) {
-    let num: number = Number(accepted[index].sender_username);
+    for (let index = 0; index < accepted.length && index < 5; index++) {
+      let num: number = Number(accepted[index].sender_username);
 
-    toast(
-      <div className="notifContainer">
-        <h1>You Accepted {accepted[index].sender_username}'s invite</h1>
-        <div className="notifButtonContainer">
-          <button
-            className="notifButton"
-            onClick={() => {
-              toast.success(
-                "You Accepted" + accepted[index].sender_username + "'s invite",
-                { duration: 1000000000000 }
-              );
-              console.log("index:" + String(accepted[index].id));
-              localStorage.setItem("invite_id", String(accepted[index].id));
-              toast.remove(String(num));
-              navigate("/gametst");
-            }}
-          >
-            Join
-          </button>
-          <button
-            className="notifButton"
-            onClick={() => {
-              // toast.dismiss(String(num));
-            }}
-          >
-            Decline
-          </button>
-        </div>
-      </div>,
-      { id: String(num) }
-    );
-  }
-  for (let index = 0; index < sent.length && index < 5; index++) {
-    let num: number = Number(sent[index].sender_username);
+      toast(
+        <div className="notifContainer">
+          <h1>You Accepted {accepted[index].sender_username}'s invite</h1>
+          <div className="notifButtonContainer">
+            <button
+              className="notifButton"
+              onClick={() => {
+                toast.success(
+                  "You Accepted" +
+                    accepted[index].sender_username +
+                    "'s invite",
+                  { duration: 1000000000000 }
+                );
+                localStorage.setItem("invite_id", String(accepted[index].id));
+                toast.remove(String(num));
+                navigate("/gametst");
+              }}
+            >
+              Join
+            </button>
+            <button
+              className="notifButton"
+              onClick={() => {
+                // toast.dismiss(String(num));
+              }}
+            >
+              Decline
+            </button>
+          </div>
+        </div>,
+        { id: String(num) }
+      );
+    }
 
-    toast(
-      <div className="notifContainer">
-        <h1>{sent[index].sender_username} Accepted Your invite</h1>
-        <div className="notifButtonContainer">
-          <button
-            className="notifButton"
-            onClick={() => {
-              toast.success(
-                sent[index].sender_username + "Accepted Your invite",
-                { duration: 1000000000000 }
-              );
-              console.log("index:" + String(sent[index].id));
+    for (let index = 0; index < sent.length && index < 5; index++) {
+      let num: number = Number(sent[index].sender_username);
 
-              localStorage.setItem("invite_id", String(sent[index].id));
+      toast(
+        <div className="notifContainer">
+          <h1>{sent[index].sender_username} Accepted Your invite</h1>
+          <div className="notifButtonContainer">
+            <button
+              className="notifButton"
+              onClick={() => {
+                toast.success(
+                  sent[index].sender_username + "Accepted Your invite",
+                  { duration: 1000000000000 }
+                );
+                localStorage.setItem("invite_id", String(sent[index].id));
 
-              toast.remove(String(num));
-              navigate("/gametst");
-            }}
-          >
-            Join
-          </button>
-          <button
-            className="notifButton"
-            onClick={() => {
-              // toast.dismiss(String(num));
-            }}
-          >
-            Decline
-          </button>
-        </div>
-      </div>,
-      { id: String(num) }
-    );
-  }
+                toast.remove(String(num));
+                navigate("/gametst");
+              }}
+            >
+              Join
+            </button>
+            <button
+              className="notifButton"
+              onClick={() => {
+                // toast.dismiss(String(num));
+              }}
+            >
+              Decline
+            </button>
+          </div>
+        </div>,
+        { id: String(num) }
+      );
+    }
+  };
+
+  useEffect(() => {
+    render();
+  }, [
+    players,
+    pending,
+    accepted,
+    sent,
+    filteredItems,
+    socketFriend,
+    socketGame,
+  ]);
 }
 export default DisplayNotif;

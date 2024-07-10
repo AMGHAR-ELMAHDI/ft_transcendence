@@ -24,23 +24,20 @@ function Verify2FA() {
     axios
       .post(url + "verify-2fa/", obj)
       .then((response) => {
-        console.log("hereeeee1");
         var str = response.data;
-        console.log("response: " + str);
         if (response.status === 200) {
           toast.success("Logged in successfully");
           localStorage.setItem("token", str.access);
           setAuthToken();
-          console.log(str.access);
           navigate("/");
         }
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error.response.data.error);
-        navigate("/login");
-        if (error.response.data.error == "No user in session")
+        toast.error(error.response?.data?.error);
+        if (error.response.data?.error == "No user in session")
           navigate("/login");
+        navigate("/login");
       });
   };
 
@@ -64,7 +61,9 @@ function Verify2FA() {
           </button>
         )}
       </div>
-      <h1 className="GoLogin2FA" onClick={() => navigate("/login")}>Go Back To Login</h1>
+      <h1 className="GoLogin2FA" onClick={() => navigate("/login")}>
+        Go Back To Login
+      </h1>
     </div>
   );
 }

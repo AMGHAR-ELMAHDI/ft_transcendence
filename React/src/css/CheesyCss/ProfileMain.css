@@ -99,12 +99,27 @@
 @media only screen and (max-width: 2880px) {
   .ProfileItems {
     height: 50vh !important;
+    gap: 1rem;
   }
 }
 
 @media only screen and (max-width: 2560px) {
   .ProfileItems {
     height: 50vh !important;
+  }
+  .ProfileItem {
+    padding: 10px;
+    height: fit-content;
+    height: 400px;
+    gap: 1rem;
+  }
+  .ProfileItem > img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   }
 }
 
