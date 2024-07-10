@@ -9,6 +9,28 @@
   overflow-y: scroll;
 }
 
+#history::-webkit-scrollbar {
+  width: 5px;
+  /* display: none; */
+}
+
+#history::-webkit-scrollbar-track {
+  background: #0c0e14;
+  border-radius: 18px;
+}
+
+#history::-webkit-scrollbar-thumb {
+  background: #5fcae4;
+  border-radius: 18px;
+  border: 1px solid #0c0e14;
+}
+
+@supports not selector(#history::-webkit-scrollbar) {
+  * {
+    scrollbar-color: #5fcae4 #0c0e14;
+  }
+}
+
 #HistoryNogamesPlayed {
   width: 800px;
   border-radius: 25px;

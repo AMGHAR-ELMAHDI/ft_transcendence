@@ -48,10 +48,6 @@ body {
   justify-content: space-between;
 }
 
-.AppClass > * {
-  /* height: 100svh; */
-}
-
 .main {
   max-width: 2560px;
   display: flex;
@@ -59,37 +55,6 @@ body {
   margin: 2rem 3rem;
   flex: 1;
   gap: 2rem;
-}
-
-@media only screen and (max-width: 2560px) {
-}
-
-@media only screen and (max-width: 1920px) {
-  .AppClass > * {
-    height: auto;
-  }
-}
-
-@media only screen and (max-width: 1440px) {
-  .AppClass > * {
-    height: auto;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  .main {
-    margin: 0.5rem;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  body {
-    overflow: auto;
-  }
-  .main {
-    gap: 1rem;
-    margin: 10px;
-  }
 }
 
 @keyframes spin {
@@ -101,7 +66,6 @@ body {
   }
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 100px;
   padding: 8px;
@@ -237,6 +201,28 @@ body {
 .GoLogin2FA {
   cursor: pointer;
   animation: lights 4.5s 750ms linear infinite;
+}
+
+@media only screen and (max-width: 1920px) {
+  .AppClass > * {
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .main {
+    margin: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+  .main {
+    gap: 1rem;
+    margin: 10px;
+  }
 }
 
 @media only screen and (max-width: 768px) {

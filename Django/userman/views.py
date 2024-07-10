@@ -339,7 +339,7 @@ class FriendshipAPIView(APIView):
             # 'sent' : serialized_sent.data,
             'recieved' : serialized_recieved.data,
         }
-        return Response(data, status = HTTP_200_OK)
+        return Response(data, status = status.HTTP_200_OK)
 
     def post(self, request):
         to_user_id = request.data.get('to_user')

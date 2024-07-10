@@ -35,7 +35,7 @@ def discord_redirect(request: HttpRequest):
 			conflicting_user_mail = Player.objects.filter(email=email).exclude(user_type=Player.USER_42).first()
 			conflicting_user_user = Player.objects.filter(username=username).exclude(user_type=Player.USER_42).first()
 			if   conflicting_user_mail or conflicting_user_user:
-				return redirect("http://localhost:5173/403")
+				return redirect(settings.HTTP_403_FORBIDDEN)
 			user = Player.objects.filter(username=username).first()
 			if not user:
 				random_password = get_random_string(length=12)

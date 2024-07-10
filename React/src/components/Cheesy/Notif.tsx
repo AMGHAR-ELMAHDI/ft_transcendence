@@ -30,8 +30,8 @@ function Notif() {
   const socketFriend = useRef<WebSocket | null>(null);
   //-------------------------game invite
   const [pending, setPending] = useState<GameInviteProps[]>([]);
-  // const [accepted, setAccepted] = useState<GameInviteProps[]>([]);
-  // const [sent, setSent] = useState<GameInviteProps[]>([]);
+  const [accepted, setAccepted] = useState<GameInviteProps[]>([]);
+  const [sent, setSent] = useState<GameInviteProps[]>([]);
   const socketGame = useRef<WebSocket | null>(null);
 
   //-------------------------
@@ -58,8 +58,8 @@ function Notif() {
     try {
       const response = await api.get("game-invites/");
       setPending(response.data?.pending);
-      // setAccepted(response.data?.accepted);
-      // setSent(response.data?.sent);
+      setAccepted(response.data?.accepted);
+      setSent(response.data?.sent);
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +104,15 @@ function Notif() {
 
   const filteredItems = received.filter((user) => user?.status.includes("P"));
 
-  DisplayNotif({ players, pending, filteredItems, socketFriend, socketGame });
+  DisplayNotif({
+    players,
+    pending,
+    accepted,
+    sent,
+    filteredItems,
+    socketFriend,
+    socketGame,
+  });
 
   return (
     <div

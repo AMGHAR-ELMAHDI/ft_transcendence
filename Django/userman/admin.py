@@ -12,6 +12,9 @@ class ItemsPerUserAdmin(admin.ModelAdmin):
 @admin.register(GameHistory)
 class GameHistoryAdmin(admin.ModelAdmin):
     pass
+@admin.register(Tournament)
+class Tournament(admin.ModelAdmin):
+    pass
 # @admin.register(GameHistory)
 # class AchievementAdmin(admin.ModelAdmin):
 #     pass
