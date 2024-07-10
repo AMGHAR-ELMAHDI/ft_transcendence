@@ -23,6 +23,7 @@ import Error_403 from "./components/Cheesy/Error403";
 
 import "./Imports";
 import Gametst from "./components/zmakhkha/Gametst";
+import Verify2FA2 from "./components/zmakhkha/Verify2FA2";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/twoFa" element={<Verify2FA />} />
+      <Route path="/twoFa2" element={<Verify2FA2 />} />
       <Route path="/403" element={<Error_403 />} />
 
       <Route element={<ProtectedRoutes />}>
