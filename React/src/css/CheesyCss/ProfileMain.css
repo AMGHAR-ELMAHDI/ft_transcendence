@@ -110,7 +110,7 @@
   .ProfileItem {
     padding: 10px;
     height: fit-content;
-    height: 400px;
+    height: 450px;
     gap: 1rem;
   }
   .ProfileItem > img {
@@ -129,8 +129,8 @@
   }
   .ProfileItem {
     padding: 10px;
-    height: fit-content;
-    gap: 1rem;
+    height: 350px;
+    gap: 0.5rem;
   }
   .ProfileItem > img {
     width: 100%;

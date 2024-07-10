@@ -26,7 +26,7 @@ function ProtectedRoutes() {
       console.log("Error message:", error.message);
     }
   };
-
+  console.log(data);
   const access = getCookie("access");
   let Logged = localStorage.getItem("token") ? true : false;
   if (access) {

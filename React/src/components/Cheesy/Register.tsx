@@ -9,8 +9,6 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [re_password, setRe_password] = useState("");
-  const [Loged, setLoged] = useState(false);
   const url = useRecoilValue(Url);
 
   const navigate = useNavigate();
@@ -28,7 +26,6 @@ function Register() {
       .post(url + "sign-up/", obj)
       .then((response) => {
         if (response.status === 201) {
-          setLoged(true);
           navigate("/login");
         }
       })

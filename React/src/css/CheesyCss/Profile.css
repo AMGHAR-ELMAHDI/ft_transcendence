@@ -288,8 +288,17 @@ progress[value]::-webkit-progress-value {
 
 @media only screen and (max-width: 768px) {
   #Profile {
-    width: 90vw;
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
+  .profile-right {
+    display: block;
+  }
+
   #profile-img {
     width: 7rem;
     height: 7rem;
@@ -326,9 +335,7 @@ progress[value]::-webkit-progress-value {
   .line1 {
     width: 270px;
   }
-  #Profile {
-    width: 84vw;
-  }
+
   #profile-tabs {
     gap: 0;
   }
@@ -338,5 +345,16 @@ progress[value]::-webkit-progress-value {
     padding: 0 10px 5px 10px;
     padding: 0 5px;
     top: 0;
+  }
+}
+
+@media only screen and (max-width: 370px) {
+  #Profile {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+  }
+  .profile-left {
+    min-width: 300px;
   }
 }

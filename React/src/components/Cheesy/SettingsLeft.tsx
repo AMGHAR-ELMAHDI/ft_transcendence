@@ -6,7 +6,6 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
   setRender: React.Dispatch<React.SetStateAction<string>>;
@@ -19,7 +18,6 @@ function SettingsLeft({ setRender }: Props) {
   const url = useRecoilValue(Url);
   const [file, setFile] = useState<any>();
   const [avatar, setAvatar] = useState<any>();
-  const [me, setMe] = useState<any>();
 
   let obj = {
     id: "1",
@@ -34,15 +32,6 @@ function SettingsLeft({ setRender }: Props) {
     try {
       const response = await api.get("player/setting/");
       setData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getMe = async () => {
-    try {
-      const response = await api.get("player/me/");
-      setMe(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -72,20 +61,17 @@ function SettingsLeft({ setRender }: Props) {
         console.log(fileInputRef.current.files[0]);
       }
 
-      const response = await api.put("player/setting/", formData);
-
+      await api.put("player/setting/", formData);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const navigate = useNavigate();
   return (
     <div className="SettingsLeft">
       <div className="SettingsData">
         <div className="SettingsImg">
           <img src={file || GetCorrect(data?.image, url)} alt="SettingImg" />
-          {/* <img src={file} alt="SettingImg" /> */}
           <div className="SettingsImgEdit">
             <label>
               <input type="file" ref={fileInputRef} onChange={onImageChange} />

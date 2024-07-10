@@ -63,7 +63,6 @@ function getHistoryTabs(player_score: number, opponent_score: number) {
 }
 
 function History({ UserData, UseUserData }: UserDataProps) {
-  const [render, setRender] = useState(screen.width >= 1024 ? true : false);
   const [data, setData] = useState<any>([]);
   const [isLoading, setLoading] = useState(true);
 

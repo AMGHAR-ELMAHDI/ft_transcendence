@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import api from "../../api";
 import DisplayNotif from "./DisplayNotif";
-import toast from "react-hot-toast";
 
 export interface Player {
   id: number;
@@ -77,13 +76,8 @@ function Notif() {
 
     socketFriend.current.onmessage = (event: MessageEvent) => {
       const data = JSON.parse(event.data);
-      // if (
-      // data.type === "new_friend_request" ||
-      // data.type === "friend_request_accepted" ||
-      // data.type === "friend_request_denied"
-      // ) {
+      console.log(data);
       getData();
-      // }
     };
 
     //------------------------------------------game Invite start
@@ -93,6 +87,7 @@ function Notif() {
     );
 
     socketGame.current.onmessage = (event: MessageEvent) => {
+      console.log(event.data);
       getGameInvites();
     };
 
@@ -105,7 +100,6 @@ function Notif() {
 
   const filteredItems = received.filter((user) => user?.status.includes("P"));
 
-  // const callit = () => {
   DisplayNotif({
     players,
     pending,

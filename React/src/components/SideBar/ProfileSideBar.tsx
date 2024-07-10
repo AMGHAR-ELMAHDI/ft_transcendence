@@ -1,5 +1,3 @@
-import React from "react";
-
 function ProfileSideBar() {
   let color = "#757889";
   if (window.location.pathname === "/profile") color = "#1D90F5";

@@ -226,6 +226,9 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
+  .main {
+    justify-content: center;
+  }
   .twoFa {
     width: 300px;
     padding: 1rem;

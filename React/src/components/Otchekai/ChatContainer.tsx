@@ -8,7 +8,7 @@ import FriendId from "../../Atoms/FriendId";
 import api from "../../api";
 import { ImBlocked } from "react-icons/im";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
-import GetCorrectImage from "../Cheesy/GetCorrectImage";
+// import GetCorrectImage from "../Cheesy/GetCorrectImage";
 import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 import Url from "../../Atoms/Url";
 
@@ -34,7 +34,7 @@ function ChatSystem() {
   const [data, setData] = useState({});
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [BlockedUsers, setBlockedUsers] = useState([]);
-  const [onlineStatus, setOnlineStatus] = useState<string>("");
+  // const [onlineStatus, setOnlineStatus] = useState<string>("");
 
   const getData = async () => {
     try {
@@ -49,6 +49,8 @@ function ChatSystem() {
     try {
       const response = await api.get("player/me");
       setData(response.data);
+      console.log(data);
+
       setBlockedUsers(response.data.blocked_users);
     } catch (error) {
       console.log(error);
@@ -106,7 +108,7 @@ function ChatFriends() {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
   const [selectedFriend, setSelectedFriend] = useState<number | null>(null);
-  const result = Friends.find(({ name }: any) => name === "status");
+  // const result = Friends.find(({ name }: any) => name === "status");
 
   const getID = (id: number) => {
     setId(id);
@@ -137,29 +139,29 @@ function ChatFriends() {
     };
   };
 
-  const handleUnblock = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found in localStorage.");
-      return;
-    }
+  // const handleUnblock = () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.error("No token found in localStorage.");
+  //     return;
+  //   }
 
-    const unblockSocket = new WebSocket(
-      `ws://localhost:2500/ws/block-unblock/${token}`
-    );
+  //   const unblockSocket = new WebSocket(
+  //     `ws://localhost:2500/ws/block-unblock/${token}`
+  //   );
 
-    unblockSocket.onopen = function () {
-      const inviteMessage = {
-        action: "block",
-        blocked: Friendid,
-      };
-      unblockSocket.send(JSON.stringify(inviteMessage));
-    };
+  //   unblockSocket.onopen = function () {
+  //     const inviteMessage = {
+  //       action: "block",
+  //       blocked: Friendid,
+  //     };
+  //     unblockSocket.send(JSON.stringify(inviteMessage));
+  //   };
 
-    return () => {
-      unblockSocket.close();
-    };
-  };
+  //   return () => {
+  //     unblockSocket.close();
+  //   };
+  // };
 
   useEffect(() => {
     if (Friends.length > 0) getID(Friends[0].id);
@@ -311,6 +313,7 @@ function ChatTyping({
       `ws://localhost:2500/ws/single-game/${token}`
     );
     setGameSocket(gameSocket);
+    console.log(gameSocket);
 
     gameSocket.onopen = function () {
       const inviteMessage = {
@@ -324,6 +327,8 @@ function ChatTyping({
       gameSocket.close();
     };
   };
+  console.log(gameSocket);
+  console.log(BlockedUsers);
 
   return (
     <>

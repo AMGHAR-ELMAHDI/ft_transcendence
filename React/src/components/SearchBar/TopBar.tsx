@@ -27,9 +27,11 @@ function TopBar() {
       setData(response.data);
       setIsLoading(false);
       setRecoilUsername(response.data?.username);
+      console.log(recoilUsername);
     } catch (error: any) {
       if (error.request) {
         // window.location.href = "/login";
+        console.log(tokenValue);
         setTokenValue("");
         localStorage.removeItem("token");
         navigate("/login");
@@ -76,7 +78,7 @@ function TopBar() {
           {<SearchBar />}
           <div className="NotifProfileContainer">
             {<Notif />}
-            {/* {<DropDownMenuContainer avatar={data?.avatar} />} */}
+            {<DropDownMenuContainer avatar={data?.avatar} />}
           </div>
         </div>
       </div>
