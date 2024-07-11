@@ -27,7 +27,6 @@ urlpatterns = [
    path('', include('Oauth2.urls')),
    path('', include('userman.urls')),
    path('', include('purshase.urls')),
-	path('', include('loginPage.urls')),
    path('game/', include('online.urls')),
 
    # path('auth/', include('djoser.urls')),

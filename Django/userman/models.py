@@ -63,7 +63,11 @@ class Player(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='store/images', validators=[max_size_validator], default='default.png')
+    image = models.ImageField(
+        upload_to='images', 
+        validators=[max_size_validator], 
+        default='images/default.png'
+    )
     user_type = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=USER_NORMAL)
     USERNAME_FIELD = 'username'
