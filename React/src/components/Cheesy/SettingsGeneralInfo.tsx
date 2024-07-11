@@ -26,7 +26,7 @@ function SettingsGeneralInfo({ image }: Props) {
     e.preventDefault();
 
     try {
-      const response = await api.put("player/setting/", obj);
+      const response = await api.put("player/me/", obj);
       setData(response.data);
     } catch (error) {
       console.log(error);

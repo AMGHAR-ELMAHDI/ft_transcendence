@@ -208,6 +208,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             data = {
                 'id' : serializer.data['id'],
                 'username': serializer.data['username'],
+                'email': serializer.data['email'],
                 'avatar' : serializer.data['image'],
                 'first_name': serializer.data['first_name'],
                 'last_name': serializer.data['last_name'],

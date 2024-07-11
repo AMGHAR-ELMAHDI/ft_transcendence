@@ -32,7 +32,7 @@ function SettingsLeft({ setRender }: Props) {
 
   const getData = async () => {
     try {
-      const response = await api.get("player/setting/");
+      const response = await api.get("player/me/");
       setData(response.data);
     } catch (error) {
       console.log(error);
@@ -72,7 +72,7 @@ function SettingsLeft({ setRender }: Props) {
         console.log(fileInputRef.current.files[0]);
       }
 
-      const response = await api.put("player/setting/", formData);
+      const response = await api.put("player/me/", formData);
 
     } catch (error) {
       console.log(error);
