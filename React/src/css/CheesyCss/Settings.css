@@ -448,7 +448,6 @@ input:-webkit-autofill:active {
   /* -------------------verification 2fa */
   .twofaContainerFirst {
     gap: 0.5rem;
-    border: 1px red solid;
     align-items: center;
     justify-content: center;
   }
@@ -472,15 +471,6 @@ input:-webkit-autofill:active {
     width: fit-content;
   }
 
-  .twofaInput > * {
-    text-align: center;
-    background-color: transparent;
-    border: 1px solid var(--blue-glow);
-    border-radius: 5px;
-    width: 2rem;
-    font-weight: 600;
-    height: 2rem;
-  }
   .twofaContainerFirst > * {
     width: 260px;
   }
@@ -489,6 +479,13 @@ input:-webkit-autofill:active {
 @media screen and (max-width: 350px) {
   .twofaContainerFirst > * {
     width: 200px;
+  }
+  .twofaInput {
+    gap: 0.4rem;
+    padding: 12px;
+  }
+  .twofaInput > * {
+    width: 1.3rem;
   }
   .SettingsRight {
     padding: 20px;

@@ -44,6 +44,10 @@
   transition: all 0.3s ease-in-out;
 }
 
+#HistoryNogamesPlayed > * {
+  font-family: "Roboto", sans-serif;
+}
+
 #HistoryNogamesPlayed:hover {
   scale: 1.01;
 }
