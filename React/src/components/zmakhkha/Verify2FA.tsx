@@ -12,7 +12,6 @@ function Verify2FA() {
   const url = useRecoilValue(Url);
   const navigate = useNavigate();
   console.log(window.location);
-  
 
   const handleOnChange = (res: string) => {
     setResult(res);

@@ -26,23 +26,23 @@ import GameLayout from "./components/Cheesy/GameLayout";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/twoFa" element={<Verify2FA />} />
-      <Route path="/403" element={<Error_403 />} />
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
+      <Route path="twoFa" element={<Verify2FA />} />
+      <Route path="403" element={<Error_403 />} />
 
       <Route element={<ProtectedRoutes />}>
-        <Route path="/" element={<DashboardContainer />} />
-        <Route path="/chat" element={<ChatContainer />} />
-        <Route path="/leaderboard" element={<LeaderBoardContainer />} />
-        <Route path="/shop" element={<ShopContainer />} />
-        <Route path="/gametst" element={<Gametst />} />
+        <Route index element={<DashboardContainer />} />
+        <Route path="chat" element={<ChatContainer />} />
+        <Route path="leaderboard" element={<LeaderBoardContainer />} />
+        <Route path="shop" element={<ShopContainer />} />
+        <Route path="gametst" element={<Gametst />} />
         <Route path="game" element={<GameLayout />} />
-        <Route path="/profile" element={<ProfileLayout />}>
+        <Route path="profile" element={<ProfileLayout />}>
           <Route index element={<ProfileContainer />} />
           <Route path=":username" element={<Users />} loader={UsersLoader} />
         </Route>
-        <Route path="/settings" element={<Settings />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
