@@ -1,0 +1,268 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@font-face {
+  font-family: Futurass;
+  src: url("../src/css/Fonts/futura/FUTURA55REGULAR.TTF");
+}
+
+@font-face {
+  font-family: Bank;
+  src: url("../src/css/Fonts/Bank/BankSansEFCYBold.otf");
+}
+
+@font-face {
+  font-family: Zekton;
+  src: url("../src/css/Fonts/zekton/zektonbo.ttf");
+}
+
+:root {
+  --bg-color: #0c0e14;
+  --font-color: white;
+  --grey-bg-color: hsl(227, 15%, 23%);
+  --blue-glow: #5fcae4;
+}
+
+*:link {
+  text-decoration: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  color: var(--font-color);
+  /* border: 0.1px solid gray; */
+}
+
+body {
+  background-color: var(--bg-color);
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.AppClass {
+  display: flex;
+  justify-content: space-between;
+}
+
+.AppClass > * {
+  /* height: 100svh; */
+}
+
+.main {
+  max-width: 2560px;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 3rem;
+  flex: 1;
+  gap: 2rem;
+}
+
+@media only screen and (max-width: 2560px) {
+}
+
+@media only screen and (max-width: 1920px) {
+  .AppClass > * {
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .AppClass > * {
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .main {
+    margin: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+  .main {
+    gap: 1rem;
+    margin: 10px;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 100px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--blue-glow);
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.toaster {
+  background-color: var(--grey-bg-color) !important;
+  min-width: fit-content !important;
+  color: white !important;
+}
+
+.notifContainer {
+  font-size: 1rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.notifContainer > h1 {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.notifButtonContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.notifButton {
+  background-color: transparent;
+  border: 1px solid var(--blue-glow);
+  height: fit-content;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.twofaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.twofaContainerFirst {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.twofaInput {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--blue-glow);
+  width: fit-content;
+}
+
+.twofaInput > * {
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid var(--blue-glow);
+  border-radius: 5px;
+  width: 2rem;
+  font-weight: 600;
+  height: 2rem;
+}
+
+.twofaButton {
+  background-color: #f6f5f5;
+  border: none;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0px 0px 5px black;
+  cursor: pointer;
+}
+
+.twoFaContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+}
+
+.twoFa {
+  padding: 5rem;
+  box-shadow: 0px 3px 5px var(--blue-glow);
+  border-radius: 15px;
+  border: 1px solid var(--blue-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.twoFaLg {
+  font-size: 1.5rem;
+  color: var(--blue-glow);
+}
+
+.twoFaSm {
+  font-size: 1rem;
+  text-shadow: 0 0 5px black;
+}
+
+.GoLogin2FA {
+  cursor: pointer;
+  animation: lights 4.5s 750ms linear infinite;
+}
+
+@media only screen and (max-width: 768px) {
+  .twoFa {
+    width: 300px;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .twoFaLg {
+    font-size: 1.2rem;
+  }
+
+  .twoFaSm {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .twofaInput {
+    gap: 5px;
+    padding: 0.6rem;
+  }
+
+  .twofaInput > * {
+    width: 1.8rem;
+  }
+  .twofaButton {
+    padding: 0.5rem 1rem;
+  }
+}

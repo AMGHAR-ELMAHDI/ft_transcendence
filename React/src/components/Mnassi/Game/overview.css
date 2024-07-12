@@ -1,0 +1,140 @@
+:root {
+	--custBack: #0C0E14;
+	--NeonEffect: #1D90F5;
+	--fadedFColor: #000E15;
+	--fadedSColor: #005379;
+	--BallX: 50%;
+	--BallY: 50%;
+	--interfaceX: 1359px;
+	--interfaceY: 841px;
+	--PaddleX: 25px;
+	--PaddleY: 30px;
+}
+#root {
+	width: 100%;
+	height: 100svh;
+}
+@font-face {
+	font-family: lightpant;
+	src: url(/Panton-Trial-Light.ttf);
+}
+@font-face {
+	font-family: pant;
+	src: url(/Panton-Trial-Bold.ttf);
+}
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: pant;
+}
+body {
+	/* overflow: hidden; */
+	height: 100svh;
+	background: var(--custBack);
+	background-size: cover;
+	background-position: center;
+	padding: 0;
+	margin: 0;
+}
+.game {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80svh;
+	flex-flow: column;
+}
+canvas {
+	background: linear-gradient(120deg, var(--fadedFColor), var(--fadedSColor));
+	border-radius: 25px;
+	border: 2px solid #1d90f598;
+	box-shadow: 0 0 30px var(--NeonEffect);
+	cursor: none;
+}
+.score {
+	position: absolute;
+	display: flex;
+	gap: 350px;
+	font-size: 450px;
+	color: rgba(255, 255, 255, 0.100);
+	left: 50%;
+	bottom: 23%;
+	font-family: lightpant;
+	transform: translateX(-50%);
+	cursor: none;
+}
+.play::before, .play::after {
+	content: '';
+	height: 841px;
+	width: 1px;
+	background-color: rgba(255, 255, 255, 0.100);
+	position: absolute;
+	z-index: 4;
+	cursor: none;
+}
+.play::after {
+	rotate: 90deg;
+	height: 1359px;
+	position: absolute;
+	inset: 0;
+	bottom: 50%;
+	transform: translateY(-50%);
+	left: 50%;
+	transform: translateX(-50%);
+
+}
+.winner {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 300px;
+	font-family: pant;
+	color: rgba(255, 255, 255, 0.100);
+	transition: .3s;
+	opacity: 0;
+}
+.navbar {
+	position: absolute;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	height: 80svh;
+	left: 100px;
+	gap: 60px;
+}
+.navbar #icons {
+	scale: 1.4;
+	transition: .4s;
+	z-index: 15;
+	color: #757889;
+}
+#icons:hover {
+	color: var(--NeonEffect);
+	filter: drop-shadow(0 0 13px var(--NeonEffect));
+}
+#buttons {
+	position: absolute;
+	bottom: 400px;
+	display: flex;
+	justify-content: space-between;
+	width: 370px;
+	opacity: 0;
+}
+#retry, #mods {
+	text-transform: capitalize;
+	font-size: 24px;
+	border: 2px solid rgba(255, 255, 255, 0.448);
+	background-color: transparent;
+	font-size: 24px;
+	border-radius: 40px;
+	color: white;
+	transition: .3s;
+	outline: none;
+}
+#icons:nth-child(3) {
+	color: var(--NeonEffect);
+}
+#retry:hover, #mods:hover {
+	background-color: rgba(255, 255, 255, 0.529);
+}

@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  back-end:
+    build: ./Django
+    ports:
+      - "2500:2500"
+    container_name: backEnd
+    volumes:
+      - ./Django:/code
+    depends_on:
+      - db
+    networks: 
+      - ft_trans
+
+  db:
+    container_name: database
+    image: postgres
+    restart: always
+    volumes:
+      - data:/var/lib/postgresql/data 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    env_file:
+      - Django/.env
+    networks: 
+      - ft_trans
+ 
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks: 
+      - ft_trans
+
+networks:
+  ft_trans:
+    driver: bridge
+volumes:
+  data:

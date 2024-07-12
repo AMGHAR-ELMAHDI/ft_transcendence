@@ -1,0 +1,267 @@
+:root {
+  --bg-color: #0c0e14;
+  --font-color: white;
+  --grey-bg-color: hsl(227, 15%, 23%);
+  --blue-glow: #5fcae4;
+}
+
+.tableau {
+  display: flex;
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 930px;
+}
+
+.tableau::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tableau::-webkit-scrollbar-track {
+  background: #0c0e14;
+  border-radius: 25px;
+}
+
+.tableau::-webkit-scrollbar-thumb {
+  background: #5fcae4;
+  border-radius: 25px;
+  border: 1px solid #0c0e14;
+}
+
+@supports not selector(.tableau::-webkit-scrollbar) {
+  * {
+    scrollbar-color: #5fcae4 #0c0e14;
+  }
+}
+
+.tableau > table {
+  width: 100%;
+  position: relative;
+  border-collapse: collapse;
+  border-spacing: 2px;
+  margin: 0 1rem 0 1rem;
+}
+
+.HistoryToolTipTable {
+  background-color: var(--bg-color);
+  height: 3rem;
+}
+
+.Won,
+.Lost {
+  text-align: center;
+  transition: 0.5s all;
+}
+
+.Won:hover,
+.Lost:hover {
+  scale: 1.02;
+}
+
+.Won {
+  background: rgb(16, 26, 32);
+  background: linear-gradient(
+    90deg,
+    rgba(16, 26, 32, 1) 35%,
+    #18272f 60%,
+    rgba(30, 57, 66, 1) 100%
+  );
+}
+
+.Lost {
+  background: rgb(66, 27, 33);
+  background: linear-gradient(90deg, #401a20 35%, #4f2027 60%, #612830 100%);
+}
+
+.spacing {
+  height: 2rem;
+}
+
+.ScoreTd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8rem;
+}
+
+.rightTd {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.leftTd {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.HistoryToolTipTable > th > h1 {
+  color: hsl(232, 7%, 40%);
+  font-family: Futurass;
+  letter-spacing: 2px;
+  font-size: 1.35rem;
+}
+
+td > h1 {
+  letter-spacing: 2px;
+  color: rgb(204, 204, 204);
+}
+
+.zekton > h1 {
+  font-family: Zekton;
+  font-size: 1.1rem;
+}
+
+#PlayerScoreProfile {
+  font-family: Zekton !important;
+  font-size: 1.1rem !important;
+  color: #1f6561;
+}
+
+#PlayerScoreOpponent {
+  font-family: Zekton !important;
+  font-size: 1.1rem !important;
+  color: #9f4146;
+}
+
+.Toruk > h1 {
+  font-family: Bank;
+}
+
+.UserScore {
+  color: #39dba0 !important;
+}
+
+.OppScore {
+  color: #e25c5c !important;
+}
+
+@media only screen and (max-width: 2880px) {
+  .tableau {
+    height: 50vh !important;
+  }
+  .Won:hover,
+  .Lost:hover {
+    scale: 1.01 !important;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  .tableau {
+    height: 40vh !important;
+  }
+  .HistoryToolTipTable {
+    height: 1rem;
+  }
+
+  .spacing {
+    height: 1rem;
+  }
+
+  .ScoreTd {
+    height: 6rem;
+  }
+  .zekton > h1 {
+    font-size: 0.9rem;
+  }
+
+  #PlayerScoreProfile {
+    font-size: 1rem !important;
+  }
+
+  #PlayerScoreOpponent {
+    font-size: 1rem !important;
+  }
+  .Toruk > h1 {
+    font-size: 1rem !important;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .spacing {
+    height: 0.8rem;
+  }
+  .ScoreTd {
+    height: 4rem;
+  }
+  .zekton > h1 {
+    font-size: 0.7rem;
+  }
+
+  #PlayerScoreProfile {
+    font-size: 0.9rem !important;
+  }
+
+  #PlayerScoreOpponent {
+    font-size: 0.9rem !important;
+  }
+  .Toruk > h1 {
+    font-size: 0.8rem !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .DontRender {
+    display: none;
+  }
+  .leftTd {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding: 0 1rem;
+  }
+  .RenderRadius {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .tableau {
+    width: 90vw;
+  }
+  .tableau::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .DontRenderF {
+    display: none;
+  }
+  .spacing {
+    height: 0.5rem;
+  }
+  .HistoryToolTipTable {
+    height: 0.5rem;
+  }
+  .HistoryToolTipTable > th > h1 {
+    letter-spacing: 0px;
+    font-size: 1rem;
+  }
+  .Dashboard-History-Score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 325px) {
+  .zekton > h1 {
+    font-size: 0.5rem;
+  }
+  #PlayerScoreProfile {
+    font-size: 0.8rem !important;
+  }
+
+  #PlayerScoreOpponent {
+    font-size: 0.8rem !important;
+  }
+  .Toruk > h1 {
+    font-size: 0.5rem !important;
+  }
+
+  .tableau > table {
+    width: 93%;
+    border-spacing: 0;
+    margin: 0;
+  }
+}

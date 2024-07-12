@@ -1,0 +1,83 @@
+:root {
+  --bg-color: #0c0e14;
+  --font-color: white;
+  --grey-bg-color: hsl(227, 15%, 23%);
+  --blue-glow: #5fcae4;
+}
+
+.ContainerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0c0e14;
+}
+
+.NotFoundContainer {
+  padding: 0 2rem;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.NotFoundContainer > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  align-items: center;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.HomerGif {
+  flex: 2;
+}
+
+.NotFound > h1 {
+  font-size: 2.5rem;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes animate {
+  0% {
+    background-position: -500%;
+  }
+  100% {
+    background-position: 500%;
+  }
+}
+
+#GoHome {
+  font-size: 2rem;
+  position: relative;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: 4px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #000, #fff, #000);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  animation: animate 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+.NotFound > * {
+  text-decoration: none;
+}
+
+.Spotify {
+  margin-bottom: 2rem;
+}
