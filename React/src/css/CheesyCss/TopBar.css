@@ -25,9 +25,8 @@
 }
 
 #nickName {
-  /* color: #1e8ef3; */
-  /* text-shadow: 0px 0px 25px rgba(29, 144, 245, 1); */
   animation: lights 4.5s 750ms linear infinite;
+  font-family: "Roboto", sans-serif;
 }
 
 #search-bar {

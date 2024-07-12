@@ -111,6 +111,7 @@
 
 #profile-level-text > * {
   font-size: 1.5rem;
+  font-family: "Roboto", sans-serif !important;
 }
 
 progress[value] {
@@ -157,6 +158,13 @@ progress[value]::-webkit-progress-value {
 
 #circles > * {
   max-width: 13rem;
+  font-family: "Roboto", sans-serif;
+  color: red !important;
+}
+
+#circles > * > * {
+  font-family: "Roboto", sans-serif;
+  color: red !important;
 }
 
 #profile-tabs > button {
