@@ -33,6 +33,7 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+*.db5.sqlite3
 
 packages/react-devtools-core/dist
 packages/react-devtools-extensions/chrome/build
