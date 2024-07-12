@@ -128,54 +128,6 @@ body {
   gap: 2rem;
 }
 
-.twofaContainerFirst {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.twofaInput {
-  display: flex;
-  gap: 0.5rem;
-  padding: 1rem;
-  border-radius: 10px;
-  border: 1px solid var(--blue-glow);
-  width: fit-content;
-}
-
-.twofaInput > * {
-  text-align: center;
-  background-color: transparent;
-  border: 1px solid var(--blue-glow);
-  border-radius: 5px;
-  width: 2rem;
-  font-weight: 600;
-  height: 2rem;
-}
-
-.twofaButton {
-  background-color: #f6f5f5;
-  border: none;
-  color: black;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 500;
-  box-shadow: 0px 0px 5px black;
-  cursor: pointer;
-}
-
-.twoFaContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 2rem;
-  height: 100%;
-}
-
 .twoFa {
   padding: 5rem;
   box-shadow: 0px 3px 5px var(--blue-glow);

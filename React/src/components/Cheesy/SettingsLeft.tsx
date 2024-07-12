@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
-import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface Props {
   setRender: React.Dispatch<React.SetStateAction<string>>;
@@ -63,15 +63,9 @@ function SettingsLeft({ setRender }: Props) {
       }
 
       await api.put("player/setting/", formData);
-      // await api.put("player/setting/", formData);
-      // const newWindow = window.open("/", "_blank");
-      // const currentWindow = window;
-      // if (newWindow === null) return;
-      // newWindow.onload = () => {
-      //   currentWindow.close();
-      // };
     } catch (error) {
       console.log(error);
+      toast.error("Can't change image!");
     }
   };
 
@@ -79,8 +73,7 @@ function SettingsLeft({ setRender }: Props) {
     <div className="SettingsLeft">
       <div className="SettingsData">
         <div className="SettingsImg">
-          <img src={file || GetCorrect(data?.image, url)} alt="SettingImg" />
-          {/* <img src={file} alt="SettingImg" /> */}
+          <img src={file || GetCorrect(data?.image, url)} />
           <div className="SettingsImgEdit">
             <label>
               <input type="file" ref={fileInputRef} onChange={onImageChange} />
@@ -101,9 +94,6 @@ function SettingsLeft({ setRender }: Props) {
             <div className="SettingsUsrName">
               <h1 className="wht">{obj.username}</h1>
             </div>
-            {/* <div className="SettingsFullName">
-              <h1 className="wht">{obj.first_name + " " + obj.last_name}</h1>
-            </div> */}
           </div>
         )}
       </div>
@@ -126,3 +116,11 @@ function SettingsLeft({ setRender }: Props) {
 }
 
 export default SettingsLeft;
+
+// await api.put("player/setting/", formData);
+// const newWindow = window.open("/", "_blank");
+// const currentWindow = window;
+// if (newWindow === null) return;
+// newWindow.onload = () => {
+//   currentWindow.close();
+// };

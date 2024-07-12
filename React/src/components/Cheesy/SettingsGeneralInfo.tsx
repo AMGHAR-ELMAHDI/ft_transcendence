@@ -71,7 +71,7 @@ function SettingsGeneralInfo({ image }: Props) {
         />
 
         <div className="ButtonContainer">
-          <button className="SetButton SetCancel" type="reset">
+          <button className="SetButton" type="reset">
             Cancel
           </button>
           <button className="SetButton SetSubmit" type="submit">

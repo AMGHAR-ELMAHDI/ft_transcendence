@@ -31,7 +31,6 @@ function DropDownMenuContainer({ avatar }: Props) {
     <div
       className="div-relat"
       onMouseEnter={() => setDropdownVisible(true)}
-      // onClick={() => setDropdownVisible(!isDropdownVisible)}
       onMouseLeave={() => setDropdownVisible(false)}
     >
       <img className="NotifProfilePic" src={GetCorrect(avatar, url)} />
