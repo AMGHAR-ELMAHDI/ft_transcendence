@@ -6,6 +6,7 @@ function SearchBar() {
   const [players, setPlayers] = useState<any>([]);
   const [filteredUsers, setFilteredUsers] = useState<any>(players);
   const [search, setSearch] = useState<string>("");
+  const [render, setRender] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -45,6 +46,12 @@ function SearchBar() {
           placeholder="Search"
           value={search}
           onChange={handleInputChange}
+          onBlur={() => {
+            setTimeout(() => {
+              setFilteredUsers([]);
+              setSearch("");
+            }, 200);
+          }}
         />
         {search && (
           <div className="SearchUsers">
