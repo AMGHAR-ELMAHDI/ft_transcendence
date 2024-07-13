@@ -141,8 +141,6 @@ function ShopDesign() {
     try {
       const response = await api.get("player/items/");
       setownedItems(response.data.items);
-      console.log("hh", response);
-      
       console.log(ownedItems);
       console.log(shopItems);
     } catch (error) {
@@ -175,9 +173,11 @@ function Card({ name, price, image, id }: CardProps) {
   const [purchased, setPurchased] = useState(false);
   const owned = useRecoilValue(OwnedItems);
   const url = useRecoilValue(Url);
+
   console.log(owned);
   
   const item = document.querySelector("Item-img-animation");
+
 
   // const item = document.querySelector("Item-img-animation");
   const handleBuy = async () => {
