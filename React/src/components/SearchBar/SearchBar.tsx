@@ -6,7 +6,6 @@ function SearchBar() {
   const [players, setPlayers] = useState<any>([]);
   const [filteredUsers, setFilteredUsers] = useState<any>(players);
   const [search, setSearch] = useState<string>("");
-  const [render, setRender] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
