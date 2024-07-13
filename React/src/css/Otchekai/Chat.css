@@ -53,7 +53,11 @@
   justify-content: space-around;
   align-items: center;
   background-color: #15171f;
+<<<<<<< HEAD
+  max-width: 330px;
+=======
   max-width: 350px;
+>>>>>>> af0975ae7c5cd0870882eb62764bbf03cb138421
   padding: 0.7rem 0;
   border-radius: 20px;
   cursor: pointer;
@@ -242,6 +246,10 @@
   border-radius: 20px;
   border-bottom-right-radius: 0px;
   padding: 15px;
+<<<<<<< HEAD
+  overflow-wrap: break-word;
+=======
+>>>>>>> af0975ae7c5cd0870882eb62764bbf03cb138421
 }
 
 .Sender-message > p {
@@ -345,6 +353,30 @@
   cursor: pointer;
 }
 
+<<<<<<< HEAD
+#emoji-button {
+  width: 25px;
+  height: 25px;
+}
+
+#toz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #1d90f5;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+#toz:hover {
+  box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
+    rgba(30, 142, 243, 1) 0px 0px 0px 1px;
+}
+
+=======
+>>>>>>> af0975ae7c5cd0870882eb62764bbf03cb138421
 #bottona-dyal-les-jox {
   padding: 9px;
   border-radius: 12px;
@@ -395,6 +427,8 @@
 .status-circle-online {
   background-color: green;
 }
+<<<<<<< HEAD
+=======
 
 @media (max-width: 1700px) {
   .Friends-menu {
@@ -532,3 +566,4 @@
     cursor: pointer;
   }
 } 
+>>>>>>> af0975ae7c5cd0870882eb62764bbf03cb138421
