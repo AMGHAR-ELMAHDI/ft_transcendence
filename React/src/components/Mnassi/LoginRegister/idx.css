@@ -11,11 +11,11 @@
 } */
 @font-face {
 	font-family: lightpant;
-	src: url(../public/Panton-Trial-Light.ttf);
+	src: url(/Panton-Trial-Light.ttf);
 }
 @font-face {
 	font-family: pant;
-	src: url(../public/Panton-Trial-Bold.ttf);
+	src: url(/Panton-Trial-Bold.ttf);
 }
 * {
 	padding: 0;
@@ -25,7 +25,7 @@
 }
 .allComp {
 	height: 100svh;
-	background: url(../public/back.svg);
+	background: url(/back.svg);
 	background-size: cover;
 	background-position: center;
 	padding: 0;
@@ -98,17 +98,17 @@
 	top: 13px;
 	pointer-events: none;
 }
-input {
+/* input {
 	border: none;
 	transition: .2s;
-}
+} */
 .member a:hover {
 	color: #61b3fafd;
 }
-input:hover {
+/* input:hover {
 	border: 1px solid #1D90F5;
 	box-shadow: 0 0 7.3px 2px var(--custBlue);
-}
+} */
 .custom-input input {
 	padding: 20px 294px 20px 30px;
 	background-color: var(--custDGray);

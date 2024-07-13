@@ -25,9 +25,8 @@
 }
 
 #nickName {
-  /* color: #1e8ef3; */
-  /* text-shadow: 0px 0px 25px rgba(29, 144, 245, 1); */
   animation: lights 4.5s 750ms linear infinite;
+  font-family: "Roboto", sans-serif;
 }
 
 #search-bar {
@@ -42,13 +41,21 @@
 .NotifProfile {
   display: flex;
   align-items: center;
-  gap: 3rem;
+  /* gap: 1rem; */
+}
+
+.NotifProfileContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
 }
 
 .NotifProfilePic {
   border-radius: 50%;
   width: 4rem;
   cursor: pointer;
+  object-fit: cover;
   height: 4rem;
   box-shadow: 0px 0px 5px 5px var(--grey-bg-color);
 }
@@ -57,13 +64,9 @@
 #search {
   background-color: #0c0e14;
   border: 1px solid var(--blue-glow);
-  width: 35rem;
-  min-width: 10rem;
+  width: clamp(100px, 100%, 600px);
   border-radius: 30px;
   padding: 20px 20px;
-  background-image: url(/search-icon.svg);
-  background-repeat: no-repeat;
-  background-position: 20px 20px;
   transition: all 0.3s;
   height: 4rem;
 }
@@ -127,6 +130,10 @@ ul {
   transition: all 0.5s ease-in-out;
   padding: 0.5rem 1.3rem;
   border-radius: 7px;
+  font-family: "Roboto", sans-serif;
+}
+.dropdown-menu > ul > li > * {
+  font-family: "Roboto", sans-serif;
 }
 
 .dropdown-menu > ul > li:hover {
@@ -186,6 +193,10 @@ ul {
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
+.SearchUsers::-webkit-scrollbar {
+  display: none;
+}
+
 .SearchUsers > * {
   font-family: cool;
   cursor: pointer;
@@ -241,7 +252,14 @@ ul {
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   border: 0.1px solid var(--grey-bg-color);
 }
-
+.hideIt {
+  visibility: hidden;
+  color: green;
+  font-size: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .notif-item {
   display: flex;
   gap: 0.5rem;
@@ -264,9 +282,7 @@ ul {
   }
   #search:placeholder-shown,
   #search {
-    width: 35rem;
     padding: 20px 20px;
-    background-position: 20px 18px;
     height: 3.5rem;
     font-size: 1rem;
   }
@@ -288,34 +304,23 @@ ul {
 }
 
 @media only screen and (max-width: 1920px) {
-  #search:placeholder-shown,
-  #search {
-    width: 20rem;
-  }
   #search::placeholder {
     padding: 0 0 0 2rem;
-  }
-}
-
-@media only screen and (max-width: 1600px) {
-  #search:placeholder-shown,
-  #search {
-    width: 15rem;
-  }
-  #search-bar,
-  .NotifProfile {
-    gap: 2rem;
   }
 }
 
 @media only screen and (max-width: 1440px) {
-  #search:placeholder-shown,
-  #search {
-    width: 70%;
-  }
-
   #search::placeholder {
     padding: 0 0 0 2rem;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  #TopBar {
+    justify-content: flex-end;
+  }
+  #welcome-bar {
+    display: none;
   }
 }
 
@@ -369,7 +374,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 2rem;
+  margin-right: 0rem;
 }
 
 .BurgerMenu > * {
@@ -377,7 +382,9 @@ ul {
 }
 
 @media only screen and (max-width: 1024px) {
-
+  #TopBar {
+    justify-content: space-between;
+  }
   .absolute {
     display: flex;
     height: 100%;
@@ -399,22 +406,34 @@ ul {
   .NotifProfile {
     gap: 1rem;
   }
-
-  #search:placeholder-shown,
-  #search {
-    max-width: 20rem;
-    width: 200%;
-  }
   #TopBar {
     align-items: flex-start;
   }
 }
 
 @media only screen and (max-width: 768px) {
+  .BurgerMenu > * {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+  .div-relat {
+    display: none;
+  }
+  #notif {
+    font-size: 2.5rem;
+    padding: 5px;
+    margin-right: 10px;
+  }
   #search:placeholder-shown,
   #search {
-    width: 150%;
+    background-image: none;
+    height: 2.5rem;
+    font-size: 1rem;
+    /* border-radius: 18px; */
   }
+}
+
+@media only screen and (max-width: 768px) {
 }
 
 @keyframes lights {

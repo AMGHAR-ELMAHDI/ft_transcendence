@@ -1,5 +1,3 @@
-import React from "react";
-
 function Home() {
   let color = "#757889";
   if (window.location.pathname === "/") color = "#1D90F5";

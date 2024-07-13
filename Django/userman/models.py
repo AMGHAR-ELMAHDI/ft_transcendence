@@ -33,12 +33,21 @@ class Player(AbstractBaseUser):
     
     STATUS_ONLINE = 'O'
     STATUS_OFFLINE = 'F'
-    STATUS_IN_GAME = 'G'
+    STATUS_IN_GAME = 'I'
+
+    USER_NORMAL = 'N'
+    USER_DISCORD = 'D'
+    USER_42 = 'F'
 
     STATUS_CHOICES = [
         (STATUS_ONLINE, 'ONLINE'),
         (STATUS_OFFLINE, 'OFFLINE'),
         (STATUS_IN_GAME, 'IN_GAME'),
+    ]
+    USER_CHOICES = [
+        (USER_NORMAL, 'NORMAL'),
+        (USER_DISCORD, 'DISCORD'),
+        (USER_42, 'FOURTYTWO'),
     ]
     coins = models.IntegerField(default=0)
     status = models.CharField(
@@ -54,7 +63,13 @@ class Player(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='store/images', validators=[max_size_validator], default='default.png')
+    image = models.ImageField(
+        upload_to='images', 
+        validators=[max_size_validator], 
+        default='images/default.png'
+    )
+    user_type = models.CharField(
+        max_length=1, choices=STATUS_CHOICES, default=USER_NORMAL)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
@@ -96,6 +111,7 @@ class Player(AbstractBaseUser):
             friend = friendship.player1 if friendship.player2 == self else friendship.player2
             friends_info.append({
                 'id': friend.id,
+                'status': friend.status,
                 'username': friend.username,
                 'first_name': friend.first_name,
                 'last_name': friend.last_name,
@@ -222,7 +238,7 @@ class Item(models.Model):
         max_length=1, choices=ITEM_CHOICES)
     name = models.CharField(max_length=32)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    path = models.CharField(max_length=64)
+    path = models.CharField(max_length=256)
 
 
 class ItemsPerUser(models.Model):
@@ -234,15 +250,15 @@ class ItemsPerUser(models.Model):
         return f"{self.user.username} - {self.item.name}"
     
 class Achievement(models.Model):
-    title = models.CharField(max_length=56, unique = True)
+    title = models.CharField(max_length=256, unique = True)
     desc = models.CharField(max_length=256)
-    path = models.CharField(max_length=56)
+    path = models.CharField(max_length=256)
 
 class AchievementPerUser(models.Model):
     user = models.ForeignKey(Player, on_delete=models.CASCADE)
     achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
     obtaining_date = models.DateTimeField(auto_now_add=True)
-    
+
 class GameHistory(models.Model):
     ITEM_TOURNAMENT = 'T'
     ITEM_OPPONENT = 'O'
@@ -256,6 +272,7 @@ class GameHistory(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     player = models.ForeignKey(Player, related_name='games_as_player', on_delete=models.CASCADE)
     opponent = models.ForeignKey(Player, related_name='opponent_games', on_delete=models.CASCADE)
+    winner = models.ForeignKey(Player, related_name='winner', on_delete=models.CASCADE, default='')
     player_score = models.DecimalField(max_digits=5, decimal_places=2)
     opponent_score = models.DecimalField(max_digits=5, decimal_places=2)
     game_mode = models.CharField(
@@ -263,4 +280,12 @@ class GameHistory(models.Model):
     game_duration_minutes = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
-        return f"Game played on {self.date} between {self.player.username} and {self.opponent.username}"
+        return f"Game played on {self.date} between {self.player.username} and {self.opponent.username} for about {self.game_duration_minutes}"
+    
+class Tournament(models.Model):
+    game_01_id = models.ForeignKey(GameHistory, related_name='GAME01', on_delete=models.CASCADE)
+    game_02_id = models.ForeignKey(GameHistory, related_name='GAME02', on_delete=models.CASCADE)
+    game_final_id = models.ForeignKey(GameHistory, related_name='GAMEFINAL', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Tournament_{self.id}'

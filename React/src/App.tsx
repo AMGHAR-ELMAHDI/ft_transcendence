@@ -6,8 +6,7 @@ import {
 } from "react-router-dom";
 import DashboardContainer from "./components/Cheesy/DashboardContainer";
 import ProfileContainer from "./components/Cheesy/ProfileContainer";
-import ChatContainer from "./components/Otchekai/Chat/ChatContainer";
-import GameContainer from "./components/Cheesy/GameContainer";
+import ChatContainer from "./components/Otchekai/ChatContainer";
 import LeaderBoardContainer from "./components/Cheesy/LeaderBoardContainer";
 import NotFound from "./components/Cheesy/NotFound";
 import Settings from "./components/Cheesy/Settings";
@@ -17,26 +16,33 @@ import Register from "./components/Cheesy/Register";
 import Users, { UsersLoader } from "./components/Cheesy/Users";
 import ProfileLayout from "./components/Cheesy/ProfileLayout";
 import ProtectedRoutes from "./components/Utils/ProtectedRoutes";
-
+import Verify2FA from "./components/zmakhkha/Verify2FA";
+import { Toaster } from "react-hot-toast";
+import Error_403 from "./components/Cheesy/Error403";
 import "./Imports";
+import Gametst from "./components/zmakhkha/Gametst";
+import GameLayout from "./components/Cheesy/GameLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
+      <Route path="twoFa" element={<Verify2FA />} />
+      <Route path="403" element={<Error_403 />} />
 
       <Route element={<ProtectedRoutes />}>
-        <Route path="/" element={<DashboardContainer />} />
-        <Route path="/chat" element={<ChatContainer />} />
-        <Route path="/game" element={<GameContainer />} />
-        <Route path="/leaderboard" element={<LeaderBoardContainer />} />
-        <Route path="/shop" element={<ShopContainer />} />
-        <Route path="/profile" element={<ProfileLayout />}>
+        <Route index element={<DashboardContainer />} />
+        <Route path="chat" element={<ChatContainer />} />
+        <Route path="leaderboard" element={<LeaderBoardContainer />} />
+        <Route path="shop" element={<ShopContainer />} />
+        <Route path="gametst" element={<Gametst />} />
+        <Route path="game" element={<GameLayout />} />
+        <Route path="profile" element={<ProfileLayout />}>
           <Route index element={<ProfileContainer />} />
           <Route path=":username" element={<Users />} loader={UsersLoader} />
         </Route>
-        <Route path="/settings" element={<Settings />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
@@ -45,7 +51,16 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster
+        toastOptions={{
+          className: "toaster",
+        }}
+      />
+    </>
+  );
 }
 
 export default App;

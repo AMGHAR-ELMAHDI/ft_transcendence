@@ -3,6 +3,7 @@ import api from "../../api";
 import AcheivementCard from "./AcheivementCard";
 import LoadingData from "./LoadingData";
 import { UserDataProps } from "./ProfileItems";
+import Typed from "typed.js";
 
 export interface CardProps {
   id: number;
@@ -33,25 +34,34 @@ function ProfileAcheivements({ UserData, UseUserData }: UserDataProps) {
 
   useEffect(() => {
     getData();
+    const emptyDataElement = document.querySelector(".emptyData");
+    if (emptyDataElement) {
+      const typed = new Typed(emptyDataElement, {
+        strings: ["Empty Items Inventory!!", "Visit The Shop To Get Some!!"],
+        typeSpeed: 50,
+        startDelay: 400,
+        loop: true,
+      });
+
+      return () => {
+        typed.destroy();
+      };
+    }
   }, []);
 
   const length: boolean = data?.length ? true : false;
-
+  if (!length)
+    return (
+      <div className="textContainer">
+        <h1 className="emptyData"></h1>
+      </div>
+    );
   return (
     <>
-      {isLoading && LoadingData()}
-      {!isLoading && !length ? (
-        <div className="ProfileItems">
-          <h1 className="emptyData">No Trophies</h1>
-        </div>
+      {isLoading ? (
+        LoadingData()
       ) : (
         <div className="ProfileItems">
-          {data?.map((Trophie: CardProps) => (
-            <AcheivementCard key={Trophie.id} {...Trophie} />
-          ))}
-          {data?.map((Trophie: CardProps) => (
-            <AcheivementCard key={Trophie.id} {...Trophie} />
-          ))}
           {data?.map((Trophie: CardProps) => (
             <AcheivementCard key={Trophie.id} {...Trophie} />
           ))}

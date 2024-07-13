@@ -11,33 +11,25 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lz0a1(7a%65^qegww^--qric!&!i-#_s&$$5)e%sckd169tq3t'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
-
-# Application definition
 
 INSTALLED_APPS = [
     'daphne',
     'chat',
     'rest_framework',
     'djoser',
-	'corsheaders',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,47 +40,42 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_extensions',
     'userman',
-	'purshase',
-	'online',
-	'loginPage',
+    'purshase',
+    'online',
     'django_otp',
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
     'two_factor',
+    'Oauth2',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-	'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'myChat.urls'
 ASGI_APPLICATION = 'myChat.asgi.application'
 
 AUTH_USER_MODEL = 'userman.Player'
 
 DJOSER = {
-	'ACTIVATION_URL' : 'activate/{uid}/{token}',
-	'USER_CREATE_PASSWORD_RETYPE' : True,
-	'SET_PASSWORD_RETYPE' : True,
-	'PASSWORD_RESET_CONFIRM_URL' : 'password/reset/confirm/{uid}/{token}',
-	'USERNAME_RESET_CONFIRM_URL' : 'email/reset/confirm/{uid}/{token}',
-	'LOGOUT_ON_PASSWORD_CHANGE' : True,
-	# 'USERNAME_CHANGED_EMAIL_CONFIRMATION' : True,
-	# 'SEND_CONFIRMATION_EMAIL' : True,
-	# 'PASSWORD_CHANGED_EMAIL_CONFIRMATION' : True,
-	# 'SEND_ACTIVATION_EMAIL' : True,
-	'SERIALIZERS': {
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
+    'LOGOUT_ON_PASSWORD_CHANGE': True,
+    'SERIALIZERS': {
         'user_create': 'userman.serializers.PlayerCreateSerializer',
-        # 'user': 'userman.serializers.PlayerCreateSerializer',
     },
 }
 
@@ -97,9 +84,6 @@ SWAGGER_SETTINGS = {
 }
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
@@ -107,11 +91,11 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
+
 from datetime import timedelta
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-#    'USER_ID_FIELD': 'email',
-   "ACCESS_TOKEN_LIFETIME": timedelta(days=1)
+    'AUTH_HEADER_TYPES': ('JWT',),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1)
 }
 
 CHANNEL_LAYERS = {
@@ -136,46 +120,40 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'myChat.wsgi.application'
-
-
 CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ALLOW_HEADERS = [ "accept", "referer", "accept-encoding", "authorization", "content-type", "dnt", "origin", "user-agent", "x-csrftoken", "x-sessionid", "x-requested-with"]
+CORS_ALLOW_HEADERS = ["accept", "referer", "accept-encoding", "authorization", "content-type", "dnt", "origin", "user-agent", "x-csrftoken", "x-sessionid", "x-requested-with"]
 CORS_EXPOSE_HEADERS = ['Set-Cookie']
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'srifqofwiwraujlj'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'zakaria.makhkhas@gmail.com'
-EMAIL_USE_TLS = False  # Enable TLS encryption
-EMAIL_USE_SSL = False
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'False') == 'True'
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False') == 'True'
 
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+# use this to work without docker 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db5.sqlite3',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db5.sqlite3',
     }
+}
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'ft_transcendence',
-#		'USER' : 'mnassi',
-#		'PASSWORD': 'password',
-#		'HOST' : 'localhost',
-#		'PORT': '5432',
-#    }
-#}
-
+# use this to work with docker 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('POSTGRES_DB'),
+#         'USER': os.getenv('POSTGRES_USER'),
+#         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+#         'HOST': os.getenv('POSTGRES_HOST'),
+#         'PORT': int(os.getenv('POSTGRES_PORT')),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -195,7 +173,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -207,16 +184,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-import os
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -224,12 +197,41 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GRAPH_MODELS = {
-  'all_applications': True,
-  'group_models': True,
+    'all_applications': True,
+    'group_models': True,
 }
 
 GRAPH_MODELS = {
-  'app_labels': ["chat", "purshase", "userman"],
+    'app_labels': ["chat", "purshase", "userman"],
 }
 
-LOGIN_REDIRECT_URL='http://localhost:2500/auth/jwt/create'
+LOGIN_REDIRECT_URL = 'http://localhost:2500/auth/jwt/create'
+
+
+LOGIN_URL = 'two_factor:login'
+
+
+# Discord Oauth
+
+D_CLIENT_ID = os.getenv('D_CLIENT_ID')
+D_CLIENT_SECRET = os.getenv('D_CLIENT_SECRET')
+D_GRANT_TYPE = os.getenv('D_GRANT_TYPE')
+D_REDIRECT_URI = os.getenv('D_REDIRECT_URI')
+D_SCOPE = os.getenv('D_SCOPE')
+D_URI = os.getenv('D_URI')
+
+# 42 Oauth
+
+F_CLIENT_ID = os.getenv('F_CLIENT_ID')
+F_CLIENT_SECRET = os.getenv('F_CLIENT_SECRET')
+F_GRANT_TYPE = os.getenv('F_GRANT_TYPE')
+F_REDIRECT_URI = os.getenv('F_REDIRECT_URI')
+F_SCOPE = os.getenv('F_SCOPE')
+F_URI = os.getenv('F_URI')
+
+
+# Error pages
+
+HTTP_400_BAD_REQUEST = 'http://localhost:5173/400'
+HTTP_401_UNAUTHORIZED = 'http://localhost:5173/401'
+HTTP_403_FORBIDDEN = 'http://localhost:5173/403'

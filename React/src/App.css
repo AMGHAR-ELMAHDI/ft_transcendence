@@ -40,15 +40,12 @@ body {
   background-color: var(--bg-color);
   width: 100%;
   height: 100svh;
+  overflow: hidden;
 }
 
 .AppClass {
   display: flex;
   justify-content: space-between;
-}
-
-.AppClass > * {
-  /* height: 100svh; */
 }
 
 .main {
@@ -60,27 +57,6 @@ body {
   gap: 2rem;
 }
 
-@media only screen and (max-width: 2560px) {
-}
-
-@media only screen and (max-width: 1920px) {
-  .AppClass > * {
-    height: auto;
-  }
-}
-
-@media only screen and (max-width: 1440px) {
-  .AppClass > * {
-    height: auto;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  .main {
-    padding-right: 2rem !important;
-  }
-}
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -90,7 +66,6 @@ body {
   }
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 100px;
   padding: 8px;
@@ -108,5 +83,153 @@ body {
 @keyframes l3 {
   to {
     transform: rotate(1turn);
+  }
+}
+
+.toaster {
+  background-color: var(--grey-bg-color) !important;
+  min-width: fit-content !important;
+  color: white !important;
+}
+
+.notifContainer {
+  font-size: 1rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.notifContainer > h1 {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.notifButtonContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.notifButton {
+  background-color: transparent;
+  border: 1px solid var(--blue-glow);
+  height: fit-content;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.twofaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.twoFa {
+  padding: 5rem;
+  box-shadow: 0px 3px 5px var(--blue-glow);
+  border-radius: 15px;
+  border: 1px solid var(--blue-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.twoFaLg {
+  font-size: 1.5rem;
+  color: var(--blue-glow);
+}
+
+.twoFaSm {
+  font-size: 1rem;
+  text-shadow: 0 0 5px black;
+}
+
+.GoLogin2FA {
+  cursor: pointer;
+  animation: lights 4.5s 750ms linear infinite;
+}
+
+.textContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.textContainer > * {
+  font-family: "Roboto", sans-serif !important;
+  font-size: 2rem;
+}
+
+.emptyData {
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  color: #686d76;
+  text-shadow: 0 0 20px black;
+}
+
+@media only screen and (max-width: 1920px) {
+  .AppClass > * {
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .main {
+    margin: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+  .main {
+    gap: 1rem;
+    margin: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    justify-content: center;
+  }
+  .twoFa {
+    width: 300px;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .twoFaLg {
+    font-size: 1.2rem;
+  }
+
+  .twoFaSm {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .twofaInput {
+    gap: 5px;
+    padding: 0.6rem;
+  }
+
+  .twofaInput > * {
+    width: 1.8rem;
+  }
+  .twofaButton {
+    padding: 0.5rem 1rem;
+  }
+  .emptyData {
+    font-size: 1rem;
+  }
+  .textContainer > * {
+    font-size: 1rem;
   }
 }

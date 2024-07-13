@@ -6,10 +6,15 @@ import ProfileMain from "./ProfileMain";
 import api from "../../api";
 import Profile from "./Profile";
 import UserProfile from "./UserProfile";
+import Username from "../../Atoms/Username";
+import { useRecoilValue } from "recoil";
 
 function Users() {
   const [render, setRender] = useState<string>("History");
+  const username = useRecoilValue(Username);
+
   const UserData: any = useLoaderData();
+  const myProfile: boolean = UserData?.username == username ? true : false;
 
   if (UserData === null) {
     return (
@@ -22,7 +27,12 @@ function Users() {
 
   return (
     <>
-      <UserProfile show={render} setRender={setRender} data={UserData} />
+      <UserProfile
+        show={render}
+        setRender={setRender}
+        data={UserData}
+        myProfile={myProfile}
+      />
       <ProfileMain inRender={render} UserData={UserData} UseUserData={true} />
     </>
   );

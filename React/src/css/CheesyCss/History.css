@@ -9,6 +9,27 @@
   overflow-y: scroll;
 }
 
+#history::-webkit-scrollbar {
+  width: 5px;
+}
+
+#history::-webkit-scrollbar-track {
+  background: #0c0e14;
+  border-radius: 18px;
+}
+
+#history::-webkit-scrollbar-thumb {
+  background: #5fcae4;
+  border-radius: 18px;
+  border: 1px solid #0c0e14;
+}
+
+@supports not selector(#history::-webkit-scrollbar) {
+  * {
+    scrollbar-color: #5fcae4 #0c0e14;
+  }
+}
+
 #HistoryNogamesPlayed {
   width: 800px;
   border-radius: 25px;
@@ -20,6 +41,10 @@
   border: 1px solid #5fcae4;
   box-shadow: -10px 10px 5px #1c212f;
   transition: all 0.3s ease-in-out;
+}
+
+#HistoryNogamesPlayed > * {
+  font-family: "Roboto", sans-serif;
 }
 
 #HistoryNogamesPlayed:hover {
@@ -37,18 +62,8 @@
   text-align: center;
 }
 
-/* .HistoryShadowDashboard {
-  position: fixed;
-  bottom: 50px;
-  width: 800px;
-  left: 2070px;
-  height: 2rem;
-  background: linear-gradient(transparent, rgb(0, 0, 0, 0.8));
-} */
-
 .history-tabs {
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   width: 100%;
   height: 140px;

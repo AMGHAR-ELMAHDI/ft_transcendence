@@ -1,5 +1,3 @@
-import React from "react";
-
 function LoadingData() {
   return (
     // <div className="loader"></div>

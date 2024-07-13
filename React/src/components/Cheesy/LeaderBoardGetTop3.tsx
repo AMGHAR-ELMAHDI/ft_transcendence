@@ -6,7 +6,11 @@ import Url from "../../Atoms/Url";
 export function GetCorrect(image: string, url: string) {
   let correctImage = image;
 
-  if (image?.includes("http://localhost:2500/media/media/store/"))
+  if (image?.includes("/media/https%3A/cdn.intra.42.fr"))
+    correctImage = "https://" + image.substring(16);
+  else if (image == "/media/default.png")
+    correctImage = url + "media/default.png";
+  else if (image?.includes("http://localhost:2500/media/media/store/"))
     correctImage = url + image.slice(28);
   else if (image?.includes("/media/media/store/"))
     correctImage = url + image.slice(7);

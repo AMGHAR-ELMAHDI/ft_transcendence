@@ -5,30 +5,31 @@ import Url from "../../Atoms/Url";
 import { useRecoilValue } from "recoil";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
+import Typed from "typed.js";
 
-// function getFriendStatus() {
-//   return "Online";
-// }
+function getFriendStatus() {
+  return "Online";
+}
 
 function getProfileToolTip() {
   return (
     <thead>
       <tr className="ProfileFriendsToolTip">
-        <th>
+        <th className="removeit">
           <h1>PICTURE</h1>
         </th>
         <th>
           <h1>USERNAME</h1>
         </th>
-        <th>
+        <th className="remove">
           <h1>LEVEL</h1>
         </th>
-        <th>
+        <th className="remove">
           <h1>COINS</h1>
         </th>
-        {/* <th>
+        <th>
           <h1>STATUS</h1>
-        </th> */}
+        </th>
       </tr>
     </thead>
   );
@@ -53,17 +54,33 @@ function ProfileFriends() {
 
   useEffect(() => {
     getData();
+    const emptyDataElement = document.querySelector(".emptyData");
+    if (emptyDataElement) {
+      const typed = new Typed(emptyDataElement, {
+        strings: ["Empty Friends List !!", "Why so lonely? (:"],
+        typeSpeed: 50,
+        startDelay: 400,
+        loop: true,
+      });
+
+      return () => {
+        typed.destroy();
+      };
+    }
   }, []);
 
   const length: boolean = data?.length ? true : false;
+  if (!length)
+    return (
+      <div className="textContainer">
+        <h1 className="emptyData"></h1>
+      </div>
+    );
 
   return (
     <>
-      {isLoading && LoadingData()}
-      {!isLoading && !length ? (
-        <div className="ProfileItems">
-          <h1 className="emptyData">{"You Don't Have Any Friends :("}</h1>
-        </div>
+      {isLoading ? (
+        LoadingData()
       ) : (
         <div id="ProfileFriendsContainer">
           <table>
@@ -71,7 +88,7 @@ function ProfileFriends() {
             {data.map((friend: any) => (
               <tbody key={friend?.id}>
                 <tr className="ProfileFriendsContent">
-                  <td>
+                  <td className="removeit">
                     <div>
                       <img
                         className="ProfileFriendImg"
@@ -90,21 +107,21 @@ function ProfileFriends() {
                       {friend?.username}
                     </h1>
                   </td>
-                  <td>
+                  <td className="remove">
                     <h1 className="ProfileFriendLevel ProfileFriendH1">
                       {friend?.level}
                     </h1>
                   </td>
-                  <td>
+                  <td className="remove">
                     <h1 className="ProfileFriendCoins ProfileFriendH1">
                       {friend?.coins}
                     </h1>
                   </td>
-                  {/* <td>
+                  <td>
                     <h1 className="ProfileFriendStatus ProfileFriendH1">
                       {getFriendStatus()}
                     </h1>
-                  </td> */}
+                  </td>
                 </tr>
               </tbody>
             ))}

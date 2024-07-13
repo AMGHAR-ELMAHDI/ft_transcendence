@@ -9,7 +9,6 @@ function Player() {
   const [search, setSearch] = useState<string>("");
   const [players, setPlayers] = useState<any>([]);
   const [filteredUsers, setFilteredUsers] = useState<any>(players);
-  const url = useRecoilValue(Url);
   const [isLoading, setIsLoading] = useState(true);
 
   const handleInputChange = (e: any) => {

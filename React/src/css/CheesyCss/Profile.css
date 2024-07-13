@@ -44,7 +44,7 @@
   justify-content: center;
   align-items: center;
   padding-top: 1rem;
-  gap: 1rem;
+  gap: 0.5rem;
   height: 100%;
 }
 
@@ -53,7 +53,8 @@
 }
 
 #profile-img {
-  width: 15rem;
+  width: 11rem;
+  height: 11rem;
   /* height: 15rem; */
   object-fit: cover;
   border: 5px solid var(--blue-glow);
@@ -110,6 +111,7 @@
 
 #profile-level-text > * {
   font-size: 1.5rem;
+  font-family: "Roboto", sans-serif !important;
 }
 
 progress[value] {
@@ -156,6 +158,13 @@ progress[value]::-webkit-progress-value {
 
 #circles > * {
   max-width: 13rem;
+  font-family: "Roboto", sans-serif;
+  color: red !important;
+}
+
+#circles > * > * {
+  font-family: "Roboto", sans-serif;
+  color: red !important;
 }
 
 #profile-tabs > button {
@@ -189,9 +198,6 @@ progress[value]::-webkit-progress-value {
 @media only screen and (max-width: 2560px) {
   #Profile {
     height: 400px;
-  }
-  #profile-img {
-    max-width: 10rem;
   }
   #user-name {
     font-size: 1.7rem;
@@ -288,3 +294,75 @@ progress[value]::-webkit-progress-value {
   }
 }
 
+@media only screen and (max-width: 768px) {
+  #Profile {
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .profile-right {
+    display: block;
+  }
+
+  #profile-img {
+    width: 7rem;
+    height: 7rem;
+  }
+  #user-name {
+    font-size: 1.3rem;
+    margin-bottom: 7px;
+  }
+  .profile-level {
+    min-width: 300px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  #profile-tabs > * {
+    font-size: 1rem;
+    border-bottom: 3px solid var(--blue-glow);
+    padding: 0 1rem 0.5rem 1rem;
+    padding: 0 5px;
+    top: 0;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .profile-level {
+    min-width: 220px;
+  }
+  .line1 {
+    width: 270px;
+  }
+
+  #profile-tabs {
+    gap: 0;
+  }
+  #profile-tabs > * {
+    font-size: 0.8rem;
+    border-bottom: 3px solid var(--blue-glow);
+    padding: 0 10px 5px 10px;
+    padding: 0 5px;
+    top: 0;
+  }
+}
+
+@media only screen and (max-width: 370px) {
+  #Profile {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+  }
+  .profile-left {
+    min-width: 300px;
+  }
+}
