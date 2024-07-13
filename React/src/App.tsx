@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import DashboardContainer from "./components/Cheesy/DashboardContainer";
 import ProfileContainer from "./components/Cheesy/ProfileContainer";
-import ChatContainer from "./components/Otchekai/ChatContainer";
+import ChatContainer from "./components/Otchekai/Chat/ChatContainer";
 import LeaderBoardContainer from "./components/Cheesy/LeaderBoardContainer";
 import NotFound from "./components/Cheesy/NotFound";
 import Settings from "./components/Cheesy/Settings";
