@@ -1,18 +1,38 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
-import FriendId from "../../Atoms/FriendId";
-import api from "../../api";
-import BlockedUsers from "../../Atoms/BlockedUsers";
-import SelectedFriend from "../../Atoms/SelectedFriend";
+import FriendId from "../../../Atoms/FriendId";
+import api from "../../../api";
+import SelectedFriend from "../../../Atoms/SelectedFriend";
+import { MdEmojiEmotions } from "react-icons/md";
 import Sender from "./Sender";
+import EmojiPicker from "emoji-picker-react";
+import Friendschat from "../../../Atoms/Chatfriends";
 
-function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
-  const Blockedusers = useRecoilValue(BlockedUsers);
+interface Friend {
+  id: number;
+  username: string;
+  avatar: string;
+}
+
+function ChatTyping({
+  socket,
+  setSocket,
+  Blockedusers,
+  myId,
+  BlockedMe,
+}: {
+  socket: any;
+  setSocket: any;
+  Blockedusers: any;
+  myId: any;
+  BlockedMe: any;
+}) {
+  const UsersData: Friend[] = useRecoilValue(Friendschat);
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
+  const Friend = UsersData.find((f) => f.id === Selectedfriend);
 
-  console.log("hada ra mblocki", Blockedusers);
   useEffect(() => {
     const token = localStorage.getItem("token");
     const newSocket = new WebSocket(
@@ -51,7 +71,7 @@ function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
     };
   }, [id]);
 
-  const sendMessage = (e: any) => {
+  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!socket || socket.readyState !== WebSocket.OPEN) {
       console.error("WebSocket connection not open (ga3ma tcha9lib).");
@@ -86,10 +106,10 @@ function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
           <div className="Friend-header">
             <div className="negotiator">
               <div className="Friend-header-img">
-                <img src="/avatar.svg" id="chatperson" />
+                <img src={Friend?.avatar || "/avatar.svg"} id="chatperson" />
               </div>
               <div className="Friend-header-name">
-                <li>DawDaw</li>
+                <li>{Friend?.username || "Select a friend"}</li>
                 <p>online</p>
               </div>
             </div>
@@ -112,12 +132,19 @@ function ChatTyping({ socket, setSocket }: { socket: any; setSocket: any }) {
               <input
                 id="message-input"
                 type="text"
+                disabled={Blockedusers.some(
+                  (user: any) => user.id === Selectedfriend
+                )}
                 placeholder="Type Something ..."
               />
             </div>
             <button type="submit" className="Chat-send-button">
               <img src="/Send-button.svg" id="bottona" />
             </button>
+            <div id="toz">
+              <MdEmojiEmotions id="emoji-button" />
+            </div>
+            {/* <EmojiPicker /> */}
             <button type="submit" className="Chat-send-button">
               <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
             </button>

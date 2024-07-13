@@ -6,4 +6,4 @@ cd Django && pip install -r requirements.txt
 python manage.py migrate
 python manage.py flush --no-input
 python manage.py seed
-python manage.py runserver $1
+python manage.py runserver 2500

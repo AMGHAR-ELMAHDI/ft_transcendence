@@ -1,15 +1,17 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
-import Friendschat from "../../Atoms/Chatfriends";
-import api from "../../api";
-import BlockedUsers from "../../Atoms/BlockedUsers";
+import Friendschat from "../../../Atoms/Chatfriends";
+import api from "../../../api";
 import ChatFriends from "./ChatFriends";
 import ChatTyping from "./ChatTyping";
 
 function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
   const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [Blockedusers, setBlockedUsers] = useRecoilState(BlockedUsers);
+  const [Blockedusers, setBlockedUsers] = useState<any[]>([]);
+  const [BlockedMe, setBlockedMe] = useState<any[]>([]);
+  const [myId, setmyId] = useState<number | null>(null);
+
   const getData = async () => {
     try {
       const response = await api.get("player/friends/");
@@ -23,7 +25,9 @@ function ChatSystem() {
     try {
       const response = await api.get("player/me");
       setBlockedUsers(response.data.blocked_users);
-      console.log(response.data.blocked_users);
+      setBlockedMe(response.data.blocked_me);
+      setmyId(response.data.id);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -54,10 +58,22 @@ function ChatSystem() {
       <>
         <div className="Chat-wrapper">
           <div className="Friends-menu">
-            <ChatFriends />
+            <ChatFriends
+              Blockedusers={Blockedusers}
+              setBlockedUsers={setBlockedUsers}
+              BlockedMe={BlockedMe}
+              setBlockedMe={setBlockedMe}
+              myId={myId}
+            />
           </div>
           <div className="Chat-box-menu">
-            <ChatTyping socket={socket} setSocket={setSocket} />
+            <ChatTyping
+              socket={socket}
+              setSocket={setSocket}
+              Blockedusers={Blockedusers}
+              BlockedMe={BlockedMe}
+              myId={myId}
+            />
           </div>
         </div>
       </>

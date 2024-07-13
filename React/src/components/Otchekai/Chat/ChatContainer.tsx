@@ -1,6 +1,6 @@
-import FriendBar from "../Cheesy/FriendBar";
-import SideBar from "../Cheesy/SideBar";
-import TopBar from "../SearchBar/TopBar";
+import FriendBar from "../../Cheesy/FriendBar";
+import SideBar from "../../Cheesy/SideBar";
+import TopBar from "../../SearchBar/TopBar";
 import ChatSystem from "./ChatSystem";
 
 function ChatContainer() {
