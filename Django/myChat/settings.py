@@ -42,13 +42,11 @@ INSTALLED_APPS = [
     'userman',
     'purshase',
     'online',
-    'loginPage',
     'django_otp',
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
     'two_factor',
-    'discordOauth',
-    'Oauth42',
+    'Oauth2',
 ]
 
 MIDDLEWARE = [

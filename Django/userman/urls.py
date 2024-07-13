@@ -5,7 +5,7 @@ from .login_views import SignInAPIView, SignUpAPIView, TwoFactorSetupView, TwoFa
 
 router = DefaultRouter()
 router.register('player', PlayerViewSet, basename = 'player')
-# router.register('auth', AuthViewSet, basename = 'auth')
+from .views import TokenVerifyView
 urlpatterns = [
     path('', include(router.urls)), 
 
@@ -26,4 +26,5 @@ urlpatterns = [
     path('sign-up/', SignUpAPIView.as_view(), name='sign_up'),
     path('setup-2fa/', TwoFactorSetupView.as_view(), name='setup_2fa'),
     path('verify-2fa/', TwoFactorVerifyView.as_view(), name='verify_2fa'),
+    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
