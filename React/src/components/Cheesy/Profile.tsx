@@ -48,7 +48,6 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     achievements_rate: data.achievements_rate,
     achievements: data.achievements,
   };
-  console.log("avatar: " + obj.avatar);
 
   return (
     <>

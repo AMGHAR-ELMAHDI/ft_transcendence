@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
-import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface Props {
   setRender: React.Dispatch<React.SetStateAction<string>>;
@@ -19,30 +19,20 @@ function SettingsLeft({ setRender }: Props) {
   const url = useRecoilValue(Url);
   const [file, setFile] = useState<any>();
   const [avatar, setAvatar] = useState<any>();
-  const [me, setMe] = useState<any>();
 
   let obj = {
     id: "1",
     email: data?.email,
     first_name: data?.first_name,
     last_name: data?.last_name,
-    username: "testuser",
+    username: data?.username,
     image: null,
   };
 
   const getData = async () => {
     try {
-      const response = await api.get("player/me/");
+      const response = await api.get("player/setting/");
       setData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getMe = async () => {
-    try {
-      const response = await api.get("player/me/");
-      setMe(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -72,20 +62,18 @@ function SettingsLeft({ setRender }: Props) {
         console.log(fileInputRef.current.files[0]);
       }
 
-      const response = await api.put("player/me/", formData);
-
+      await api.put("player/setting/", formData);
     } catch (error) {
       console.log(error);
+      toast.error("Can't change image!");
     }
   };
 
-  const navigate = useNavigate();
   return (
     <div className="SettingsLeft">
       <div className="SettingsData">
         <div className="SettingsImg">
-          <img src={file || GetCorrect(data?.image, url)} alt="SettingImg" />
-          {/* <img src={file} alt="SettingImg" /> */}
+          <img src={file || GetCorrect(data?.image, url)} />
           <div className="SettingsImgEdit">
             <label>
               <input type="file" ref={fileInputRef} onChange={onImageChange} />
@@ -106,9 +94,6 @@ function SettingsLeft({ setRender }: Props) {
             <div className="SettingsUsrName">
               <h1 className="wht">{obj.username}</h1>
             </div>
-            {/* <div className="SettingsFullName">
-              <h1 className="wht">{obj.first_name + " " + obj.last_name}</h1>
-            </div> */}
           </div>
         )}
       </div>
@@ -131,3 +116,11 @@ function SettingsLeft({ setRender }: Props) {
 }
 
 export default SettingsLeft;
+
+// await api.put("player/setting/", formData);
+// const newWindow = window.open("/", "_blank");
+// const currentWindow = window;
+// if (newWindow === null) return;
+// newWindow.onload = () => {
+//   currentWindow.close();
+// };

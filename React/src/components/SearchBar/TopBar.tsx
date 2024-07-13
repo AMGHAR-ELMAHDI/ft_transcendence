@@ -13,6 +13,7 @@ import Notif from "../Cheesy/Notif";
 import { useRecoilState } from "recoil";
 import Username from "../../Atoms/Username";
 import AcessToken from "../../Atoms/AccessToken";
+import { AxiosError } from "axios";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
@@ -21,20 +22,22 @@ function TopBar() {
   const [recoilUsername, setRecoilUsername] = useRecoilState(Username);
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
 
+  const navigate = useNavigate();
+
   const getData = async () => {
     try {
       const response = await api.get("player/me");
       setData(response.data);
       setIsLoading(false);
       setRecoilUsername(response.data?.username);
-      console.log(response.data?.username);
-    } catch (error: any) {
-      if (error.request) {
-        // window.location.href = "/login";
-        localStorage.removeItem("token");
-        setTokenValue("");
-        navigate("/login");~
-      } else console.log("Error message:", error.message);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.request) {
+          setTokenValue("");
+          localStorage.removeItem("token");
+          navigate("/login");
+        }
+      }
       setIsLoading(false);
     }
   };
@@ -42,9 +45,6 @@ function TopBar() {
   useEffect(() => {
     getData();
   }, []);
-
-  const navigate = useNavigate();
-  console.log(data?.avatar);
 
   return (
     <>
@@ -84,5 +84,4 @@ function TopBar() {
     </>
   );
 }
-
 export default TopBar;

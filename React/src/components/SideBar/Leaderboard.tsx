@@ -1,5 +1,3 @@
-import React from "react";
-
 function Leaderboard() {
   let color = "#757889";
   if (window.location.pathname === "/leaderboard") color = "#1D90F5";

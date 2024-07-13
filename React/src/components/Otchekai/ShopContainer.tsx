@@ -10,8 +10,8 @@ import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
-import GetCorrectImage from "../Cheesy/GetCorrectImage";
-import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
+// import GetCorrectImage from "../Cheesy/GetCorrectImage";
+// import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 interface CardProps {
   name: string;
@@ -125,7 +125,7 @@ function ShopDesign() {
     try {
       const response = await api.get("items");
       console.log(response.data);
-      
+
       setShopItems(response.data);
     } catch (error) {
       console.log(error);
@@ -141,6 +141,8 @@ function ShopDesign() {
     try {
       const response = await api.get("player/items/");
       setownedItems(response.data.items);
+      console.log(ownedItems);
+      console.log(shopItems);
     } catch (error) {
       console.log(error);
     }
@@ -172,10 +174,10 @@ function Card({ name, price, image, id }: CardProps) {
   const owned = useRecoilValue(OwnedItems);
   const url = useRecoilValue(Url);
 
-  const item = document.querySelector("Item-img-animation");
+  // const item = document.querySelector("Item-img-animation");
   const handleBuy = async () => {
     try {
-      const response = await axios.post(url + "shop/", obj);
+      await axios.post(url + "shop/", obj);
       setPurchased(true);
     } catch (error) {
       console.log(error);

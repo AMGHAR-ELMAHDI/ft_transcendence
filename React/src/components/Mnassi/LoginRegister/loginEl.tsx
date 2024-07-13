@@ -9,16 +9,14 @@ import axios from "axios";
 import { setAuthToken } from "../../Utils/setAuthToken";
 import toast from "react-hot-toast";
 import { FaDiscord } from "react-icons/fa";
-import api from "../../../api";
 
 function loginEl() {
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
   const [Logged, setLogged] = useRecoilState(IsLogged);
   const url = useRecoilValue(Url);
-  const [data, setData] = useState<any>({});
 
   const obj = {
     username: username,
@@ -41,6 +39,8 @@ function loginEl() {
           setTokenValue(str.access);
           setLogged(true);
           setAuthToken();
+          console.log(tokenValue);
+          console.log(Logged);
           console.log(str.access);
           navigate("/");
         }
@@ -151,7 +151,7 @@ function loginEl() {
             />
           </svg>
         </div>
-        {error.length > 0 ? <div className="statusError">{error}</div> : ""}
+        {/* {error.length > 0 ? <div className="statusError">{error}</div> : ""} */}
         <div className="buttons">
           <button className="fourtytwo" onClick={handle42Auth}>
             <img src="/42.svg"></img>

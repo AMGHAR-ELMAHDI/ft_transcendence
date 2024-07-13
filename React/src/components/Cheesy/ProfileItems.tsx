@@ -3,6 +3,7 @@ import { useState } from "react";
 import api from "../../api";
 import LoadingData from "./LoadingData";
 import ShopCard, { ShopProps } from "./ShopCard";
+import Typed from "typed.js";
 
 export interface UserDataProps {
   UserData?: {
@@ -41,27 +42,44 @@ function ProfileItems({ UserData, UseUserData }: UserDataProps) {
 
   useEffect(() => {
     getData();
+    const emptyDataElement = document.querySelector(".emptyData");
+    if (emptyDataElement) {
+      const typed = new Typed(emptyDataElement, {
+        strings: [
+          "Empty Achievement Inventory!!",
+          "Visit The Shop To Get Some!!",
+        ],
+        typeSpeed: 50,
+        startDelay: 400,
+        loop: true,
+      });
+
+      return () => {
+        typed.destroy();
+      };
+    }
   }, []);
 
   const length: boolean = data?.length ? true : false;
+  if (!length)
+    return (
+      <div className="textContainer">
+        <h1 className="emptyData"></h1>
+      </div>
+    );
 
   return (
     <>
-      {isLoading && LoadingData()}
-      {!isLoading && !length ? (
-        <div className="ProfileItems">
-          <h1 className="emptyData">No Items</h1>
-        </div>
-      ) : (
-        !isLoading &&
-        length && (
-          <div className="ProfileItems">
-            {data?.map((item: ShopProps) => (
-              <ShopCard key={item.id} {...item} />
-            ))}
-          </div>
-        )
-      )}
+      {isLoading
+        ? LoadingData()
+        : !isLoading &&
+          length && (
+            <div className="ProfileItems">
+              {data?.map((item: ShopProps) => (
+                <ShopCard key={item.id} {...item} />
+              ))}
+            </div>
+          )}
     </>
   );
 }

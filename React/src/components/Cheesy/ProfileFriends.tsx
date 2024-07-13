@@ -5,6 +5,7 @@ import Url from "../../Atoms/Url";
 import { useRecoilValue } from "recoil";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
+import Typed from "typed.js";
 
 function getFriendStatus() {
   return "Online";
@@ -53,17 +54,33 @@ function ProfileFriends() {
 
   useEffect(() => {
     getData();
+    const emptyDataElement = document.querySelector(".emptyData");
+    if (emptyDataElement) {
+      const typed = new Typed(emptyDataElement, {
+        strings: ["Empty Friends List !!", "Why so lonely? (:"],
+        typeSpeed: 50,
+        startDelay: 400,
+        loop: true,
+      });
+
+      return () => {
+        typed.destroy();
+      };
+    }
   }, []);
 
   const length: boolean = data?.length ? true : false;
+  if (!length)
+    return (
+      <div className="textContainer">
+        <h1 className="emptyData"></h1>
+      </div>
+    );
 
   return (
     <>
-      {isLoading && LoadingData()}
-      {!isLoading && !length ? (
-        <div className="ProfileItems">
-          <h1 className="emptyData">{"You Don't Have Any Friends :("}</h1>
-        </div>
+      {isLoading ? (
+        LoadingData()
       ) : (
         <div id="ProfileFriendsContainer">
           <table>

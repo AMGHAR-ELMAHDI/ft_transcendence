@@ -26,7 +26,6 @@ function ProtectedRoutes() {
       console.log("Error message:", error.message);
     }
   };
-
   const access = getCookie("access");
   let Logged = localStorage.getItem("token") ? true : false;
   if (access) {
@@ -35,7 +34,6 @@ function ProtectedRoutes() {
     setAuthToken();
     getData();
     deleteCookie("access");
-    console.log("access: |" + access + "|");
   }
   return Logged ? <Outlet /> : <Navigate to="/login" />;
 }

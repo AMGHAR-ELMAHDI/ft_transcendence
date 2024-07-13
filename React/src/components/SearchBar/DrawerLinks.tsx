@@ -6,7 +6,7 @@ import { FaRankingStar } from "react-icons/fa6";
 import { CiShop } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 import LogOutSideBar from "../SideBar/LogOutSideBar";
-import LogoutPopUp from "../SideBar/Logout";
+// import LogoutPopUp from "../SideBar/Logout";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import AcessToken from "../../Atoms/AccessToken";
@@ -19,13 +19,15 @@ function DrawerLinks() {
   const handleConfirmLogout = () => {
     setShowLogoutPopup(false);
     setTokenValue("");
+    console.log(tokenValue);
+    console.log(showLogoutPopup);
     localStorage.removeItem("token");
     navigate("/login");
   };
 
-  const handleCancelLogout = () => {
-    setShowLogoutPopup(false);
-  };
+  // const handleCancelLogout = () => {
+  //   setShowLogoutPopup(false);
+  // };
 
   return (
     <div className="DrawerLinks">

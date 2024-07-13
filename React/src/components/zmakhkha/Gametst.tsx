@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useRef } from "react";
 
 function Gametst() {
@@ -14,7 +13,9 @@ function Gametst() {
       `ws://localhost:2500/ws/start-single-game/${token}/${invite_id}`
     );
 
-    startGameSocket.current.onmessage = (event: MessageEvent) => {};
+    startGameSocket.current.onmessage = (event: MessageEvent) => {
+      console.log(event);
+    };
   });
 
   return <div>Gametst</div>;
