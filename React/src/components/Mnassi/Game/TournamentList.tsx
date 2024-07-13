@@ -75,7 +75,7 @@ function Filler() {
                     <button className="btn-cr">create</button>
                 </div>
                 <div className="btn-createTn">
-                    <button>create a tournament</button>
+                    <button>create or join one</button>
                 </div>
                 <div className="cards">
                     {array.map((element:any, index:any) => {

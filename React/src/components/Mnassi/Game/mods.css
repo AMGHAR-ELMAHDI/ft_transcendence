@@ -50,6 +50,14 @@
 	right: 0%;
 	gap: 60px;
 }
+::-webkit-scrollbar {
+	background-color: #00537943;
+	border-radius: 25px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: var(--NeonEffect);
+	border-radius: 25px;
+}
 ._mods img {
 	border: 2px solid var(--NeonEffect);
 	border-radius: 15px;
@@ -63,7 +71,7 @@
 @media screen and (max-width:2373px) {
 	.mod_Cont {
 		transform: translateX(100%) !important;
-		background-color: var(--fadedFColor);
+		background-color: #000e159c;
 	}
 	._mods {
 		top: 25%;

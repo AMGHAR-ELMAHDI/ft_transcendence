@@ -28,22 +28,6 @@ function UserView() {
 
 	const [PLAYER_1, GetFirst] = useState('BOT1');
 	const [PLAYER_2, GetSecond] = useState('BOT2');
-	const notificationRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-	  const handleClickOutside = (event: MouseEvent) => {
-		if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
-		  const mods = document?.querySelector('.mod_Cont')
-		  mods?.classList.remove('showMods_')
-		}
-	  };
-  
-	  document.addEventListener("mousedown", handleClickOutside);
-  
-	  return () => {
-		document.removeEventListener("mousedown", handleClickOutside);
-	  };
-	}, [notificationRef]);
 
 	useEffect(()=> {
 		let StopGame = false
@@ -231,7 +215,7 @@ function UserView() {
 	})
 	return (
 		<div className="game">
-			<div ref={notificationRef} className="btn-mods">
+			<div className="btn-mods">
 				<img src='/settings.svg' className='btn-moded'></img>
 			</div>
 			<div className="play"></div>
