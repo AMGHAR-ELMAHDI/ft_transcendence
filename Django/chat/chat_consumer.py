@@ -114,6 +114,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     {
                         'type': 'chat_message',
                         'user' : self.scope['user'].username,
+                        'sender' : self.scope['user'].id,
                         'timestamp' : {
                             'year' : x.year,
                             'month' : x.month,
@@ -132,11 +133,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         content = event['content']
         sender = event['user']
+        sender_id = event['sender']
         timestamp = event['timestamp']
 
         # Send the message to the WebSocket
         await self.send(text_data=json.dumps({
             'user' : sender,
+            'sender' : sender_id,
             'timestamp' : timestamp,
             'message': content
         }))

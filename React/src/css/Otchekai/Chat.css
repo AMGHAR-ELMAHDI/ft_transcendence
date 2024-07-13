@@ -14,15 +14,18 @@
 
 .Friends-menu {
   width: 25%;
+  width: 25%;
   height: 100%;
 }
 
 .Chat-box-menu {
   width: 100%;
+  width: 100%;
   height: 100%;
 }
 
 #Chatlogo {
+  margin-bottom: 8rem;
   margin-bottom: 8rem;
   font-size: 3.5rem;
   font-family: cool;
@@ -47,17 +50,21 @@
     rgba(30, 142, 243, 1) 0px 0px 0px 1px;
 }
 
+.Chat-Friendslist.Other-Chat-Friendslist {
+  background-color: #1d90f5;
+  box-shadow: rgba(30, 142, 243, 1) 0px 1px 25px 0px,
+    rgba(30, 142, 243, 1) 0px 0px 0px 1px;
+}
+
 .Chat-Friendslist {
+  position: relative;
   position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: #15171f;
-<<<<<<< HEAD
   max-width: 330px;
-=======
-  max-width: 350px;
->>>>>>> af0975ae7c5cd0870882eb62764bbf03cb138421
+
   padding: 0.7rem 0;
   border-radius: 20px;
   cursor: pointer;
@@ -69,9 +76,27 @@
 .Chat-Friendslist:hover:not(.Other-Chat-Friendslist) {
   background-color: rgba(128, 128, 128, 0.213);
   scale: 1.015;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  transition: 0.4s;
+}
+
+.Chat-Friendslist:hover:not(.Other-Chat-Friendslist) {
+  background-color: rgba(128, 128, 128, 0.213);
+  scale: 1.015;
 }
 
 .Friend-img {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.Friend-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
   position: relative;
   width: 60px;
   height: 60px;
@@ -138,6 +163,7 @@
 }
 
 .negotiator {
+.negotiator {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,6 +188,7 @@
 }
 
 .Chat-box {
+  height: 820px;
   height: 820px;
   width: 100%;
   background: #323644;
@@ -219,8 +246,11 @@
 
 .bachar {
   width: 3.5rem;
+  width: 3.5rem;
   border-radius: 50%;
   padding: 5px;
+  border: 2px solid white;
+  margin-left: 6px;
   border: 2px solid white;
   margin-left: 6px;
 }
@@ -242,14 +272,14 @@
   margin-right: 4rem;
   min-width: 130px;
   max-width: 500px;
+  min-width: 130px;
+  max-width: 500px;
   background-color: #1d90f5;
   border-radius: 20px;
   border-bottom-right-radius: 0px;
   padding: 15px;
-<<<<<<< HEAD
+
   overflow-wrap: break-word;
-=======
->>>>>>> af0975ae7c5cd0870882eb62764bbf03cb138421
 }
 
 .Sender-message > p {
@@ -272,11 +302,40 @@
 .Sender-message-name {
   width: 100%;
   height: fit-content;
+  width: 100%;
+  height: fit-content;
   display: flex;
+  justify-content: flex-end;
   justify-content: flex-end;
 }
 
 .Sender-message-name > p {
+  color: rgba(255, 255, 255, 0.559);
+  font-size: 14px;
+}
+
+.Sender-other {
+  justify-content: flex-start;
+}
+
+.Sender-other .Sender-message {
+  margin-right: 0;
+  margin-left: 4rem;
+  background-color: gray;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 0px;
+}
+
+.Sender-other .Sender-message > p {
+  color: #000;
+}
+
+.Sender-other .Sender-message-name {
+  justify-content: flex-end;
+}
+
+.Sender-other .Sender-message-name > p {
+  color: rgba(0, 0, 0, 0.5);
   color: rgba(255, 255, 255, 0.559);
   font-size: 14px;
 }
@@ -322,6 +381,7 @@
   border-radius: 17px;
   padding: 15px;
   width: 25vw;
+  width: 25vw;
   border: 1px solid #1e8ef3;
   outline: 1px solid #1e8ef3;
   font-size: medium;
@@ -353,7 +413,7 @@
   cursor: pointer;
 }
 
-<<<<<<< HEAD
+
 #emoji-button {
   width: 25px;
   height: 25px;
@@ -375,8 +435,6 @@
     rgba(30, 142, 243, 1) 0px 0px 0px 1px;
 }
 
-=======
->>>>>>> af0975ae7c5cd0870882eb62764bbf03cb138421
 #bottona-dyal-les-jox {
   padding: 9px;
   border-radius: 12px;
@@ -427,8 +485,6 @@
 .status-circle-online {
   background-color: green;
 }
-<<<<<<< HEAD
-=======
 
 @media (max-width: 1700px) {
   .Friends-menu {
@@ -566,4 +622,3 @@
     cursor: pointer;
   }
 } 
->>>>>>> af0975ae7c5cd0870882eb62764bbf03cb138421
