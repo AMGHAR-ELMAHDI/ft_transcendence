@@ -49,7 +49,8 @@ class BlockUnblockConsumer(AsyncWebsocketConsumer):
             await self.close()
         else:
             await self.accept()
-            print(f"[WebSocket] User {self.user.id} ({self.user.username}) connected.")
+            print(f"[BlockUnblock] User {self.user.id} ({self.user.username}) connected.")
+            await self.channel_layer.group_add("block", self.channel_name)
 
     async def disconnect(self, close_code):
         if self.user:
@@ -112,3 +113,4 @@ class BlockUnblockConsumer(AsyncWebsocketConsumer):
             await self.send(text_data=json.dumps({'message': 'User unblocked successfully!'}))
         else:
             await self.send(text_data=json.dumps({'error': 'Block relationship does not exist'}))
+    

@@ -4,6 +4,8 @@ import Friendschat from "../../../Atoms/Chatfriends";
 import FriendId from "../../../Atoms/FriendId";
 import { ImBlocked } from "react-icons/im";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
+import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
+import Url from "../../../Atoms/Url";
 
 interface Friend {
   id: number;
@@ -22,6 +24,7 @@ function ChatFriends({
   const [Friendid, setId] = useRecoilState(FriendId);
   const [selectedfriend, setSelectedFriend] = useRecoilState(SelectedFriend);
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const url = useRecoilValue(Url);
 
   const getID = (id: number) => {
     setId(id);
@@ -118,7 +121,7 @@ function ChatFriends({
             onClick={() => getID(item.id)}
           >
             <div className="Friend-img">
-              <img src="/avatar.svg" className="bachar" />
+              <img src={GetCorrect(item?.avatar, url)} className="bachar" />
               <div
                 className={`status-circle ${
                   Status === "O" ? "status-circle-online" : ""

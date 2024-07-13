@@ -7,6 +7,8 @@ import { MdEmojiEmotions } from "react-icons/md";
 import Sender from "./Sender";
 import EmojiPicker from "emoji-picker-react";
 import Friendschat from "../../../Atoms/Chatfriends";
+import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
+import Url from "../../../Atoms/Url";
 
 interface Friend {
   id: number;
@@ -32,6 +34,7 @@ function ChatTyping({
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
   const Friend = UsersData.find((f) => f.id === Selectedfriend);
+  const url = useRecoilValue(Url);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -106,7 +109,7 @@ function ChatTyping({
           <div className="Friend-header">
             <div className="negotiator">
               <div className="Friend-header-img">
-                <img src={Friend?.avatar || "/avatar.svg"} id="chatperson" />
+                <img src={GetCorrect(Friend?.avatar, url)}id="chatperson" />
               </div>
               <div className="Friend-header-name">
                 <li>{Friend?.username || "Select a friend"}</li>
