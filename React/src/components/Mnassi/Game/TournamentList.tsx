@@ -46,8 +46,8 @@ function Filler() {
             document.querySelector('.create-option')?.classList.add('show')
         })
 
-        // window?.addEventListener('click', ()=> {
-        //     console.log('dkhaldd')
+        // document.querySelector('.cards')?.addEventListener('click', ()=> {
+
         //     document.querySelector('.create-option')?.classList.remove('show')
         // })
 

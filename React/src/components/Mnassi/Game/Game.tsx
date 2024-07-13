@@ -13,7 +13,7 @@ import _Queue from "./inQueue";
 import TestingTn from "./TournamentList";
 // import './Game.css'
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Options() {
   const [type, setMod] = useState<string>("");
@@ -21,6 +21,13 @@ function Options() {
   useEffect(() => {
     const btn = document?.getElementById("mods");
     const mods = document?.querySelectorAll(".Imods");
+
+    const btn_mods = document.querySelector('.btn-moded')
+		btn_mods?.addEventListener('click', ()=> {
+      const mods = document?.querySelector('.mod_Cont')
+			mods?.classList.add('showMods_')
+		})
+
     btn?.addEventListener("click", () => {
       setMod("");
     });

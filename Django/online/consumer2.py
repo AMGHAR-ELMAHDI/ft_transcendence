@@ -61,6 +61,7 @@ class GameConsumer_2(AsyncWebsocketConsumer):
         if user:
             self.username = user.username
             self.status = user.status
+            print(self.username, ' -> ', self.status)
             await self.accept()
         else:
             return JsonResponse({'error': 'The user is not Authenticated or the room is already started'}, status=403)
@@ -72,7 +73,7 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 for key in value['players']:
                     if key == self.username and self.status == 'I':
                         UserExist = True
-                        self.room = skey
+                        self.room_group_name = skey
 
         if not UserExist:
             self.room_group_name = f'{self.roomId}_{GameConsumer_2.roomnb}'
@@ -86,6 +87,7 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 'paddle2': views.Paddle(0, 20, 5, 5, 20, 160),
                 'paddle1': views.Paddle(0, 50, 5, 5, 20, 160),
                 'winner': None,
+                'RunOnce': False,
                 'id': 0,
             }
 
@@ -116,60 +118,16 @@ class GameConsumer_2(AsyncWebsocketConsumer):
         if Index['index'] + 1 >= 3:
             GameConsumer_2.roomnb += 1
 
-        if (Index['index'] == 2):
+        if Index['index'] == 2 and not Index['RunOnce']:
+            Index['RunOnce'] = True
+            user.status = 'I'
+            await sync_to_async(user.save)(update_fields=['status'])
             self.InviteObj.status = 'S'
             await sync_to_async(self.InviteObj.save)(update_fields=['status'])
             self.task = asyncio.ensure_future(self.sendBallPos())
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
-
-    async def createGameObject(self, winner):
-        # try:
-            self.end_date = timezone.now()
-            room = self.rooms[self.room_group_name]['players']
-
-            opp_name = await self.GetOpp()
-
-            user = await sync_to_async(get_object_or_404)(models.Player, username=self.username)
-            opp = await sync_to_async(get_object_or_404)(models.Player,username=opp_name)
-
-            player_index = room[self.username]
-            if player_index == 1:
-                score = self.rooms[self.room_group_name]['paddle1'].score
-            if player_index == 2:
-                score = self.rooms[self.room_group_name]['paddle2'].score
-
-            opp_index = room[opp_name]
-            if opp_index == 1:
-                opp_score = self.rooms[self.room_group_name]['paddle1'].score
-            if opp_index == 2:
-                opp_score = self.rooms[self.room_group_name]['paddle2'].score
-
-            duration = self.end_date - self.date
-
-            winner = await sync_to_async(get_object_or_404)(models.Player,username=winner)
-
-            game = models.GameHistory(
-                date=self.date,
-                player=user,
-                opponent=opp,
-                winner=winner,
-                player_score=score,
-                opponent_score=opp_score,
-                game_mode='O',
-                game_duration_minutes=duration.total_seconds()
-            )
-
-            winner.points += winner.level * 30
-
-            if winner.points >= winner.level * 1000:
-                winner.level += 1
-                winner.points = 0
-                await sync_to_async(winner.save)(update_fields=['level'])
-            await sync_to_async(winner.save)(update_fields=['points'])
-
-            await sync_to_async(game.save)()
 
     async def receive(self, text_data):
         infos = json.loads(text_data)
@@ -284,7 +242,7 @@ class GameConsumer_2(AsyncWebsocketConsumer):
 
             duration = self.end_date - self.date
 
-            print(f'-->{user.username}\n-->{opp.username}')
+            print('->', user, ' ', user.status, '\n->', opp, ' ', opp.status)
 
             winner = await sync_to_async(get_object_or_404)(models.Player,username=winner)
 
@@ -312,8 +270,15 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             self.InviteObj.status = 'E'
             await sync_to_async(self.InviteObj.save)(update_fields=['status'])
 
+
+            user.status = 'O'
+            opp.status = 'O'
+            await sync_to_async(user.save)(update_fields=['status'])
+            await sync_to_async(opp.save)(update_fields=['status'])
+
             await sync_to_async(game.save)()
         except Exception as e:
+            print('->', user, ' ', user.status, '\n->', opp, ' ', opp.status)
             print(f"Error in createGameObject: {e}")
 
     async def sendBallPos(self):

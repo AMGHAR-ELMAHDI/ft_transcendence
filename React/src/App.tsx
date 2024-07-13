@@ -4,6 +4,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import './components/Mnassi/Game/responsive.css'
 import DashboardContainer from "./components/Cheesy/DashboardContainer";
 import ProfileContainer from "./components/Cheesy/ProfileContainer";
 import ChatContainer from "./components/Otchekai/ChatContainer";
@@ -35,12 +36,11 @@ const router = createBrowserRouter(
     <>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/kissahomie" element={<_secret />} />
+      <Route path="/drake" element={<_secret />} />
       <Route path="/twoFa" element={<Verify2FA />} />
       <Route path="/403" element={<Error_403 />} />
       <Route element={<ProtectedRoutes />}>
         <Route path="/" element={<DashboardContainer />} />
-        {/* <Route path="/tournament" element={} /> */}
         <Route path="/chat" element={<ChatContainer />} />
         <Route path="game" element={<GameLayout />} >
           <Route index element={<GameContainer />}/ >

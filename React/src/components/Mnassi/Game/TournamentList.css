@@ -109,15 +109,6 @@
     visibility: hidden;
     transition: .3s all;
 }
-/* .create-option::before {
-    content: '';
-    width: 150%;
-    height: 150%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    filter: blur(5px);
-} */
 .create-option h1 {
     font-size: 35px;
     text-transform: uppercase;
@@ -145,6 +136,7 @@
     outline: none;
 }
 .show {
+    transition: .3s all;
     visibility: visible;
     z-index: 5;
 }
@@ -152,13 +144,22 @@
     filter: blur(3px);
 }
 .error_ {
-    animation: error .2s ease-in-out;
+    animation: error .3s ease-in;
 }
 @keyframes error {
     0% {
         transform: translateX(5%);
     }
-    100% {
+    20% {
         transform: translateX(-5%);
+    }
+    40% {
+        transform: translateX(5%);
+    }
+    60% {
+        transform: translateX(-5%);
+    }
+    100% {
+        transform: translateX(5%);
     }
 }

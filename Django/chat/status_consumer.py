@@ -64,7 +64,7 @@ class StatusConsumer(AsyncWebsocketConsumer):
             user.status = Player.STATUS_IN_GAME
             status_message = "IN_GAME"
         
-        await sync_to_async(user.save)()
+        await sync_to_async(user.save)(update_fields=['status'])
         await self.accept()
         await self.channel_layer.group_add('status_group', self.channel_name)
         await self.channel_layer.group_send(
@@ -81,7 +81,7 @@ class StatusConsumer(AsyncWebsocketConsumer):
         user = self.scope.get("user")
         if user:
             user.status = Player.STATUS_OFFLINE
-            await sync_to_async(user.save)()
+            await sync_to_async(user.save)(update_fields=['status'])
             print(f"[Socket Connection] Player {user.id} ({user.username}) disconnected.")
         await self.channel_layer.group_send(
             'status_group',

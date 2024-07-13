@@ -140,6 +140,7 @@ class GameConsumer(AsyncWebsocketConsumer):
             self.task = asyncio.ensure_future(self.sendBallPos())
 
     async def disconnect(self, close_code):
+        self.rooms[self.room_group_name]['index'] -= 1
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
     async def receive(self, text_data):
@@ -385,10 +386,6 @@ class GameConsumer(AsyncWebsocketConsumer):
     async def stop_task(self):
         if self.task and not self.task.done():
             self.task.cancel()
-            try:
-                await self.task
-            except asyncio.CancelledError:
-                pass
 
 # tournament code here -->
 class TournamentM_(AsyncWebsocketConsumer):
@@ -530,8 +527,8 @@ class TournamentM_(AsyncWebsocketConsumer):
                 user = await sync_to_async(models.Player.objects.get)(username=key)
                 user.status = 'I'
                 await sync_to_async(user.save)(update_fields=['status'])
-                self.instance.status = 'S'
-                await sync_to_async(self.instance.save)(update_fields=['status'])
+            self.instance.status = 'S'
+            await sync_to_async(self.instance.save)(update_fields=['status'])
             self.rooms[self.room_group_name]['onceAtTime'] = True
             player = self.rooms[self.room_group_name]['players']
             print(f' -> {self.room_group_name}, {player}')
@@ -581,12 +578,9 @@ class TournamentM_(AsyncWebsocketConsumer):
                 pass
 
     async def disconnect(self, close_code):
-        # user = self.scope['user']
-        # if user.is_authenticated:
-            # for key, value in self.rooms[self.room_group_name]['Joined'].items():
-            #     if value['name'] == user.username:
-            #         value['name'] = '...'
-            #         print('->>', value['name'])
-            # del self.rooms[self.room_group_name]['players'][user.username]
-            # self.rooms[self.room_group_name]['index'] -= 1
+        self.rooms[self.room_group_name]['index'] -= 1
+        if self.rooms[self.room_group_name]['index'] < 0:
+           self.rooms[self.room_group_name]['index'] = 0 
+        self.instance.players = self.rooms[self.room_group_name]['index']
+        await sync_to_async(self.instance.save)(update_fields=['players'])
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)

@@ -1,6 +1,19 @@
-@media screen and (max-width:2373px) {
-	._mods {
-		flex-flow: row;
-		bottom: 0;
+@media screen and (max-width:1706px) {
+	canvas {
+		scale: .7;
+	}
+	.play::before {
+		height: 717px;
+	}
+	#winner {
+		font-size: 196px;
+		z-index: 1;
+	}
+	.score {
+		bottom: 23%;
+		z-index: 1;
+	}
+	#Pscore, #Sscore {
+		font-size: 295px;
 	}
 }
