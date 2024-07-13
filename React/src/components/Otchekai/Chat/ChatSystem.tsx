@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import Friendschat from "../../../Atoms/Chatfriends";
 import api from "../../../api";

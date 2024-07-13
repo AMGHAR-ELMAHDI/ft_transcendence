@@ -4,7 +4,6 @@ import TopBar from "../../SearchBar/TopBar";
 import OnlineStatus from "../../zmakhkha/OnlineStatus";
 import ChatSystem from "./ChatSystem";
 
-
 function ChatContainer() {
   const token: any = localStorage.getItem("token");
   return (
