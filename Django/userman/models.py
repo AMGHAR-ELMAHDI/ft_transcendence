@@ -33,7 +33,7 @@ class Player(AbstractBaseUser):
     
     STATUS_ONLINE = 'O'
     STATUS_OFFLINE = 'F'
-    STATUS_IN_GAME = 'G'
+    STATUS_IN_GAME = 'I'
 
     USER_NORMAL = 'N'
     USER_DISCORD = 'D'

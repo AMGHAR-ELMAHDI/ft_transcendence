@@ -18,7 +18,7 @@ application = ProtocolTypeRouter({
   'websocket': URLRouter([
       re_path(r'game/host/socket-server/', consumers.GameConsumer.as_asgi()),
 	    re_path(r'ws/game/tn/', consumers.TournamentM_.as_asgi()),
-      #path("ws/chat/<int:receiver_id>/", ChatConsumer.as_asgi()),
+      path("ws/chat/<int:receiver_id>/", ChatConsumer.as_asgi()),
       path("ws/chat/<int:receiver_id>/<str:token>", ChatConsumer.as_asgi()),
       path("ws/status/<str:token>/<int:type>", StatusConsumer.as_asgi()),
 	    path('ws/block-unblock/<str:token>', BlockUnblockConsumer.as_asgi()),
@@ -26,7 +26,6 @@ application = ProtocolTypeRouter({
 	    path('ws/single-game/<str:token>', RequestSingleGameConsumer.as_asgi()),
 	    path('ws/game-tn/<str:token>', TournamentM_.as_asgi()),
 	    path('ws/remote/<str:token>', consumers.GameConsumer.as_asgi()),
-	    # path('ws/start-single-game/<str:token>/<str:room>', StartGame_consumer.as_asgi()),
   ]
     ),
 })
