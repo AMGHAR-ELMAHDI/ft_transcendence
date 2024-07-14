@@ -81,6 +81,7 @@ function ChatSystem() {
             myId={myId}
           />
         </div>
+        <div className="iamJustALine"></div>
         <div className="Chat-box-menu">
           <ChatTyping
             socket={socket}

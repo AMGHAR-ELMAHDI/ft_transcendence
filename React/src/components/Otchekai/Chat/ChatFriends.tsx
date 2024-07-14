@@ -67,8 +67,8 @@ function ChatFriends({
       } else if (data.action === "unblock") {
         setBlockedUsers((prevBlockedUsers: any) =>
           prevBlockedUsers.filter((id: number) => id !== data.unblocked)
-      );
-    } else if (data.action === 'game_update') {
+        );
+      } else if (data.action === "game_update") {
         setRerender((e) => !e);
       }
     };
@@ -125,8 +125,8 @@ function ChatFriends({
   const Status = "O";
   return (
     <>
-      <div className="Friends-wrapper">
-        <h1 id="Chatlogo">Friends</h1>
+      <h1 id="Chatlogo">Friends</h1>
+      <div className="ChatFriendsContainer">
         {Friends.map((item: any) => (
           <div
             className={`Chat-Friendslist ${
@@ -136,15 +136,15 @@ function ChatFriends({
             onClick={() => getID(item.id)}
           >
             <div className="Friend-img">
-              <img src={GetCorrect(item?.avatar, url)} className="bachar" />
-              <div
-                className={`status-circle ${
-                  Status === "O" ? "status-circle-online" : ""
-                }`}
-              ></div>
-            </div>
-            <div className="Name-messages">
-              <li id="Friend-name">{item.username}</li>
+              <div className="chatImgNameContainer">
+                <img src={GetCorrect(item?.avatar, url)} className="bachar" />
+                <div
+                  className={`status-circle ${
+                    Status === "O" ? "status-circle-online" : ""
+                  }`}
+                ></div>
+              </div>
+              <h1 id="Friend-name">{item.username}</h1>
             </div>
             <div
               onClick={
