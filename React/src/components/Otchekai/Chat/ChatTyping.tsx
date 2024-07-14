@@ -104,55 +104,51 @@ function ChatTyping({
 
   return (
     <>
-      <div className="Chat-typer-wrapper">
-        <div className="Header-box-chat">
-          <div className="Friend-header">
-            <div className="negotiator">
-              <div className="Friend-header-img">
-                <img src={GetCorrect(Friend?.avatar, url)}id="chatperson" />
-              </div>
-              <div className="Friend-header-name">
-                <li>{Friend?.username || "Select a friend"}</li>
-                <p>online</p>
-              </div>
-            </div>
+      <div className="Friend-header">
+        <div className="negotiator">
+          <div className="Friend-header-img">
+            <img src={GetCorrect(Friend?.avatar, url)} id="chatperson" />
+          </div>
+          <div className="Friend-header-name">
+            <li>{Friend?.username || "Select a friend"}</li>
+            <p>online</p>
           </div>
         </div>
-        <div className="Type-wrapper">
-          <div className="Chat-box">
-            {allMessages.map((msg: any, index) => (
-              <Sender
-                key={index}
-                message={msg.content}
-                time={extractTime(msg.timestamp)}
-                sender={msg.sender}
-                currentUserId={id}
-              />
-            ))}
-          </div>
-          <form onSubmit={sendMessage} id="Chat-input">
-            <div className="Input-box">
-              <input
-                id="message-input"
-                type="text"
-                disabled={Blockedusers.some(
-                  (user: any) => user.id === Selectedfriend
-                )}
-                placeholder="Type Something ..."
-              />
-            </div>
-            <button type="submit" className="Chat-send-button">
-              <img src="/Send-button.svg" id="bottona" />
-            </button>
-            <div id="toz">
-              <MdEmojiEmotions id="emoji-button" />
-            </div>
-            {/* <EmojiPicker /> */}
-            <button type="submit" className="Chat-send-button">
-              <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
-            </button>
-          </form>
+      </div>
+      <div className="Type-wrapper">
+        <div className="Chat-box">
+          {allMessages.map((msg: any, index) => (
+            <Sender
+              key={index}
+              message={msg.content}
+              time={extractTime(msg.timestamp)}
+              sender={msg.sender}
+              currentUserId={id}
+            />
+          ))}
         </div>
+        <form onSubmit={sendMessage} id="Chat-input">
+          <div className="Input-box">
+            <input
+              id="message-input"
+              type="text"
+              disabled={Blockedusers.some(
+                (user: any) => user.id === Selectedfriend
+              )}
+              placeholder="Type Something ..."
+            />
+          </div>
+          <button type="submit" className="Chat-send-button">
+            <img src="/Send-button.svg" id="bottona" />
+          </button>
+          <div id="toz">
+            <MdEmojiEmotions id="emoji-button" />
+          </div>
+          {/* <EmojiPicker /> */}
+          <button type="submit" className="Chat-send-button">
+            <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
+          </button>
+        </form>
       </div>
     </>
   );

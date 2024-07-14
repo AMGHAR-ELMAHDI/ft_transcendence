@@ -9,7 +9,7 @@ import Typed from "typed.js";
 function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
   const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [Blockedusers, setBlockedUsers] = useState<any[]>([]);
+const [Blockedusers, setBlockedUsers] = useState<any[]>([]);
   const [BlockedMe, setBlockedMe] = useState<any[]>([]);
   const [myId, setmyId] = useState<number | null>(null);
 
