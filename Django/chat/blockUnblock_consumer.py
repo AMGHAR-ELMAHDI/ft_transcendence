@@ -49,11 +49,12 @@ class BlockUnblockConsumer(AsyncWebsocketConsumer):
             await self.close()
         else:
             await self.accept()
-            print(f"[WebSocket] User {self.user.id} ({self.user.username}) connected.")
+            print(f"[BlockUnblock] User {self.user.id} ({self.user.username}) connected.")
+            await self.channel_layer.group_add("block_update", self.channel_name)
 
     async def disconnect(self, close_code):
-        if self.user:
-            print(f"[WebSocket] User {self.user.id} ({self.user.username}) disconnected.")
+        await self.channel_layer.group_discard("block_update", self.channel_name)
+        
 
     async def receive(self, text_data):
         data = json.loads(text_data)
@@ -66,6 +67,14 @@ class BlockUnblockConsumer(AsyncWebsocketConsumer):
             await self.block_user(data)
         elif action == 'unblock':
             await self.unblock_user(data)
+        await self.channel_layer.group_send(
+            "block_update",
+            {
+                'type': 'block_update',
+                'action' : 'game_update',
+                'message': 'Block-Unblock update !!'
+            }
+        )
 
     async def block_user(self, data):
         blocked_id = data.get('blocked')
@@ -112,3 +121,12 @@ class BlockUnblockConsumer(AsyncWebsocketConsumer):
             await self.send(text_data=json.dumps({'message': 'User unblocked successfully!'}))
         else:
             await self.send(text_data=json.dumps({'error': 'Block relationship does not exist'}))
+    
+    async def block_update(self, event):
+        message = event['message']
+        action = event['action']
+        await self.send(text_data=json.dumps({
+            'type': 'block_update',
+            'message': message,
+            'action' : action
+        }))

@@ -41,7 +41,7 @@ function ShopContainer() {
 export default ShopContainer;
 
 function FilterItems(ownedItems: any[], name: string) {
-  const Filter = ownedItems.find((obj: any) => obj.name === name);
+  const Filter = Array(ownedItems).find((obj: any) => obj.name === name);
   if (Filter) return true;
   else return false;
 }
@@ -141,8 +141,6 @@ function ShopDesign() {
     try {
       const response = await api.get("player/items/");
       setownedItems(response.data.items);
-      console.log("hh", response);
-      
       console.log(ownedItems);
       console.log(shopItems);
     } catch (error) {
@@ -175,9 +173,6 @@ function Card({ name, price, image, id }: CardProps) {
   const [purchased, setPurchased] = useState(false);
   const owned = useRecoilValue(OwnedItems);
   const url = useRecoilValue(Url);
-  console.log(owned);
-  
-  const item = document.querySelector("Item-img-animation");
 
   // const item = document.querySelector("Item-img-animation");
   const handleBuy = async () => {

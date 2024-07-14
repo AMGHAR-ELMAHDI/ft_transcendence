@@ -16,28 +16,33 @@ from django.db.models import Q
 from rest_framework.decorators import APIView
 
 from userman.models import Friendship
+from userman.utils import getLogging
+logger = getLogging()
 
 class UnblockAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        print('---------------------')
-        print(request.data)
-        print('---------------------')
         blocker = request.user
         blocked_id = request.data.get('blocked')
         
         if not blocked_id:
             return Response({'error': 'Blocked user ID is required'}, status=status.HTTP_400_BAD_REQUEST)
         
-        blocked_user = get_object_or_404(get_user_model(), id=blocked_id)
+        try:
+            blocked_user = get_object_or_404(get_user_model(), id=blocked_id)
+        except Exception as e:
+            logger.error(f"Error retrieving blocked user: {e}")
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
         
         block_relationship = Block.objects.filter(blocker=blocker, blocked=blocked_user)
         
         if block_relationship.exists():
             block_relationship.delete()
+            logger.info(f"User {blocker.username} unblocked {blocked_user.username}")
             return Response({'message': 'User unblocked successfully!'}, status=status.HTTP_200_OK)
         else:
+            logger.warning(f"Block relationship does not exist for blocker: {blocker.username} and blocked: {blocked_user.username}")
             return Response({'error': 'Block relationship does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
 class BlockAPIView(APIView):
@@ -50,10 +55,15 @@ class BlockAPIView(APIView):
         if not blocked_id:
             return Response({'error': 'Blocked user ID is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        blocked_user = get_object_or_404(get_user_model(), id=blocked_id)
+        try:
+            blocked_user = get_object_or_404(get_user_model(), id=blocked_id)
+        except Exception as e:
+            logger.error(f"Error retrieving blocked user: {e}")
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
         if blocked_user == blocker:
-            return Response({'error': 'You cannot block yourself mate!'}, status=status.HTTP_400_BAD_REQUEST)
+            logger.warning(f"User {blocker.username} attempted to block themselves")
+            return Response({'error': 'You cannot block yourself!'}, status=status.HTTP_400_BAD_REQUEST)
 
         data = {
             'blocker': blocker.id,
@@ -63,58 +73,57 @@ class BlockAPIView(APIView):
         serializer = BlockSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            logger.info(f"User {blocker.username} blocked {blocked_user.username}")
             return Response({'message': 'User blocked successfully!'}, status=status.HTTP_201_CREATED)
+        
+        logger.warning(f"Validation failed for blocking user: {blocker.username}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         
         
-@action(detail=False, methods=['GET', 'POST'])
+
 class MessageAPIView(APIView):
-    serializer_class = MessageSerializer
-    queryset = Message.objects.all()
     permission_classes = [IsAuthenticated]
 
-    
     def get(self, request, receiver_id):
         sender = request.user
-        if sender:
-            sender_id = sender.id
-            if sender.id != sender_id and sender.id != receiver_id:
-                return Response({'error': 'You are not authorized to access these messages'}, status=status.HTTP_403_FORBIDDEN)
-            messages = Message.objects.filter(
-                 Q(sender_id=sender_id, receiver_id=receiver_id) |
-                Q(sender_id=receiver_id, receiver_id=sender_id)
-            )
-            serialized_msg = MessageSerializer(messages, many=True)
+        sender_id = sender.id
 
-            return Response(serialized_msg.data, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Authentication required'}, status=status.HTTP_401_UNAUTHORIZED)
-    
+        if sender_id == receiver_id:
+            return Response({'error': 'You cannot retrieve messages for yourself'}, status=status.HTTP_403_FORBIDDEN)
+
+        messages = Message.objects.filter(
+            Q(sender_id=sender_id, receiver_id=receiver_id) |
+            Q(sender_id=receiver_id, receiver_id=sender_id)
+        )
+        serialized_msg = MessageSerializer(messages, many=True)
+        return Response(serialized_msg.data, status=status.HTTP_200_OK)
+
     def post(self, request, receiver_id):
         sender = request.user
         sender_id = sender.id
-        
-        if sender:
-            receiver = get_object_or_404(get_user_model(), pk=receiver_id)
-            content = request.data.get('content')
-            if content:
-                is_blocked_me = Block.objects.filter(blocker=receiver_id, blocked=sender_id).exists()
-                if is_blocked_me:
-                    return Response({'error': 'You cannot send messages to this user. [Blocked You]'}, status=status.HTTP_401_UNAUTHORIZED)
-                is_blocked = Block.objects.filter(blocker=sender_id, blocked=receiver_id).exists()
-                if is_blocked:
-                    return Response({'error': 'You cannot send messages to this user. [You Blocked Him]'}, status=status.HTTP_401_UNAUTHORIZED)
-                is_friend =  Friendship.objects.filter(
-                 Q(player1=sender_id, player2=receiver_id) |
+        receiver = get_object_or_404(get_user_model(), pk=receiver_id)
+
+        if receiver_id == sender_id:
+            return Response({'error': 'You cannot send messages to yourself'}, status=status.HTTP_403_FORBIDDEN)
+
+        if not request.data.get('content'):
+            return Response({'error': 'Content is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check block statuses
+        if Block.objects.filter(blocker=receiver_id, blocked=sender_id).exists():
+            return Response({'error': 'You cannot send messages to this user. [Blocked You]'}, status=status.HTTP_403_FORBIDDEN)
+        if Block.objects.filter(blocker=sender_id, blocked=receiver_id).exists():
+            return Response({'error': 'You cannot send messages to this user. [You Blocked Them]'}, status=status.HTTP_403_FORBIDDEN)
+
+        # Check if users are friends
+        if not Friendship.objects.filter(
+                Q(player1=sender_id, player2=receiver_id) |
                 Q(player1=receiver_id, player2=sender_id)
-                ).exists()
-                if not is_friend:
-                    return Response({'error': 'You cannot send messages to this user. [Not a friend]'}, status=status.HTTP_401_UNAUTHORIZED)
-                message = Message.objects.create(sender=sender, receiver=receiver, content=content)
-                serialized_msg = MessageSerializer(message)
-                return Response(serialized_msg.data, status=status.HTTP_201_CREATED)
-            else:
-                return Response({'error': 'Content is required'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'error': 'Authentication required'}, status=status.HTTP_401_UNAUTHORIZED)
+        ).exists():
+            return Response({'error': 'You cannot send messages to this user. [Not a friend]'}, status=status.HTTP_403_FORBIDDEN)
+
+        content = request.data['content']
+        message = Message.objects.create(sender=sender, receiver=receiver, content=content)
+        serialized_msg = MessageSerializer(message)
+        return Response(serialized_msg.data, status=status.HTTP_201_CREATED)

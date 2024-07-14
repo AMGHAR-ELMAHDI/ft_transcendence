@@ -3,12 +3,24 @@ import { useEffect, useState } from "react";
 import Friendschat from "../../../Atoms/Chatfriends";
 import FriendId from "../../../Atoms/FriendId";
 import { ImBlocked } from "react-icons/im";
+import { CgUnblock } from "react-icons/cg";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
+import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
+import Url from "../../../Atoms/Url";
 
 interface Friend {
   id: number;
   username: string;
   avatar: string;
+}
+
+interface Props {
+  Blockedusers: any;
+  setBlockedUsers: any;
+  myId: any;
+  BlockedMe: any;
+  setBlockedMe: any;
+  setRerender: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function ChatFriends({
@@ -17,11 +29,15 @@ function ChatFriends({
   myId,
   BlockedMe,
   setBlockedMe,
-}: any) {
+  setRerender,
+}: Props) {
+  const block = document.querySelector(".block");
+  const line = document.querySelector(".line");
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
   const [selectedfriend, setSelectedFriend] = useRecoilState(SelectedFriend);
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const url = useRecoilValue(Url);
 
   const getID = (id: number) => {
     setId(id);
@@ -45,6 +61,7 @@ function ChatFriends({
 
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      console.log(data, "data");
       if (data.action === "block") {
         setBlockedUsers((prevBlockedUsers: any) => [
           ...prevBlockedUsers,
@@ -54,6 +71,8 @@ function ChatFriends({
         setBlockedUsers((prevBlockedUsers: any) =>
           prevBlockedUsers.filter((id: number) => id !== data.unblocked)
         );
+      } else if (data.action === "game_update") {
+        setRerender((e) => !e);
       }
     };
 
@@ -67,6 +86,7 @@ function ChatFriends({
   }, []);
 
   const handleBlock = () => {
+    setRerender((e) => !e);
     if (socket) {
       const blockMessage = {
         action: "block",
@@ -85,6 +105,7 @@ function ChatFriends({
   };
 
   const handleUnblock = () => {
+    setRerender((e) => !e);
     if (socket) {
       const blockMessage = {
         action: "unblock",
@@ -103,6 +124,25 @@ function ChatFriends({
   useEffect(() => {
     if (Friends.length > 0) getID(Friends[0].id);
   }, [Friends]);
+  let index:number = 0;
+
+  const handlerClickB = () => {
+    console.log(index)
+    if (index % 2 == 0) {
+      block?.classList.add("animateParent");
+      line?.classList.add("animate");
+    } else {
+      block?.classList.remove("animateParent");
+      line?.classList.remove("animate");
+    }
+    index++;
+  }
+
+  const [isAnimated, setIsAnimated] = useState<boolean>(false);
+
+  const handleClick = (): void => {
+    setIsAnimated(!isAnimated);
+  };
 
   const Status = "O";
   return (
@@ -118,7 +158,7 @@ function ChatFriends({
             onClick={() => getID(item.id)}
           >
             <div className="Friend-img">
-              <img src="/avatar.svg" className="bachar" />
+              <img src={GetCorrect(item?.avatar, url)} className="bachar" />
               <div
                 className={`status-circle ${
                   Status === "O" ? "status-circle-online" : ""
@@ -136,7 +176,12 @@ function ChatFriends({
               }
               className="Block-button"
             >
-              <ImBlocked />
+            <div 
+              className={`block ${isAnimated ? 'animateParent' : ''}`} 
+              onClick={handleClick}
+            >
+              <div className={`line ${isAnimated ? 'animate' : ''}`}></div>
+            </div>
             </div>
           </div>
         ))}

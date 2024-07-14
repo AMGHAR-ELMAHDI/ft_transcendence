@@ -7,11 +7,21 @@ import { MdEmojiEmotions } from "react-icons/md";
 import Sender from "./Sender";
 import EmojiPicker from "emoji-picker-react";
 import Friendschat from "../../../Atoms/Chatfriends";
+import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
+import Url from "../../../Atoms/Url";
 
 interface Friend {
   id: number;
   username: string;
   avatar: string;
+}
+
+interface Props {
+  socket: any;
+  setSocket: any;
+  Blockedusers: any;
+  myId: any;
+  BlockedMe: any;
 }
 
 function ChatTyping({
@@ -20,26 +30,24 @@ function ChatTyping({
   Blockedusers,
   myId,
   BlockedMe,
-}: {
-  socket: any;
-  setSocket: any;
-  Blockedusers: any;
-  myId: any;
-  BlockedMe: any;
-}) {
+}: Props) {
   const UsersData: Friend[] = useRecoilValue(Friendschat);
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
   const Friend = UsersData.find((f) => f.id === Selectedfriend);
+  const url = useRecoilValue(Url);
+  const [gameSocket, setGameSocket] = useState<WebSocket | null>(null);
+  const connType = 1;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const newSocket = new WebSocket(
+
+    const chatSocket = new WebSocket(
       `ws://localhost:2500/ws/chat/${id}/${token}`
     );
-    setSocket(newSocket);
-    newSocket.onopen = function () {
+    setSocket(chatSocket);
+    chatSocket.onopen = function () {
       console.log("WebSocket connection established (tcha9lib blawr).");
     };
 
@@ -57,7 +65,7 @@ function ChatTyping({
     };
     fetchInitialMessages();
 
-    newSocket.onmessage = function (e) {
+    chatSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
       const msg = {
         content: data["message"],
@@ -67,7 +75,7 @@ function ChatTyping({
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
     return () => {
-      newSocket.close();
+      chatSocket.close();
     };
   }, [id]);
 
@@ -99,6 +107,32 @@ function ChatTyping({
     return desiredTime;
   }
 
+  const handleInvite = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in localStorage.");
+      return;
+    }
+
+    const gameSocket = new WebSocket(
+      `ws://localhost:2500/ws/single-game/${token}`
+    );
+    setGameSocket(gameSocket);
+    console.log(gameSocket);
+
+    gameSocket.onopen = function () {
+      const inviteMessage = {
+        action: "invite",
+        invite_to: id,
+      };
+      gameSocket.send(JSON.stringify(inviteMessage));
+    };
+
+    return () => {
+      gameSocket.close();
+    };
+  };
+
   return (
     <>
       <div className="Chat-typer-wrapper">
@@ -106,7 +140,7 @@ function ChatTyping({
           <div className="Friend-header">
             <div className="negotiator">
               <div className="Friend-header-img">
-                <img src={Friend?.avatar || "/avatar.svg"} id="chatperson" />
+                <img src={GetCorrect(Friend?.avatar, url)} id="chatperson" />
               </div>
               <div className="Friend-header-name">
                 <li>{Friend?.username || "Select a friend"}</li>
@@ -132,20 +166,35 @@ function ChatTyping({
               <input
                 id="message-input"
                 type="text"
-                disabled={Blockedusers.some(
-                  (user: any) => user.id === Selectedfriend
-                )}
-                placeholder="Type Something ..."
+                disabled={
+                  Blockedusers.some(
+                    (user: any) => user.id === Selectedfriend
+                  ) || BlockedMe.some((user: any) => user.id === Selectedfriend)
+                }
+                placeholder={
+                  Blockedusers.some(
+                    (user: any) => user.id === Selectedfriend
+                  ) || BlockedMe.some((user: any) => user.id === Selectedfriend)
+                    ? "The user is blocked"
+                    : "Type Something ..."
+                }
               />
             </div>
-            <button type="submit" className="Chat-send-button">
+            <button
+              type="submit"
+              className="Chat-send-button"
+              disabled={
+                Blockedusers.some((user: any) => user.id === Selectedfriend) ||
+                BlockedMe.some((user: any) => user.id === Selectedfriend)
+              }
+            >
               <img src="/Send-button.svg" id="bottona" />
             </button>
-            <div id="toz">
-              <MdEmojiEmotions id="emoji-button" />
-            </div>
-            {/* <EmojiPicker /> */}
-            <button type="submit" className="Chat-send-button">
+            <button
+              type="submit"
+              className="Chat-send-button"
+              onClick={handleInvite}
+            >
               <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
             </button>
           </form>
