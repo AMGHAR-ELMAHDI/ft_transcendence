@@ -25,7 +25,7 @@ function ShopContainer() {
 
   return (
     <>
-      <OnlineStatus token={token} type={1} />
+      {/* <OnlineStatus token={token} type={1} /> */}
       <div className="AppClass">
         <SideBar />
         <div className="main">
@@ -98,7 +98,7 @@ function GetAvatar() {
   return (
     <>
       <div className="itemsContainer">
-        <h1 id="Paddles-header">Avatars</h1>
+        <h1 id="Paddles-header">Balls</h1>
         <div className="Paddle-holder">
           {avatar?.map((item: any) => (
             <Card

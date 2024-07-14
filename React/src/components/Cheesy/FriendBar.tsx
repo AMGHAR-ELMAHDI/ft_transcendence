@@ -9,7 +9,7 @@ import LoadingData from "./LoadingData";
 
 function FriendBar() {
   const [data, setData] = React.useState<any>([]);
-  const [showList, setShowList] = React.useState<any>(false);
+  const [showList, setShowList] = React.useState<boolean>(false);
   const [renderName, setRenderName] = useState<boolean>(false);
   const [isLoading, setLoading] = useState(true);
   const url = useRecoilValue(Url);
@@ -45,30 +45,30 @@ function FriendBar() {
           id="logo-friend-svg"
           src="/friends.svg"
         />
-        {isLoading && LoadingData()}
-        {!isLoading &&
-          Array.isArray(data) &&
-          showList &&
-          data.map((friend: any) => (
-            <div
-              className="Friend-Relat"
-              key={friend?.id}
-              onMouseEnter={() => setRenderName(true)}
-              onMouseLeave={() => setRenderName(false)}
-              onClick={() => {
-                navigate(`/profile/${friend?.username}`);
-              }}
-            >
-              <img
-                className="friend-sb"
-                src={GetCorrect(friend?.avatar, url)}
-              />
+        {isLoading
+          ? LoadingData()
+          : Array.isArray(data) &&
+            showList &&
+            data.map((friend: any) => (
+              <div
+                className="Friend-Relat"
+                key={friend?.id}
+                onMouseEnter={() => setRenderName(true)}
+                onMouseLeave={() => setRenderName(false)}
+                onClick={() => {
+                  navigate(`/profile/${friend?.username}`);
+                }}
+              >
+                <img
+                  className="friend-sb"
+                  src={GetCorrect(friend?.avatar, url)}
+                />
 
-              {renderName && (
-                <h1 className="friend-bar-username">{friend?.username}</h1>
-              )}
-            </div>
-          ))}
+                {renderName && (
+                  <h1 className="friend-bar-username">{friend?.username}</h1>
+                )}
+              </div>
+            ))}
       </div>
     </div>
   );

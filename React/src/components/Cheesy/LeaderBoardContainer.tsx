@@ -8,7 +8,7 @@ function LeaderBoardContainer() {
   const token: any = localStorage.getItem("token");
   return (
     <>
-      <OnlineStatus token={token} type={1} />
+      {/* <OnlineStatus token={token} type={1} /> */}
       <div className="AppClass">
         <SideBar />
         <div className="main">

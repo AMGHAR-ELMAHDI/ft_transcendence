@@ -10,9 +10,10 @@ import toast from "react-hot-toast";
 
 interface Props {
   setRender: React.Dispatch<React.SetStateAction<string>>;
+  setReRender: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SettingsLeft({ setRender }: Props) {
+function SettingsLeft({ setRender, setReRender }: Props) {
   const [data, setData] = useState<any>();
   const [renderButton, setRenderButton] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -63,8 +64,10 @@ function SettingsLeft({ setRender }: Props) {
       }
 
       await api.put("player/setting/", formData);
+      setReRender(true);
     } catch (error) {
       console.log(error);
+
       toast.error("Can't change image!");
     }
   };
