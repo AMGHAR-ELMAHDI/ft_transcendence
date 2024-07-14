@@ -16,9 +16,9 @@ from django_otp.forms import OTPTokenForm
 from django.contrib.auth.password_validation import validate_password
 from django.core.cache import cache
 
-import logging
+from .utils import getLogging
 
-logger = logging.getLogger(__name__)
+logger = getLogging()
 
 def user_has_device(user):
     return TOTPDevice.objects.filter(user=user, confirmed=True).exists()
@@ -58,7 +58,7 @@ class SignInAPIView(APIView):
                 }, status=status.HTTP_200_OK)
         else:
             cache.set(cache_key, attempts + 1, timeout=300)  
-            logger.warning(f"[SignInAPIView] Invalid login attempt for username {username}")
+            logger.critical(f"[SignInAPIView] Invalid login attempt for username {username}")
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class SignUpAPIView(APIView):
