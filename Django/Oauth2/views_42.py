@@ -47,7 +47,7 @@ def f42_redirect(request: HttpRequest):
 					first_name = fname,
 					last_name = lname,
 					user_type=Player.USER_42,
-					image_42 = image
+					image = image
 				)
 				user.set_password(random_password)
 				user.save()
