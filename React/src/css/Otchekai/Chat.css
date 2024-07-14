@@ -385,37 +385,6 @@
   border-radius: 50%;
 }
 
-.linedaw {
-  width: 16%;
-  height: 100%;
-  background-color: #e3567c;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) rotate(25deg);
-  bottom: 0;
-  transition: 0.3s ease-out;
-}
-
-.animate {
-  width: 0%;
-}
-
-.animateParent {
-  border: 4px solid white;
-}
-
-.block {
-  border-radius: 50%;
-  border: 4px solid #e3567c;
-  overflow: hidden;
-  width: 30px;
-  height: 30px;
-  position: relative;
-  cursor: pointer;
-  right: 70%;
-  transition: 0.3s ease-out;
-}
-
 @media only screen and (max-width: 1920px) {
   .Chat-wrapper {
     gap: 3rem;

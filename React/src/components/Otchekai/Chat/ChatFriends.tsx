@@ -122,12 +122,6 @@ function ChatFriends({
     if (Friends.length > 0) getID(Friends[0].id);
   }, [Friends]);
 
-  const [isAnimated, setIsAnimated] = useState<boolean>(false);
-
-  const handleClick = (): void => {
-    setIsAnimated(!isAnimated);
-  };
-
   const Status = "O";
   return (
     <>
@@ -164,12 +158,7 @@ function ChatFriends({
               }
               className="Block-button"
             >
-              <div
-                className={`block ${isAnimated ? "animateParent" : ""}`}
-                onClick={handleClick}
-              >
-                <div className={`linedaw ${isAnimated ? "animate" : ""}`}></div>
-              </div>
+              <ImBlocked />
             </div>
           </div>
         ))}

@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import {  useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import FriendId from "../../../Atoms/FriendId";
 import api from "../../../api";
@@ -157,26 +157,13 @@ function ChatTyping({
             <input
               id="message-input"
               type="text"
-              disabled={
-                Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-                BlockedMe.some((user: any) => user.id === Selectedfriend)
-              }
-              placeholder={
-                Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-                BlockedMe.some((user: any) => user.id === Selectedfriend)
-                  ? "The user is blocked"
-                  : "Type Something ..."
-              }
+              disabled={Blockedusers.some(
+                (user: any) => user.id === Selectedfriend
+              )}
+              placeholder="Type Something ..."
             />
           </div>
-          <button
-            type="submit"
-            className="Chat-send-button"
-            disabled={
-              Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-              BlockedMe.some((user: any) => user.id === Selectedfriend)
-            }
-          >
+          <button type="submit" className="Chat-send-button">
             <img src="/Send-button.svg" id="bottona" />
           </button>
           <button
@@ -191,35 +178,4 @@ function ChatTyping({
     </>
   );
 }
-
-{
-  /* <input
-id="message-input"
-type="text"
-disabled={
-  Blockedusers.some(
-    (user: any) => user.id === Selectedfriend
-  ) || BlockedMe.some((user: any) => user.id === Selectedfriend)
-}
-placeholder={
-  Blockedusers.some(
-    (user: any) => user.id === Selectedfriend
-  ) || BlockedMe.some((user: any) => user.id === Selectedfriend)
-    ? "The user is blocked"
-    : "Type Something ..."
-}
-/>
-</div>
-<button
-type="submit"
-className="Chat-send-button"
-disabled={
-Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-BlockedMe.some((user: any) => user.id === Selectedfriend)
-}
->
-<img src="/Send-button.svg" id="bottona" />
-</button> */
-}
-
 export default ChatTyping;
