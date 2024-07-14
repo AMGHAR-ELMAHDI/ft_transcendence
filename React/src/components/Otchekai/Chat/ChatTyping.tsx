@@ -122,20 +122,22 @@ function ChatTyping({
           ))}
         </div>
         <form onSubmit={sendMessage} id="Chat-input">
-          <input
-            id="message-input"
-            type="text"
-            disabled={Blockedusers.some(
-              (user: any) => user.id === Selectedfriend
-            )}
-            placeholder="Type Something ..."
-          />
-          <button type="submit" className="Chat-send-button">
-            <img src="/Send-button.svg" id="bottona" />
-          </button>
-          <button type="submit" className="Chat-send-button">
-            <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
-          </button>
+          <div className="chatInputButtonContainer">
+            <input
+              id="message-input"
+              type="text"
+              disabled={Blockedusers.some(
+                (user: any) => user.id === Selectedfriend
+              )}
+              placeholder="Type Something ..."
+              />
+            <button type="submit" className="Chat-send-button">
+              <img src="/Send-button.svg" id="bottona" />
+            </button>
+            <button type="submit" className="Chat-send-button">
+              <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
+            </button>
+          </div>
         </form>
       </div>
     </>
