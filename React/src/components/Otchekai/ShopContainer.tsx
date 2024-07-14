@@ -10,8 +10,6 @@ import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
-// import GetCorrectImage from "../Cheesy/GetCorrectImage";
-// import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 interface CardProps {
   name: string;
@@ -25,7 +23,7 @@ function ShopContainer() {
 
   return (
     <>
-      {/* <OnlineStatus token={token} type={1} /> */}
+      <OnlineStatus token={token} type={1} />
       <div className="AppClass">
         <SideBar />
         <div className="main">
