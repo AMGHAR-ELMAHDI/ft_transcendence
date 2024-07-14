@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   /* justify-content: center; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
   flex: 1;
   gap: 5rem;
 }
@@ -18,7 +18,7 @@
 }
 
 .Chat-box-menu {
-  border: 1px solid green;
+  /* border: 1px solid green; */
   width: 100%;
   height: 70vh;
 }
@@ -117,8 +117,6 @@
   width: 25%;
   height: 25%;
   border-radius: 50%;
-  background-color: red;
-  /* border: 2px solid #15171f; */
 }
 
 .status-circle-online {
@@ -128,7 +126,6 @@
 /*-------------------------------------------CHAT BOX---------------------------------------------  */
 
 .Chat-box-menu {
-  border: 1px solid green;
   width: 100%;
   height: 70vh;
   display: flex;
@@ -148,7 +145,6 @@
   height: 100px;
   border-radius: 50%;
   padding: 5px;
-  border: 1px solid #5fcae4;
 }
 
 .Friend-header-name {
@@ -213,21 +209,10 @@
   background-color: transparent;
 }
 
-#bachar {
-  max-width: 100%;
-  max-height: 100%;
-  margin: auto;
-  display: block;
-}
-
-.bachar {
-  width: 3.5rem;
+.Friend-imgImg {
   width: 3.5rem;
   border-radius: 50%;
   padding: 5px;
-  border: 2px solid white;
-  margin-left: 6px;
-  border: 2px solid white;
   margin-left: 6px;
 }
 
@@ -301,7 +286,6 @@
 
 #Chat-input {
   display: flex;
-  border: 1px solid red;
   justify-content: center;
   align-items: center;
   height: 100px;
@@ -312,9 +296,11 @@
   border-bottom-right-radius: 27px;
 }
 
-.chatInputButtonContainer{
+.chatInputButtonContainer {
   display: flex;
-  lf
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
 #message-input {
@@ -346,19 +332,19 @@
 }
 
 #bottona {
-  padding: 12px;
   border-radius: 12px;
   background-color: #1d90f5;
   transition: 0.4s;
+  height: 100%;
   cursor: pointer;
 }
-
 
 #bottona-dyal-les-jox {
   padding: 9px;
   border-radius: 12px;
   background-color: #1d90f5;
   transition: 0.4s;
+  height: 100%;
   cursor: pointer;
 }
 
@@ -385,8 +371,6 @@
   font-size: 70px;
 }
 
-
-
 @media only screen and (max-width: 1920px) {
   .Chat-wrapper {
     gap: 3rem;
@@ -409,7 +393,7 @@
     gap: 0.5rem;
     height: 60px;
   }
-  
+
   .Friend-img img {
     height: 60px;
     width: 60px;
@@ -419,7 +403,10 @@
   #Friend-name {
     font-size: 1.2rem;
   }
-/*-------------------------------------------CHAT BOX---------------------------------------------  */
+  /*-------------------------------------------CHAT BOX---------------------------------------------  */
+  .Type-wrapper {
+    justify-content: flex-end;
+  }
   .Chat-box-menu {
     height: 80vh;
     gap: 0rem;
@@ -434,10 +421,10 @@
     font-size: 1.5rem;
   }
   .Chat-box {
-    max-height: 56vh;
+    max-height: 63vh;
     min-width: 400px;
   }
-  
+
   .Sender-message {
     margin-right: 2rem;
     min-width: 100px;
@@ -460,10 +447,69 @@
   }
 }
 
-@media only screen and (max-width: 900px) {
-
+@media only screen and (max-width: 1440px) {
+  .Chat-wrapper {
+    gap: 0.5rem;
+  }
+  #Chatlogo {
+    font-size: 1.8rem;
+  }
+  .Friends-menu {
+    width: 300px;
+  }
+  .Chat-Friendslist {
+    padding: 0.4rem;
+  }
+  .Friend-img {
+    gap: 0.3rem;
+  }
+  .Friend-img img {
+    height: 50px;
+    width: 50px;
+  }
+  #Friend-name {
+    font-size: 1.1rem;
+  }
+  /*-------------------------------------------CHAT BOX---------------------------------------------  */
+  .Chat-box-menu {
+    height: 80vh;
+    gap: 0rem;
+  }
+  #chatperson {
+    width: 80px;
+    height: 80px;
+    padding: 3px;
+  }
+  .Friend-header-name > h1 {
+    font-size: 1.3rem;
+  }
+  .Chat-box {
+    max-height: 60vh;
+    min-width: 400px;
+  }
+  .Sender-message {
+    margin-right: 1rem;
+    max-width: 250px;
+  }
+  .Sender-message > p {
+    font-size: 0.7rem;
+  }
+  .Sender-message-name > p {
+    font-size: 10px;
+  }
+  .Sender-other .Sender-message-name > p {
+    font-size: 10px;
+  }
+  .Sender-other .Sender-message {
+    margin-left: 1rem;
+  }
+  #Chat-input {
+    height: 70px;
+  }
+  .chatInputButtonContainer {
+    align-items: flex-start;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-
 }

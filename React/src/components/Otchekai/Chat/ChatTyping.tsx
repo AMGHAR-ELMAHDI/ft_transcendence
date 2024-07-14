@@ -31,7 +31,7 @@ function ChatTyping({
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
-  const Friend:any = UsersData.find((f) => f.id === Selectedfriend);
+  const Friend: any = UsersData.find((f) => f.id === Selectedfriend);
   const url = useRecoilValue(Url);
 
   useEffect(() => {
@@ -130,7 +130,7 @@ function ChatTyping({
                 (user: any) => user.id === Selectedfriend
               )}
               placeholder="Type Something ..."
-              />
+            />
             <button type="submit" className="Chat-send-button">
               <img src="/Send-button.svg" id="bottona" />
             </button>

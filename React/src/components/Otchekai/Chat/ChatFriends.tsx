@@ -122,7 +122,7 @@ function ChatFriends({
           >
             <div className="Friend-img">
               <div className="chatImgNameContainer">
-                <img src={GetCorrect(item?.avatar, url)} className="bachar" />
+                <img src={GetCorrect(item?.avatar, url)} className="Friend-imgImg" />
                 <div
                   className={`status-circle ${
                     Status === "O" ? "status-circle-online" : ""
