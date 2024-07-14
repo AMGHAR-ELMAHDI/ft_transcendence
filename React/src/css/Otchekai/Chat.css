@@ -178,6 +178,9 @@
 
 .Chat-box {
   height: 100%;
+  max-height: 700px;
+  width: 100%;
+  min-width: 500px;
   background: #323644;
   background: linear-gradient(
     0deg,
@@ -208,19 +211,6 @@
   background-color: transparent;
 }
 
-.First-message {
-  width: 400px;
-  margin-left: 4rem;
-  background: rgb(50, 54, 68);
-  background: linear-gradient(
-    0deg,
-    rgba(50, 54, 68, 1) 65%,
-    rgba(12, 14, 20, 1) 130%
-  );
-  border-radius: 34px;
-  padding: 30px;
-}
-
 #bachar {
   max-width: 100%;
   max-height: 100%;
@@ -246,50 +236,25 @@
   margin-bottom: 1rem;
 }
 
-.Sender-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
 .Sender-message {
   margin-right: 4rem;
   min-width: 130px;
   max-width: 500px;
-  min-width: 130px;
-  max-width: 500px;
   background-color: #1d90f5;
-  border-radius: 20px;
+  border-radius: 25px;
   border-bottom-right-radius: 0px;
   padding: 15px;
-
   overflow-wrap: break-word;
 }
 
 .Sender-message > p {
-  font-size: 18px;
-}
-
-.Sender-message-img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-
-.Sender-name-img {
-  margin-right: 4rem;
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  font-size: 1rem;
 }
 
 .Sender-message-name {
   width: 100%;
   height: fit-content;
-  width: 100%;
-  height: fit-content;
   display: flex;
-  justify-content: flex-end;
   justify-content: flex-end;
 }
 
@@ -350,9 +315,10 @@
 
 #Chat-input {
   display: flex;
+  border: 1px solid red;
   justify-content: center;
   align-items: center;
-  height: 10%;
+  height: 100px;
   width: 100%;
   background-color: rgb(42, 46, 58);
   gap: 1rem;
@@ -360,25 +326,24 @@
   border-bottom-right-radius: 27px;
 }
 
-.Input-box > input {
+#message-input {
   background-color: #424656;
   border-radius: 17px;
   padding: 15px;
   width: 25vw;
-  width: 25vw;
+  min-width: 300px;
   border: 1px solid #1e8ef3;
   outline: 1px solid #1e8ef3;
-  font-size: medium;
+  font-size: 1rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 200;
   transition: 0.4s;
 }
 
-.Input-box > input::placeholder {
+#message-inputt::placeholder {
   color: white;
 }
-.Input-box > input:hover {
+#message-input:hover {
   box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
     rgba(30, 142, 243, 1) 0px 0px 0px 1px;
 }
@@ -397,26 +362,6 @@
   cursor: pointer;
 }
 
-#emoji-button {
-  width: 25px;
-  height: 25px;
-}
-
-#toz {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #1d90f5;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-#toz:hover {
-  box-shadow: rgba(30, 142, 243, 1) 0px 1px 7px 0px,
-    rgba(30, 142, 243, 1) 0px 0px 0px 1px;
-}
 
 #bottona-dyal-les-jox {
   padding: 9px;

@@ -1,11 +1,9 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import FriendId from "../../../Atoms/FriendId";
 import api from "../../../api";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
-import { MdEmojiEmotions } from "react-icons/md";
 import Sender from "./Sender";
-import EmojiPicker from "emoji-picker-react";
 import Friendschat from "../../../Atoms/Chatfriends";
 import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
 import Url from "../../../Atoms/Url";
@@ -33,7 +31,7 @@ function ChatTyping({
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
-  const Friend = UsersData.find((f) => f.id === Selectedfriend);
+  const Friend:any = UsersData.find((f) => f.id === Selectedfriend);
   const url = useRecoilValue(Url);
 
   useEffect(() => {
@@ -124,23 +122,17 @@ function ChatTyping({
           ))}
         </div>
         <form onSubmit={sendMessage} id="Chat-input">
-          <div className="Input-box">
-            <input
-              id="message-input"
-              type="text"
-              disabled={Blockedusers.some(
-                (user: any) => user.id === Selectedfriend
-              )}
-              placeholder="Type Something ..."
-            />
-          </div>
+          <input
+            id="message-input"
+            type="text"
+            disabled={Blockedusers.some(
+              (user: any) => user.id === Selectedfriend
+            )}
+            placeholder="Type Something ..."
+          />
           <button type="submit" className="Chat-send-button">
             <img src="/Send-button.svg" id="bottona" />
           </button>
-          <div id="toz">
-            <MdEmojiEmotions id="emoji-button" />
-          </div>
-          {/* <EmojiPicker /> */}
           <button type="submit" className="Chat-send-button">
             <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
           </button>
