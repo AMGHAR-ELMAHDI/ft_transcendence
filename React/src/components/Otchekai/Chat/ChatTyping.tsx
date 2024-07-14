@@ -104,15 +104,11 @@ function ChatTyping({
 
   return (
     <>
-      <div className="Friend-header">
-        <div className="negotiator">
-          <div className="Friend-header-img">
-            <img src={GetCorrect(Friend?.avatar, url)} id="chatperson" />
-          </div>
-          <div className="Friend-header-name">
-            <li>{Friend?.username || "Select a friend"}</li>
-            <p>online</p>
-          </div>
+      <div className="negotiator">
+        <img src={GetCorrect(Friend?.avatar, url)} id="chatperson" />
+        <div className="Friend-header-name">
+          <h1>{Friend?.username || "Select a friend"}</h1>
+          <h2>online</h2>
         </div>
       </div>
       <div className="Type-wrapper">

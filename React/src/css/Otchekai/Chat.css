@@ -9,7 +9,7 @@
   /* justify-content: center; */
   border: 1px solid red;
   flex: 1;
-  gap: 3rem;
+  gap: 5rem;
 }
 
 .Friends-menu {
@@ -133,30 +133,38 @@
   height: 70vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.Friend-header-img {
-  height: 70px;
-  width: 70px;
+  gap: 3rem;
+  /* justify-content: center; */
 }
 
 .negotiator {
   display: flex;
   align-items: center;
+  gap: 1rem;
+}
+
+#chatperson {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px solid #5fcae4;
+}
+
+.Friend-header-name {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 10px;
 }
 
-.Friend-header-name > li {
-  list-style: none;
-  font-size: 20px;
+.Friend-header-name > h1 {
+  font-size: 2rem;
 }
 
-.Friend-header-name > p {
+.Friend-header-name > h2 {
   color: gray;
-  font-size: medium;
+  font-size: 1rem;
+  margin-left: 3px;
 }
 
 .Type-wrapper {
@@ -164,14 +172,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 85%;
-  height: 85%;
+  width: 100%;
+  height: 100%;
 }
 
 .Chat-box {
-  height: 820px;
-  height: 820px;
-  width: 100%;
+  height: 100%;
   background: #323644;
   background: linear-gradient(
     0deg,
@@ -220,13 +226,6 @@
   max-height: 100%;
   margin: auto;
   display: block;
-}
-
-#chatperson {
-  width: 3.5rem;
-  border-radius: 50%;
-  padding: 5px;
-  border: 1px solid #5fcae4;
 }
 
 .bachar {
