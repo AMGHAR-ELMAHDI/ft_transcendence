@@ -53,9 +53,7 @@ class discord_redirect(APIView):
 				if user is not None:
 					if user_has_device(user):
 						request.session['pre_2fa_user_id'] = user.id
-						print('[SignInAPIView] there is a device')
 						return redirect(f'http://localhost:5173/twoFa2?user_id={user.id}')
-						# return redirect('http://localhost:2500/discord/2fa')
 					else:
 						login(request, user)
 						refresh = RefreshToken.for_user(user)
@@ -106,7 +104,6 @@ class Discord_2faView(APIView):
 			refresh = RefreshToken.for_user(user)
 			access = str(refresh.access_token)
 			refresh = str(refresh)
-			print(f"[access] {access}")
 			return Response({'access' : str(access), 'refresh' : refresh}, status=status.HTTP_200_OK)
 		return Response({'error': 'Invalid 2FA code'}, status=status.HTTP_400_BAD_REQUEST)
 	
