@@ -13,13 +13,23 @@ interface Friend {
   avatar: string;
 }
 
+interface Props {
+  Blockedusers: any;
+  setBlockedUsers: any;
+  myId: any;
+  BlockedMe: any;
+  setBlockedMe: any;
+  setRerender: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 function ChatFriends({
   Blockedusers,
   setBlockedUsers,
   myId,
   BlockedMe,
   setBlockedMe,
-}: any) {
+  setRerender,
+}: Props) {
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
   const [selectedfriend, setSelectedFriend] = useRecoilState(SelectedFriend);
@@ -48,6 +58,7 @@ function ChatFriends({
 
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      console.log(data, "data");
       if (data.action === "block") {
         setBlockedUsers((prevBlockedUsers: any) => [
           ...prevBlockedUsers,
@@ -57,6 +68,8 @@ function ChatFriends({
         setBlockedUsers((prevBlockedUsers: any) =>
           prevBlockedUsers.filter((id: number) => id !== data.unblocked)
         );
+      } else if (data.action === "game_update") {
+        setRerender((e) => !e);
       }
     };
 
@@ -70,6 +83,7 @@ function ChatFriends({
   }, []);
 
   const handleBlock = () => {
+    setRerender((e) => !e);
     if (socket) {
       const blockMessage = {
         action: "block",
@@ -88,6 +102,7 @@ function ChatFriends({
   };
 
   const handleUnblock = () => {
+    setRerender((e) => !e);
     if (socket) {
       const blockMessage = {
         action: "unblock",

@@ -201,9 +201,6 @@ class PlayerViewSet(viewsets.ModelViewSet):
 			blocked_me_list = [
 				{'id': b.blocker.id, 'username' : b.blocker.username} for b in blocked_me
 			]
-			# print('-----------++++++++-------------')
-			# print(blocked_list)
-			# print('-----------++++++++-------------')
 			
 			data = {
 				'id' : serializer.data['id'],
@@ -328,9 +325,6 @@ class FriendshipAPIView(APIView):
 	permission_classes = [IsAuthenticated]
 
 	def get(self, request):
-		print('---------[GET]')
-		print(request.data)
-		print('---------')
 		user = request.user
 		sent = FriendshipRequest.objects.filter(from_user=user)
 		recieved = FriendshipRequest.objects.filter(to_user=user)
@@ -344,9 +338,6 @@ class FriendshipAPIView(APIView):
 
 	def post(self, request):
 		to_user_id = request.data.get('to_user')
-		print("------------------")
-		print(request.data)
-		print("------------------")
 		if not to_user_id:
 			return Response({'message': 'No user_id specified'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -363,9 +354,6 @@ class FriendshipAPIView(APIView):
 	def put(self, request):
 		user = request.user
 		from_user_id = request.data.get('from_user')
-		print('---------[PUT]')
-		print(request.data)
-		print('---------')
 
 		if not user:
 			return Response({'message': 'No user_id specified'}, status=status.HTTP_400_BAD_REQUEST)
@@ -379,7 +367,6 @@ class FriendshipAPIView(APIView):
 		if new_status not in ['P', 'A', 'R']:  #  'P' : Pending | 'A' : Accepted | 'R' : Rejected
 			return Response({'message': 'Invalid status provided'}, status=status.HTTP_400_BAD_REQUEST)
 
-		print(f'id : {friendship_request}')
 		friendship_request.status = request.data.get('status')
 		friendship_request.save()
 

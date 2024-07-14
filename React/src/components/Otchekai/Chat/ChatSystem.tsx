@@ -9,6 +9,7 @@ import Typed from "typed.js";
 function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [BlockRerender, setRerender] = useState<boolean>(false);
   const [Blockedusers, setBlockedUsers] = useState<any[]>([]);
   const [BlockedMe, setBlockedMe] = useState<any[]>([]);
   const [myId, setmyId] = useState<number | null>(null);
@@ -17,6 +18,8 @@ function ChatSystem() {
     try {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
+      console.log(response.data.friends);
+      
     } catch (error) {
       console.log(error);
     }
@@ -35,8 +38,12 @@ function ChatSystem() {
   };
 
   useEffect(() => {
-    getData();
     getMyData();
+    getData();
+    console.log(BlockRerender, "hnaya hna hona");
+  }, [BlockRerender]);
+
+  useEffect(() => {
     const emptyDataElement = document.querySelector("#text");
     if (emptyDataElement) {
       const typed = new Typed(emptyDataElement, {
@@ -66,15 +73,15 @@ function ChatSystem() {
       <div className="Chat-wrapper">
         <div className="Friends-menu">
           <ChatFriends
+            setRerender={setRerender}
+            BlockedMe={BlockedMe}
             Blockedusers={Blockedusers}
             setBlockedUsers={setBlockedUsers}
-            BlockedMe={BlockedMe}
             setBlockedMe={setBlockedMe}
             myId={myId}
           />
         </div>
-        <div className="iamJustALine">
-        </div>
+        <div className="iamJustALine"></div>
         <div className="Chat-box-menu">
           <ChatTyping
             socket={socket}

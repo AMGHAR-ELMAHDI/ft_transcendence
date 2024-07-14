@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import {  useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import FriendId from "../../../Atoms/FriendId";
 import api from "../../../api";
@@ -14,33 +14,38 @@ interface Friend {
   avatar: string;
 }
 
+interface Props {
+  socket: any;
+  setSocket: any;
+  Blockedusers: any;
+  myId: any;
+  BlockedMe: any;
+}
+
 function ChatTyping({
   socket,
   setSocket,
   Blockedusers,
   myId,
   BlockedMe,
-}: {
-  socket: any;
-  setSocket: any;
-  Blockedusers: any;
-  myId: any;
-  BlockedMe: any;
-}) {
+}: Props) {
   const UsersData: Friend[] = useRecoilValue(Friendschat);
   const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
   const Friend: any = UsersData.find((f) => f.id === Selectedfriend);
   const url = useRecoilValue(Url);
+  const [gameSocket, setGameSocket] = useState<WebSocket | null>(null);
+  const connType = 1;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const newSocket = new WebSocket(
+
+    const chatSocket = new WebSocket(
       `ws://localhost:2500/ws/chat/${id}/${token}`
     );
-    setSocket(newSocket);
-    newSocket.onopen = function () {
+    setSocket(chatSocket);
+    chatSocket.onopen = function () {
       console.log("WebSocket connection established (tcha9lib blawr).");
     };
 
@@ -58,7 +63,7 @@ function ChatTyping({
     };
     fetchInitialMessages();
 
-    newSocket.onmessage = function (e) {
+    chatSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
       const msg = {
         content: data["message"],
@@ -68,7 +73,7 @@ function ChatTyping({
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
     return () => {
-      newSocket.close();
+      chatSocket.close();
     };
   }, [id]);
 
@@ -99,6 +104,32 @@ function ChatTyping({
     });
     return desiredTime;
   }
+
+  const handleInvite = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found in localStorage.");
+      return;
+    }
+
+    const gameSocket = new WebSocket(
+      `ws://localhost:2500/ws/single-game/${token}`
+    );
+    setGameSocket(gameSocket);
+    console.log(gameSocket);
+
+    gameSocket.onopen = function () {
+      const inviteMessage = {
+        action: "invite",
+        invite_to: id,
+      };
+      gameSocket.send(JSON.stringify(inviteMessage));
+    };
+
+    return () => {
+      gameSocket.close();
+    };
+  };
 
   return (
     <>
@@ -131,13 +162,17 @@ function ChatTyping({
               )}
               placeholder="Type Something ..."
             />
-            <button type="submit" className="Chat-send-button">
-              <img src="/Send-button.svg" id="bottona" />
-            </button>
-            <button type="submit" className="Chat-send-button">
-              <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
-            </button>
           </div>
+          <button type="submit" className="Chat-send-button">
+            <img src="/Send-button.svg" id="bottona" />
+          </button>
+          <button
+            type="submit"
+            className="Chat-send-button"
+            onClick={handleInvite}
+          >
+            <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
+          </button>
         </form>
       </div>
     </>
