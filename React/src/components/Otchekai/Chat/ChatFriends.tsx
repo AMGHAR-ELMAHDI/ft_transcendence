@@ -1,16 +1,20 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
-import Friendschat from "../../../Atoms/Chatfriends";
 import FriendId from "../../../Atoms/FriendId";
-import { ImBlocked } from "react-icons/im";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
 import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
 import Url from "../../../Atoms/Url";
+import api from "../../../api";
 
-interface Friend {
+export interface Friend {
   id: number;
+  status: string;
   username: string;
+  first_name: string;
+  last_name: string;
   avatar: string;
+  level: number;
+  coins: 0;
 }
 
 interface Props {
@@ -30,10 +34,10 @@ function ChatFriends({
   setBlockedMe,
   setRerender,
 }: Props) {
-  const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
   const [selectedfriend, setSelectedFriend] = useRecoilState(SelectedFriend);
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [friends, setFriends] = useState<Friend[]>([]);
   const url = useRecoilValue(Url);
 
   const getID = (id: number) => {
@@ -41,21 +45,24 @@ function ChatFriends({
     setSelectedFriend(id);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found in localStorage.");
-      return;
-    }
+  const getFriends = async () => {
+    try {
+      const response = await api.get("player/friends/");
 
+      setFriends(response.data.friends);
+      console.log(response.data.friends);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getFriends();
+    const token = localStorage.getItem("token");
     const newSocket = new WebSocket(
       `ws://localhost:2500/ws/block-unblock/${token}`
     );
-
-    newSocket.onopen = () => {
-      console.log("WebSocket connection established successfully.");
-    };
-
+    newSocket.onopen = () => {};
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log(data, "data");
@@ -77,7 +84,25 @@ function ChatFriends({
       console.log("WebSocket connection closed.");
     };
     setSocket(newSocket);
+    //-------------------------------------Online Socket-------------------------------------
+    const socket = new WebSocket(`ws://localhost:2500/ws/status/${token}/${1}`);
+
+    socket.onopen = () => {
+      console.log("[online status socket ] conected successfully !!!");
+    };
+
+    socket.onmessage = (event) => {
+      getFriends();
+    };
+
+    socket.onclose = () => {};
+
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
     return () => {
+      socket.close();
       newSocket.close();
     };
   }, []);
@@ -93,7 +118,7 @@ function ChatFriends({
       socket.send(JSON.stringify(blockMessage));
       const newBlockedUser = {
         id: Friendid,
-        username: Friends.find((f) => f.id === Friendid)?.username,
+        username: friends.find((f: Friend) => f.id === Friendid)?.username,
       };
       const newBlockedUsers = [...Blockedusers, newBlockedUser];
       setBlockedUsers(newBlockedUsers);
@@ -119,8 +144,8 @@ function ChatFriends({
   };
 
   useEffect(() => {
-    if (Friends.length > 0) getID(Friends[0].id);
-  }, [Friends]);
+    if (friends.length > 0) getID(friends[0].id);
+  }, [friends]);
 
   const Status = "O";
 
@@ -134,7 +159,7 @@ function ChatFriends({
     <>
       <h1 id="Chatlogo">Friends</h1>
       <div className="ChatFriendsContainer">
-        {Friends.map((item: any) => (
+        {friends.map((item: any) => (
           <div
             className={`Chat-Friendslist ${
               selectedfriend === item.id ? "Other-Chat-Friendslist" : ""

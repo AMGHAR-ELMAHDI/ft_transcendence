@@ -276,6 +276,12 @@ ul {
   cursor: pointer;
 }
 
+.testNodiplay {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 @media only screen and (max-width: 2560px) {
   #welcome-bar > h1 {
     font-size: 1.8rem;
