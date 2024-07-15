@@ -5,7 +5,6 @@ import api from "../../../api";
 import ChatFriends from "./ChatFriends";
 import ChatTyping from "./ChatTyping";
 import Typed from "typed.js";
-import TestFriend from "./TestFriends";
 
 function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
@@ -72,15 +71,7 @@ function ChatSystem() {
     <>
       <div className="Chat-wrapper">
         <div className="Friends-menu">
-          {/* <ChatFriends
-            setRerender={setRerender}
-            BlockedMe={BlockedMe}
-            Blockedusers={Blockedusers}
-            setBlockedUsers={setBlockedUsers}
-            setBlockedMe={setBlockedMe}
-            myId={myId}
-          /> */}
-          <TestFriend
+          <ChatFriends
             setRerender={setRerender}
             BlockedMe={BlockedMe}
             Blockedusers={Blockedusers}
