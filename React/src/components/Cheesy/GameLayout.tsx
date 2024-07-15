@@ -7,11 +7,11 @@ export default function GameLayout() {
   const token: any = localStorage.getItem("token");
   return (
     <>
-      <OnlineStatus token={token} type={1} />
+      {/* <OnlineStatus token={token} type={1} /> */}
       <div className="AppClass">
-        <SideBar />
+        {/* <SideBar /> */}
         <div className="main">
-          <TopBar />
+          {/* <TopBar /> */}
           <Outlet />
         </div>
       </div>

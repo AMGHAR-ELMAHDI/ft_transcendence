@@ -116,12 +116,6 @@ function ProfileHistory() {
               );
             })}
           </div>
-          {/* {window.location.pathname === "/profile" && (
-        <div className="HistoryShadow"></div>
-      )}
-      {window.location.pathname === "/" && (
-        <div className="HistoryShadowDashboard"></div>
-      )} */}
         </div>
       )}
     </>

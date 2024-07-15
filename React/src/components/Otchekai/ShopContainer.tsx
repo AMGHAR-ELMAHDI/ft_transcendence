@@ -124,7 +124,6 @@ function ShopDesign() {
   const getData = async () => {
     try {
       const response = await api.get("items/");
-      console.log(response.data);
 
       setShopItems(response.data);
     } catch (error) {
@@ -141,8 +140,6 @@ function ShopDesign() {
     try {
       const response = await api.get("player/items/");
       setownedItems(response.data.items);
-      console.log(ownedItems);
-      console.log(shopItems);
     } catch (error) {
       console.log(error);
     }

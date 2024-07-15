@@ -62,8 +62,6 @@ function SideBar() {
     setTokenValue("");
     localStorage.removeItem("token");
     setLogged(false);
-    console.log(tokenValue);
-    console.log(Logged);
   };
 
   const handleCancelLogout = () => {

@@ -21,7 +21,6 @@ function ProtectedRoutes() {
     try {
       const response = await axios.get("player/me/");
       setData(response.data);
-      console.log("here: " + response.data?.username);
     } catch (error: any) {
       console.log("Error message:", error.message);
     }

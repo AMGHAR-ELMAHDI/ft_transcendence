@@ -45,9 +45,7 @@ function ChatTyping({
       `wss://localhost:2500/ws/chat/${id}/${token}`
     );
     setSocket(chatSocket);
-    chatSocket.onopen = function () {
-      console.log("WebSocket connection established (tcha9lib blawr).");
-    };
+    chatSocket.onopen = function () {};
 
     const fetchInitialMessages = async () => {
       try {
@@ -116,7 +114,6 @@ function ChatTyping({
       `wss://localhost:2500/ws/single-game/${token}`
     );
     setGameSocket(gameSocket);
-    console.log(gameSocket);
 
     gameSocket.onopen = function () {
       const inviteMessage = {

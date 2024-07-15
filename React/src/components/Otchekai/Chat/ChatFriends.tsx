@@ -52,13 +52,10 @@ function ChatFriends({
       `wss://localhost:2500/ws/block-unblock/${token}`
     );
 
-    newSocket.onopen = () => {
-      console.log("WebSocket connection established successfully.");
-    };
+    newSocket.onopen = () => {};
 
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log(data, "data");
       if (data.action === "block") {
         setBlockedUsers((prevBlockedUsers: any) => [
           ...prevBlockedUsers,
@@ -73,9 +70,7 @@ function ChatFriends({
       }
     };
 
-    newSocket.onclose = () => {
-      console.log("WebSocket connection closed.");
-    };
+    newSocket.onclose = () => {};
     setSocket(newSocket);
     return () => {
       newSocket.close();
@@ -97,7 +92,6 @@ function ChatFriends({
       };
       const newBlockedUsers = [...Blockedusers, newBlockedUser];
       setBlockedUsers(newBlockedUsers);
-      console.log("User has been blocked successfully");
     }
   };
 
@@ -114,7 +108,6 @@ function ChatFriends({
         (user: any) => user.id !== Friendid
       );
       setBlockedUsers(newBlockedUsers);
-      console.log("User has been unblocked successfully");
     }
   };
 

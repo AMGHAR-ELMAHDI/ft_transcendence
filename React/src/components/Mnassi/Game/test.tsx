@@ -17,7 +17,6 @@ function userGame() {
           index = data?.player;
           SetId(index);
         }
-        console.log(value);
       }
     };
   }, []);

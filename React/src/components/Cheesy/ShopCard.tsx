@@ -12,7 +12,7 @@ export interface ShopProps {
 function ShopCard({ type, name, path, price, purchase_date }: ShopProps) {
   const [showDate, setShowDate] = useState<boolean>(false);
   const date = purchase_date.split("T")[0];
-  console.log(type);
+
 
   return (
     <div

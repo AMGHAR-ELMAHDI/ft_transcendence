@@ -20,20 +20,15 @@ function ChatContainer() {
       `wss://localhost:2500/ws/status/${token}/${type}`
     );
 
-    socket.onopen = () => {
-      console.log("[online socket ] conected successfully !!!");
-    };
+    socket.onopen = () => {};
 
     socket.onmessage = (event) => {
       const message: Message = JSON.parse(event.data);
-      console.log(message);
     };
 
     socket.onclose = () => {};
 
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
+    socket.onerror = (error) => {};
 
     return () => {
       socket.close();

@@ -28,10 +28,6 @@ function TopBar() {
   const getData = async () => {
     try {
       setAuthToken();
-      console.log(
-        "-------------------------------------->>><><><><>>> " +
-          localStorage.getItem("token")
-      );
       const response = await api.get("player/me/");
 
       setData(response.data);

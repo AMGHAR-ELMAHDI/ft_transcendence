@@ -20,11 +20,9 @@ import Verify2FA from "./components/zmakhkha/Verify2FA";
 import { Toaster } from "react-hot-toast";
 import Error_403 from "./components/Cheesy/Error403";
 import "./Imports";
-import Gametst from "./components/zmakhkha/Gametst";
 import GameLayout from "./components/Cheesy/GameLayout";
 import "./components/Mnassi/Game/responsive.css";
 import GameContainer_invite from "./components/Cheesy/GameContainer_invite";
-import TestingTn from "./components/Mnassi/Game/TournamentList";
 import _tournament from "./components/Mnassi/Game/tournament";
 import GameContainer from "./components/Mnassi/Game/GameContainer";
 
@@ -74,4 +72,3 @@ function App() {
   );
 }
 export default App;
-

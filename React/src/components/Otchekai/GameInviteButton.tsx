@@ -9,16 +9,11 @@ function GameInviteButton({ id }: Props) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found in localStorage.");
-      return;
-    }
 
     const gameSocket = new WebSocket(
       `wss://localhost:2500/ws/single-game/${token}`
     );
     setSocket(gameSocket);
-    console.log(socket);
 
     gameSocket.onopen = function () {
       const inviteMessage = {

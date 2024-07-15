@@ -91,14 +91,15 @@ function Notif() {
     );
 
     socketGame.current.onmessage = (event: MessageEvent) => {
-      console.log(event.data);
       getGameInvites();
     };
 
-    return () => {
-      socketFriend.current?.close();
-      socketGame.current?.close();
-    };
+    if (socketGame.current.readyState === WebSocket.OPEN) {
+      return () => {
+        socketFriend.current?.close();
+        socketGame.current?.close();
+      };
+    }
     //------------------------------------------game Invite end
   }, []);
 
