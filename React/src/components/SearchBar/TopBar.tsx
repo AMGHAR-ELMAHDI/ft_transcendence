@@ -53,7 +53,7 @@ function TopBar() {
     <>
       {isLoading && LoadingData()}
       <div id="TopBar">
-        <div className="testNodiplay">{pic}</div>;
+        <div className="testNodiplay">{pic}</div>
         <div className="absolute">
           <div className="BurgerMenu">
             <TiThMenu onClick={() => setIsOpen(!isOpen)} />
