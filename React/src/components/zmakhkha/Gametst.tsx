@@ -10,7 +10,7 @@ function Gametst() {
     console.log("+++++++++", +invite_id);
 
     startGameSocket.current = new WebSocket(
-      `ws://localhost:2500/ws/start-single-game/${token}/${invite_id}`
+      `wss://localhost:2500/ws/start-single-game/${token}/${invite_id}`
     );
 
     startGameSocket.current.onmessage = (event: MessageEvent) => {

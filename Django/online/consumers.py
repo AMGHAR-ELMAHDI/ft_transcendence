@@ -2,7 +2,7 @@ import json, requests
 from django.http import JsonResponse
 from django.utils import timezone
 from channels.generic.websocket import AsyncWebsocketConsumer
-from django.contrib.sessions.models import Session
+# from django.contrib.sessions.models import Session
 from asgiref.sync import sync_to_async
 from django.shortcuts import get_object_or_404
 from django.conf import settings

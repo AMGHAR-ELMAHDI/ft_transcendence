@@ -19,7 +19,7 @@ function ProtectedRoutes() {
 
   const getData = async () => {
     try {
-      const response = await axios.get("player/me");
+      const response = await axios.get("player/me/");
       setData(response.data);
       console.log("here: " + response.data?.username);
     } catch (error: any) {

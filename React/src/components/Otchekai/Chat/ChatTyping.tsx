@@ -1,4 +1,4 @@
-import {  useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import FriendId from "../../../Atoms/FriendId";
 import api from "../../../api";
@@ -42,7 +42,7 @@ function ChatTyping({
     const token = localStorage.getItem("token");
 
     const chatSocket = new WebSocket(
-      `ws://localhost:2500/ws/chat/${id}/${token}`
+      `wss://localhost:2500/ws/chat/${id}/${token}`
     );
     setSocket(chatSocket);
     chatSocket.onopen = function () {
@@ -113,7 +113,7 @@ function ChatTyping({
     }
 
     const gameSocket = new WebSocket(
-      `ws://localhost:2500/ws/single-game/${token}`
+      `wss://localhost:2500/ws/single-game/${token}`
     );
     setGameSocket(gameSocket);
     console.log(gameSocket);

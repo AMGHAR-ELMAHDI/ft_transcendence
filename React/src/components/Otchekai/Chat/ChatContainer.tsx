@@ -17,12 +17,11 @@ function ChatContainer() {
 
   useEffect(() => {
     const socket = new WebSocket(
-      `ws://localhost:2500/ws/status/${token}/${type}`
+      `wss://localhost:2500/ws/status/${token}/${type}`
     );
 
     socket.onopen = () => {
       console.log("[online socket ] conected successfully !!!");
-      
     };
 
     socket.onmessage = (event) => {

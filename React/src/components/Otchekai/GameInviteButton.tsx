@@ -15,7 +15,7 @@ function GameInviteButton({ id }: Props) {
     }
 
     const gameSocket = new WebSocket(
-      `ws://localhost:2500/ws/single-game/${token}`
+      `wss://localhost:2500/ws/single-game/${token}`
     );
     setSocket(gameSocket);
     console.log(socket);

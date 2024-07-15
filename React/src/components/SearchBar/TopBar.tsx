@@ -26,7 +26,7 @@ function TopBar() {
 
   const getData = async () => {
     try {
-      const response = await api.get("player/me");
+      const response = await api.get("player/me/");
       setData(response.data);
       setIsLoading(false);
       setRecoilUsername(response.data?.username);

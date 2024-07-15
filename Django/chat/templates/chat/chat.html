@@ -22,7 +22,7 @@
 
       // Establish websocket connection with the dynamic receiver ID
       const socket = new WebSocket(
-        `ws://localhost:2500/ws/chat/${receiverId}/`
+        `wss://localhost:2500/ws/chat/${receiverId}/`
       );
       socket.onopen = function (event) {
         console.log("WebSocket connection established.");

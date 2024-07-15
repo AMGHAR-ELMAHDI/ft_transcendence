@@ -51,11 +51,11 @@ function loginEl() {
       });
   };
   const handleDiscordAuth = () => {
-    window.location.href = "http://localhost:2500/discord/login/";
+    window.location.href = "https://localhost:2500/discord/login/";
   };
 
   const handle42Auth = () => {
-    window.location.href = "http://localhost:2500/42/login/";
+    window.location.href = "https://localhost:2500/42/login/";
   };
 
   useEffect(() => {
