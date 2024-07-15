@@ -38,9 +38,6 @@ function loginEl() {
           setTokenValue(str.access);
           setLogged(true);
           setAuthToken();
-          console.log(tokenValue);
-          console.log(Logged);
-          console.log(str.access);
           navigate("/");
         }
       })

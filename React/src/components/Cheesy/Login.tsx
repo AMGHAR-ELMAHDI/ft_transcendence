@@ -30,7 +30,6 @@ function getGeneralInfo() {
         if (response.status === 200) {
           setTokenValue(str.access);
           setAuthToken();
-          console.log(tokenValue);
           localStorage.setItem("token", str.access);
           navigate("/");
         }

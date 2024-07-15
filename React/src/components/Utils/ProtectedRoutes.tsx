@@ -25,7 +25,6 @@ function ProtectedRoutes() {
       const response = await axios.get("player/me");
       setData(response.data);
       setProfilePic(response.data?.avatar);
-      console.log("here: " + response.data?.username);
     } catch (error: any) {
       console.log("Error message:", error.message);
     }

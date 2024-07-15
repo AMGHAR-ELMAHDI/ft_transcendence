@@ -38,15 +38,10 @@ function FriendBar() {
 
     const socket = new WebSocket(`ws://localhost:2500/ws/status/${token}/${1}`);
 
-    socket.onopen = () => {
-      console.log("[online socket ] conected successfully !!!");
-    };
+    socket.onopen = () => {};
 
     socket.onmessage = (event) => {
       const message: Message = JSON.parse(event.data);
-      console.log("--------------------------------------");
-      console.log("HERER MESSAGE FRIEND BAR: " + JSON.stringify(message));
-      console.log("--------------------------------------");
       getData();
     };
 

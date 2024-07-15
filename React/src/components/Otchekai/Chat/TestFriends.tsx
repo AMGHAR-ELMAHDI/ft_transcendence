@@ -30,10 +30,8 @@ interface Props {
 function TestFriend({
   myId,
   Blockedusers,
-  setBlockedMe,
   setBlockedUsers,
   setRerender,
-  BlockedMe,
 }: Props) {
   const [friends, setFriends] = useState<Friend[]>([]);
 
@@ -42,7 +40,6 @@ function TestFriend({
       const response = await api.get("player/friends/");
 
       setFriends(response.data.friends);
-      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -53,9 +50,7 @@ function TestFriend({
     getFriends();
     const socket = new WebSocket(`ws://localhost:2500/ws/status/${token}/${1}`);
 
-    socket.onopen = () => {
-      console.log("[online status socket ] conected successfully !!!");
-    };
+    socket.onopen = () => {};
 
     socket.onmessage = (event) => {
       getFriends();
@@ -63,9 +58,7 @@ function TestFriend({
 
     socket.onclose = () => {};
 
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
+    socket.onerror = (error) => {};
 
     return () => {
       socket.close();

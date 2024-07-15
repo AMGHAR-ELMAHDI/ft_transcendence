@@ -24,7 +24,6 @@ function LeaderBoardMain() {
   };
   useEffect(() => {
     getData();
-    console.log(data);
   }, []);
 
   return (

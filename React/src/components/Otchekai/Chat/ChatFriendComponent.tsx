@@ -43,7 +43,6 @@ function ChatFriendComponent({
     newSocket.onopen = () => {};
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log(data, "data");
       if (data.action === "block") {
         setBlockedUsers((prevBlockedUsers: any) => [
           ...prevBlockedUsers,
@@ -58,9 +57,7 @@ function ChatFriendComponent({
       }
     };
 
-    newSocket.onclose = () => {
-      console.log("WebSocket connection closed.");
-    };
+    newSocket.onclose = () => {};
     setSocket(newSocket);
     return () => {
       newSocket.close();
@@ -83,7 +80,6 @@ function ChatFriendComponent({
       };
       const newBlockedUsers = [...Blockedusers, newBlockedUser];
       setBlockedUsers(newBlockedUsers);
-      console.log("User has been blocked successfully");
     }
   };
 
@@ -100,7 +96,6 @@ function ChatFriendComponent({
         (user: any) => user.id !== selectedfriend
       );
       setBlockedUsers(newBlockedUsers);
-      console.log("User has been unblocked successfully");
     }
   };
 

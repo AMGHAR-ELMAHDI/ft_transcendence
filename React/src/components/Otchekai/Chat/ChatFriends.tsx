@@ -50,7 +50,6 @@ function ChatFriends({
       const response = await api.get("player/friends/");
 
       setFriends(response.data.friends);
-      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +64,6 @@ function ChatFriends({
     newSocket.onopen = () => {};
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log(data, "data");
       if (data.action === "block") {
         setBlockedUsers((prevBlockedUsers: any) => [
           ...prevBlockedUsers,
@@ -80,16 +78,12 @@ function ChatFriends({
       }
     };
 
-    newSocket.onclose = () => {
-      console.log("WebSocket connection closed.");
-    };
+    newSocket.onclose = () => {};
     setSocket(newSocket);
     //-------------------------------------Online Socket-------------------------------------
     const socket = new WebSocket(`ws://localhost:2500/ws/status/${token}/${1}`);
 
-    socket.onopen = () => {
-      console.log("[online status socket ] conected successfully !!!");
-    };
+    socket.onopen = () => {};
 
     socket.onmessage = (event) => {
       getFriends();
@@ -97,9 +91,7 @@ function ChatFriends({
 
     socket.onclose = () => {};
 
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
+    socket.onerror = (error) => {};
 
     return () => {
       socket.close();
@@ -122,7 +114,6 @@ function ChatFriends({
       };
       const newBlockedUsers = [...Blockedusers, newBlockedUser];
       setBlockedUsers(newBlockedUsers);
-      console.log("User has been blocked successfully");
     }
   };
 
@@ -139,7 +130,6 @@ function ChatFriends({
         (user: any) => user.id !== Friendid
       );
       setBlockedUsers(newBlockedUsers);
-      console.log("User has been unblocked successfully");
     }
   };
 
