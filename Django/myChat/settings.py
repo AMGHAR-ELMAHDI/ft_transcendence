@@ -201,7 +201,7 @@ GRAPH_MODELS = {
     'app_labels': ["chat", "purshase", "userman"],
 }
 
-LOGIN_REDIRECT_URL = 'http://localhost:2500/auth/jwt/create'
+LOGIN_REDIRECT_URL = 'https://localhost:2500/auth/jwt/create'
 
 
 LOGIN_URL = 'two_factor:login'

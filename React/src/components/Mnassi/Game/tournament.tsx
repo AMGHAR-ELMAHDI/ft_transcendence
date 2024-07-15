@@ -158,19 +158,21 @@ function tournament({ NetType }: OnlineGame) {
     }
 
     function decodeAndReplace(queryParam: string): string {
-      return decodeURIComponent(queryParam.replace(/%20|%09/g, ''));
+      return decodeURIComponent(queryParam.replace(/%20|%09/g, ""));
     }
 
-    var result = ""
+    var result = "";
     var query = location.search;
     var error = query?.split("?");
     if (error[1]) result = error[1]?.replace("room_name=", "");
-    const room_name = decodeAndReplace(result)
+    const room_name = decodeAndReplace(result);
 
-    console.log('->', room_name)
+    console.log("->", room_name);
 
-    const token = localStorage.getItem('token')
-    TnSocket = new WebSocket(`ws://e3r3p1:2500/ws/game-tn/${token}/${room_name}`);
+    const token = localStorage.getItem("token");
+    TnSocket = new WebSocket(
+      `wss://localhost:2500/ws/game-tn/${token}/${room_name}`
+    );
 
     function StoreInStorage(data: any) {
       const Content = {
@@ -243,8 +245,7 @@ function tournament({ NetType }: OnlineGame) {
         if (name === final_1?.textContent || name === final_2?.textContent)
           setTimeout(() => SetFinal2(true), 3000);
       }
-      if (data?.type == 'error')
-        toast.error(data?.error)
+      if (data?.type == "error") toast.error(data?.error);
       if (NetType === "endT") {
         const parent = document!.querySelector(".tournCont");
         if (name === winner?.textContent) parent!.classList.add("win_");

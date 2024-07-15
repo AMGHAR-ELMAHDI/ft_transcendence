@@ -8,7 +8,7 @@ django_asgi_app = get_asgi_application()
 
 
 
-from online import consumers 
+from online import consumers, consumer2
 from chat.chat_consumer import ChatConsumer
 from chat.SingleGame_consumer import RequestSingleGameConsumer
 from online.consumers import TournamentM_
@@ -28,8 +28,9 @@ application = ProtocolTypeRouter({
 	    path('ws/block-unblock/<str:token>', BlockUnblockConsumer.as_asgi()),
 	    path('ws/friend-reqs/<str:token>', FriendshipRequestConsumer.as_asgi()),
 	    path('ws/single-game/<str:token>', RequestSingleGameConsumer.as_asgi()),
-	    path('ws/game-tn/<str:token>', TournamentM_.as_asgi()),
+      path('ws/game-tn/<str:token>/<str:room_name>', TournamentM_.as_asgi()),
 	    path('ws/remote/<str:token>', consumers.GameConsumer.as_asgi()),
+	    path('ws/start-single-game/<str:token>/<str:invite_id>', consumer2.GameConsumer_2.as_asgi()),
   ]
     ),
 })

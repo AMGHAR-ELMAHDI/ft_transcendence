@@ -14,6 +14,7 @@ import { useRecoilState } from "recoil";
 import Username from "../../Atoms/Username";
 import AcessToken from "../../Atoms/AccessToken";
 import { AxiosError } from "axios";
+import { setAuthToken } from "../Utils/setAuthToken";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
@@ -26,16 +27,22 @@ function TopBar() {
 
   const getData = async () => {
     try {
+      setAuthToken();
+      console.log(
+        "-------------------------------------->>><><><><>>> " +
+          localStorage.getItem("token")
+      );
       const response = await api.get("player/me/");
+
       setData(response.data);
       setIsLoading(false);
       setRecoilUsername(response.data?.username);
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         if (error.request) {
-          setTokenValue("");
-          localStorage.removeItem("token");
-          navigate("/login");
+          // setTokenValue("");
+          // localStorage.removeItem("token");
+          // navigate("/login");
         }
       }
       setIsLoading(false);

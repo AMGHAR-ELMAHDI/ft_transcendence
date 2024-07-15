@@ -24,11 +24,10 @@ schema_view = get_schema_view(
 urlpatterns = [
    path('admin/', admin.site.urls),
    path('', include('chat.urls')),
-   # path('', include('online.urls')),
+   path('', include('online.urls')),
    path('', include('Oauth2.urls')),
    path('', include('userman.urls')),
    path('', include('purshase.urls')),
-   path('game/', include('online.urls')),
 
    # path('auth/', include('djoser.urls')),
    # path('auth/', include('djoser.urls.jwt')),

@@ -62,14 +62,14 @@ need to modify image links -------------
 Sockets
 
 status
-url : ws://localhost:2500/ws/status/<str:token>/<int:type>
+url : wss://localhost:2500/ws/status/<str:token>/<int:type>
 type : {1 : 'ONLINE', 2 : IN_GAME}
 onclose | onerror : type becomes automatically OFFLINE
 
 
 block-unblock
 
-url : ws://localhost:2500/ws/block-unblock/${token}
+url : wss://localhost:2500/ws/block-unblock/${token}
 data : 
 {'action': 'block', 'blocked': '2'}
 {'action': 'unblock', 'blocked': '2'}

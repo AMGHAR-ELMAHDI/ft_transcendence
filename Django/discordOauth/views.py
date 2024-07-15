@@ -47,7 +47,7 @@ def discord_redirect(request: HttpRequest):
 				request.session['access'] = str(refresh.access_token)
 				request.session['refresh'] = str(refresh)
 				set_cookie(request=request)
-				return redirect('http://localhost:2500/42/set-cookie')
+				return redirect('https://localhost:2500/42/set-cookie')
 			else:
 				return redirect (settings.HTTP_401_UNAUTHORIZED)
 		else:

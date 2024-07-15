@@ -27,7 +27,7 @@ function TestContainer() {
     console.log(`[${index}]haaaahua accepta !!`);
 
     const gameSocket = new WebSocket(
-      `ws://localhost:2500/ws/single-game/${token}`
+      `wss://localhost:2500/ws/single-game/${token}`
     );
     setSocket(gameSocket);
 
@@ -47,7 +47,7 @@ function TestContainer() {
       console.log(`[Message-+|] ${JSON.stringify(data)}`);
 
       if (data.type === "game_request_update") {
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaah')
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaah");
         getData();
       }
     };

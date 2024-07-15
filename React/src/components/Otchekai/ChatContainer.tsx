@@ -121,7 +121,7 @@ function ChatFriends() {
     }
 
     const blockSocket = new WebSocket(
-      `ws://localhost:2500/ws/block-unblock/${token}`
+      `wss://localhost:2500/ws/block-unblock/${token}`
     );
 
     blockSocket.onopen = function () {
@@ -145,7 +145,7 @@ function ChatFriends() {
     }
 
     const unblockSocket = new WebSocket(
-      `ws://localhost:2500/ws/block-unblock/${token}`
+      `wss://localhost:2500/ws/block-unblock/${token}`
     );
 
     unblockSocket.onopen = function () {
@@ -241,7 +241,7 @@ function ChatTyping({
   const connType = 1;
   useEffect(() => {
     const newSocket = new WebSocket(
-      `ws://localhost:2500/ws/chat/${id}/${token}`
+      `wss://localhost:2500/ws/chat/${id}/${token}`
     );
     setSocket(newSocket);
 
@@ -308,7 +308,7 @@ function ChatTyping({
     }
 
     const gameSocket = new WebSocket(
-      `ws://localhost:2500/ws/single-game/${token}`
+      `wss://localhost:2500/ws/single-game/${token}`
     );
     setGameSocket(gameSocket);
 

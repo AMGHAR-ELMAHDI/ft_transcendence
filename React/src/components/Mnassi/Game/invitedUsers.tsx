@@ -59,7 +59,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
   const [Exit, setExit] = useState<boolean>(false);
   const [SetIt, Lost] = useState<boolean>(false);
   const [WON, SetWinner] = useState<boolean>(false);
-  const [winner, setWinner2] = useState<string>('');
+  const [winner, setWinner2] = useState<string>("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -222,10 +222,10 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
     }
 
     function connectBackend() {
-		const token = localStorage.getItem('token')
-		const invite_id = localStorage.getItem("invite_id");
-		const url = `ws://localhost:2500/ws/start-single-game/${token}/${invite_id}`;
-		return new WebSocket(url);
+      const token = localStorage.getItem("token");
+      const invite_id = localStorage.getItem("invite_id");
+      const url = `wss://localhost:2500/ws/start-single-game/${token}/${invite_id}`;
+      return new WebSocket(url);
     }
 
     function isWebSocketConnected(): boolean {
@@ -281,8 +281,8 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
         BallSettings(paddle1, paddle2);
       }
       if (data?.message?.type === "finals") {
-        winner!.innerHTML = data?.message?.winner
-        setTimeout(()=> navigate('/'), 1000)
+        winner!.innerHTML = data?.message?.winner;
+        setTimeout(() => navigate("/"), 1000);
       }
       if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
         objSocket.send(
@@ -325,9 +325,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
     <>
       {SetIt && <_Queue TheTitle="YOU LOST" />}
       {WON && <_Queue TheTitle="YOU WON" />}
-      {!Exit && (
-        <GameInterface_ Type="" Name={Name} Name2={Name2} />
-      )}
+      {!Exit && <GameInterface_ Type="" Name={Name} Name2={Name2} />}
     </>
   );
 }

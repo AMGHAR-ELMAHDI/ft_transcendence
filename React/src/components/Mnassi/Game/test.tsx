@@ -7,7 +7,7 @@ function userGame() {
 
   useEffect(() => {
     let index = value;
-    const objsocket = new WebSocket("ws://localhost:2500/ws/game/tn/");
+    const objsocket = new WebSocket("wss://localhost:2500/ws/game/tn/");
 
     objsocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
