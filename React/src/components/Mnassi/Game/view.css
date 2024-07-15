@@ -1,5 +1,3 @@
-@import url('./responsive.css');
-
 :root {
 	--custBack: #0C0E14;
 	--NeonEffect: #1D90F5;
@@ -96,7 +94,7 @@ canvas {
 .btn-moded {
 	background-color: transparent;
 	position: absolute;
-	right: 0%;
+	left: 100%;
 	top: 35px;
 	border: none;
 	padding: 10px 20px;

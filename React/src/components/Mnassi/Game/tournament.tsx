@@ -7,6 +7,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import "./tournament.css";
 import "./interface.css";
 import axios from "axios";
+import toast from "react-hot-toast";
 function _tournament() {
   return (
     <>
@@ -169,7 +170,7 @@ function tournament({ NetType }: OnlineGame) {
     console.log('->', room_name)
 
     const token = localStorage.getItem('token')
-    TnSocket = new WebSocket(`ws://localhost:2500/ws/game-tn/${token}/${room_name}`);
+    TnSocket = new WebSocket(`ws://e3r3p1:2500/ws/game-tn/${token}/${room_name}`);
 
     function StoreInStorage(data: any) {
       const Content = {
@@ -242,6 +243,8 @@ function tournament({ NetType }: OnlineGame) {
         if (name === final_1?.textContent || name === final_2?.textContent)
           setTimeout(() => SetFinal2(true), 3000);
       }
+      if (data?.type == 'error')
+        toast.error(data?.error)
       if (NetType === "endT") {
         const parent = document!.querySelector(".tournCont");
         if (name === winner?.textContent) parent!.classList.add("win_");

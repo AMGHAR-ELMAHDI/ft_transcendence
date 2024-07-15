@@ -17,7 +17,6 @@ import Settings from "./components/Cheesy/Settings";
 import ShopContainer from "./components/Otchekai/ShopContainer";
 import Login from "./components/Mnassi/LoginRegister/Login";
 import _tournament from "./components/Mnassi/Game/tournament";
-import _secret from "./components/Mnassi/Game/secretCompo";
 import Register from "./components/Cheesy/Register";
 import Users, { UsersLoader } from "./components/Cheesy/Users";
 import ProfileLayout from "./components/Cheesy/ProfileLayout";
@@ -36,7 +35,6 @@ const router = createBrowserRouter(
     <>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/drake" element={<_secret />} />
       <Route path="/twoFa" element={<Verify2FA />} />
       <Route path="/403" element={<Error_403 />} />
       <Route element={<ProtectedRoutes />}>

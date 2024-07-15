@@ -61,6 +61,7 @@ function Options() {
       <_title title="Overview" />
       <_UserViews />
       <_mods />
+      <_buttons/>
     </div>
   );
 }

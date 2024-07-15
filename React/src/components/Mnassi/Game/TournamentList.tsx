@@ -14,16 +14,22 @@ interface Props {
 
 function TnList({players, room_name, onJoin}: Props) {
     return(
-        <div className="card">
-            <img src="/DefeatBot7.png" alt="" className="img-card" />
-            <div className="tnName">
-                <h1>{room_name}</h1>
+        <>
+            <div className="card">
+                <img src="/DefeatBot7.png" alt="" className="img-card" />
+                <div className="tnName">
+                    <h1>{room_name}</h1>
+                </div>
+                {players == '4' && <div className="bottomTa">
+                    <div className="IndexPlayers notAv">{players || '1'}/4</div>
+                    <div className="btn- notAv" onClick={() => onJoin(room_name)}>join</div>
+                </div>}
+                {players != '4' && <div className="bottomTa">
+                    <div className="IndexPlayers">{players || '1'}/4</div>
+                    <div className="btn-" onClick={() => onJoin(room_name)}>join</div>
+                </div>}
             </div>
-            <div className="bottomTa">
-                <div>{players || '1'}/4</div>
-                <div className="btn-" onClick={() => onJoin(room_name)}>join</div>
-            </div>
-        </div>
+        </>
     )
 }
 
@@ -55,7 +61,7 @@ function Filler() {
             const v_ = input_v.value
             if (v_ !== "")
                 HandleClick(input_v.value)
-            else {
+            else if (v_ === "") {
                 input_v.classList.add('error_')
                 setTimeout(()=> input_v.classList.remove('error_'), 1000)
             }
@@ -79,7 +85,7 @@ function Filler() {
                 </div>
                 <div className="cards">
                     {array.map((element:any, index:any) => {
-                        if (element.fields.status == 'Q') return <TnList key={index} players={element.fields.players} room_name={element.fields.name} onJoin={HandleClick}/>;
+                        return <TnList key={index} players={element.fields.players} room_name={element.fields.name} onJoin={HandleClick}/>;
                     })}
                 </div>
             </div>

@@ -6,6 +6,7 @@ import "./interface.css";
 import _Queue from "./inQueue";
 import _title from "./title";
 import { RecoilRoot } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 interface LocalGameProps {
   Type: string;
@@ -59,6 +60,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
   const [SetIt, Lost] = useState<boolean>(false);
   const [WON, SetWinner] = useState<boolean>(false);
   const [winner, setWinner2] = useState<string>('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     var room_group_name = "";
@@ -278,8 +280,10 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
         Score(data?.message?.scorePlayer1, data?.message?.scorePlayer2);
         BallSettings(paddle1, paddle2);
       }
-      if (data?.message?.type === "finals")
+      if (data?.message?.type === "finals") {
         winner!.innerHTML = data?.message?.winner
+        setTimeout(()=> navigate('/'), 1000)
+      }
       if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
         objSocket.send(
           JSON.stringify({

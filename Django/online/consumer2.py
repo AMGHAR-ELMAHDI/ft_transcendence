@@ -61,7 +61,9 @@ class GameConsumer_2(AsyncWebsocketConsumer):
         if user:
             self.username = user.username
             self.status = user.status
-            print(self.username, ' -> ', self.status)
+            user.status = 'I'
+            await sync_to_async(user.save)(update_fields=['status'])
+            print(user.status)
             await self.accept()
         else:
             return JsonResponse({'error': 'The user is not Authenticated or the room is already started'}, status=403)
@@ -84,8 +86,8 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 'players': {},
                 'index': 0,
                 'ball': views.Ball(67, 67, 7, 7, 10),
-                'paddle2': views.Paddle(0, 20, 5, 5, 20, 160),
-                'paddle1': views.Paddle(0, 50, 5, 5, 20, 160),
+                'paddle2': views.Paddle(0, 20, 2, 2, 20, 160),
+                'paddle1': views.Paddle(0, 50, 2, 2, 20, 160),
                 'winner': None,
                 'RunOnce': False,
                 'id': 0,
@@ -120,8 +122,6 @@ class GameConsumer_2(AsyncWebsocketConsumer):
 
         if Index['index'] == 2 and not Index['RunOnce']:
             Index['RunOnce'] = True
-            user.status = 'I'
-            await sync_to_async(user.save)(update_fields=['status'])
             self.InviteObj.status = 'S'
             await sync_to_async(self.InviteObj.save)(update_fields=['status'])
             self.task = asyncio.ensure_future(self.sendBallPos())
@@ -157,8 +157,8 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                     "posX": self.rooms[self.room_group_name]['paddle2'].posX,
                     "posY": self.rooms[self.room_group_name]['paddle2'].posY,
                 }
+            # await asyncio.sleep(0.002)
             await self.custom_Async(message, "paddleChan")
-            await asyncio.sleep(0.002)
 
         if message_type == 'it_ends_now':
             roomName = infos['room']
@@ -173,8 +173,6 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 'index': index,
                 'game': self.room_group_name,
             }
-
-            GameConsumer_2.roomnb -= 1
 
             await self.custom_Async(message, 'winner')
 
@@ -242,8 +240,6 @@ class GameConsumer_2(AsyncWebsocketConsumer):
 
             duration = self.end_date - self.date
 
-            print('->', user, ' ', user.status, '\n->', opp, ' ', opp.status)
-
             winner = await sync_to_async(get_object_or_404)(models.Player,username=winner)
 
             game = models.GameHistory(
@@ -278,7 +274,6 @@ class GameConsumer_2(AsyncWebsocketConsumer):
 
             await sync_to_async(game.save)()
         except Exception as e:
-            print('->', user, ' ', user.status, '\n->', opp, ' ', opp.status)
             print(f"Error in createGameObject: {e}")
 
     async def sendBallPos(self):
@@ -308,17 +303,17 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle2'])
             if self.rooms[self.room_group_name]['paddle1'].score == 7:
                 self.rooms[self.room_group_name]['winner'] = self.rooms[self.room_group_name]['paddle1'].name
-                await self.stop_task()
                 await self.createGameObject(self.rooms[self.room_group_name]['winner'])
+                await self.stop_task()
             if self.rooms[self.room_group_name]['paddle2'].score == 7:
                 self.rooms[self.room_group_name]['winner'] = self.rooms[self.room_group_name]['paddle2'].name
-                await self.stop_task()
                 await self.createGameObject(self.rooms[self.room_group_name]['winner'])
-            await asyncio.sleep(1 / 60)
+                await self.stop_task()
+            await asyncio.sleep(1 / 70)
 
     async def stop_task(self):
         if self.task and not self.task.done():
-            self.task.cancel()
+            await self.task.cancel()
             try:
                 await self.task
             except asyncio.CancelledError:

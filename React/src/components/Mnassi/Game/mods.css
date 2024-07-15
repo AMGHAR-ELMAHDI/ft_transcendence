@@ -17,6 +17,7 @@
 	right: 0;
 	top: 0;
 	transition: .3s all;
+	/* z-index: -3; */
 	transform: translateX(0%) !important;
 }
 #root {
@@ -72,6 +73,7 @@
 	.mod_Cont {
 		transform: translateX(100%) !important;
 		background-color: #000e159c;
+		z-index: 0;
 	}
 	._mods {
 		top: 25%;
