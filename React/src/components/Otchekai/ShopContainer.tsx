@@ -123,7 +123,7 @@ function ShopDesign() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await api.get("items");
+      const response = await api.get("items/");
       console.log(response.data);
 
       setShopItems(response.data);
