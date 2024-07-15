@@ -3,7 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
-import _idx from "../Mnassi/LoginRegister/idx";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -36,7 +35,10 @@ function Register() {
 
   return (
     <div className="allComp">
-      <_idx></_idx>
+      <div className="header">
+        <img src="/logo.png"></img>
+        <h1>ping pong</h1>
+      </div>
       <div className="content">
         <div className="register">
           <div className="top_">

@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
-import OnlineStatus from "../zmakhkha/OnlineStatus";
 
 interface CardProps {
   name: string;
@@ -19,11 +18,8 @@ interface CardProps {
 }
 
 function ShopContainer() {
-  const token: any = localStorage.getItem("token");
-
   return (
     <>
-      <OnlineStatus token={token} type={1} />
       <div className="AppClass">
         <SideBar />
         <div className="main">
@@ -193,7 +189,6 @@ function Card({ name, price, image, id }: CardProps) {
           <p>BUY IT!</p>
         </div>
         <img src={image} alt="item" />
-        {/* <img src="/purple-paddle.png" alt="item" /> */}
         <div className="Item-img-animation2"></div>
       </div>
       <div className="ItemValueContainer">
