@@ -41,7 +41,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 80svh;
+	height: 900px;
 	flex-flow: column;
 }
 canvas {
@@ -63,7 +63,7 @@ canvas {
 	transform: translateX(-50%);
 	cursor: none;
 }
-.play::before, .play::after {
+.play::before {
 	content: '';
 	height: 841px;
 	width: 1px;
@@ -71,17 +71,6 @@ canvas {
 	position: absolute;
 	z-index: 4;
 	cursor: none;
-}
-.play::after {
-	rotate: 90deg;
-	height: 1359px;
-	position: absolute;
-	inset: 0;
-	bottom: 50%;
-	transform: translateY(-50%);
-	left: 50%;
-	transform: translateX(-50%);
-
 }
 .winner {
 	position: absolute;
@@ -92,26 +81,6 @@ canvas {
 	color: rgba(255, 255, 255, 0.100);
 	transition: .3s;
 	opacity: 0;
-}
-.navbar {
-	position: absolute;
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;
-	height: 80svh;
-	left: 100px;
-	gap: 60px;
-}
-.navbar #icons {
-	scale: 1.4;
-	transition: .4s;
-	z-index: 15;
-	color: #757889;
-}
-#icons:hover {
-	color: var(--NeonEffect);
-	filter: drop-shadow(0 0 13px var(--NeonEffect));
 }
 #buttons {
 	position: absolute;

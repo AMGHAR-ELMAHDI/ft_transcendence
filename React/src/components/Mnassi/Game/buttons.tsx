@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import './buttons.css'
 
 function buttons() {
 	useEffect(()=> {

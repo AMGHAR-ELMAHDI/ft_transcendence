@@ -4,28 +4,66 @@ from django.utils import timezone
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.sessions.models import Session
 from asgiref.sync import sync_to_async
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from channels.db import database_sync_to_async
 from . import views
 from userman import models
-import asyncio
+import asyncio, jwt
+
+@database_sync_to_async
+def get_invite(id):
+    invite = models.Invites.objects.get(id=id)
+    return invite
+
+@database_sync_to_async
+def get_user_by_id(user_id):
+    return get_object_or_404(get_user_model(), pk=user_id)
+
+async def getUser(authorization_header):
+    if not authorization_header:
+        print("---------> Connection rejected: Authorization header not found.")
+        return None
+
+    token = authorization_header
+
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+        user_id = payload["user_id"]
+        user = await get_user_by_id(user_id)
+        return user
+
+    except jwt.ExpiredSignatureError:
+        print("---------> Connection rejected: Token expired.")
+        return None
+    except jwt.InvalidTokenError:
+        print("---------> Connection rejected: Invalid token.")
+        return None
+    except models.Player.DoesNotExist:
+        print(f"Player does not exist with ID: {user_id}")
+        return None
 
 class GameConsumer_2(AsyncWebsocketConsumer):
 
-    seconds = 0
     roomnb = 1
-    data = ""
     rooms = {}
     task = ""
     date = ""
     end_date = ""
 
     async def connect(self):
-        user = self.scope['user']
-        if user.is_authenticated:
+        self.token = self.scope['url_route']['kwargs']['token']
+        self.invite = self.scope['url_route']['kwargs']['invite_id']
+        self.InviteObj = await get_invite(self.invite)
+        self.roomId = self.InviteObj.room_id
+        user = await getUser(self.token)
+        if user:
             self.username = user.username
-            user = await sync_to_async(models.Player.objects.get)(username__iexact=self.username)
             self.status = user.status
+            user.status = 'I'
+            await sync_to_async(user.save)(update_fields=['status'])
+            print(user.status)
             await self.accept()
         else:
             return JsonResponse({'error': 'The user is not Authenticated or the room is already started'}, status=403)
@@ -37,10 +75,10 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 for key in value['players']:
                     if key == self.username and self.status == 'I':
                         UserExist = True
-                        self.room = skey
+                        self.room_group_name = skey
 
         if not UserExist:
-            self.room_group_name = f'bertouch_{GameConsumer_2.roomnb}'
+            self.room_group_name = f'{self.roomId}_{GameConsumer_2.roomnb}'
 
         if self.room_group_name not in self.rooms:
             print(f' -> {self.room_group_name}')
@@ -48,9 +86,10 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 'players': {},
                 'index': 0,
                 'ball': views.Ball(67, 67, 7, 7, 10),
-                'paddle2': views.Paddle(0, 20, 5, 5, 20, 160),
-                'paddle1': views.Paddle(0, 50, 5, 5, 20, 160),
+                'paddle2': views.Paddle(0, 20, 2, 2, 20, 160),
+                'paddle1': views.Paddle(0, 50, 2, 2, 20, 160),
                 'winner': None,
+                'RunOnce': False,
                 'id': 0,
             }
 
@@ -74,14 +113,17 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             "name": self.username,
         }))
 
-        # print('\nplayers: ', ThisRoom, '\nlen = ', Index['index'], '\nroomnb: ', GameConsumer_2.roomnb)
+        print(self.rooms[self.room_group_name]['players'], '\noptions: ', self.rooms[self.room_group_name])
 
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
 
         if Index['index'] + 1 >= 3:
             GameConsumer_2.roomnb += 1
 
-        if (Index['index'] == 2):
+        if Index['index'] == 2 and not Index['RunOnce']:
+            Index['RunOnce'] = True
+            self.InviteObj.status = 'S'
+            await sync_to_async(self.InviteObj.save)(update_fields=['status'])
             self.task = asyncio.ensure_future(self.sendBallPos())
 
     async def disconnect(self, close_code):
@@ -115,76 +157,24 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                     "posX": self.rooms[self.room_group_name]['paddle2'].posX,
                     "posY": self.rooms[self.room_group_name]['paddle2'].posY,
                 }
+            # await asyncio.sleep(0.002)
             await self.custom_Async(message, "paddleChan")
-            await asyncio.sleep(0.002)
 
         if message_type == 'it_ends_now':
             roomName = infos['room']
-            pos = roomName.find('_')
-            roomId = roomName[pos + 1:len(roomName)]
+            winner = self.rooms[roomName]['winner']
 
-            if not (int(roomId) + 1) % 3:
-                TempOne = int(roomId)
-                winner1 = self.rooms[f'bertouch_{TempOne - 1}']['winner']
-                winner2 = self.rooms[f'bertouch_{TempOne}']['winner']
+            if winner in self.rooms[roomName]['players']:
+                index = self.rooms[roomName]['players'][winner]
 
-                # print('->>', TempOne - 1, ' ', winner1, ' -> ', self.rooms[f'bertouch_{TempOne - 1}']['players'], '\n->>', TempOne, ' ', winner2, ' -> ', self.rooms[f'bertouch_{TempOne}']['players'])
+            message = {
+                'type': 'finals',
+                'winner': winner,
+                'index': index,
+                'game': self.room_group_name,
+            }
 
-                self.rooms[f'bertouch_{TempOne}']['rank'] = 'semi-final'
-                self.rooms[f'bertouch_{TempOne - 1}']['rank'] = 'semi-final'
-
-                if winner1 in self.rooms[f'bertouch_{TempOne - 1}']['players'] and winner2 in self.rooms[f'bertouch_{TempOne}']['players']:
-                    index_1 = self.rooms[f'bertouch_{TempOne - 1}']['players'][winner1]
-                    index_2 = self.rooms[f'bertouch_{TempOne}']['players'][winner2]
-
-                    message = {
-                        'type': 'winner',
-                        'winner1': winner1,
-                        'winner2': winner2,
-                        'index1': index_1,
-                        'index2': index_2,
-                    }
-
-                    await self.sendMultipleRooms(message, 'winner', TempOne - 1)
-                    await self.sendMultipleRooms(message, 'winner', TempOne)
-
-            if not (int(roomId)) % 3:
-                TempOne = int(roomId)
-                winner = self.rooms[f'bertouch_{TempOne}']['winner']
-
-                # print('->>', TempOne, ' ', winner, ' -> ', self.rooms[f'bertouch_{TempOne}']['players'])
-                if winner in self.rooms[f'bertouch_{TempOne}']['players']:
-                    index = self.rooms[f'bertouch_{TempOne}']['players'][winner]
-
-                for i in range(TempOne - 2, TempOne + 1):
-                    self.rooms[f'bertouch_{i}']['rank'] = 'final'
-
-                message = {
-                    'type': 'finals',
-                    'winner': winner,
-                    'index': index,
-                    'game': self.room_group_name,
-                }
-                GameConsumer_2.roomnb -= 1
-
-                tournament = models.Tournament(
-                    game_01_id=self.rooms[f'bertouch_{TempOne - 2}']['id'],
-                    game_02_id=self.rooms[f'bertouch_{TempOne - 1}']['id'],
-                    game_final_id=self.rooms[f'bertouch_{TempOne}']['id'],
-                )
-
-                await sync_to_async(tournament.save)()
-
-                await self.sendMultipleRooms(message, 'winner', TempOne)
-
-    async def sendMultipleRooms(self, message, type, roomnb):
-        await self.channel_layer.group_send(
-            f'bertouch_{roomnb}',
-            {
-                "type": type,
-                "message": message,
-            },
-        )
+            await self.custom_Async(message, 'winner')
 
     async def custom_Async(self, message, type):
         await self.channel_layer.group_send(
@@ -250,8 +240,6 @@ class GameConsumer_2(AsyncWebsocketConsumer):
 
             duration = self.end_date - self.date
 
-            print(f'-->{user.username}\n-->{opp.username}')
-
             winner = await sync_to_async(get_object_or_404)(models.Player,username=winner)
 
             game = models.GameHistory(
@@ -274,6 +262,15 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 winner.points = 0
                 await sync_to_async(winner.save)(update_fields=['level'])
             await sync_to_async(winner.save)(update_fields=['points'])
+
+            self.InviteObj.status = 'E'
+            await sync_to_async(self.InviteObj.save)(update_fields=['status'])
+
+
+            user.status = 'O'
+            opp.status = 'O'
+            await sync_to_async(user.save)(update_fields=['status'])
+            await sync_to_async(opp.save)(update_fields=['status'])
 
             await sync_to_async(game.save)()
         except Exception as e:
@@ -306,17 +303,17 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle2'])
             if self.rooms[self.room_group_name]['paddle1'].score == 7:
                 self.rooms[self.room_group_name]['winner'] = self.rooms[self.room_group_name]['paddle1'].name
-                await self.stop_task()
                 await self.createGameObject(self.rooms[self.room_group_name]['winner'])
+                await self.stop_task()
             if self.rooms[self.room_group_name]['paddle2'].score == 7:
                 self.rooms[self.room_group_name]['winner'] = self.rooms[self.room_group_name]['paddle2'].name
-                await self.stop_task()
                 await self.createGameObject(self.rooms[self.room_group_name]['winner'])
-            await asyncio.sleep(1 / 60)
+                await self.stop_task()
+            await asyncio.sleep(1 / 70)
 
     async def stop_task(self):
         if self.task and not self.task.done():
-            self.task.cancel()
+            await self.task.cancel()
             try:
                 await self.task
             except asyncio.CancelledError:

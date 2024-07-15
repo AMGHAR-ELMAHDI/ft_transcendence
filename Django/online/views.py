@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from . import models
+from django.core.serializers import serialize
+from userman import models
+import json
 
 class Ball:
 	def __init__(self, BallX, BallY, radius, VeclocityX, VeclocityY):
@@ -130,3 +132,13 @@ def StockGame(request):
 		game.save()
 		return JsonResponse({'status': 'Success', 'name': me.username, 'progress': me.points, 'level': me.level})
 	return JsonResponse({'status': 'Method Not Allowed'}, status=405)
+
+def getTournaments(request):
+    # try :
+        queryset = models.TnRooms.objects.filter(status='Q')
+        responseobj = serialize('json', queryset)
+        TnTable = json.loads(responseobj)
+        return JsonResponse(TnTable, safe=False)
+    # except Exception as e:
+    #     print(e)
+    #     return JsonResponse({'status': 'error'}, status=500)

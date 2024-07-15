@@ -16,7 +16,7 @@ function MainComp() {
   useEffect(() => {
     axios.defaults.withCredentials = true;
     axios
-      .get("https://localhost:2500/check/", {
+      .get("http://localhost:2500/check/", {
         withCredentials: true,
       })
       .then((response) => {

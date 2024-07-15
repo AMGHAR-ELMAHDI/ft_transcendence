@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { PlayerId } from "./atoms/Winner";
 import _LocalGame from "./multiplayer2";
 import _title from "./title";
 import _OnlineGame from "./multiplayer";
@@ -8,8 +7,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import "./tournament.css";
 import "./interface.css";
 import axios from "axios";
-import { json } from "stream/consumers";
-
+import toast from "react-hot-toast";
 function _tournament() {
   return (
     <>
@@ -64,6 +62,7 @@ function tournament({ NetType }: OnlineGame) {
   const [player2, setNameP2] = useState<string>("...");
   const [FirstGame, RunFirstGame] = useState<boolean>(false);
   const [SecGame, RunSecGame] = useState<boolean>(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const player_1 = document.querySelector(".LeftJoin .first");
@@ -158,7 +157,20 @@ function tournament({ NetType }: OnlineGame) {
       players[3].innerHTML = data.message.array.name_4.name;
     }
 
-    TnSocket = new WebSocket("wss://localhost:2500/ws/game/tn/");
+    function decodeAndReplace(queryParam: string): string {
+      return decodeURIComponent(queryParam.replace(/%20|%09/g, ''));
+    }
+
+    var result = ""
+    var query = location.search;
+    var error = query?.split("?");
+    if (error[1]) result = error[1]?.replace("room_name=", "");
+    const room_name = decodeAndReplace(result)
+
+    console.log('->', room_name)
+
+    const token = localStorage.getItem('token')
+    TnSocket = new WebSocket(`ws://e3r3p1:2500/ws/game-tn/${token}/${room_name}`);
 
     function StoreInStorage(data: any) {
       const Content = {
@@ -231,6 +243,8 @@ function tournament({ NetType }: OnlineGame) {
         if (name === final_1?.textContent || name === final_2?.textContent)
           setTimeout(() => SetFinal2(true), 3000);
       }
+      if (data?.type == 'error')
+        toast.error(data?.error)
       if (NetType === "endT") {
         const parent = document!.querySelector(".tournCont");
         if (name === winner?.textContent) parent!.classList.add("win_");

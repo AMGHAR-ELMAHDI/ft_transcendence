@@ -22,6 +22,11 @@ import Error_403 from "./components/Cheesy/Error403";
 import "./Imports";
 import Gametst from "./components/zmakhkha/Gametst";
 import GameLayout from "./components/Cheesy/GameLayout";
+import "./components/Mnassi/Game/responsive.css";
+import GameContainer_invite from "./components/Cheesy/GameContainer_invite";
+import TestingTn from "./components/Mnassi/Game/TournamentList";
+import _tournament from "./components/Mnassi/Game/tournament";
+import GameContainer from "./components/Mnassi/Game/GameContainer";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,8 +41,14 @@ const router = createBrowserRouter(
         <Route path="chat" element={<ChatContainer />} />
         <Route path="leaderboard" element={<LeaderBoardContainer />} />
         <Route path="shop" element={<ShopContainer />} />
-        <Route path="gametst" element={<Gametst />} />
-        <Route path="game" element={<GameLayout />} />
+
+        <Route path="game" element={<GameLayout />}>
+          <Route index element={<GameContainer />} />
+          <Route path="gameplay" element={<_tournament NetType="" />} />
+        </Route>
+
+        <Route path="/invite-only" element={<GameContainer_invite />} />
+
         <Route path="profile" element={<ProfileLayout />}>
           <Route index element={<ProfileContainer />} />
           <Route path=":username" element={<Users />} loader={UsersLoader} />
@@ -62,5 +73,4 @@ function App() {
     </>
   );
 }
-// MKSzak1337++
 export default App;

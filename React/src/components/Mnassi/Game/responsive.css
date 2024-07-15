@@ -1,0 +1,16 @@
+@media screen and (max-width:1706px) {
+	.game {
+		scale: .7;
+	}
+	#winner {
+		font-size: 196px !important;
+		z-index: 1 !important;
+	}
+	.score {
+		bottom: 23% !important;
+		z-index: 1 !important;
+	}
+	#Pscore, #Sscore {
+		font-size: 295px !important;
+	}
+}

@@ -6,6 +6,7 @@ import "./interface.css";
 import _Queue from "./inQueue";
 import _title from "./title";
 import { RecoilRoot } from "recoil";
+import { PiCoinsBold } from "react-icons/pi";
 
 interface LocalGameProps {
   Type: string;
@@ -221,7 +222,8 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
     }
 
     function connectBackend() {
-      const url = "wss://localhost:2500/game/host/socket-server/";
+      const token = localStorage.getItem('token')
+      const url = `ws://e3r3p1:2500/ws/remote/${token}`;
       return new WebSocket(url);
     }
 

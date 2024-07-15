@@ -5,3 +5,4 @@ const Friendschat = atom({
   default: [], // default value (aka initial value)
 });
 export default Friendschat;
+
