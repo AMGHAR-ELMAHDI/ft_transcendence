@@ -6,8 +6,10 @@ import { useRecoilValue } from "recoil";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
 import Typed from "typed.js";
+import { Friend } from "../Otchekai/Chat/ChatFriends";
 
-function getFriendStatus() {
+function getFriendStatus(string: any) {
+  if (string === "F") return "Offline";
   return "Online";
 }
 
@@ -36,7 +38,7 @@ function getProfileToolTip() {
 }
 
 function ProfileFriends() {
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<Friend[]>([]);
   const url = useRecoilValue(Url);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -85,16 +87,16 @@ function ProfileFriends() {
         <div id="ProfileFriendsContainer">
           <table>
             {getProfileToolTip()}
-            {data.map((friend: any) => (
-              <tbody key={friend?.id}>
+            {data.map((friend: Friend) => (
+              <tbody key={friend.id}>
                 <tr className="ProfileFriendsContent">
                   <td className="removeit">
                     <div>
                       <img
                         className="ProfileFriendImg"
-                        src={GetCorrect(friend?.avatar, url)}
+                        src={GetCorrect(friend.avatar, url)}
                         onClick={() => {
-                          navigate(`/profile/${friend?.username}`);
+                          navigate(`/profile/${friend.username}`);
                         }}
                       />
                     </div>
@@ -102,24 +104,24 @@ function ProfileFriends() {
                   <td>
                     <h1
                       className="ProfileFriendUsername ProfileFriendH1"
-                      onClick={() => navigate(`/profile/${friend?.username}`)}
+                      onClick={() => navigate(`/profile/${friend.username}`)}
                     >
-                      {friend?.username}
+                      {friend.username}
                     </h1>
                   </td>
                   <td className="remove">
                     <h1 className="ProfileFriendLevel ProfileFriendH1">
-                      {friend?.level}
+                      {friend.level}
                     </h1>
                   </td>
                   <td className="remove">
                     <h1 className="ProfileFriendCoins ProfileFriendH1">
-                      {friend?.coins}
+                      {friend.level}
                     </h1>
                   </td>
                   <td>
                     <h1 className="ProfileFriendStatus ProfileFriendH1">
-                      {getFriendStatus()}
+                      {getFriendStatus(friend.level)}
                     </h1>
                   </td>
                 </tr>

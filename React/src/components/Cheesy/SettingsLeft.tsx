@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoShieldHalfSharp } from "react-icons/io5";
 import api from "../../api";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import toast from "react-hot-toast";
+import ProfilePic from "../../Atoms/ProfilePic";
 
 interface Props {
   setRender: React.Dispatch<React.SetStateAction<string>>;
@@ -20,6 +21,7 @@ function SettingsLeft({ setRender, setReRender }: Props) {
   const url = useRecoilValue(Url);
   const [file, setFile] = useState<any>();
   const [avatar, setAvatar] = useState<any>();
+  const [pic, setPic] = useRecoilState(ProfilePic);
 
   let obj = {
     id: "1",
@@ -47,6 +49,7 @@ function SettingsLeft({ setRender, setReRender }: Props) {
     if (event.target.files && event.target.files[0]) {
       setFile(URL.createObjectURL(event.target.files[0]));
       setAvatar(event.target.files[0]);
+      console.log("EVENT TARGET: " + event.target.files[0]);
     }
   };
 
@@ -62,8 +65,8 @@ function SettingsLeft({ setRender, setReRender }: Props) {
         formData.append("image", avatar);
         console.log(fileInputRef.current.files[0]);
       }
-
       await api.put("player/setting/", formData);
+      setPic(file);
       setReRender(true);
     } catch (error) {
       console.log(error);

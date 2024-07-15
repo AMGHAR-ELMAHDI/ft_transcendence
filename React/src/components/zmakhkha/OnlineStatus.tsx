@@ -5,7 +5,7 @@ interface OnlineStatusProps {
   type: number;
 }
 
-interface Message {
+export interface Message {
   type: string;
   data: any;
 }
@@ -22,10 +22,7 @@ const OnlineStatus: React.FC<OnlineStatusProps> = ({ token, type }) => {
 
     socket.onmessage = (event) => {
       const message: Message = JSON.parse(event.data);
-      console.log("--------------------------------------");
-
       console.log(String(JSON.stringify(message)));
-      console.log("--------------------------------------");
     };
 
     socket.onclose = () => {};

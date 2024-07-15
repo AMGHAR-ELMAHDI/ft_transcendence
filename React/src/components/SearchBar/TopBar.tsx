@@ -10,10 +10,11 @@ import api from "../../api";
 import GetGreeting, { getPageName } from "./GetGreeting";
 import DropDownMenuContainer from "./DropDownMenuContainer";
 import Notif from "../Cheesy/Notif";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Username from "../../Atoms/Username";
 import AcessToken from "../../Atoms/AccessToken";
 import { AxiosError } from "axios";
+import ProfilePic from "../../Atoms/ProfilePic";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
@@ -21,6 +22,8 @@ function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [recoilUsername, setRecoilUsername] = useRecoilState(Username);
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
+  const pic = useRecoilValue(ProfilePic);
+  console.log("pic dropdown: " + pic);
 
   const navigate = useNavigate();
 
@@ -50,6 +53,7 @@ function TopBar() {
     <>
       {isLoading && LoadingData()}
       <div id="TopBar">
+        <div className="testNodiplay">{pic}</div>;
         <div className="absolute">
           <div className="BurgerMenu">
             <TiThMenu onClick={() => setIsOpen(!isOpen)} />
@@ -63,7 +67,6 @@ function TopBar() {
             <DrawerLinks />
           </Drawer>
         </div>
-
         <div id="welcome-bar">
           {window.location.pathname === "/" && GetGreeting()}
           {window.location.pathname === "/" && (

@@ -6,7 +6,7 @@ import api from "../../api";
 import { useNavigate } from "react-router-dom";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
-import Online from "../../Atoms/Online";
+import Online from "../../Atoms/ProfilePic";
 
 interface Message {
   type: string;
@@ -19,7 +19,7 @@ function FriendBar() {
   const [renderName, setRenderName] = useState<boolean>(false);
   const [isLoading, setLoading] = useState(true);
   const url = useRecoilValue(Url);
-  const [Onl, setOnline] = useRecoilState(Online);
+
   const token = localStorage.getItem("token");
   setAuthToken();
   const getData = async () => {
