@@ -30,10 +30,8 @@ interface Props {
 function ChatFriends({
   myId,
   Blockedusers,
-  setBlockedMe,
   setBlockedUsers,
   setRerender,
-  BlockedMe,
 }: Props) {
   const [friends, setFriends] = useState<Friend[]>([]);
 
