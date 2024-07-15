@@ -11,7 +11,6 @@ import toast from "react-hot-toast";
 import { FaDiscord } from "react-icons/fa";
 
 function loginEl() {
-  // const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
@@ -59,8 +58,7 @@ function loginEl() {
   };
 
   useEffect(() => {
-    let Logged = localStorage.getItem("token") ? true : false;
-    if (Logged) navigate("/");
+    localStorage.removeItem("token");
   }, []);
 
   return (
@@ -151,7 +149,6 @@ function loginEl() {
             />
           </svg>
         </div>
-        {/* {error.length > 0 ? <div className="statusError">{error}</div> : ""} */}
         <div className="buttons">
           <button className="fourtytwo" onClick={handle42Auth}>
             <img src="/42.svg"></img>

@@ -3,7 +3,6 @@ import SideBar from "./SideBar";
 import TopBar from "../SearchBar/TopBar";
 import FriendBar from "./FriendBar";
 import SettingsGeneralInfo from "./SettingsGeneralInfo";
-import OnlineStatus from "../zmakhkha/OnlineStatus";
 import GetSecurity from "./GetSecurity";
 import SettingsLeft from "./SettingsLeft";
 
@@ -29,7 +28,6 @@ function MainSettings({ setReRender }: Props) {
 }
 
 function Settings() {
-  const token: any = localStorage.getItem("token");
   const [reRender, setReRender] = useState<boolean>(false);
   useEffect(() => {
     <TopBar />;
@@ -37,7 +35,6 @@ function Settings() {
 
   return (
     <>
-      <OnlineStatus token={token} type={0} />
       <div className="AppClass">
         <SideBar />
         <div className="main">

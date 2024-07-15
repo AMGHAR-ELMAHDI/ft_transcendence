@@ -20,7 +20,6 @@ import Verify2FA from "./components/zmakhkha/Verify2FA";
 import { Toaster } from "react-hot-toast";
 import Error_403 from "./components/Cheesy/Error403";
 import "./Imports";
-import Gametst from "./components/zmakhkha/Gametst";
 import GameLayout from "./components/Cheesy/GameLayout";
 
 const router = createBrowserRouter(
@@ -36,7 +35,6 @@ const router = createBrowserRouter(
         <Route path="chat" element={<ChatContainer />} />
         <Route path="leaderboard" element={<LeaderBoardContainer />} />
         <Route path="shop" element={<ShopContainer />} />
-        <Route path="gametst" element={<Gametst />} />
         <Route path="game" element={<GameLayout />} />
         <Route path="profile" element={<ProfileLayout />}>
           <Route index element={<ProfileContainer />} />
