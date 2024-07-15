@@ -16,11 +16,16 @@ const OnlineStatus: React.FC<OnlineStatusProps> = ({ token, type }) => {
       `ws://localhost:2500/ws/status/${token}/${type}`
     );
 
-    socket.onopen = () => {};
+    socket.onopen = () => {
+      console.log("[online socket ] conected successfully !!!");
+    };
 
     socket.onmessage = (event) => {
       const message: Message = JSON.parse(event.data);
-      console.log(message);
+      console.log("--------------------------------------");
+
+      console.log(String(JSON.stringify(message)));
+      console.log("--------------------------------------");
     };
 
     socket.onclose = () => {};

@@ -18,9 +18,6 @@ def f42_login(HttpRequest):
 
 def f42_redirect(request: HttpRequest):
 	code = request.GET.get('code')
-	print("***********************************")
-	print(code)
-	print("***********************************")
 	if code:
 		access_token = exchange_code(code)
 		if access_token:
@@ -33,6 +30,9 @@ def f42_redirect(request: HttpRequest):
 			fname = user_info.get('first_name')
 			lname = user_info.get('last_name')
 			image = user_info.get('image')['link']
+
+			if email == '' or username == '':
+				return redirect (settings.HTTP_400_BAD_REQUEST)
 			
 			conflicting_user_mail = Player.objects.filter(email=email).exclude(user_type=Player.USER_42).first()
 			conflicting_user_user = Player.objects.filter(username=username).exclude(user_type=Player.USER_42).first()
@@ -44,16 +44,17 @@ def f42_redirect(request: HttpRequest):
 				user = Player.objects.create(
 					email=email,
 					username=username,
-					user_type=Player.USER_42
+					first_name = fname,
+					last_name = lname,
+					user_type=Player.USER_42,
+					image_42 = image
 				)
 				user.set_password(random_password)
 				user.save()
 			if user is not None:
 				if user_has_device(user):
 					request.session['pre_2fa_user_id'] = user.id
-					print('[SignInAPIView] there is a device')
 					return redirect(f'http://localhost:5173/twoFa2?user_id={user.id}')
-					# return redirect('http://localhost:2500/discord/2fa')
 				else:
 					login(request, user)
 					refresh = RefreshToken.for_user(user)

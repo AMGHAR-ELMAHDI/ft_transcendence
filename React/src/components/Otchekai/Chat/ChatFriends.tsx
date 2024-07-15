@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Friendschat from "../../../Atoms/Chatfriends";
 import FriendId from "../../../Atoms/FriendId";
 import { ImBlocked } from "react-icons/im";
-import { CgUnblock } from "react-icons/cg";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
 import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
 import Url from "../../../Atoms/Url";
@@ -31,8 +30,6 @@ function ChatFriends({
   setBlockedMe,
   setRerender,
 }: Props) {
-  const block = document.querySelector(".block");
-  const line = document.querySelector(".line");
   const Friends: Friend[] = useRecoilValue(Friendschat);
   const [Friendid, setId] = useRecoilState(FriendId);
   const [selectedfriend, setSelectedFriend] = useRecoilState(SelectedFriend);
@@ -124,31 +121,12 @@ function ChatFriends({
   useEffect(() => {
     if (Friends.length > 0) getID(Friends[0].id);
   }, [Friends]);
-  let index:number = 0;
-
-  const handlerClickB = () => {
-    console.log(index)
-    if (index % 2 == 0) {
-      block?.classList.add("animateParent");
-      line?.classList.add("animate");
-    } else {
-      block?.classList.remove("animateParent");
-      line?.classList.remove("animate");
-    }
-    index++;
-  }
-
-  const [isAnimated, setIsAnimated] = useState<boolean>(false);
-
-  const handleClick = (): void => {
-    setIsAnimated(!isAnimated);
-  };
 
   const Status = "O";
   return (
     <>
-      <div className="Friends-wrapper">
-        <h1 id="Chatlogo">Friends</h1>
+      <h1 id="Chatlogo">Friends</h1>
+      <div className="ChatFriendsContainer">
         {Friends.map((item: any) => (
           <div
             className={`Chat-Friendslist ${
@@ -158,15 +136,19 @@ function ChatFriends({
             onClick={() => getID(item.id)}
           >
             <div className="Friend-img">
-              <img src={GetCorrect(item?.avatar, url)} className="bachar" />
-              <div
-                className={`status-circle ${
-                  Status === "O" ? "status-circle-online" : ""
-                }`}
-              ></div>
-            </div>
-            <div className="Name-messages">
-              <li id="Friend-name">{item.username}</li>
+              <div className="chatImgNameContainer">
+                <img
+                  src={GetCorrect(item?.avatar, url)}
+                  className="Friend-imgImg"
+                />
+                <div
+                  className={`status-circle ${
+                    Status === "O" ? "status-circle-online" : ""
+                  }`}
+                ></div>
+              </div>
+
+              <h1 id="Friend-name">{item.username}</h1>
             </div>
             <div
               onClick={
@@ -176,12 +158,7 @@ function ChatFriends({
               }
               className="Block-button"
             >
-            <div 
-              className={`block ${isAnimated ? 'animateParent' : ''}`} 
-              onClick={handleClick}
-            >
-              <div className={`line ${isAnimated ? 'animate' : ''}`}></div>
-            </div>
+              <ImBlocked />
             </div>
           </div>
         ))}

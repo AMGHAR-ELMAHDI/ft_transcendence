@@ -11,12 +11,10 @@ function Sender({ message, time, sender, currentUserId }: MessageInfo) {
     <div
       className={`Sender ${isCurrentUser ? "Sender-other" : "Sender-current"}`}
     >
-      <div className="Sender-container">
-        <div className="Sender-message">
-          <p>{message}</p>
-          <div className="Sender-message-name">
-            <p>{time}</p>
-          </div>
+      <div className="Sender-message">
+        <p>{message}</p>
+        <div className="Sender-message-name">
+          <p>{time}</p>
         </div>
       </div>
     </div>

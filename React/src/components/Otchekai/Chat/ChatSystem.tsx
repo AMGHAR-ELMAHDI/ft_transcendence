@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import Friendschat from "../../../Atoms/Chatfriends";
 import api from "../../../api";
@@ -81,6 +81,7 @@ function ChatSystem() {
             myId={myId}
           />
         </div>
+        <div className="iamJustALine"></div>
         <div className="Chat-box-menu">
           <ChatTyping
             socket={socket}

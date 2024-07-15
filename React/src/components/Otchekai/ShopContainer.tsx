@@ -10,8 +10,6 @@ import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
-// import GetCorrectImage from "../Cheesy/GetCorrectImage";
-// import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 interface CardProps {
   name: string;
@@ -98,7 +96,7 @@ function GetAvatar() {
   return (
     <>
       <div className="itemsContainer">
-        <h1 id="Paddles-header">Avatars</h1>
+        <h1 id="Paddles-header">Balls</h1>
         <div className="Paddle-holder">
           {avatar?.map((item: any) => (
             <Card

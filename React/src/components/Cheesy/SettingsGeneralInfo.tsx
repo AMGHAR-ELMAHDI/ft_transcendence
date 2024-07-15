@@ -3,6 +3,7 @@ import api from "../../api";
 
 interface Props {
   image?: string;
+  
 }
 
 function SettingsGeneralInfo({ image }: Props) {

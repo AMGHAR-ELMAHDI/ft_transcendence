@@ -357,6 +357,11 @@ ul {
   scale: 1.1;
 }
 
+.DrawerText {
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif !important;
+}
+
 .DrawerLinks > div > *:not(.DrawerText) {
   font-size: 2rem;
   color: #a5b4c9;
