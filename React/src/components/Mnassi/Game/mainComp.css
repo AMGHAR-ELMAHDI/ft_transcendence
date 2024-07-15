@@ -1,41 +1,40 @@
 :root {
-	--custBack: #0C0E14;
-	--NeonEffect: #1D90F5;
-	--fadedFColor: #000E15;
-	--fadedSColor: #005379;
-	--BallX: 50%;
-	--BallY: 50%;
-	--interfaceX: 1359px;
-	--interfaceY: 841px;
-	--PaddleX: 25px;
-	--PaddleY: 30px;
+  --custBack: #0c0e14;
+  --NeonEffect: #1d90f5;
+  --fadedFColor: #000e15;
+  --fadedSColor: #005379;
+  --BallX: 50%;
+  --BallY: 50%;
+  --interfaceX: 1359px;
+  --interfaceY: 841px;
+  --PaddleX: 25px;
+  --PaddleY: 30px;
 }
 #root {
-	width: 100%;
-	height: 100svh;
+  width: 100%;
+  height: 100svh;
 }
 @font-face {
-	font-family: lightpant;
-	src: url(/Panton-Trial-Light.ttf);
+  font-family: lightpant;
+  src: url(/Panton-Trial-Light.ttf);
 }
 @font-face {
-	font-family: pant;
-	src: url(/Panton-Trial-Bold.ttf);
+  font-family: pant;
+  src: url(/Panton-Trial-Bold.ttf);
 }
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: pant;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 body {
-	/* overflow: hidden; */
-	height: 100svh;
-	background: var(--custBack);
-	background-size: cover;
-	background-position: center;
-	padding: 0;
-	margin: 0;
+  /* overflow: hidden; */
+  height: 100svh;
+  background: var(--custBack);
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+  margin: 0;
 }
 /* #logo {
 	width: 153px;
@@ -43,46 +42,48 @@ body {
 	left: 12px;
 } */
 .header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #user-avatar {
-	position: relative;
-	width:67px;
-	right: 80px;
-	border-radius: 50%;
-	border: 6px solid var(--custBack);
-	outline: 2px solid white;
+  position: relative;
+  width: 67px;
+  right: 80px;
+  border-radius: 50%;
+  border: 6px solid var(--custBack);
+  outline: 2px solid white;
 }
 .navbar {
-	position: absolute;
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;
-	height: 80svh;
-	left: 100px;
-	gap: 60px;
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 80svh;
+  left: 100px;
+  gap: 60px;
 }
-.navbar #icons, #exit {
-	scale: 1.4;
-	cursor: pointer;
-	transition: .4s;
-	z-index: 15;
-	color: #757889;
+.navbar #icons,
+#exit {
+  scale: 1.4;
+  cursor: pointer;
+  transition: 0.4s;
+  z-index: 15;
+  color: #757889;
 }
-#icons:hover, #exit:hover {
-	color: var(--NeonEffect);
-	filter: drop-shadow(0 0 13px var(--NeonEffect));
+#icons:hover,
+#exit:hover {
+  color: var(--NeonEffect);
+  filter: drop-shadow(0 0 13px var(--NeonEffect));
 }
 #exit:hover {
-	color: #f51d1d;
-	filter: drop-shadow(0 0 13px #f51d1d);
+  color: #f51d1d;
+  filter: drop-shadow(0 0 13px #f51d1d);
 }
 #exit {
-	position: absolute;
-	bottom: 100px;
-	left: 100px;
+  position: absolute;
+  bottom: 100px;
+  left: 100px;
 }

@@ -36,7 +36,6 @@
 	font-size: 70px;
 	font-weight: bold;
 	transition: .3s;
-	font-family: Arial, Helvetica, sans-serif;
 }
 #down::before{
 	content: 'S';

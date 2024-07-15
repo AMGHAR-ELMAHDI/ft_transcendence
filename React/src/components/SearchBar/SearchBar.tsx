@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
+import { setAuthToken } from "../Utils/setAuthToken";
 
 function SearchBar() {
   const [players, setPlayers] = useState<any>([]);
@@ -10,6 +11,7 @@ function SearchBar() {
 
   useEffect(() => {
     const getPlayers = async () => {
+      setAuthToken();
       try {
         const response = await api.get("player/");
         setPlayers(response.data);

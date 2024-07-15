@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import api from "../../api";
 import DisplayNotif from "./DisplayNotif";
+import { setAuthToken } from "../Utils/setAuthToken";
 
 export interface Player {
   id: number;
@@ -37,6 +38,7 @@ function Notif() {
   //-------------------------
 
   const getPlayers = async () => {
+    setAuthToken();
     try {
       const response = await api.get("player/");
       setPlayers(response.data);
@@ -47,6 +49,7 @@ function Notif() {
 
   const getData = async () => {
     try {
+      setAuthToken();
       const response = await api.get("reqs/");
       setReceived(response.data?.recieved);
     } catch (error) {
@@ -56,6 +59,7 @@ function Notif() {
 
   const getGameInvites = async () => {
     try {
+      setAuthToken();
       const response = await api.get("game-invites/");
       setPending(response.data?.pending);
       setAccepted(response.data?.accepted);
