@@ -15,6 +15,9 @@ class GameHistoryAdmin(admin.ModelAdmin):
 @admin.register(Tournament)
 class Tournament(admin.ModelAdmin):
     pass
+# @admin.register(GameHistory)
+# class AchievementAdmin(admin.ModelAdmin):
+#     pass
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
     pass
@@ -27,10 +30,4 @@ class ItemAdmin(admin.ModelAdmin):
     pass
 @admin.register(AchievementPerUser)
 class AchievementPerUserAdmin(admin.ModelAdmin):
-    pass
-@admin.register(Invites)
-class Invites(admin.ModelAdmin):
-    pass
-@admin.register(TnRooms)
-class TnRooms(admin.ModelAdmin):
     pass

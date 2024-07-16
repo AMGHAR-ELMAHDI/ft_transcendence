@@ -9,16 +9,15 @@ from django.utils.crypto import get_random_string
 from django.contrib.auth import login
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from django_otp import user_has_device
 
-def discord_login(HttpRequest):
+
+def f42_login(HttpRequest):
 	return redirect(settings.F_URI)
 
 
-def discord_redirect(request: HttpRequest):
+def f42_redirect(request: HttpRequest):
 	code = request.GET.get('code')
-	print("***********************************")
-	print(code)
-	print("***********************************")
 	if code:
 		access_token = exchange_code(code)
 		if access_token:
@@ -31,6 +30,9 @@ def discord_redirect(request: HttpRequest):
 			fname = user_info.get('first_name')
 			lname = user_info.get('last_name')
 			image = user_info.get('image')['link']
+
+			if email == '' or username == '':
+				return redirect (settings.HTTP_400_BAD_REQUEST)
 			
 			conflicting_user_mail = Player.objects.filter(email=email).exclude(user_type=Player.USER_42).first()
 			conflicting_user_user = Player.objects.filter(username=username).exclude(user_type=Player.USER_42).first()
@@ -42,21 +44,23 @@ def discord_redirect(request: HttpRequest):
 				user = Player.objects.create(
 					email=email,
 					username=username,
-					first_name=fname,
-					last_name=lname,
-					image=image,
-					user_type=Player.USER_42
+					first_name = fname,
+					last_name = lname,
+					user_type=Player.USER_42,
+					image = image
 				)
 				user.set_password(random_password)
 				user.save()
-				
 			if user is not None:
-				login(request, user)
-				refresh = RefreshToken.for_user(user)
-				request.session['access'] = str(refresh.access_token)
-				request.session['refresh'] = str(refresh)
-				set_cookie(request=request)
-				return redirect('http://localhost:2500/42/set-cookie')
+				if user_has_device(user):
+					request.session['pre_2fa_user_id'] = user.id
+					return redirect(f'https://localhost:5173/twoFa2?user_id={user.id}')
+				else:
+					login(request, user)
+					refresh = RefreshToken.for_user(user)
+					request.session['access'] = str(refresh.access_token)
+					request.session['refresh'] = str(refresh)
+					return HttpResponseRedirect(redirect_to='https://localhost:2500/oauth2/set-cookie')
 			else:
 				return redirect (settings.HTTP_401_UNAUTHORIZED)
 		else:
@@ -65,17 +69,7 @@ def discord_redirect(request: HttpRequest):
 		return redirect (settings.HTTP_400_BAD_REQUEST)
 
 
-def set_cookie(request):
-	access_token = request.session.get('access')
-	refresh_token = request.session.get('refresh')
 
-	if access_token and refresh_token:
-		response = HttpResponseRedirect('http://localhost:5173/')
-		response.set_cookie('access', access_token)
-		response.set_cookie('refresh', refresh_token)
-		return response
-	else:
-		return HttpResponse("Access or Refresh token not found in session.")
 
 
 def exchange_code(code: str):

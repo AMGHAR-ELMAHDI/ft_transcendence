@@ -1,18 +1,36 @@
+# import os
+# from django.core.asgi import get_asgi_application
+# from django.urls import path,re_path
+# from channels.routing import ProtocolTypeRouter, URLRouter
+# from chat.chat_consumer import ChatConsumer
+# from online import consumers
+# from chat.status_consumer import StatusConsumer
+# from chat.blockUnblock_consumer import BlockUnblockConsumer
+# from chat.friend_requests_consumer import FriendshipRequestConsumer
+# from chat.SingleGame_consumer import RequestSingleGameConsumer
+# from online.consumers import TournamentM_
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myChat.settings')
+
+
+
+# isort: skip_file
 import os
 from django.core.asgi import get_asgi_application
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myChat.settings')
 from django.urls import path,re_path
 from channels.routing import ProtocolTypeRouter, URLRouter
+django_asgi_app = get_asgi_application()
+
+
+
 from chat.chat_consumer import ChatConsumer
-from online import consumers
+from chat.SingleGame_consumer import RequestSingleGameConsumer
+from online.consumers import TournamentM_
 from chat.status_consumer import StatusConsumer
 from chat.blockUnblock_consumer import BlockUnblockConsumer
 from chat.friend_requests_consumer import FriendshipRequestConsumer
-from chat.SingleGame_consumer import RequestSingleGameConsumer
-from online.consumers import TournamentM_
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myChat.settings')
-
 from online.consumer2 import GameConsumer_2
-
+from online import consumers 
 application = ProtocolTypeRouter({
   'http': get_asgi_application(),
   'websocket': URLRouter([

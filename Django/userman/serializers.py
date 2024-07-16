@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
-
+from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
+from rest_framework.validators import UniqueValidator
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 
@@ -105,28 +107,46 @@ class FriendshipPlayerSerializer(serializers.ModelSerializer):
         
 class InvitesSerializer(serializers.ModelSerializer):
     sender_username = serializers.SerializerMethodField()
-    receiver_username = serializers.SerializerMethodField()
 
     class Meta:
         model = Invites
-        fields = ['id', 'sender', 'sender_username', 'receiver', 'receiver_username', 'status', 'room_id', 'date']
+        fields = ['id', 'sender', 'sender_username', 'receiver', 'status', 'room_id', 'date']
     
     def get_sender_username(self, obj):
         return obj.sender.username
-    def get_receiver_username(self, obj):
-        return obj.receiver.username
     
-from rest_framework import serializers
-from django.contrib.auth.password_validation import validate_password
-from rest_framework.validators import UniqueValidator
+
 
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True,
-        validators=[UniqueValidator(queryset=Player.objects.all())]
+        validators=[UniqueValidator(queryset=Player.objects.all(), message="This email is already in use.")]
     )
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
+    username = serializers.CharField(
+        required=True,
+        validators=[UniqueValidator(queryset=Player.objects.all(), message="This username is already in use.")]
+    )
+
+    class Meta:
+        model = Player
+        fields = ['username', 'email', 'password', 'password2']
+
+    def validate(self, data):
+        if data['password'] != data['password2']:
+            raise serializers.ValidationError({"password2": "Password fields didn't match."})
+        return data
+
+    def create(self, validated_data):
+        validated_data.pop('password2')
+        user = Player.objects.create(
+            username=validated_data['username'],
+            email=validated_data['email']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
 
     class Meta:
         model = Player

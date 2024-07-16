@@ -170,7 +170,7 @@ function tournament({ NetType }: OnlineGame) {
     console.log('->', room_name)
 
     const token = localStorage.getItem('token')
-    TnSocket = new WebSocket(`ws://localhost:2500/ws/game-tn/${token}/${room_name}`);
+    TnSocket = new WebSocket(`wss://localhost:2500/ws/game-tn/${token}/${room_name}`);
 
     function StoreInStorage(data: any) {
       const Content = {

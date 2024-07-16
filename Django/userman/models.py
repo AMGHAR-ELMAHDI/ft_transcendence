@@ -52,7 +52,7 @@ class Player(AbstractBaseUser):
     coins = models.IntegerField(default=0)
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=STATUS_OFFLINE)
-    level = models.IntegerField(default=1)
+    level = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
     friends = models.ManyToManyField('self', through='Friendship', symmetrical=False)
     email = models.EmailField(unique=True)
@@ -63,7 +63,12 @@ class Player(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='store/images', validators=[max_size_validator], default='default.png')
+    image_42 = models.CharField(max_length=65, blank=True )
+    image = models.ImageField(
+        upload_to='images', 
+        validators=[max_size_validator], 
+        default='images/default.png'
+    )
     user_type = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=USER_NORMAL)
     USERNAME_FIELD = 'username'
@@ -72,7 +77,7 @@ class Player(AbstractBaseUser):
     objects = PlayerManager()
     
     def __str__(self):
-        return self.username
+        return self.email
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -204,15 +209,11 @@ class Invites(models.Model):
     STATUS_PENDING = 'P'
     STATUS_ACCEPTED = 'A'
     STATUS_REJECTED = 'R'
-    STATUS_STARTED = 'S'
-    STATUS_ENDED = 'E'
 
     STATUS_CHOICES = [
         (STATUS_PENDING, 'PENDING'),
         (STATUS_ACCEPTED, 'ACCEPTED'),
         (STATUS_REJECTED, 'REJECTED'),
-        (STATUS_STARTED, 'START'),
-        (STATUS_ENDED, 'ENDED'),
     ]
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=STATUS_PENDING)
@@ -301,3 +302,4 @@ class TnRooms(models.Model):
 
     def __str__(self):
         return self.name
+    

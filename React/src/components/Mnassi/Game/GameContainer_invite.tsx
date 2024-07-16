@@ -12,7 +12,7 @@ export default function GameContainer() {
 
   useEffect(()=> {
     const inviteID = localStorage.getItem('invite_id')
-    axios.get(`http://localhost:2500/user/${inviteID}/`)
+    axios.get(`https://localhost:2500/user/${inviteID}/`)
     .then(resp => {
         setName(resp.data.sender)
         setName2(resp.data.receiver)

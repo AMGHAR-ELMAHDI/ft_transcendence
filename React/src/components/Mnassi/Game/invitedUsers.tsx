@@ -224,7 +224,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
     function connectBackend() {
 		const token = localStorage.getItem('token')
 		const invite_id = localStorage.getItem("invite_id");
-		const url = `ws://localhost:2500/ws/start-single-game/${token}/${invite_id}`;
+		const url = `wss://localhost:2500/ws/start-single-game/${token}/${invite_id}`;
 		return new WebSocket(url);
     }
 

@@ -23,7 +23,7 @@ function Login() {
     // saving the client with 42 auth
     axios.defaults.withCredentials = true;
     axios
-      ?.get("http://localhost:2500/check/", {
+      ?.get("https://localhost:2500/check/", {
         withCredentials: true,
       })
       .then((response) => {

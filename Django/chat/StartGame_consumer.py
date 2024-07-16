@@ -65,4 +65,4 @@ class StartGame_consumer(AsyncWebsocketConsumer):
         pass
 
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard(str(self.room_id), self.channel_name)
+                await self.channel_layer.group_discard(str(self.room_id), self.channel_name)

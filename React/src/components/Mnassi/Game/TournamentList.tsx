@@ -67,7 +67,7 @@ function Filler() {
             }
         })
 
-        axios.get('http://localhost:2500/getTournaments/')
+        axios.get('https://localhost:2500/getTournaments/')
         .then(response => {
             SetArray(response.data)
         })

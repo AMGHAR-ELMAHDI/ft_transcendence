@@ -8,8 +8,8 @@ function GetCorrectImage(image: string) {
 
   if (image?.includes("/media/store/images/")) {
     correctImage = url.slice(0, url.length - 1) + image;
-  } else if (image?.includes("http://localhost:2500/media/media/store/")) {
-    correctImage = image?.replace("http://localhost:2500/media/media/", url);
+  } else if (image?.includes("https://localhost:2500/media/media/store/")) {
+    correctImage = image?.replace("https://localhost:2500/media/media/", url);
   } else if (image?.includes("/media/media/store/"))
     correctImage = url + image.slice(7);
 

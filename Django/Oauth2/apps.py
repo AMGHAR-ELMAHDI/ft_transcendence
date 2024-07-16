@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class LoginpageConfig(AppConfig):
+class Oauth2Config(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'loginPage'
+    name = 'Oauth2'
