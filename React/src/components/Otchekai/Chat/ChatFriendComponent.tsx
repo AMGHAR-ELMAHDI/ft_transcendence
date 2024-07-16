@@ -98,7 +98,7 @@ function ChatFriendComponent({
       setBlockedUsers(newBlockedUsers);
     }
   };
-
+  
   return (
     <div
       className={`Chat-Friendslist ${
@@ -107,7 +107,7 @@ function ChatFriendComponent({
       onClick={() => getID(friend.id)}
     >
       <div className="Friend-img">
-        <div className="chatImgNameContainer">
+        <div className="chatImgNameContainer">          
           <img src={GetCorrect(friend.avatar, url)} className="Friend-imgImg" />
           <div
             className={`status-circle ${

@@ -125,15 +125,16 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
     };
   };
 
+    
   return (
     <>
-      <div className="negotiator">
+     {Friend != undefined &&  <div className="negotiator">
         <img src={GetCorrect(Friend?.avatar, url)} id="chatperson" />
         <div className="Friend-header-name">
           <h1>{Friend?.username || "Select a friend"}</h1>
           <h2>online</h2>
         </div>
-      </div>
+      </div>}
       <div className="Type-wrapper">
         <div className="Chat-box">
           {allMessages.map((msg: any, index) => (
