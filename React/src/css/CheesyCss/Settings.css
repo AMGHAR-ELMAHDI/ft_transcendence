@@ -369,6 +369,10 @@ input:-webkit-autofill:active {
   height: 100%;
 }
 
+.settingsItems{
+  border: 1px solid grey;
+}
+
 @media screen and (max-width: 1400px) {
   .MainSettingsContainer {
     align-items: flex-start;

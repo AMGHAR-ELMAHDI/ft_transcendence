@@ -9,6 +9,7 @@ import { GetCorrect } from "./LeaderBoardGetTop3";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
+import { GrSelect } from "react-icons/gr";
 
 interface Props {
   setRender: React.Dispatch<React.SetStateAction<string>>;
@@ -111,7 +112,7 @@ function SettingsLeft({ setRender }: Props) {
           <h1 className="blk">Security</h1>
         </div>
         <div onClick={() => setRender("Items")} className="SetInfo">
-          <IoShieldHalfSharp className="SetIcon" />
+          <GrSelect className="SetIcon" />
           <h1 className="blk">Items</h1>
         </div>
       </div>
