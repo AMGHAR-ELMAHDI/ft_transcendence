@@ -35,7 +35,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
     const token = localStorage.getItem("token");
 
     const chatSocket = new WebSocket(
-      `ws://localhost:2500/ws/chat/${Selectedfriend}/${token}`
+      `wss://localhost:2500/ws/chat/${Selectedfriend}/${token}`
     );
     setSocket(chatSocket);
     chatSocket.onopen = function () {
@@ -107,7 +107,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
     }
 
     const gameSocket = new WebSocket(
-      `ws://localhost:2500/ws/single-game/${token}`
+      `wss://localhost:2500/ws/single-game/${token}`
     );
     setGameSocket(gameSocket);
     console.log(gameSocket);

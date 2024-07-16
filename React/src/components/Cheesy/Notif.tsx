@@ -71,7 +71,7 @@ function Notif() {
     //------------------------------------------Friend Invite
     const token = localStorage.getItem("token");
     socketFriend.current = new WebSocket(
-      `ws://localhost:2500/ws/friend-reqs/${token}`
+      `wss://localhost:2500/ws/friend-reqs/${token}`
     );
 
     socketFriend.current.onmessage = (event: MessageEvent) => {
@@ -83,7 +83,7 @@ function Notif() {
     //------------------------------------------game Invite start
     getGameInvites();
     socketGame.current = new WebSocket(
-      `ws://localhost:2500/ws/single-game/${token}`
+      `wss://localhost:2500/ws/single-game/${token}`
     );
 
     socketGame.current.onmessage = (event: MessageEvent) => {

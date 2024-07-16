@@ -158,7 +158,7 @@ function tournament({ NetType }: OnlineGame) {
       players[3].innerHTML = data.message.array.name_4.name;
     }
 
-    TnSocket = new WebSocket("ws://localhost:2500/ws/game/tn/");
+    TnSocket = new WebSocket("wss://localhost:2500/ws/game/tn/");
 
     function StoreInStorage(data: any) {
       const Content = {
