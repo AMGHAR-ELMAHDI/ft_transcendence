@@ -185,6 +185,8 @@
 
 .Friend-header-name > h1 {
   font-size: 2rem;
+  cursor: pointer;
+
 }
 
 .Friend-header-name > h2 {

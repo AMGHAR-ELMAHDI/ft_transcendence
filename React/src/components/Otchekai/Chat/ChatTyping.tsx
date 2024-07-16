@@ -7,6 +7,7 @@ import Sender from "./Sender";
 import Friendschat from "../../../Atoms/Chatfriends";
 import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
 import Url from "../../../Atoms/Url";
+import { useNavigate } from "react-router-dom";
 
 interface Friend {
   id: number;
@@ -125,13 +126,13 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
     };
   };
 
-    
+    const navigate = useNavigate();
   return (
     <>
      {Friend != undefined &&  <div className="negotiator">
         <img src={GetCorrect(Friend?.avatar, url)} id="chatperson" />
         <div className="Friend-header-name">
-          <h1>{Friend?.username || "Select a friend"}</h1>
+          <h1 onClick={() => navigate(`/profile/${Friend?.username}`)}>{Friend?.username}</h1>
           <h2>online</h2>
         </div>
       </div>}

@@ -58,8 +58,8 @@ function getScore(player_score: string, opponent_score: string) {
   );
 }
 
-function getHistoryTabs(player_score: number, opponent_score: number) {
-  if (player_score >= opponent_score) return "Won";
+function getHistoryTabs(id: string, winner: string) {
+  if (id === winner) return "Won";
   else return "Lost";
 }
 
@@ -74,7 +74,7 @@ function History({ UserData, UseUserData }: UserDataProps) {
   const getData = async () => {
     try {
       const response = await api.get(url);
-      setData(response.data?.games);
+      setData(response.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -120,17 +120,12 @@ function History({ UserData, UseUserData }: UserDataProps) {
           {getTooltip()}
           {data?.map((game: any) => (
             <tbody key={game?.id}>
-              <tr
-                className={getHistoryTabs(
-                  game?.player_score,
-                  game?.opponent_score
-                )}
-              >
+              <tr className={getHistoryTabs(game?.player_id, game?.winner_id)}>
                 <td className="leftTd zekton DontRenderF">
                   <h1>{getDate(game?.date)}</h1>
                 </td>
                 <td className="Toruk">
-                  <h1>{game?.opponent_username[0].username}</h1>
+                  <h1>{game?.opponent_username}</h1>
                 </td>
                 <td className="ScoreTd Toruk">
                   {getScore(game?.player_score, game?.opponent_score)}
@@ -139,7 +134,7 @@ function History({ UserData, UseUserData }: UserDataProps) {
                   <h1>{getGameMode(game?.game_mode)}</h1>
                 </td>
                 <td className="rightTd zekton DontRender">
-                  <h1>{game?.game_duration_minutes + "min"}</h1>
+                  <h1>{game?.game_duration}</h1>
                 </td>
               </tr>
               <tr>
