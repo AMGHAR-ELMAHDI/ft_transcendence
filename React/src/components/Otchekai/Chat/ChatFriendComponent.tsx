@@ -43,7 +43,6 @@ function ChatFriendComponent({
     newSocket.onopen = () => {};
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log(data, "data");
       if (data.action === "block") {
         setBlockedUsers((prevBlockedUsers: any) => [
           ...prevBlockedUsers,

@@ -38,9 +38,7 @@ function ChatFriends({
   const getFriends = async () => {
     try {
       const response = await api.get("player/friends/");
-
       setFriends(response.data.friends);
-      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }

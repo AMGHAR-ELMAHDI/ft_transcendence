@@ -1,6 +1,5 @@
 import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
-import FriendId from "../../../Atoms/FriendId";
 import api from "../../../api";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
 import Sender from "./Sender";
@@ -58,7 +57,6 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
 
     chatSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
-      console.log(e, "e");
       const msg = {
         content: data["message"],
         timestamp: new Date(),
