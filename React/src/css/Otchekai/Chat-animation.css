@@ -12,50 +12,15 @@
 }
 
 .Parent-animation {
-  box-shadow: 0px 1px 150px 0px rgb(14, 80, 137);
   position: relative;
-  height: 600px;
-  width: 1200px;
-  overflow: hidden;
-  border-radius: 20px;
-  padding: 30px;
-  box-sizing: border-box;
-}
-
-.Parent-animation::before {
-  content: "";
-  position: absolute;
-  width: 350%;
-  height: 350%;
-  left: -125%;
-  top: -125%;
-  background: repeating-conic-gradient(
-    #5fcae4 0%,
-    #5fcae4 5%,
-    transparent 5%,
-    transparent 40%,
-    #5fcae4 50%
-  );
-  animation: Lines 5s linear infinite;
-  z-index: -2;
-}
-
-.Parent-animation::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  height: 100%;
   width: 100%;
-  height: 98%;
-  background-color: #0c0e14;
-  z-index: -1;
 }
 
 .left_wall {
   background-color: white;
   position: absolute;
-  height: 100px;
+  height: 150px;
   width: 1%;
   top: 25px;
   left: 0;
@@ -66,12 +31,12 @@
 .right_wall {
   background-color: white;
   position: absolute;
-  height: 100px;
+  height: 150px;
   width: 1%;
   border-radius: 20px;
   top: 25px;
   right: 0;
-  animation: paddles 5s ease-out infinite 1s;
+  animation: paddles 5s ease-out infinite 1.2s;
 }
 
 .ball {
@@ -113,18 +78,8 @@
   }
 }
 
-@keyframes Lines {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  100% {
-    transform: rotateZ(360deg);
-  }
-}
-
 @media only screen and (max-width: 1440px) {
   .Parent-animation {
-    box-shadow: 0px 1px 150px 0px rgb(14, 80, 137);
     position: relative;
     height: 600px;
     width: 1200px;
