@@ -2,9 +2,9 @@ import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import Friendschat from "../../../Atoms/Chatfriends";
 import api from "../../../api";
+import ChatFriends from "./ChatFriends";
 import ChatTyping from "./ChatTyping";
 import Typed from "typed.js";
-import TestFriend from "./TestFriends";
 
 function ChatSystem() {
   const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
@@ -18,6 +18,7 @@ function ChatSystem() {
     try {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
+      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -29,6 +30,7 @@ function ChatSystem() {
       setBlockedUsers(response.data.blocked_users);
       setBlockedMe(response.data.blocked_me);
       setmyId(response.data.id);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -37,6 +39,7 @@ function ChatSystem() {
   useEffect(() => {
     getMyData();
     getData();
+    console.log(BlockRerender, "hnaya hna hona");
   }, [BlockRerender]);
 
   useEffect(() => {
@@ -68,7 +71,7 @@ function ChatSystem() {
     <>
       <div className="Chat-wrapper">
         <div className="Friends-menu">
-          <TestFriend
+          <ChatFriends
             setRerender={setRerender}
             BlockedMe={BlockedMe}
             Blockedusers={Blockedusers}

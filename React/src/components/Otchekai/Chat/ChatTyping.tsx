@@ -22,15 +22,8 @@ interface Props {
   BlockedMe: any;
 }
 
-function ChatTyping({
-  socket,
-  setSocket,
-  Blockedusers,
-  myId,
-  BlockedMe,
-}: Props) {
+function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
   const UsersData: Friend[] = useRecoilValue(Friendschat);
-  const id = useRecoilValue(FriendId);
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
   const Friend: any = UsersData.find((f) => f.id === Selectedfriend);
@@ -42,14 +35,16 @@ function ChatTyping({
     const token = localStorage.getItem("token");
 
     const chatSocket = new WebSocket(
-      `ws://localhost:2500/ws/chat/${id}/${token}`
+      `ws://localhost:2500/ws/chat/${Selectedfriend}/${token}`
     );
     setSocket(chatSocket);
-    chatSocket.onopen = function () {};
+    chatSocket.onopen = function () {
+      console.log("WebSocket connection established (tcha9lib blawr).");
+    };
 
     const fetchInitialMessages = async () => {
       try {
-        const response = await api.get(`messages/${id}/`);
+        const response = await api.get(`messages/${Selectedfriend}/`);
         setAllMessages(
           response.data.sort(
             (a: { id: number }, b: { id: number }) => a.id - b.id
@@ -63,6 +58,7 @@ function ChatTyping({
 
     chatSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
+      console.log(e, "e");
       const msg = {
         content: data["message"],
         timestamp: new Date(),
@@ -73,7 +69,7 @@ function ChatTyping({
     return () => {
       chatSocket.close();
     };
-  }, [id]);
+  }, [Selectedfriend]);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,11 +110,12 @@ function ChatTyping({
       `ws://localhost:2500/ws/single-game/${token}`
     );
     setGameSocket(gameSocket);
+    console.log(gameSocket);
 
     gameSocket.onopen = function () {
       const inviteMessage = {
         action: "invite",
-        invite_to: id,
+        invite_to: Selectedfriend,
       };
       gameSocket.send(JSON.stringify(inviteMessage));
     };
@@ -145,7 +142,7 @@ function ChatTyping({
               message={msg.content}
               time={extractTime(msg.timestamp)}
               sender={msg.sender}
-              currentUserId={id}
+              currentUserId={Selectedfriend}
             />
           ))}
         </div>
