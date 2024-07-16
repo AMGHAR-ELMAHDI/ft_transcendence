@@ -1,4 +1,4 @@
-#!/goinfre/zmakhkha/nassi/venv/bin/python3
+#!/goinfre/eamghar/ft_transcendence/venv/bin/python3
 # EASY-INSTALL-ENTRY-SCRIPT: 'autobahn==23.6.2','console_scripts','wamp'
 import re
 import sys
