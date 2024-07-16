@@ -11,6 +11,7 @@ interface Friend {
   id: number;
   username: string;
   avatar: string;
+  status: string;
 }
 
 interface Props {
@@ -38,7 +39,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
     );
     setSocket(chatSocket);
     chatSocket.onopen = function () {
-      console.log("WebSocket connection established (tcha9lib blawr).");
+      console.log("ChatSocket connection established");
     };
 
     const fetchInitialMessages = async () => {
@@ -72,7 +73,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!socket || socket.readyState !== WebSocket.OPEN) {
-      console.error("WebSocket connection not open (ga3ma tcha9lib).");
+      console.error("ChatSocket connection not open");
       return;
     }
 
@@ -129,7 +130,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
         <img src={GetCorrect(Friend?.avatar, url)} id="chatperson" />
         <div className="Friend-header-name">
           <h1>{Friend?.username || "Select a friend"}</h1>
-          <h2>online</h2>
+          <h2>{Friend?.status === "O" ? "OnLine" : "OffLine"}</h2>
         </div>
       </div>
       <div className="Type-wrapper">

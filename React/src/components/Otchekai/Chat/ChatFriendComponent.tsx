@@ -40,7 +40,9 @@ function ChatFriendComponent({
     const newSocket = new WebSocket(
       `ws://localhost:2500/ws/block-unblock/${token}`
     );
-    newSocket.onopen = () => {};
+    newSocket.onopen = () => {
+      console.log("BlockSocket connection established");
+    };
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.action === "block") {
@@ -58,7 +60,7 @@ function ChatFriendComponent({
     };
 
     newSocket.onclose = () => {
-      console.log("WebSocket connection closed.");
+      console.log("BlockSocket connection closed.");
     };
     setSocket(newSocket);
     return () => {
