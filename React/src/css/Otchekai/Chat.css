@@ -449,10 +449,6 @@
   .Type-wrapper {
     justify-content: flex-end;
   }
-  .Chat-box-menu {
-    height: 80vh;
-    gap: 0rem;
-  }
   #chatperson {
     width: 80px;
     height: 80px;
