@@ -9,6 +9,8 @@ services:
     environment:
       discovery.type: single-node
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+    env_file:
+      - .env
     networks:
       - elastic
     restart: on-failure
@@ -22,6 +24,8 @@ services:
       - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
     depends_on:
       - elasticsearch
+    env_file:
+      - .env
     networks:
       - elastic
     restart: on-failure
@@ -32,6 +36,8 @@ services:
     depends_on:
       - elasticsearch
       - kibana
+    env_file:
+      - .env
     networks:
       - elastic
     restart: on-failure
@@ -44,6 +50,8 @@ services:
       - ./logstash.yaml:/usr/share/logstash/config/logstash.yml:ro
     ports:
       - "9600:9600"
+    env_file:
+      - .env
     depends_on:
       - kibana
     environment:
@@ -56,6 +64,8 @@ services:
     image: "docker.elastic.co/beats/filebeat:7.17.0"
     container_name: filebeat
     user: root
+    env_file:
+      - .env
     volumes:
       - ./filebeat.docker.yaml:/usr/share/filebeat/filebeat.yml:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro

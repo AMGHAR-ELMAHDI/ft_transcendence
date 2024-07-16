@@ -58,7 +58,7 @@ function getScore(player_score: string, opponent_score: string) {
   );
 }
 
-function getHistoryTabs(id: string, winner: string) {
+function getHistoryTabs(id:string, winner:string) {
   if (id === winner) return "Won";
   else return "Lost";
 }
@@ -120,7 +120,12 @@ function History({ UserData, UseUserData }: UserDataProps) {
           {getTooltip()}
           {data?.map((game: any) => (
             <tbody key={game?.id}>
-              <tr className={getHistoryTabs(game?.player_id, game?.winner_id)}>
+              <tr
+                className={getHistoryTabs(
+                  game?.player_id,
+                  game?.winner_id
+                )}
+              >
                 <td className="leftTd zekton DontRenderF">
                   <h1>{getDate(game?.date)}</h1>
                 </td>
