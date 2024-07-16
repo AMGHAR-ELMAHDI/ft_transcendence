@@ -6,17 +6,19 @@ function SearchBar() {
   const [players, setPlayers] = useState<any>([]);
   const [filteredUsers, setFilteredUsers] = useState<any>(players);
   const [search, setSearch] = useState<string>("");
-
   const navigate = useNavigate();
 
-  const getPlayers = async () => {
-    try {
-      const response = await api.get("player/");
-      setPlayers(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    const getPlayers = async () => {
+      try {
+        const response = await api.get("player/");
+        setPlayers(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPlayers();
+  }, []);
 
   const handleInputChange = (e: any) => {
     const searchTerm = e.target.value;
@@ -32,10 +34,6 @@ function SearchBar() {
     navigate(`/profile/${player.username}`);
   };
 
-  useEffect(() => {
-    getPlayers();
-  }, []);
-
   return (
     <div id="search-bar">
       <div className="Search-input-container">
@@ -45,6 +43,12 @@ function SearchBar() {
           placeholder="Search"
           value={search}
           onChange={handleInputChange}
+          onBlur={() => {
+            setTimeout(() => {
+              setFilteredUsers([]);
+              setSearch("");
+            }, 200);
+          }}
         />
         {search && (
           <div className="SearchUsers">

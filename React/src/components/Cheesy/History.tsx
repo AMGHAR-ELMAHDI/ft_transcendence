@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../api";
 import LoadingData from "./LoadingData";
 import { UserDataProps } from "./ProfileItems";
+import Typed from "typed.js";
 
 function getTooltip() {
   return (
@@ -63,7 +64,6 @@ function getHistoryTabs(player_score: number, opponent_score: number) {
 }
 
 function History({ UserData, UseUserData }: UserDataProps) {
-  const [render, setRender] = useState(screen.width >= 1024 ? true : false);
   const [data, setData] = useState<any>([]);
   const [isLoading, setLoading] = useState(true);
 
@@ -84,19 +84,37 @@ function History({ UserData, UseUserData }: UserDataProps) {
 
   useEffect(() => {
     getData();
+
+    const emptyDataElement = document.querySelector(".emptyData");
+    if (emptyDataElement) {
+      const typed = new Typed(emptyDataElement, {
+        strings: ["Empty Game History!!", "Play Some Games To Fill This!!"],
+        typeSpeed: 50,
+        startDelay: 400,
+        loop: true,
+      });
+
+      return () => {
+        typed.destroy();
+      };
+    }
   }, []);
 
   const length: boolean = data?.length ? true : false;
   let element: any = document.querySelector(".tableau");
   if (element && !length) element.style.overflow = "hidden";
 
+  if (!length)
+    return (
+      <div className="textContainer">
+        <h1 className="emptyData"></h1>
+      </div>
+    );
+
   return (
     <div className="tableau">
-      {isLoading && LoadingData()}
-      {!isLoading && !length ? (
-        <div className="ProfileItems">
-          <h1 className="emptyData">No Games History</h1>
-        </div>
+      {isLoading ? (
+        LoadingData()
       ) : (
         <table>
           {getTooltip()}

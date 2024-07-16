@@ -1,9 +1,9 @@
-import SideBar from "./SideBar";
-import TopBar from "../SearchBar/TopBar";
-import InvitedUsers from "../Mnassi/Game/invitedUsers";
-import OnlineStatus from "../zmakhkha/OnlineStatus";
+import TopBar from "../../SearchBar/TopBar";
+import InvitedUsers from "./invitedUsers";
+import OnlineStatus from "../../zmakhkha/OnlineStatus";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import SideBar from "../../Cheesy/SideBar";
 
 export default function GameContainer() {
   const [Name, setName] = useState('')

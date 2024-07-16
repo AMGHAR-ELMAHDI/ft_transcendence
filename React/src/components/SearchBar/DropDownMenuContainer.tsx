@@ -3,6 +3,7 @@ import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { Link } from "react-router-dom";
+import ProfilePic from "../../Atoms/ProfilePic";
 
 const DropdownMenu = () => {
   return (
@@ -31,7 +32,6 @@ function DropDownMenuContainer({ avatar }: Props) {
     <div
       className="div-relat"
       onMouseEnter={() => setDropdownVisible(true)}
-      // onClick={() => setDropdownVisible(!isDropdownVisible)}
       onMouseLeave={() => setDropdownVisible(false)}
     >
       <img className="NotifProfilePic" src={GetCorrect(avatar, url)} />

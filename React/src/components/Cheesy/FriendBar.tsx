@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
+import Online from "../../Atoms/ProfilePic";
+
+interface Message {
+  type: string;
+  data: any;
+}
 
 function FriendBar() {
   const [data, setData] = React.useState<any>([]);
-  const [showList, setShowList] = React.useState<any>(false);
+  const [showList, setShowList] = React.useState<boolean>(false);
   const [renderName, setRenderName] = useState<boolean>(false);
   const [isLoading, setLoading] = useState(true);
   const url = useRecoilValue(Url);
 
+  const token = localStorage.getItem("token");
   setAuthToken();
   const getData = async () => {
     try {
@@ -28,6 +35,25 @@ function FriendBar() {
 
   useEffect(() => {
     getData();
+
+    const socket = new WebSocket(`ws://localhost:2500/ws/status/${token}/${1}`);
+
+    socket.onopen = () => {};
+
+    socket.onmessage = (event) => {
+      const message: Message = JSON.parse(event.data);
+      getData();
+    };
+
+    socket.onclose = () => {};
+
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    return () => {
+      socket.close();
+    };
   }, []);
 
   const navigate = useNavigate();
@@ -45,30 +71,37 @@ function FriendBar() {
           id="logo-friend-svg"
           src="/friends.svg"
         />
-        {isLoading && LoadingData()}
-        {!isLoading &&
-          Array.isArray(data) &&
-          showList &&
-          data.map((friend: any) => (
-            <div
-              className="Friend-Relat"
-              key={friend?.id}
-              onMouseEnter={() => setRenderName(true)}
-              onMouseLeave={() => setRenderName(false)}
-              onClick={() => {
-                navigate(`/profile/${friend?.username}`);
-              }}
-            >
-              <img
-                className="friend-sb"
-                src={GetCorrect(friend?.avatar, url)}
-              />
+        {isLoading
+          ? LoadingData()
+          : Array.isArray(data) &&
+            showList &&
+            data.map((friend: any) => (
+              <div
+                className="Friend-Relat"
+                key={friend?.id}
+                onMouseEnter={() => setRenderName(true)}
+                onMouseLeave={() => setRenderName(false)}
+                onClick={() => {
+                  navigate(`/profile/${friend?.username}`);
+                }}
+              >
+                <img
+                  className="friend-sb"
+                  src={GetCorrect(friend?.avatar, url)}
+                />
+                <div
+                  className={
+                    friend?.status == "O"
+                      ? "friendIconOnline"
+                      : "friendIconOffline"
+                  }
+                ></div>
 
-              {renderName && (
-                <h1 className="friend-bar-username">{friend?.username}</h1>
-              )}
-            </div>
-          ))}
+                {renderName && (
+                  <h1 className="friend-bar-username">{friend?.username}</h1>
+                )}
+              </div>
+            ))}
       </div>
     </div>
   );

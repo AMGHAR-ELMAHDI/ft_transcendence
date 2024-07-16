@@ -43,6 +43,7 @@
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
+  flex-direction: wrap;
   gap: 3rem;
   border-radius: 25px;
 }
@@ -104,7 +105,7 @@
 .SettingsImg > img {
   border-radius: 15px;
   height: 18rem;
-  max-width: 400px;
+  width: 300px;
   object-fit: cover;
 }
 
@@ -266,12 +267,13 @@ input:-webkit-autofill:active {
   gap: 3rem;
 }
 .ButtonContainer * {
-  width: 30%;
+  width: fit-content;
 }
 
 .SetButton {
   cursor: pointer;
   border: none;
+  text-align: center !important;
   padding: 1rem 2rem;
   transition: 0.5s;
   font-weight: 450;
@@ -312,55 +314,81 @@ input:-webkit-autofill:active {
   box-shadow: 0px 0px 20px 10px rgba(95, 202, 228, 1);
 }
 
+.twofaContainerFirst {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.twofaContainerFirst > h1 {
+  font-family: "Roboto", sans-serif;
+}
+
+.twofaInput {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--blue-glow);
+  width: fit-content;
+}
+
+.twofaInput > * {
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid var(--blue-glow);
+  border-radius: 5px;
+  width: 2rem;
+  font-weight: 600;
+  height: 2rem;
+}
+
+.twofaButton {
+  background-color: #f6f5f5;
+  border: none;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0px 0px 5px black;
+  cursor: pointer;
+}
+
+.twoFaContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+}
+
 @media screen and (max-width: 1400px) {
-  .SettingsLeft {
-    padding: 2rem 1rem;
-    gap: 0.5rem;
-  }
-  .SettingsImg > img {
-    height: 12rem;
-  }
   .SettingsRight {
-    border: none;
+    width: 320px;
     flex: 1;
-    margin: 0;
-    padding: 1rem 0.5rem;
-    border-radius: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: max-content;
   }
-  .SettingsDataContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
-    align-items: center;
-  }
-  .SetInfo {
-    padding: 5px;
-  }
-  .SetInfo > h1 {
-    font-size: 1rem;
-  }
-  .SetIcon {
-    height: 1rem;
-    font-size: 1rem;
-  }
-  /*----------------- Settings Right -------------------*/
 
   .GeneralInfoContainer > * {
-    gap: 1rem;
+    gap: 2rem;
   }
   .GeneralInfoInput {
     border: 1px solid var(--blue-glow);
     padding: 10px 10px;
     border-radius: 8px;
-    height: 2rem;
+    height: 3rem;
     font-size: 1rem;
   }
   .ButtonContainer {
     gap: 1rem;
   }
-  .ButtonContainer * {
-    /* width: 100%; */
-  }
+
   .SetButton {
     padding: 0.5rem 1rem;
     font-weight: 400;
@@ -371,35 +399,101 @@ input:-webkit-autofill:active {
 
 @media screen and (max-width: 900px) {
   .SettingsLeft {
-    padding: 0.5rem 0;
-    gap: 0.5rem;
-  }
-  .SettingsData {
-    justify-content: center;
-    padding-left: 13%;
-    flex-direction: row;
-    align-items: center;
-  }
-  .SettingsComponents {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+    width: 90vw;
+    padding: 10px;
+    gap: 10px;
   }
   .SettingsImg > img {
-    height: 8rem;
-  }
-  .SettingsImgEdit {
-    padding: 10px;
+    height: 150px;
+    width: 150px;
   }
   #SettingsEdit > * {
+    font-size: 1.3rem;
+  }
+  #buttonTest {
+    padding: 5px 10px;
+  }
+  .SettingsUsrName > h1 {
     font-size: 1rem;
-    fill: var(--bg-color);
+  }
+  .SettingsComponents {
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .SetInfo {
+    gap: 5px;
+    padding: 10px;
+  }
+  .SetIcon {
+    display: none;
+  }
+
+  .SettingsData {
+    gap: 15px;
+  }
+
+  /* ---------------------right side */
+  .GeneralInfoContainer > * {
+    gap: 10px;
+  }
+  .SettingsRight {
+    margin: 0;
+    padding: 2rem 1rem;
+    border: 2px solid var(--blue-glow);
+  }
+  .SetButton {
+    padding: 7px !important;
+  }
+  /* -------------------verification 2fa */
+  .twofaContainerFirst {
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .twofaContainerFirst > h1 {
+    font-size: 1rem;
+    text-align: center;
   }
 }
 
-@media screen and (max-width: 425px) {
-  .LeftSpacer {
-    width: 50%;
+@media screen and (max-width: 768px) {
+  .SettingsRight {
+    border: none;
+  }
+
+  .twofaInput {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--blue-glow);
+    width: fit-content;
+  }
+
+  .twofaContainerFirst > * {
+    width: 260px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .twofaContainerFirst > * {
+    width: 200px;
+  }
+  .twofaInput {
+    gap: 0.4rem;
+    padding: 12px;
+  }
+  .twofaInput > * {
+    width: 1.3rem;
+  }
+  .SettingsRight {
+    padding: 20px;
+    width: 90vw;
+    min-width: 200px;
+  }
+  .SettingsLeft {
+    width: 95vw;
+    min-width: 200px;
   }
 }

@@ -10,9 +10,11 @@ import api from "../../api";
 import GetGreeting, { getPageName } from "./GetGreeting";
 import DropDownMenuContainer from "./DropDownMenuContainer";
 import Notif from "../Cheesy/Notif";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Username from "../../Atoms/Username";
 import AcessToken from "../../Atoms/AccessToken";
+import { AxiosError } from "axios";
+import ProfilePic from "../../Atoms/ProfilePic";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
@@ -20,21 +22,25 @@ function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [recoilUsername, setRecoilUsername] = useRecoilState(Username);
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
+  const pic = useRecoilValue(ProfilePic);
+  console.log("pic dropdown: " + pic);
+
+  const navigate = useNavigate();
 
   const getData = async () => {
     try {
-      const response = await api.get("player/me");
+      const response = await api.get("player/me/");
       setData(response.data);
       setIsLoading(false);
       setRecoilUsername(response.data?.username);
-      console.log(response.data?.username);
-    } catch (error: any) {
-      if (error.request) {
-        // window.location.href = "/login";
-        // setTokenValue("");
-        // localStorage.removeItem("token");
-        // navigate("/login");
-      } else console.log("Error message:", error.message);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.request) {
+          setTokenValue("");
+          localStorage.removeItem("token");
+          navigate("/login");
+        }
+      }
       setIsLoading(false);
     }
   };
@@ -43,13 +49,11 @@ function TopBar() {
     getData();
   }, []);
 
-  const navigate = useNavigate();
-  console.log(data?.avatar);
-
   return (
     <>
       {isLoading && LoadingData()}
       <div id="TopBar">
+        <div className="testNodiplay">{pic}</div>
         <div className="absolute">
           <div className="BurgerMenu">
             <TiThMenu onClick={() => setIsOpen(!isOpen)} />
@@ -63,7 +67,6 @@ function TopBar() {
             <DrawerLinks />
           </Drawer>
         </div>
-
         <div id="welcome-bar">
           {window.location.pathname === "/" && GetGreeting()}
           {window.location.pathname === "/" && (
@@ -84,5 +87,4 @@ function TopBar() {
     </>
   );
 }
-
 export default TopBar;

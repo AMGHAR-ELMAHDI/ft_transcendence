@@ -27,7 +27,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
 
   const getData = async () => {
     try {
-      const response = await api.get("player/me");
+      const response = await api.get("player/me/");
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -48,7 +48,6 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     achievements_rate: data.achievements_rate,
     achievements: data.achievements,
   };
-  console.log("avatar: " + obj.avatar);
 
   return (
     <>

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   CircularProgressbarWithChildren,
   buildStyles,
@@ -26,13 +25,16 @@ function GetCircles(person: { win_rate: number; achievements_rate: number }) {
         <div
           style={{
             fontSize: font_Size_Names,
+            fontFamily: "Roboto",
             color: "#B2B2B2",
             marginTop: -20,
           }}
         >
           Win Rate
         </div>
-        <div style={{ fontSize: font_Size }}>{person.win_rate}%</div>
+        <div style={{ fontSize: font_Size, fontFamily: "Roboto" }}>
+          {person.win_rate}%
+        </div>
       </CircularProgressbarWithChildren>
       <CircularProgressbarWithChildren
         value={person.achievements_rate}
@@ -46,13 +48,16 @@ function GetCircles(person: { win_rate: number; achievements_rate: number }) {
         <div
           style={{
             fontSize: font_Size_Names,
+            fontFamily: "Roboto",
             color: "#B2B2B2",
             marginTop: -20,
           }}
         >
           Trophies
         </div>
-        <div style={{ fontSize: font_Size }}>{person.achievements_rate}%</div>
+        <div style={{ fontSize: font_Size, fontFamily: "Roboto" }}>
+          {person.achievements_rate}%
+        </div>
       </CircularProgressbarWithChildren>
     </div>
   );

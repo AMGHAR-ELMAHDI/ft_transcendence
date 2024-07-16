@@ -3,11 +3,10 @@ import api from "../../api";
 
 interface Props {
   image?: string;
+  
 }
 
 function SettingsGeneralInfo({ image }: Props) {
-  const [data, setData] = useState<any>([]);
-
   const [email, setEmail] = useState("");
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
@@ -26,8 +25,7 @@ function SettingsGeneralInfo({ image }: Props) {
     e.preventDefault();
 
     try {
-      const response = await api.put("player/setting/", obj);
-      setData(response.data);
+      await api.put("player/setting/", obj);
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +72,7 @@ function SettingsGeneralInfo({ image }: Props) {
         />
 
         <div className="ButtonContainer">
-          <button className="SetButton SetCancel" type="reset">
+          <button className="SetButton" type="reset">
             Cancel
           </button>
           <button className="SetButton SetSubmit" type="submit">

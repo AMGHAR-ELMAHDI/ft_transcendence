@@ -223,7 +223,7 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
 
     function connectBackend() {
       const token = localStorage.getItem('token')
-      const url = `ws://e3r3p1:2500/ws/remote/${token}`;
+      const url = `ws://localhost:2500/ws/remote/${token}`;
       return new WebSocket(url);
     }
 

@@ -9,9 +9,6 @@ import { useEffect, useState } from "react";
 import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
-import OnlineStatus from "../zmakhkha/OnlineStatus";
-import GetCorrectImage from "../Cheesy/GetCorrectImage";
-import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 interface CardProps {
   name: string;
@@ -21,11 +18,8 @@ interface CardProps {
 }
 
 function ShopContainer() {
-  const token: any = localStorage.getItem("token");
-
   return (
     <>
-      <OnlineStatus token={token} type={1} />
       <div className="AppClass">
         <SideBar />
         <div className="main">
@@ -98,7 +92,7 @@ function GetAvatar() {
   return (
     <>
       <div className="itemsContainer">
-        <h1 id="Paddles-header">Avatars</h1>
+        <h1 id="Paddles-header">Balls</h1>
         <div className="Paddle-holder">
           {avatar?.map((item: any) => (
             <Card
@@ -123,9 +117,7 @@ function ShopDesign() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await api.get("items");
-      console.log(response.data);
-      
+      const response = await api.get("items/");
       setShopItems(response.data);
     } catch (error) {
       console.log(error);
@@ -172,10 +164,10 @@ function Card({ name, price, image, id }: CardProps) {
   const owned = useRecoilValue(OwnedItems);
   const url = useRecoilValue(Url);
 
-  const item = document.querySelector("Item-img-animation");
+  // const item = document.querySelector("Item-img-animation");
   const handleBuy = async () => {
     try {
-      const response = await axios.post(url + "shop/", obj);
+      await axios.post(url + "shop/", obj);
       setPurchased(true);
     } catch (error) {
       console.log(error);
@@ -193,7 +185,6 @@ function Card({ name, price, image, id }: CardProps) {
           <p>BUY IT!</p>
         </div>
         <img src={image} alt="item" />
-        {/* <img src="/purple-paddle.png" alt="item" /> */}
         <div className="Item-img-animation2"></div>
       </div>
       <div className="ItemValueContainer">

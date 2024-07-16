@@ -76,13 +76,8 @@ function Notif() {
 
     socketFriend.current.onmessage = (event: MessageEvent) => {
       const data = JSON.parse(event.data);
-      // if (
-      // data.type === "new_friend_request" ||
-      // data.type === "friend_request_accepted" ||
-      // data.type === "friend_request_denied"
-      // ) {
+      console.log(data);
       getData();
-      // }
     };
 
     //------------------------------------------game Invite start
@@ -92,6 +87,7 @@ function Notif() {
     );
 
     socketGame.current.onmessage = (event: MessageEvent) => {
+      console.log(event.data);
       getGameInvites();
     };
 

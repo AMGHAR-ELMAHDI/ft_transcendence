@@ -1,4 +1,3 @@
-import React from "react";
 
 function Shop() {
   let color = "#757889";

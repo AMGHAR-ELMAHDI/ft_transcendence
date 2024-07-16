@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import api from "../../api";
 import LoadingData from "./LoadingData";
+import Typed from "typed.js";
 
 function getDate(date: string) {
   const flipedDate = date.substring(0, 10).split("-").reverse();
@@ -53,12 +54,26 @@ function ProfileHistory() {
 
   useEffect(() => {
     getData();
+    const emptyDataElement = document.querySelector(".nogamess");
+    if (emptyDataElement) {
+      const typed = new Typed(emptyDataElement, {
+        strings: ["Empty Game History!!"],
+        typeSpeed: 50,
+        startDelay: 400,
+        loop: true,
+        showCursor: false,
+      });
+
+      return () => {
+        typed.destroy();
+      };
+    }
   }, []);
 
   if (!data.length) {
     return (
       <div id="HistoryNogamesPlayed">
-        <h1>No Games Played</h1>
+        <h1 className="nogamess"></h1>
       </div>
     );
   }

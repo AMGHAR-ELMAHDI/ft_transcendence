@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import Url from "../../Atoms/Url";
 
 export function GetCorrect(image: string, url: string) {
-  let correctImage = image;
+  let correctImage:string = image;
 
-  if (image?.includes("/media/https%3A/cdn.intra.42.fr")) {
+  if (image?.includes("/media/https%3A/cdn.intra.42.fr"))
     correctImage = "https://" + image.substring(16);
-    console.log(correctImage);
-  } else if (image == "/media/default.png") {
-    correctImage = url + "media/default.png";
-    console.log(correctImage);
+  else if(image?.includes('https://cdn.intra.42.fr/'))
+      correctImage = image;
+  else if (image == "/media/images/default.png") {
+    correctImage = url + image.substring(1);
   } else if (image?.includes("http://localhost:2500/media/media/store/"))
     correctImage = url + image.slice(28);
   else if (image?.includes("/media/media/store/"))

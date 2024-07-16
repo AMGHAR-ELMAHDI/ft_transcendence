@@ -7,4 +7,4 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py flush --no-input
 python manage.py seed
-python manage.py runserver e3r3p1:2500
+python manage.py runserver localhost:2500
