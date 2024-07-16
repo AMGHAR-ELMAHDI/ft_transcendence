@@ -14,6 +14,7 @@
   align-items: center;
   justify-content: center;
   flex: 1;
+  border: 1px solid red;
 }
 
 .MainSettings {
@@ -22,13 +23,15 @@
   align-items: center;
   flex: 1;
   max-width: 1440px;
+  border: 1px solid green;
+  height: 65vh;
 }
 
 .SettingsContent {
   display: flex;
   flex: 1;
-  flex-wrap: wrap;
-  /* border: 2px solid var(--blue-glow); */
+  height: 100%;
+  width: 100%;
   border-radius: 25px;
   background-image: url("/blob-scene-haikei.svg");
   background-size: cover;
@@ -367,16 +370,53 @@ input:-webkit-autofill:active {
 }
 
 @media screen and (max-width: 1400px) {
+  .MainSettingsContainer {
+    align-items: flex-start;
+  }
+  .MainSettings {
+    display: flex;
+    align-items: flex-start;
+    height: 80vh;
+  }
+  .SettingsContent {
+    flex-direction: column;
+  }
   .SettingsRight {
-    width: 320px;
-    flex: 1;
-    margin-top: auto;
-    margin-bottom: auto;
-    height: max-content;
+    flex: 0;
+    padding: 1rem 1rem;
+    min-width: 200px;
+    margin: 0rem 2rem;
+    height: fit-content;
+  }
+  .SettingsComponents {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .SettingsLeft {
+    flex: 0;
+
+    min-width: 200px;
+    padding: 10px;
+    gap: 10px;
+  }
+  .SettingsData {
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+  .SettingsImg > img {
+    border-radius: 15px;
+    height: 10rem;
+    width: 200px;
+    object-fit: cover;
   }
 
   .GeneralInfoContainer > * {
-    gap: 2rem;
+    gap: 1rem;
   }
   .GeneralInfoInput {
     border: 1px solid var(--blue-glow);
@@ -495,5 +535,17 @@ input:-webkit-autofill:active {
   .SettingsLeft {
     width: 95vw;
     min-width: 200px;
+  }
+
+  .GeneralInfoContainer > * {
+    gap: 5px;
+  }
+  .SetInfo {
+    gap: 0;
+    padding: 7px;
+  }
+  .blk {
+    letter-spacing: 0px;
+    font-size: 1rem;
   }
 }

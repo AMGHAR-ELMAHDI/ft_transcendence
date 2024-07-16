@@ -2,27 +2,27 @@ import { useEffect, useRef, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoShieldHalfSharp } from "react-icons/io5";
 import api from "../../api";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import { BiEdit } from "react-icons/bi";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import toast from "react-hot-toast";
-import ProfilePic from "../../Atoms/ProfilePic";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 interface Props {
   setRender: React.Dispatch<React.SetStateAction<string>>;
-  setReRender: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SettingsLeft({ setRender, setReRender }: Props) {
+function SettingsLeft({ setRender }: Props) {
   const [data, setData] = useState<any>();
   const [renderButton, setRenderButton] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const url = useRecoilValue(Url);
   const [file, setFile] = useState<any>();
   const [avatar, setAvatar] = useState<any>();
-  const [pic, setPic] = useRecoilState(ProfilePic);
 
+  const navigate = useNavigate();
   let obj = {
     id: "1",
     email: data?.email,
@@ -49,7 +49,6 @@ function SettingsLeft({ setRender, setReRender }: Props) {
     if (event.target.files && event.target.files[0]) {
       setFile(URL.createObjectURL(event.target.files[0]));
       setAvatar(event.target.files[0]);
-      console.log("EVENT TARGET: " + event.target.files[0]);
     }
   };
 
@@ -63,15 +62,13 @@ function SettingsLeft({ setRender, setReRender }: Props) {
 
       if (fileInputRef.current?.files?.[0]) {
         formData.append("image", avatar);
-        console.log(fileInputRef.current.files[0]);
       }
       await api.put("player/setting/", formData);
-      setPic(file);
-      setReRender(true);
-    } catch (error) {
+      navigate("/");
+    } catch (error: any) {
+      if (error instanceof AxiosError)
+        toast.error(error.response?.data?.image[0]);
       console.log(error);
-
-      toast.error("Can't change image!");
     }
   };
 
@@ -105,16 +102,17 @@ function SettingsLeft({ setRender, setReRender }: Props) {
       </div>
 
       <div className="SettingsComponents">
-        <div
-          onClick={() => setRender("GeneralInfo")}
-          className="SetInfo GeneralInfo"
-        >
+        <div onClick={() => setRender("GeneralInfo")} className="SetInfo">
           <CgProfile className="SetIcon" />
           <h1 className="blk">Data</h1>
         </div>
-        <div onClick={() => setRender("Security")} className="SetInfo Security">
+        <div onClick={() => setRender("Security")} className="SetInfo">
           <IoShieldHalfSharp className="SetIcon" />
           <h1 className="blk">Security</h1>
+        </div>
+        <div onClick={() => setRender("Items")} className="SetInfo">
+          <IoShieldHalfSharp className="SetIcon" />
+          <h1 className="blk">Items</h1>
         </div>
       </div>
     </div>
@@ -122,11 +120,3 @@ function SettingsLeft({ setRender, setReRender }: Props) {
 }
 
 export default SettingsLeft;
-
-// await api.put("player/setting/", formData);
-// const newWindow = window.open("/", "_blank");
-// const currentWindow = window;
-// if (newWindow === null) return;
-// newWindow.onload = () => {
-//   currentWindow.close();
-// };

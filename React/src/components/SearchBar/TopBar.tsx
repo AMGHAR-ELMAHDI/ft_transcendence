@@ -22,8 +22,6 @@ function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [recoilUsername, setRecoilUsername] = useRecoilState(Username);
   const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
-  const pic = useRecoilValue(ProfilePic);
-  console.log("pic dropdown: " + pic);
 
   const navigate = useNavigate();
 
@@ -53,7 +51,6 @@ function TopBar() {
     <>
       {isLoading && LoadingData()}
       <div id="TopBar">
-        <div className="testNodiplay">{pic}</div>
         <div className="absolute">
           <div className="BurgerMenu">
             <TiThMenu onClick={() => setIsOpen(!isOpen)} />
