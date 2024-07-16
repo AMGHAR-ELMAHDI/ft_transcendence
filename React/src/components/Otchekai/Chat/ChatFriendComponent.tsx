@@ -125,16 +125,22 @@ function ChatFriendComponent({
         <h1 id="Friend-name">{friend.username}</h1>
       </div>
       <div
-        onClick={
-          Blockedusers.some((user: any) => user.id === friend.id)
-            ? handleUnblock
-            : handleBlock
-        }
-        className="Block-button"
+        onClick={() => {
+          if (selectedfriend !== 0) {
+            Blockedusers.some((user: any) => user.id === friend.id)
+              ? handleUnblock()
+              : handleBlock();
+          }
+        }}
+        className={`Block-button ${selectedfriend === 0 ? "disabled" : ""}`}
       >
         <div
           className={`block ${isAnimated ? "animateParent" : ""}`}
-          onClick={handleClick}
+          onClick={() => {
+            if (selectedfriend !== 0) {
+              handleClick();
+            }
+          }}
         >
           <div className={`line ${isAnimated ? "animate" : ""}`}></div>
         </div>
