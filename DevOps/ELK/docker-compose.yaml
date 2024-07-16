@@ -1,0 +1,69 @@
+version: '3.8'
+services:
+    elasticsearch:
+        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.0'
+        container_name: elasticsearch
+        ports:
+            - '9200:9200'
+            - '9300:9300'
+        environment:
+            - discovery.type=single-node
+        networks:
+            - elastic
+        restart: on-failure
+        
+    kibana:
+        image: 'docker.elastic.co/kibana/kibana:7.17.0' 
+        container_name: kibana
+        ports:
+            - '5601:5601'
+        environment:
+            - 'ELASTICSEARCH_HOSTS=http://elasticsearch:9200'
+        depends_on:
+            - elasticsearch
+        networks:
+            - elastic
+        restart: on-failure
+         
+    javaApp:
+        image: 'febbweiss/java-log-generator:latest' 
+        container_name: javaApp
+        depends_on:
+            - elasticsearch
+            - kibana
+        networks:
+            - elastic
+        restart: on-failure
+         
+    logstash:
+        image: 'docker.elastic.co/logstash/logstash:7.17.0'
+        container_name: logstash
+        volumes:
+            - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+            - ./logstash.yaml:/usr/share/logstash/config/logstash.yml:ro
+        ports:
+            - '9600:9600'
+        depends_on:   
+            - kibana
+        networks:
+            - elastic
+        restart: on-failure
+
+    filebeat:
+        image: 'docker.elastic.co/beats/filebeat:7.17.0' 
+        container_name: filebeat
+        user: root
+        volumes:
+            - ./filebeat.docker.yaml:/usr/share/filebeat/filebeat.yml:ro
+            - /var/lib/docker/containers:/var/lib/docker/containers:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        depends_on:   
+            - kibana
+        networks:
+            - elastic
+        command: --strict.perms=false
+        restart: on-failure
+        
+networks:
+  elastic:
+    name: elastic
