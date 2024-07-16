@@ -290,3 +290,16 @@ class Tournament(models.Model):
 
     def __str__(self):
         return f'Tournament_{self.id}'
+
+class TnRooms(models.Model):
+    STATUS_TOURNAMENT = [
+        ('Q', 'QUEUE'),
+        ('S', 'STARTED'),
+    ]
+    name = models.CharField(max_length=255, default='', unique=True)
+    status = models.CharField(max_length=255, choices=STATUS_TOURNAMENT, default='Q')
+    players = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.name
+    

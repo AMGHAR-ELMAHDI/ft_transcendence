@@ -2,9 +2,13 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import *
 from .login_views import SignInAPIView, SignUpAPIView, TwoFactorSetupView, TwoFactorVerifyView
+from .views_shop import AchievementViewSet, ItemViewSet
+
 
 router = DefaultRouter()
 router.register('player', PlayerViewSet, basename = 'player')
+router.register('achievements', AchievementViewSet)
+router.register('items', ItemViewSet)
 from .views import TokenVerifyView
 urlpatterns = [
     path('', include(router.urls)), 

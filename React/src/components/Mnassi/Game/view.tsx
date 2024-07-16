@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import './view.css'
 
@@ -215,6 +215,9 @@ function UserView() {
 	})
 	return (
 		<div className="game">
+			<div className="btn-mods">
+				<img src='/settings.svg' className='btn-moded'></img>
+			</div>
 			<div className="play"></div>
 			<div className="score" id='score'>
 				<p id='Pscore'>0</p>

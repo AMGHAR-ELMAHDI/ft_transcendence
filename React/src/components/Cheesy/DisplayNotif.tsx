@@ -149,7 +149,7 @@ function DisplayNotif({
                 );
                 localStorage.setItem("invite_id", String(accepted[index].id));
                 toast.remove(String(num));
-                navigate("/");
+                navigate("/invite-only");
               }}
             >
               Join
@@ -185,7 +185,7 @@ function DisplayNotif({
                 localStorage.setItem("invite_id", String(sent[index].id));
 
                 toast.remove(String(num));
-                navigate("/");
+                navigate("/invite-only");
               }}
             >
               Join

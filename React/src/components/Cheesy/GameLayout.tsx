@@ -3,6 +3,7 @@ import TopBar from "../SearchBar/TopBar";
 import OnlineStatus from "../zmakhkha/OnlineStatus";
 import { setAuthToken } from "../Utils/setAuthToken";
 import Game from "../Mnassi/Game/Game";
+import { Outlet } from "react-router-dom";
 
 export default function GameLayout() {
   const token: any = localStorage.getItem("token");
@@ -15,7 +16,7 @@ export default function GameLayout() {
         <SideBar />
         <div className="main">
           <TopBar />
-          <Game />
+          <Outlet />
         </div>
       </div>
     </>

@@ -278,7 +278,7 @@ function multiplayer2({type, Name1, Name2}: LocalGameProps) {
 
 	useEffect(()=> {
 		axios.defaults.withCredentials = true;
-		axios.get('https://localhost:8001/check/', {
+		axios.get('http://localhost:8001/check/', {
 			withCredentials: true,	
 		})
 		.then(response=> {

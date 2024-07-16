@@ -6,7 +6,7 @@ import "./interface.css";
 import _Queue from "./inQueue";
 import _title from "./title";
 import { RecoilRoot } from "recoil";
-import { PiCoinsBold } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 
 interface LocalGameProps {
   Type: string;
@@ -14,7 +14,7 @@ interface LocalGameProps {
   Name2: string;
 }
 
-function GameInterface({ Type, Name, Name2 }: LocalGameProps) {
+function GameInterface_({ Type, Name, Name2 }: LocalGameProps) {
   return (
     <>
       {<_title title={Name + " vs " + Name2}></_title>}
@@ -31,7 +31,7 @@ function GameInterface({ Type, Name, Name2 }: LocalGameProps) {
   );
 }
 
-function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
+function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
   interface Vector {
     x: number;
     y: number;
@@ -57,10 +57,10 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
 
   const [DataReady, StatusCode] = useState<boolean>(false);
   const [Exit, setExit] = useState<boolean>(false);
-  const [Exit2, setExit2] = useState<boolean>(false);
   const [SetIt, Lost] = useState<boolean>(false);
   const [WON, SetWinner] = useState<boolean>(false);
-  const [lastGame, SetLastGame] = useState<boolean>(false);
+  const [winner, setWinner2] = useState<string>('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     var room_group_name = "";
@@ -222,9 +222,10 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
     }
 
     function connectBackend() {
-      const token = localStorage.getItem('token')
-      const url = `wss://localhost:2500/ws/remote/${token}`;
-      return new WebSocket(url);
+		const token = localStorage.getItem('token')
+		const invite_id = localStorage.getItem("invite_id");
+		const url = `wss://localhost:2500/ws/start-single-game/${token}/${invite_id}`;
+		return new WebSocket(url);
     }
 
     function isWebSocketConnected(): boolean {
@@ -279,34 +280,10 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
         Score(data?.message?.scorePlayer1, data?.message?.scorePlayer2);
         BallSettings(paddle1, paddle2);
       }
-      if (data?.message?.type === "winner") {
-        const firstwinner = document?.querySelector(".final_1");
-        const secondwinner = document?.querySelector(".final_2");
-        if (Type === "Online") setExit(true);
-        if (Type === "Online2") setExit2(true);
-        if (data?.message?.index1 != index && data?.message?.index2 != index) {
-          const parent = document!.querySelector(".tournCont");
-          parent?.classList.add("lost_2");
-          Lost(true);
-        }
-        if (data?.message?.winner1 != undefined && firstwinner)
-          firstwinner!.innerHTML = data!.message!.winner1;
-        if (data?.message?.winner2 != undefined && firstwinner)
-          secondwinner!.innerHTML = data!.message!.winner2;
-      } else if (data?.message?.type === "finals") {
-        const winner = document!.querySelector(".CupWinner");
-        if (Type === "final") SetLastGame(true);
-        if (data?.message?.index != index) {
-          const parent = document!.querySelector(".tournCont");
-          parent?.classList.add("lost_2");
-          Lost(true);
-        } else {
-          document!.querySelector(".tournCont")?.classList.add("win_");
-          SetWinner(true);
-        }
-        if (winner) winner!.innerHTML = data!.message!.winner;
+      if (data?.message?.type === "finals") {
+        winner!.innerHTML = data?.message?.winner
+        setTimeout(()=> navigate('/'), 1000)
       }
-
       if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
         objSocket.send(
           JSON.stringify({
@@ -348,13 +325,11 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
     <>
       {SetIt && <_Queue TheTitle="YOU LOST" />}
       {WON && <_Queue TheTitle="YOU WON" />}
-      {!Exit && !Exit2 && !lastGame && (
-        <GameInterface Type="" Name={Name} Name2={Name2} />
+      {!Exit && (
+        <GameInterface_ Type="" Name={Name} Name2={Name2} />
       )}
-      {(Exit || Exit2) && <_tournament NetType="FinalGame" />}
-      {lastGame && <_tournament NetType="endT" />}
     </>
   );
 }
 
-export default multiplayer;
+export default InvitedUsers;
