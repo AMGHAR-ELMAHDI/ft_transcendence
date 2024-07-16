@@ -68,7 +68,6 @@
 
 .Chat-Friendslist:hover:not(.Other-Chat-Friendslist) {
   background-color: rgba(128, 128, 128, 0.213);
-  scale: 1.015;
 }
 
 .chatImgNameContainer {
@@ -91,6 +90,7 @@
   border-radius: 50%;
   border: 4px solid white;
   box-sizing: border-box;
+  background-color: #15171f;
 }
 
 #Friend-name {
@@ -144,8 +144,8 @@
 }
 .status-circle {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 4px;
+  right: 2px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -172,6 +172,16 @@
   gap: 1rem;
 }
 
+.chatperson.disabled {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  padding: 5px;
+  border: 4px solid white;
+  box-sizing: border-box;
+}
+
 #chatperson {
   width: 90px;
   height: 90px;
@@ -180,6 +190,7 @@
   padding: 5px;
   border: 4px solid #5fcae4;
   box-sizing: border-box;
+  transition: 0.4s;
 }
 
 .Friend-header-name {
@@ -512,6 +523,18 @@
   }
   #Friend-name {
     font-size: 1.1rem;
+  }
+  .status-circle {
+    position: absolute;
+    bottom: 3px;
+    right: 2px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: gray;
+  }
+  .status-circle-online {
+    background-color: #4caf50;
   }
   /*-------------------------------------------CHAT BOX---------------------------------------------  */
   #chatperson {
