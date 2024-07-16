@@ -22,7 +22,7 @@ function ProtectedRoutes() {
 
   const getData = async () => {
     try {
-      const response = await axios.get("player/me");
+      const response = await axios.get("player/me/");
       setData(response.data);
       setProfilePic(response.data?.avatar);
     } catch (error: any) {

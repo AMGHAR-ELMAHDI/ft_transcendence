@@ -27,7 +27,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
 
   const getData = async () => {
     try {
-      const response = await api.get("player/me");
+      const response = await api.get("player/me/");
       setData(response.data);
       setIsLoading(false);
     } catch (error) {

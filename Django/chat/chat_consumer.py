@@ -1,7 +1,7 @@
 from django.conf import settings
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
-from userman.models import Player
+# from userman.models import Player
 from .models import Message
 import datetime
 import json

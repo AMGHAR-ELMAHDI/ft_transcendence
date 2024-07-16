@@ -47,20 +47,20 @@ def f42_redirect(request: HttpRequest):
 					first_name = fname,
 					last_name = lname,
 					user_type=Player.USER_42,
-					image_42 = image
+					image = image
 				)
 				user.set_password(random_password)
 				user.save()
 			if user is not None:
 				if user_has_device(user):
 					request.session['pre_2fa_user_id'] = user.id
-					return redirect(f'http://localhost:5173/twoFa2?user_id={user.id}')
+					return redirect(f'https://localhost:5173/twoFa2?user_id={user.id}')
 				else:
 					login(request, user)
 					refresh = RefreshToken.for_user(user)
 					request.session['access'] = str(refresh.access_token)
 					request.session['refresh'] = str(refresh)
-					return HttpResponseRedirect(redirect_to='http://localhost:2500/oauth2/set-cookie')
+					return HttpResponseRedirect(redirect_to='https://localhost:2500/oauth2/set-cookie')
 			else:
 				return redirect (settings.HTTP_401_UNAUTHORIZED)
 		else:
