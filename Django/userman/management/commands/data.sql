@@ -1,8 +1,8 @@
--- INSERT INTO userman_player ("password","last_login","coins","status","level","email","username","first_name","last_name","is_active","is_staff","is_superuser","date_joined","image", "points", "user_type")
---  VALUES
--- ( 'pbkdf2_sha256$600000$nMH2GPWBUasKNTznJuKNNM$MZUsrvN/H2/EPL/eHWDn1BzUH6DUTDi9Qxkorz6H+GU=', '2024-05-11 10:30:00', '500', 'F', '700', 'user1@mail.com', 'user1', '', '', '1', '0', '0', '2024-05-11 08:56:30.288940', 'images/default.png', '2500', 'N'),
+INSERT INTO userman_player ("password","last_login","coins","status","level","email","username","first_name","last_name","is_active","is_staff","is_superuser","date_joined","image", "points", "user_type")
+ VALUES
+( 'pbkdf2_sha256$600000$nMH2GPWBUasKNTznJuKNNM$MZUsrvN/H2/EPL/eHWDn1BzUH6DUTDi9Qxkorz6H+GU=', '2024-05-11 10:30:00', '500', 'F', '700', 'user1@mail.com', 'user1', '', '', '1', '0', '0', '2024-05-11 08:56:30.288940', 'images/default.png', '2500', 'N');
 -- ( 'pbkdf2_sha256$600000$9yFpZTt5U1UKGrz6hpHhoJ$byR92a4bj/8oxMMBwhzzy6jv4r8nLEd0DgTLDFd9CZw=', '2024-05-11 10:30:00', '1000', 'F', '5680', 'user2@mail.com', 'user2', '', '', '1', '0', '0', '2024-05-11 08:56:49.319780', 'images/default.png', '7580', 'N'),
--- ( 'pbkdf2_sha256$600000$nMH2GPWBUasKNTznJuKNNM$MZUsrvN/H2/EPL/eHWDn1BzUH6DUTDi9Qxkorz6H+GU=', '2024-05-11 10:30:00', '4586', 'F', '1468', 'user3@mail.com', 'user3', '', '', '1', '0', '0', '2024-05-11 08:56:30.288940', 'images/default.png', '5680', 'N'),
+-- ( 'pbkdf2_sha256$600000$nMH2GPWBUasKNTznJuKNNM$MZUsrvN/H2/EPL/eHWDn1BzUH6DUTDi9Qxkorz6H+GU=', '2024-05-11 10:30:00', '4586', 'F', '1468', 'user3@mail.com', 'user3', '', '', '1', '0', '0', '2024-05-11 08:56:30.288940', 'images/default.png', '5680', 'N');
 -- ( 'pbkdf2_sha256$600000$PZaeWOUtaJ2ji0yxNXwhGs$jbNAXiFSJTcNXHkoEuWqThgawG+JFltKmyLX6rKibLA=', '2024-05-11 10:47:01.961642', '0', 'F', '10236', 'zmakhkha@mail.com', 'zmakhkha', '', '', '1', '1', '1', '2024-05-11 10:46:48.971074', 'images/default.png', '0', 'N');
 -- ( 'pbkdf2_sha256$600000$pMopVrCnm9xo8MzDZULA7h$dSUXMp8KKEzTmyVqb/KdnCFUATCyTpTgaByGa9X9THk=', '2024-05-11 10:30:00', '4756', 'F', '9999', 'user4@mail.com', 'user4', '', '', '1', '0', '0', '2024-05-11 12:43:09.696539', 'images/default.png', '0', 'N'),
 -- ( 'pbkdf2_sha256$600000$OZTy2G9yrLDfPse8z59Ec6$c05jOk5Yb6vN48igf6Qy2YOXvhVX6dXHavvRNyFhy74=', '2024-05-11 10:30:00', '1423', 'F', '1458', 'user5@mail.com', 'user5', '', '', '1', '0', '0', '2024-05-11 12:43:18.854501', 'images/default.png', '0', 'N'),
@@ -101,8 +101,8 @@ INSERT INTO userman_achievement
 
 
 
--- INSERT INTO  userman_itemsperuser
--- ("user_id", "item_id","purchase_date") VALUES
--- ('1', '2', '2024-05-05 16:35:58.852097'),
--- ('1', '3', '2024-05-06 16:35:58.852097'),
--- ('1', '1', '2024-05-10 16:35:58.852097');
+INSERT INTO  userman_itemsperuser
+("user_id", "item_id","purchase_date") VALUES
+('1', '2', '2024-05-05 16:35:58.852097'),
+('1', '3', '2024-05-06 16:35:58.852097'),
+('1', '1', '2024-05-10 16:35:58.852097');

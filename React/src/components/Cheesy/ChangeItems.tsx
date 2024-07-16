@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import api from "../../api";
 import Typed from "typed.js";
+import SettingsCard from "./SettingsCard";
 
 const data = [
   {
@@ -111,7 +112,13 @@ const data = [
   },
 ];
 
-interface Props {}
+export interface SettingsProps {
+  id: number;
+  type: string;
+  name: string;
+  price: string;
+  path: string;
+}
 
 function ChangeItems() {
   const [items, setItems] = useState([]);
@@ -149,13 +156,82 @@ function ChangeItems() {
   //     </div>
   //   );
 
+  const paddles = data?.filter((item: SettingsProps) => item?.type === "P");
+  const backgrounds = data?.filter((item: SettingsProps) => item?.type === "G");
+  const balls = data?.filter((item: SettingsProps) => item?.type === "B");
+
   return (
     <div className="settingsItems">
-      {data.map((item: any) => (
-        <h1 key={item?.id}>{item?.name}</h1>
-      ))}
+      <h1>Paddles</h1>
+      <div className="settingsPaddlesContainer">
+        {paddles.map((item: SettingsProps) => (
+          <SettingsCard
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            path={item.path}
+            price={item.price}
+            type={item.type}
+          />
+        ))}
+      </div>
+      <h1>Backgrounds</h1>
+      <div className="settingsBackgroundsContainer">
+        {backgrounds.map((item: SettingsProps) => (
+          <SettingsCard
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            path={item.path}
+            price={item.price}
+            type={item.type}
+          />
+        ))}
+      </div>
+      <h1>Balls</h1>
+      <div className="settingsBallsContainer">
+        {balls.map((item: SettingsProps) => (
+          <SettingsCard
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            path={item.path}
+            price={item.price}
+            type={item.type}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
 export default ChangeItems;
+
+// {
+//   "items": [
+//       {
+//           "id": 2,
+//           "type": "G",
+//           "name": "Green-Table",
+//           "price": 900.0,
+//           "path": "https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Green-Table.png?raw=true",
+//           "purchase_date": "2024-05-05T16:35:58.852097Z"
+//       },
+//       {
+//           "id": 3,
+//           "type": "G",
+//           "name": "Grey-Table",
+//           "price": 600.0,
+//           "path": "https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Grey-Table.png?raw=true",
+//           "purchase_date": "2024-05-06T16:35:58.852097Z"
+//       },
+//       {
+//           "id": 1,
+//           "type": "G",
+//           "name": "Blue-Table",
+//           "price": 100.0,
+//           "path": "https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Blue-Table.png?raw=true",
+//           "purchase_date": "2024-05-10T16:35:58.852097Z"
+//       }
+//   ]
+// }

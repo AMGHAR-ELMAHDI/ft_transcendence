@@ -368,9 +368,144 @@ input:-webkit-autofill:active {
   gap: 2rem;
   height: 100%;
 }
+/* -------------------------------------------------------------------------------------- */
+.SettingItemsContainer {
+  min-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
+  padding: 15px;
+  border-radius: 25px;
+  border: 2px solid var(--blue-glow);
+}
 
-.settingsItems{
-  border: 1px solid grey;
+.settingsItems {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.settingsItems::-webkit-scrollbar {
+  display: none;
+}
+
+.settingsPaddlesContainer,
+.settingsBackgroundsContainer,
+.settingsBallsContainer {
+  display: flex;
+  gap: 1rem;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.settingsPaddlesContainer::-webkit-scrollbar,
+.settingsBackgroundsContainer::-webkit-scrollbar,
+.settingsBallsContainer::-webkit-scrollbar {
+  height: 2px;
+  display: none;
+}
+
+.SettingCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 10px;
+  width: 300px;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 0 0 10px 0;
+  background-image: radial-gradient(#5fcae4 1px, transparent 1px),
+    radial-gradient(#5fcae4 1px, transparent 1px);
+  background-size: 100px 100px;
+  background-position: 0 0, 50px 50px;
+  animation: g17 3s infinite linear;
+  /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
+  backdrop-filter: blur(8.2px);
+  -webkit-backdrop-filter: blur(8.2px);
+  background-color: #d3d6e4;
+  /* border: 2px solid black; */
+}
+
+.SettingCardContainer > img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.SettingCardContainer > h1 {
+  color: black;
+  text-align: center;
+}
+
+.settingsItems > h1 {
+  color: #d3d6e4;
+  margin: 1rem 0 1rem 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .settingsPaddlesContainer,
+  .settingsBackgroundsContainer,
+  .settingsBallsContainer {
+    width: 90vw;
+  }
+  .SettingItemsContainer {
+    flex: none;
+    flex: 0;
+    height: fit-content;
+    flex-grow: 0;
+    border: 1px solid red;
+  }
+  .settingsItems {
+    height: 70vh;
+    overflow-y: scroll;
+  }
+  .settingsPaddlesContainer,
+  .settingsBackgroundsContainer,
+  .settingsBallsContainer {
+    gap: 0.5rem;
+  }
+  .SettingCardContainer {
+    width: 200px;
+  }
+  .SettingCardContainer > img {
+    height: 150px;
+    width: 200px;
+  }
+  .settingsItems > h1 {
+    margin: 0.5rem 0 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .settingsPaddlesContainer,
+  .settingsBackgroundsContainer,
+  .settingsBallsContainer {
+    width: 90vw;
+  }
+  .settingsItems {
+    height: 70vh;
+    overflow-y: scroll;
+  }
+  .settingsPaddlesContainer,
+  .settingsBackgroundsContainer,
+  .settingsBallsContainer {
+    gap: 0.5rem;
+  }
+  .SettingCardContainer {
+    width: 150px;
+  }
+  .SettingCardContainer > img {
+    height: 150px;
+    width: 150px;
+  }
+  .settingsItems > h1 {
+    margin: 0.5rem 0 0.5rem 0;
+  }
 }
 
 @media screen and (max-width: 1400px) {

@@ -113,7 +113,7 @@ function SettingsLeft({ setRender }: Props) {
         </div>
         <div onClick={() => setRender("Items")} className="SetInfo">
           <GrSelect className="SetIcon" />
-          <h1 className="blk">Items</h1>
+          <h1 className="blk">My Items</h1>
         </div>
       </div>
     </div>

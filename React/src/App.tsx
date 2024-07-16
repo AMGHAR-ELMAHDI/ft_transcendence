@@ -22,9 +22,9 @@ import { Toaster } from "react-hot-toast";
 import Error_403 from "./components/Cheesy/Error403";
 import "./Imports";
 import GameLayout from "./components/Cheesy/GameLayout";
-import GameContainer from "./components/Mnassi/Game/GameContainer";
-import _tournament from "./components/Mnassi/Game/tournament"
+import _tournament from "./components/Mnassi/Game/tournament";
 import Game from "./components/Mnassi/Game/Game";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -38,7 +38,7 @@ const router = createBrowserRouter(
         <Route path="chat" element={<ChatContainer />} />
         <Route path="leaderboard" element={<LeaderBoardContainer />} />
         <Route path="shop" element={<ShopContainer />} />
-        <Route path="game" element={<GameLayout />} >
+        <Route path="game" element={<GameLayout />}>
           <Route index element={<Game />} />
           <Route path="gameplay" element={<_tournament NetType="" />} />
         </Route>

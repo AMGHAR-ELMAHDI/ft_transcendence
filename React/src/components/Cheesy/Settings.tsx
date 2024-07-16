@@ -14,11 +14,17 @@ function MainSettings() {
       <div className="MainSettings">
         <div className="SettingsContent">
           <SettingsLeft setRender={setRender} />
-          <div className="SettingsRight">
-            {render === "GeneralInfo" && <SettingsGeneralInfo />}
-            {render === "Security" && <GetSecurity />}
-            {render === "Items" && <ChangeItems />}
-          </div>
+          {(render === "GeneralInfo" || render === "Security") && (
+            <div className="SettingsRight">
+              {render === "GeneralInfo" && <SettingsGeneralInfo />}
+              {render === "Security" && <GetSecurity />}
+            </div>
+          )}
+          {render === "Items" && (
+            <div className="SettingItemsContainer">
+              <ChangeItems />
+            </div>
+          )}
         </div>
       </div>
     </>
