@@ -83,10 +83,6 @@
     position: relative;
     height: 600px;
     width: 1200px;
-    overflow: hidden;
-    border-radius: 20px;
-    padding: 30px;
-    box-sizing: border-box;
     scale: 0.8;
   }
 }

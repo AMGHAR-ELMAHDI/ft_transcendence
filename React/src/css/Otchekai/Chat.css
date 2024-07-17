@@ -29,7 +29,7 @@
 
 .negotiator,
 .Type-wrapper {
-  animation: ShowChat 2s ease-out 1;
+  animation: ShowChat 1s ease-out 1;
 }
 
 @keyframes ShowChat {

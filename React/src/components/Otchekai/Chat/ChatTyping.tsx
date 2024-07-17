@@ -192,6 +192,10 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
             type="submit"
             className="Chat-send-button"
             onClick={handleInvite}
+            disabled={
+              Blockedusers.some((user: any) => user.id === Selectedfriend) ||
+              BlockedMe.some((user: any) => user.id === Selectedfriend)
+            }
           >
             <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
           </button>

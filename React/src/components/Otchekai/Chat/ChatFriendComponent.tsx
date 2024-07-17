@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Friend } from "./ChatFriends";
 import { useRecoilState, useRecoilValue } from "recoil";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
@@ -26,7 +26,6 @@ function ChatFriendComponent({
   const url = useRecoilValue(Url);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [isAnimated, setIsAnimated] = useState<boolean>(false);
-
   const handleClick = (): void => {
     setIsAnimated(!isAnimated);
   };
