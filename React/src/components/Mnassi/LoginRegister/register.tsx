@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react'
+import { FaDiscord } from "react-icons/fa";
 import _register from './register';
+import { Link, useNavigate } from "react-router-dom";
 
 function register() {
+		const handleDiscordAuth = () => {
+			window.location.href = "https://localhost:2500/discord/login/";
+		};
+		const handle42Auth = () => {
+			window.location.href = "https://localhost:2500/42/login/";
+		  };
 	return (
 			<div className="content">
 				<div className="register">
@@ -10,7 +18,7 @@ function register() {
 						<span className="dot"></span>
 					</div>
 					<div className="member">
-						<p>already a member ? <a className="log">log in</a></p>
+						<p>Already a <Link to={"/login"}>Member login</Link></p>
 					</div>
 					<div className="fullname">
 						<div className="custom-input_f">
@@ -54,8 +62,8 @@ function register() {
 						</svg>
 					</div>
 					<div className="buttons">
-						<button className="fourtytwo"><img src="/42.svg"></img></button>
-						<button className="gmail"><img src="/google.svg"></img></button>
+						<button className="fortytwo" onClick={handle42Auth}><img src="/42.svg"></img></button>
+						<button className="gmail" onClick={handleDiscordAuth}><FaDiscord className="ds" /></button>
 						<button className="create">create account</button>
 					</div>
 				</div>

@@ -71,9 +71,7 @@ function loginEl() {
           <span className="dot"></span>
         </div>
         <div className="member">
-          <p>
-            don't have an account ? <Link to={"/register"}> register</Link>
-          </p>
+          <p>don't have an account ? <Link to={"/register"}>register</Link></p>
         </div>
         <div className="email">
           <div className="custom-input">
@@ -153,11 +151,11 @@ function loginEl() {
         </div>
         {error.length > 0 ? <div className="statusError">{error}</div> : ""}
         <div className="buttons">
-          <button className="fourtytwo" onClick={handle42Auth}>
+          <button className="fortytwo" onClick={handle42Auth}>
             <img src="/42.svg"></img>
           </button>
           <button className="gmail" onClick={handleDiscordAuth}>
-            <FaDiscord />
+            <FaDiscord className="ds" />
           </button>
           <button className="login_btn" onClick={handleSubmit}>
             login

@@ -54,7 +54,7 @@
 	justify-content: center;
 	align-items: flex-start;
 	gap: 15px;
-	margin-left: 150px;
+	margin-left: 66px;
 }
 .register {
 	display: flex;
@@ -86,11 +86,11 @@
 	color: var(--custGray);
 	text-transform: capitalize;
 }
-.member a {
+.member a, .ferb {
+	cursor: pointer;
 	color: var(--custBlue);
-	text-decoration: none;
-	transition: .2s;
-} 
+	text-transform: capitalize;
+}
 .icon {
 	color: white;
 	position: relative;
@@ -103,7 +103,7 @@
 	transition: .2s;
 } */
 .member a:hover {
-	color: #61b3fafd;
+	color: #2476be;
 }
 /* input:hover {
 	border: 1px solid #1D90F5;
@@ -173,7 +173,7 @@
 	width: 530px;
 	gap: 10px;
 }
-.fourtytwo, .gmail {
+.fortytwo, .gmail {
 	cursor: pointer;
 	background-color: var(--custDGray);
 	padding: 0px 20px;
@@ -181,6 +181,9 @@
 	border: none;
 	outline: none;
 	transition: .5s;
+}
+.ds {
+	font-size: 65px;
 }
 .create, .login_btn {
 	cursor: pointer;
@@ -199,7 +202,7 @@
 .create:hover, .login_btn:hover {
 	box-shadow: 0 0 10px 1px var(--custBlue);
 }
-.gmail:hover, .fourtytwo:hover {
+.gmail:hover, .fortytwo:hover {
 	box-shadow: 0 0 10px 1px black;
 }
 .fullname, .email, .password {
@@ -292,3 +295,8 @@ button:focus {
 		opacity: 0;
 	}
 }
+/* @media screen and (max-width: 822px) {
+	.content_ {
+		margin-left: 50px;
+	}
+} */

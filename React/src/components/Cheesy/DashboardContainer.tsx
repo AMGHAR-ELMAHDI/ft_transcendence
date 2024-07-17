@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import FriendBar from "./FriendBar";
 import Dashboard from "./Dashboard";
 import { useState } from "react";
+import Ping from '../Mnassi/Game/ping'
 
 function DashboardContainer() {
   const [render, setRender] = useState<string>("History");

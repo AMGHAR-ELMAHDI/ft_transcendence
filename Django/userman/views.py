@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from django.http import JsonResponse
 from rest_framework.permissions import IsAuthenticated
 from .models import Player
 from .serializers import *
@@ -427,3 +428,12 @@ class TokenVerifyView(APIView):
 		except Player.DoesNotExist:
 				return Response({'detail': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
 		return Response({'detail': 'Token valid'}, status=status.HTTP_200_OK)
+
+def getID(request, invites_id):
+    try :
+        if request.method == 'GET':
+            InviteObj = Invites.objects.get(id=invites_id)
+            return JsonResponse({'sender': InviteObj.sender.username, 'receiver': InviteObj.receiver.username}, safe=False)
+        return JsonResponse({'status': 'method not allowed'}, status=405)
+    except Invites.DoesNotExist:
+        return JsonResponse({'status': 'no gameInvite provided with the following id'}, status=404)

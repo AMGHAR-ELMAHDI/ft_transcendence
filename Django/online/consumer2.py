@@ -191,6 +191,12 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             text_data=json.dumps({"type": "finals", "message": message})
         )
 
+    async def earnedAch(self, event):
+        message = event["message"]
+        await self.send(
+            text_data=json.dumps({"type": "earnedAch", "message": message})
+        )
+
     async def paddleChan(self, event):
         message = event["message"]
         await self.send(
@@ -215,6 +221,83 @@ class GameConsumer_2(AsyncWebsocketConsumer):
         for key, value in self.rooms[self.room_group_name]['players'].items():
             if key != self.username:
                 return key
+
+    async def getLoser(self, winner, user, opp):
+        if winner.username == user.username:
+            return opp
+        else:
+            return user
+
+    async def getAchievement(self, id):
+        AchObj = await sync_to_async(get_object_or_404)(models.Achievement, id=id)
+        return AchObj
+
+    async def AchievementExists(self, id, user):
+        Achievement = await self.getAchievement(id)
+        try:
+            await sync_to_async(models.AchievementPerUser.objects.get)(user=user, achievement=Achievement)
+            return None
+        except models.AchievementPerUser.DoesNotExist:
+            return Achievement
+
+    async def sendAchievement(self, achievement, user):
+        message = {
+            'type': 'earnedAch',
+            'index': self.rooms[self.room_group_name]['players'][user.username],
+            'title': achievement.title,
+            'description': achievement.desc,
+            'image': achievement.path
+        }
+        await self.custom_Async(message, 'earnedAch')
+
+    async def CheckOppscore(self, loser, gameInfo):
+        if loser.username == gameInfo.opponent.username and gameInfo.opponent_score == 0:
+            return True
+        if loser.username == gameInfo.player.username and gameInfo.player_score == 0:
+            return True
+        return False
+
+    async def CollectAchievement(self, gameInfo):
+        duration = gameInfo.game_duration_minutes
+        winner = gameInfo.winner
+        loser = await self.getLoser(winner, gameInfo.player, gameInfo.opponent)
+        if duration <= 300:
+            achievement = await self.AchievementExists(1, loser)
+            if achievement:
+                cobj = models.AchievementPerUser(
+                    user=loser,
+                    achievement=achievement,
+                )
+                await sync_to_async(cobj.save)()
+                await self.sendAchievement(achievement, loser)
+        if duration <= 300:
+            achievement = await self.AchievementExists(4, winner)
+            if achievement:
+                cobj = models.AchievementPerUser(
+                    user=winner,
+                    achievement=achievement,
+                )
+                await sync_to_async(cobj.save)()
+                await self.sendAchievement(achievement, winner)
+        if gameInfo.opponent_score == 0 or gameInfo.player_score == 0:
+            achievement = await self.AchievementExists(2, loser)
+            if achievement:
+                cobj = models.AchievementPerUser(
+                    user=loser,
+                    achievement=achievement,
+                )
+                await sync_to_async(cobj.save)()
+                await self.sendAchievement(achievement, loser)
+        loser_score = await self.CheckOppscore(loser, gameInfo)
+        if loser_score:
+            achievement = await self.AchievementExists(14, winner)
+            if achievement:
+                cobj = models.AchievementPerUser(
+                    user=winner,
+                    achievement=achievement,
+                )
+                await sync_to_async(cobj.save)()
+                await self.sendAchievement(achievement, winner)
 
     async def createGameObject(self, winner):
         try:
@@ -273,10 +356,12 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             await sync_to_async(opp.save)(update_fields=['status'])
 
             await sync_to_async(game.save)()
+            await self.CollectAchievement(game)
         except Exception as e:
             print(f"Error in createGameObject: {e}")
 
     async def sendBallPos(self):
+        asyncio.sleep(4)
         self.date = timezone.now()
         while True:
             message = {

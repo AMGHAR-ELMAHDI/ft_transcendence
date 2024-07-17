@@ -25,6 +25,7 @@ import GameLayout from "./components/Cheesy/GameLayout";
 import GameContainer from "./components/Mnassi/Game/GameContainer";
 import _tournament from "./components/Mnassi/Game/tournament"
 import Game from "./components/Mnassi/Game/Game";
+// import PopUp from "./components/Mnassi/Game/popUp";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>

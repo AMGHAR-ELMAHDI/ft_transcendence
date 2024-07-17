@@ -7,6 +7,8 @@ import _Queue from "./inQueue";
 import _title from "./title";
 import { RecoilRoot } from "recoil";
 import { useNavigate } from "react-router-dom";
+import PopUp from "./popUp";
+import toast from "react-hot-toast";
 
 interface LocalGameProps {
   Type: string;
@@ -57,9 +59,9 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
 
   const [DataReady, StatusCode] = useState<boolean>(false);
   const [Exit, setExit] = useState<boolean>(false);
-  const [SetIt, Lost] = useState<boolean>(false);
-  const [WON, SetWinner] = useState<boolean>(false);
-  const [winner, setWinner2] = useState<string>('');
+  const [achi, SetAchievement] = useState<boolean>(false);
+  const [array, setArray] = useState<any>([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -262,6 +264,12 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
         ball.pos.x = data?.message?.BallX;
         ball.pos.y = data?.message?.BallY;
       }
+      if (data?.message?.type == 'earnedAch' && data?.message?.index === index) {
+        console.log('lool')
+        // setArray(data?.message)
+        // SetAchievement(true)
+        toast.success('new achievement unlocked')
+      }
       if (
         data?.message?.type === "paddleChan" &&
         data?.message?.index === "1"
@@ -323,8 +331,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
   return (
     // send the two palyers to tn file
     <>
-      {SetIt && <_Queue TheTitle="YOU LOST" />}
-      {WON && <_Queue TheTitle="YOU WON" />}
+      {achi && <PopUp title={array.title} image={array.image} descr={array.description} />}
       {!Exit && (
         <GameInterface_ Type="" Name={Name} Name2={Name2} />
       )}
