@@ -17,23 +17,23 @@
 ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/yellow-paddle.png?raw=true', 'P', 'yellow-paddle', '600', '#348feb');
 
 
--- INSERT INTO userman_achievement
--- ("path", "desc", "title") VALUES
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Actually-Bad.png?raw=true', 'Lose a Match in less than 5 min', 'Actually Bad'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Bullied.png?raw=true', 'Lose without scoring', 'Bullied'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Champion.png?raw=true', 'Win your first tournament', 'Champion'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Fast-AF-Boiiiii.png?raw=true', 'Win a Match in less than 5 min', 'Fast AF Boiiiii'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/First-Bot-Win.png?raw=true', 'Win your first Match against a Bot', 'First Bot Win'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/First-Loss.png?raw=true', 'Lose your first Match against a player', 'First Loss'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/First-Win.png?raw=true', 'Win your first Match against a player', 'First Win'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Get-A-Life.png?raw=true', 'Acquire all trophies', 'Get A Life'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/How%3F.png?raw=true', 'Win 20 Matches in a row', 'How?'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Rookie.png?raw=true', 'Play your first match', 'Rookie'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Shop-a-Holic.png?raw=true', 'Buy all Items from the shop', 'Shop-a-Holic'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Stonks.png?raw=true', 'Buy your first item from the shop', 'Stonks'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Touch-Some-Grass.png?raw=true', 'Win 10 Matches in a row', 'Touch Some Grass'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Unbreakable.png?raw=true', 'Win a Match without being scored on', 'Unbreakable'),
--- ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Unstoppable.png?raw=true', 'Win 5 Matches in a row', 'Unstoppable');
+INSERT INTO userman_achievement
+("path", "desc", "title") VALUES
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Actually-Bad.png?raw=true', 'Lose a Match in less than 5 min', 'Actually Bad'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Bullied.png?raw=true', 'Lose without scoring', 'Bullied'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Champion.png?raw=true', 'Win your first tournament', 'Champion'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Fast-AF-Boiiiii.png?raw=true', 'Win a Match in less than 5 min', 'Fast AF Boiiiii'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/First-Bot-Win.png?raw=true', 'Win your first Match against a Bot', 'First Bot Win'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/First-Loss.png?raw=true', 'Lose your first Match against a player', 'First Loss'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/First-Win.png?raw=true', 'Win your first Match against a player', 'First Win'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Get-A-Life.png?raw=true', 'Acquire all trophies', 'Get A Life'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/How%3F.png?raw=true', 'Win 20 Matches in a row', 'How?'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Rookie.png?raw=true', 'Play your first match', 'Rookie'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Shop-a-Holic.png?raw=true', 'Buy all Items from the shop', 'Shop-a-Holic'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Stonks.png?raw=true', 'Buy your first item from the shop', 'Stonks'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Touch-Some-Grass.png?raw=true', 'Win 10 Matches in a row', 'Touch Some Grass'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Unbreakable.png?raw=true', 'Win a Match without being scored on', 'Unbreakable'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Ach/Unstoppable.png?raw=true', 'Win 5 Matches in a row', 'Unstoppable');
 
 
 -- INSERT INTO  userman_achievementperuser
