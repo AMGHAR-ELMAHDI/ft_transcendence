@@ -26,6 +26,7 @@ function ChatFriendComponent({
   const url = useRecoilValue(Url);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [isAnimated, setIsAnimated] = useState<boolean>(false);
+
   const handleClick = (): void => {
     setIsAnimated(!isAnimated);
   };
@@ -103,6 +104,7 @@ function ChatFriendComponent({
       console.log("User has been unblocked successfully");
     }
   };
+  const isBlocked = Blockedusers.some((user: any) => user.id === friend.id);
 
   return (
     <div
@@ -126,22 +128,13 @@ function ChatFriendComponent({
       <div
         onClick={() => {
           if (selectedfriend !== 0) {
-            Blockedusers.some((user: any) => user.id === friend.id)
-              ? handleUnblock()
-              : handleBlock();
+            isBlocked ? handleUnblock() : handleBlock();
           }
         }}
         className={`Block-button ${selectedfriend === 0 ? "disabled" : ""}`}
       >
-        <div
-          className={`block ${isAnimated ? "animateParent" : ""}`}
-          onClick={() => {
-            if (selectedfriend !== 0) {
-              handleClick();
-            }
-          }}
-        >
-          <div className={`line ${isAnimated ? "animate" : ""}`}></div>
+        <div className={`block ${isBlocked ? "animateParent" : ""}`}>
+          <div className={`line ${isBlocked ? "animate" : ""}`}></div>
         </div>
       </div>
     </div>
