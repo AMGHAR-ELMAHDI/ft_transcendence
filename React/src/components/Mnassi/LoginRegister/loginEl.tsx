@@ -3,19 +3,16 @@ import _loginEl from "./loginEl";
 import { useRecoilState, useRecoilValue } from "recoil";
 import IsLogged from "../../../Atoms/IsLogged";
 import Url from "../../../Atoms/Url";
-import AcessToken from "../../../Atoms/AccessToken";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setAuthToken } from "../../Utils/setAuthToken";
 import toast from "react-hot-toast";
 import { FaDiscord } from "react-icons/fa";
-import api from "../../../api";
 
 function loginEl() {
   const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
   const [Logged, setLogged] = useRecoilState(IsLogged);
   const url = useRecoilValue(Url);
   const [data, setData] = useState<any>({});
@@ -38,7 +35,6 @@ function loginEl() {
         if (response.status === 200) {
           toast.success("Logged in successfully");
           localStorage.setItem("token", str.access);
-          setTokenValue(str.access);
           setLogged(true);
           setAuthToken();
           console.log(str.access);

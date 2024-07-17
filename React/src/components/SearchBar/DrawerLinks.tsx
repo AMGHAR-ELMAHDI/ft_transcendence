@@ -14,11 +14,9 @@ import AcessToken from "../../Atoms/AccessToken";
 function DrawerLinks() {
   const navigate = useNavigate();
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
 
   const handleConfirmLogout = () => {
     setShowLogoutPopup(false);
-    setTokenValue("");
     localStorage.removeItem("token");
     navigate("/login");
   };

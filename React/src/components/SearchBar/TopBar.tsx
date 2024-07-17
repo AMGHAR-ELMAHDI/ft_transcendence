@@ -10,18 +10,15 @@ import api from "../../api";
 import GetGreeting, { getPageName } from "./GetGreeting";
 import DropDownMenuContainer from "./DropDownMenuContainer";
 import Notif from "../Cheesy/Notif";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Username from "../../Atoms/Username";
-import AcessToken from "../../Atoms/AccessToken";
 import { AxiosError } from "axios";
-import ProfilePic from "../../Atoms/ProfilePic";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [recoilUsername, setRecoilUsername] = useRecoilState(Username);
-  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
 
   const navigate = useNavigate();
 
@@ -34,7 +31,6 @@ function TopBar() {
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         if (error.request) {
-          setTokenValue("");
           localStorage.removeItem("token");
           navigate("/login");
         }
