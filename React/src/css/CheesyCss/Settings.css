@@ -14,17 +14,15 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  border: 1px solid red;
 }
 
 .MainSettings {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  height: fit-content;
+  width: 100%;
   max-width: 1440px;
-  border: 1px solid green;
-  height: 65vh;
 }
 
 .SettingsContent {
@@ -411,20 +409,12 @@ input:-webkit-autofill:active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
-  gap: 10px;
-  width: 300px;
-  border-radius: 20px;
   cursor: pointer;
+  justify-content: center;
+  gap: 10px;
+  width: 200px;
+  border-radius: 20px;
   padding: 0 0 10px 0;
-  background-image: radial-gradient(#5fcae4 1px, transparent 1px),
-    radial-gradient(#5fcae4 1px, transparent 1px);
-  background-size: 100px 100px;
-  background-position: 0 0, 50px 50px;
-  animation: g17 3s infinite linear;
-  /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
-  backdrop-filter: blur(8.2px);
-  -webkit-backdrop-filter: blur(8.2px);
   background-color: #d3d6e4;
   /* border: 2px solid black; */
 }
@@ -451,14 +441,12 @@ input:-webkit-autofill:active {
   .settingsPaddlesContainer,
   .settingsBackgroundsContainer,
   .settingsBallsContainer {
-    width: 90vw;
+    width: 80vw;
   }
   .SettingItemsContainer {
     flex: none;
-    flex: 0;
     height: fit-content;
     flex-grow: 0;
-    border: 1px solid red;
   }
   .settingsItems {
     height: 70vh;
@@ -470,23 +458,23 @@ input:-webkit-autofill:active {
     gap: 0.5rem;
   }
   .SettingCardContainer {
-    width: 200px;
+    width: 150px;
+    border-radius: 20px;
+    padding: 0 0 10px 0;
+    background-color: #d3d6e4;
+    /* border: 2px solid black; */
   }
+
   .SettingCardContainer > img {
     height: 150px;
-    width: 200px;
+    width: 150px;
   }
   .settingsItems > h1 {
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 4px 0 4px 0;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .settingsPaddlesContainer,
-  .settingsBackgroundsContainer,
-  .settingsBallsContainer {
-    width: 90vw;
-  }
   .settingsItems {
     height: 70vh;
     overflow-y: scroll;
@@ -503,8 +491,10 @@ input:-webkit-autofill:active {
     height: 150px;
     width: 150px;
   }
-  .settingsItems > h1 {
-    margin: 0.5rem 0 0.5rem 0;
+  .SettingItemsContainer {
+    width: 100%;
+    padding: 2px;
+    min-width: 300px;
   }
 }
 

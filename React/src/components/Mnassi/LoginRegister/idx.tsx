@@ -13,7 +13,7 @@ function idx() {
 	// });
 	return (
 		<div className="header">
-			<img src="public/logo.png"></img>
+			<img src="/logo.png"></img>
 			<h1>ping pong</h1>
 		</div>
 	);

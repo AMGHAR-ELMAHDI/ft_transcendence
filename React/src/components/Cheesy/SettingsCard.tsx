@@ -1,12 +1,38 @@
 import toast from "react-hot-toast";
 import api from "../../api";
-import { SettingsProps } from "./ChangeItems";
 
-function SettingsCard({ id, name, path, price, type }: SettingsProps) {
+export interface Props {
+  id: number;
+  type: string;
+  name: string;
+  price: string;
+  path: string;
+  change: string;
+  email: string;
+  ball: string;
+  paddle: string;
+  table: string;
+}
+
+function SettingsCard({
+  id,
+  name,
+  path,
+  price,
+  type,
+  change,
+  email,
+  ball,
+  paddle,
+  table,
+}: Props) {
   const equipItem = async () => {
     try {
-      const response = await api.put("player/items/", {
-        item_id: id,
+      await api.put("player/set/", {
+        email: email,
+        ball: change == "B" ? id : ball,
+        table: change == "G" ? id : table,
+        paddle: change == "P" ? id : paddle,
         type: type,
       });
       toast.success("Item equipped", { id: String(id) });

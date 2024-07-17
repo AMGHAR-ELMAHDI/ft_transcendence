@@ -234,9 +234,12 @@ class PlayerViewSet(viewsets.ModelViewSet):
 					player = Player.objects.get(username=username)
 				except:
 					return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
-			games = player.games
+			
+
+			player = request.user
+			played_games = GameHistory.objects.filter(player=player)
 			data = {
-				'games' : games
+				'games' : 'games'
 			}
 			return Response(data, status=status.HTTP_200_OK)
 		except Exception as e:
