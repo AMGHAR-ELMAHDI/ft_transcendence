@@ -292,6 +292,32 @@ class PlayerViewSet(viewsets.ModelViewSet):
 			return Response(data, status=status.HTTP_200_OK)
 		except Exception as e:
 			return Response({'message' : 'An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
+	
+	@action(detail=False, methods=['GET', 'PUT'])
+	def set(self, request):
+		player = self.request.user
+		if request.method == 'GET':
+			serializer = PlayerSet(player)
+			ball_id = serializer.data['ball']
+			table_id = serializer.data['table']
+			paddle_id = serializer.data['paddle']
+			ball = Item.objects.get(id=ball_id)
+			table = Item.objects.get(id=table_id)
+			paddle = Item.objects.get(id=paddle_id)
+			data = {
+				'table' : table.color,
+				'paddle' : paddle.color,
+				'ball' : ball.color,
+			}
+			return Response(data, status=status.HTTP_200_OK)
+		
+
+		if request.method == 'PUT':
+			serialized_player = PlayerSet(player, data=request.data)
+			serialized_player.is_valid(raise_exception=True)
+			self.perform_update(serialized_player)
+			return Response(serialized_player.data)
+			# return Response("---------")
 
 
 

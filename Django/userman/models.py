@@ -6,6 +6,7 @@ from django.db.models import F
 from chat.models import Block
 
 
+
 class PlayerManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -27,6 +28,24 @@ class PlayerManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
 
+class Item(models.Model):
+    ITEM_BALL = 'B'
+    ITEM_PADDLE = 'P'
+    ITEM_BGC = 'G'
+    ITEM_AVATAR = 'A'
+
+    ITEM_CHOICES = [
+        (ITEM_BALL, 'BALL'),
+        (ITEM_PADDLE, 'PADDLE'),
+        (ITEM_BGC, 'BGC'),
+        (ITEM_AVATAR, 'AVATAR'),
+    ]
+    type =  models.CharField(
+        max_length=1, choices=ITEM_CHOICES)
+    name = models.CharField(max_length=32)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    path = models.CharField(max_length=256)
+    color = models.CharField(max_length=6, default='327fa8')
 
 class Player(AbstractBaseUser):
     
@@ -63,7 +82,6 @@ class Player(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    image_42 = models.CharField(max_length=65, blank=True )
     image = models.ImageField(
         upload_to='images', 
         validators=[max_size_validator], 
@@ -71,6 +89,11 @@ class Player(AbstractBaseUser):
     )
     user_type = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=USER_NORMAL)
+    
+    ball = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='ball', default='1')
+    paddle = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='paddle', default='1')
+    table = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='table', default='1')
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
@@ -223,23 +246,7 @@ class Invites(models.Model):
     room_id = models.TextField(null=False, blank=False)
 
 
-class Item(models.Model):
-    ITEM_BALL = 'B'
-    ITEM_PADDLE = 'P'
-    ITEM_BGC = 'G'
-    ITEM_AVATAR = 'A'
 
-    ITEM_CHOICES = [
-        (ITEM_BALL, 'BALL'),
-        (ITEM_PADDLE, 'PADDLE'),
-        (ITEM_BGC, 'BGC'),
-        (ITEM_AVATAR, 'AVATAR'),
-    ]
-    type =  models.CharField(
-        max_length=1, choices=ITEM_CHOICES)
-    name = models.CharField(max_length=32)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    path = models.CharField(max_length=256)
 
 
 class ItemsPerUser(models.Model):

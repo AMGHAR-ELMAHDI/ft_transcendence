@@ -1,5 +1,6 @@
 .env
 .venv
+venv
 ./*/.env
 ./*/.venv
 ./*/*/.venv
@@ -34,6 +35,7 @@ chrome-user-data
 *.swp
 *.swo
 *.db5.sqlite3
+db5.sqlite3
 
 packages/react-devtools-core/dist
 packages/react-devtools-extensions/chrome/build
