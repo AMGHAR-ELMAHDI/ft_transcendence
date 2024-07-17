@@ -14,7 +14,7 @@ function LeaderBoardMain() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await api.get("player/leaderboard");
+      const response = await api.get("player/leaderboard/");
       setData(response?.data);
       setLoading(false);
     } catch (error) {

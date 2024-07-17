@@ -48,10 +48,6 @@ body {
   justify-content: space-between;
 }
 
-.AppClass > * {
-  /* height: 100svh; */
-}
-
 .main {
   max-width: 2560px;
   display: flex;
@@ -59,37 +55,6 @@ body {
   margin: 2rem 3rem;
   flex: 1;
   gap: 2rem;
-}
-
-@media only screen and (max-width: 2560px) {
-}
-
-@media only screen and (max-width: 1920px) {
-  .AppClass > * {
-    height: auto;
-  }
-}
-
-@media only screen and (max-width: 1440px) {
-  .AppClass > * {
-    height: auto;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  .main {
-    margin: 0.5rem;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  body {
-    overflow: auto;
-  }
-  .main {
-    gap: 1rem;
-    margin: 10px;
-  }
 }
 
 @keyframes spin {
@@ -101,7 +66,6 @@ body {
   }
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 100px;
   padding: 8px;
@@ -164,54 +128,6 @@ body {
   gap: 2rem;
 }
 
-.twofaContainerFirst {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.twofaInput {
-  display: flex;
-  gap: 0.5rem;
-  padding: 1rem;
-  border-radius: 10px;
-  border: 1px solid var(--blue-glow);
-  width: fit-content;
-}
-
-.twofaInput > * {
-  text-align: center;
-  background-color: transparent;
-  border: 1px solid var(--blue-glow);
-  border-radius: 5px;
-  width: 2rem;
-  font-weight: 600;
-  height: 2rem;
-}
-
-.twofaButton {
-  background-color: #f6f5f5;
-  border: none;
-  color: black;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 500;
-  box-shadow: 0px 0px 5px black;
-  cursor: pointer;
-}
-
-.twoFaContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 2rem;
-  height: 100%;
-}
-
 .twoFa {
   padding: 5rem;
   box-shadow: 0px 3px 5px var(--blue-glow);
@@ -239,7 +155,53 @@ body {
   animation: lights 4.5s 750ms linear infinite;
 }
 
+.textContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 10px;
+}
+
+.textContainer > * {
+  font-family: "Roboto", sans-serif !important;
+  font-size: 2rem;
+}
+
+.emptyData {
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  color: #686d76;
+  text-shadow: 0 0 20px black;
+}
+
+@media only screen and (max-width: 1920px) {
+  .AppClass > * {
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .main {
+    margin: 0.5rem;
+  }
+}
+
 @media only screen and (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+  .main {
+    gap: 1rem;
+    margin: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    justify-content: center;
+  }
   .twoFa {
     width: 300px;
     padding: 1rem;
@@ -264,5 +226,11 @@ body {
   }
   .twofaButton {
     padding: 0.5rem 1rem;
+  }
+  .emptyData {
+    font-size: 1rem;
+  }
+  .textContainer > * {
+    font-size: 1rem;
   }
 }

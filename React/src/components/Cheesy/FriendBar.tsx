@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
-import Online from "../../Atoms/ProfilePic";
 
 interface Message {
   type: string;
@@ -36,12 +35,13 @@ function FriendBar() {
   useEffect(() => {
     getData();
 
-    const socket = new WebSocket(`wss://localhost:2500/ws/status/${token}/${1}`);
+    const socket = new WebSocket(
+      `wss://localhost:2500/ws/status/${token}/${1}`
+    );
 
     socket.onopen = () => {};
 
     socket.onmessage = (event) => {
-      const message: Message = JSON.parse(event.data);
       getData();
     };
 

@@ -18,15 +18,18 @@ function getGameMode(mode: string) {
 function getScore(player_score: string, opponent_score: string) {
   return (
     <div className="Dashboard-History-Score">
-      <h3 id="History-player_score">{player_score}</h3>
+      <h3 id="History-opponent_score">{opponent_score }</h3>
       <h3>&nbsp; : &nbsp;</h3>
-      <h3 id="History-opponent_score">{opponent_score}</h3>
+      <h3 id="History-player_score">{player_score}</h3>
     </div>
   );
 }
 
-function getHistoryTabs(player_score: number, opponent_score: number) {
-  if (player_score >= opponent_score) return "history-tabs history-tab-won";
+function getHistoryTabs(id:string, winner:string) {
+  console.log("id: " + id);
+  console.log("winner: " + winner);
+  
+  if (id === winner) return "history-tabs history-tab-won";
   else return "history-tabs history-tab-lost";
 }
 
@@ -44,7 +47,7 @@ function ProfileHistory() {
   const getData = async () => {
     try {
       const response = await api.get("player/games/");
-      setData(response.data.games);
+      setData(response.data);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -70,14 +73,27 @@ function ProfileHistory() {
     }
   }, []);
 
-  if (!data.length) {
+  // "id": 1,
+  // "date": "2024-07-16T14:44:58.426835Z",
+  // "player_id": 1,
+  // "opponent_username": "user1",
+  // "player_score": 6.0,
+  // "opponent_score": 7.0,
+  // "winner_id": 2,
+  // "opponent_avatar": "images/default.png",
+  // "game_mode": "O",
+  // "game_duration": 10.11
+
+
+  
+  if (!data?.length) {
     return (
       <div id="HistoryNogamesPlayed">
         <h1 className="nogamess"></h1>
       </div>
     );
   }
-
+  
   return (
     <>
       {isLoading ? (
@@ -90,13 +106,13 @@ function ProfileHistory() {
                 <div
                   key={game.id}
                   className={getHistoryTabs(
-                    game.player_score,
-                    game.opponent_score
+                    game?.player_id,
+                    game?.winner_id
                   )}
                 >
                   <div className="history-tabs-left-container">
                     <div id="dashboard-history-opponent">
-                      <h3>{game?.opponent_username[0]?.username}</h3>
+                      <h3>{game?.opponent_username}</h3>
                     </div>
                     {getScore(game.player_score, game.opponent_score)}
                     <div id="dashboard-history-mode">
@@ -116,12 +132,6 @@ function ProfileHistory() {
               );
             })}
           </div>
-          {/* {window.location.pathname === "/profile" && (
-        <div className="HistoryShadow"></div>
-      )}
-      {window.location.pathname === "/" && (
-        <div className="HistoryShadowDashboard"></div>
-      )} */}
         </div>
       )}
     </>

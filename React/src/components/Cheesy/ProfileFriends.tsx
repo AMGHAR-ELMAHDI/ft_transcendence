@@ -56,6 +56,19 @@ function ProfileFriends() {
 
   useEffect(() => {
     getData();
+    const token = localStorage.getItem("token");
+    const socket = new WebSocket(
+      `wss://localhost:2500/ws/status/${token}/${1}`
+    );
+    socket.onopen = () => {};
+    socket.onmessage = (event) => {
+      getData();
+    };
+    socket.onclose = () => {};
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
     const emptyDataElement = document.querySelector(".emptyData");
     if (emptyDataElement) {
       const typed = new Typed(emptyDataElement, {
@@ -63,16 +76,19 @@ function ProfileFriends() {
         typeSpeed: 50,
         startDelay: 400,
         loop: true,
+        showCursor: false,
       });
 
       return () => {
+        socket.close();
+
         typed.destroy();
       };
     }
   }, []);
 
   const length: boolean = data?.length ? true : false;
-  if (!length)
+  if (!data?.length)
     return (
       <div className="textContainer">
         <h1 className="emptyData"></h1>
@@ -121,7 +137,7 @@ function ProfileFriends() {
                   </td>
                   <td>
                     <h1 className="ProfileFriendStatus ProfileFriendH1">
-                      {getFriendStatus(friend.level)}
+                      {getFriendStatus(friend.status)}
                     </h1>
                   </td>
                 </tr>
