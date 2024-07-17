@@ -1,9 +1,5 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
-import FriendId from "../../../Atoms/FriendId";
-import SelectedFriend from "../../../Atoms/SelectedFriend";
-import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
-import Url from "../../../Atoms/Url";
 import api from "../../../api";
 import ChatFriendComponent from "./ChatFriendComponent";
 
@@ -53,7 +49,7 @@ function ChatFriends({
       console.log("[online status socket ] conected successfully !!!");
     };
 
-    socket.onmessage = (event) => {
+    socket.onmessage = () => {
       getFriends();
     };
 

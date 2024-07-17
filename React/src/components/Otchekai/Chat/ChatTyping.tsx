@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import api from "../../../api";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
 import Sender from "./Sender";
@@ -31,6 +31,24 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
   const url = useRecoilValue(Url);
   const [gameSocket, setGameSocket] = useState<WebSocket | null>(null);
   const connType = 1;
+  const chatBoxRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [allMessages]);
+
+  const isUserBlocked = useMemo(() => {
+    return (
+      Blockedusers.some((user: any) => user.id === Selectedfriend) ||
+      BlockedMe.some((user: any) => user.id === Selectedfriend)
+    );
+  }, [Blockedusers, BlockedMe, Selectedfriend]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -142,6 +160,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
         <img
           src={GetCorrect(Friend?.avatar, url)}
           id="chatperson"
+          className={Friend?.status !== "O" ? "offline" : ""}
           alt="Friend avatar"
         />
         <div className="Friend-header-name">
@@ -150,7 +169,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
         </div>
       </div>
       <div className="Type-wrapper">
-        <div className="Chat-box">
+        <div className="Chat-box" ref={chatBoxRef}>
           {allMessages.map((msg: any, index) => (
             <Sender
               key={index}
@@ -166,25 +185,16 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
             <input
               id="message-input"
               type="text"
-              disabled={
-                Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-                BlockedMe.some((user: any) => user.id === Selectedfriend)
-              }
+              disabled={isUserBlocked}
               placeholder={
-                Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-                BlockedMe.some((user: any) => user.id === Selectedfriend)
-                  ? "The user is blocked"
-                  : "Type Something ..."
+                isUserBlocked ? "The user is blocked" : "Type Something ..."
               }
             />
           </div>
           <button
             type="submit"
             className="Chat-send-button"
-            disabled={
-              Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-              BlockedMe.some((user: any) => user.id === Selectedfriend)
-            }
+            disabled={isUserBlocked}
           >
             <img src="/Send-button.svg" id="bottona" />
           </button>
@@ -192,10 +202,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
             type="submit"
             className="Chat-send-button"
             onClick={handleInvite}
-            disabled={
-              Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-              BlockedMe.some((user: any) => user.id === Selectedfriend)
-            }
+            disabled={isUserBlocked}
           >
             <img src="/GameInvite.svg" id="bottona-dyal-les-jox" />
           </button>
