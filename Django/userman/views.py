@@ -233,15 +233,50 @@ class PlayerViewSet(viewsets.ModelViewSet):
 			else:
 				try:
 					player = Player.objects.get(username=username)
-				except:
-					return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
-			games = player.games
-			data = {
-				'games' : games
-			}
+				except Player.DoesNotExist:
+					return Response({'message': 'Player Not Found!'}, status=status.HTTP_404_NOT_FOUND)
+			
+			played_games = GameHistory.objects.filter(Q(player=player) | Q(opponent=player))
+			data = []
+			for g in played_games:
+				player1 = Player.objects.get(id=g.player_id)
+				player2 = Player.objects.get(id=g.opponent_id)
+				opponent_username = player2 if player.username == player1 else player1
+
+				if (player == player1):
+					opponent_username = player2.username
+					opponent_avatar = player2.image
+					player_score = g.player_score
+					opponent_score= g.opponent_score
+				else:
+					opponent_username = player1.username
+					opponent_avatar = player1.image
+					player_score = g.opponent_score
+					opponent_score= g.player_score
+
+				Player.objects.get(id=g.opponent_id).image
+				
+				game_data = {
+					'id': g.id,
+					'date': g.date,
+					'player_id': player.id,
+					'opponent_username': opponent_username,
+					'player_score':player_score,
+					'opponent_score':opponent_score,
+					'winner_id': g.winner_id,
+					'opponent_avatar':str(opponent_avatar),
+					'game_mode':g.game_mode,
+					'game_duration':g.game_duration_minutes,
+					# 'opponent_id':' g.opponent_id',
+					# 'player_username':' player.username',
+					# 'opponent_score':' g.opponent_score',
+				}
+				data.append(game_data)
+			
 			return Response(data, status=status.HTTP_200_OK)
+		
 		except Exception as e:
-			return Response({'message' : '--An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({'message': 'An Error Occurred!'}, status=status.HTTP_400_BAD_REQUEST)
 		
 	@action(detail=False, methods=['GET'])
 	def friends(self, request):
@@ -456,10 +491,10 @@ class TokenVerifyView(APIView):
 		return Response({'detail': 'Token valid'}, status=status.HTTP_200_OK)
 
 def getID(request, invites_id):
-    try :
-        if request.method == 'GET':
-            InviteObj = Invites.objects.get(id=invites_id)
-            return JsonResponse({'sender': InviteObj.sender.username, 'receiver': InviteObj.receiver.username}, safe=False)
-        return JsonResponse({'status': 'method not allowed'}, status=405)
-    except Invites.DoesNotExist:
-        return JsonResponse({'status': 'no gameInvite provided with the following id'}, status=404)
+	try :
+		if request.method == 'GET':
+			InviteObj = Invites.objects.get(id=invites_id)
+			return JsonResponse({'sender': InviteObj.sender.username, 'receiver': InviteObj.receiver.username}, safe=False)
+		return JsonResponse({'status': 'method not allowed'}, status=405)
+	except Invites.DoesNotExist:
+		return JsonResponse({'status': 'no gameInvite provided with the following id'}, status=404)

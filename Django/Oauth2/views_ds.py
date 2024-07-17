@@ -53,7 +53,7 @@ class discord_redirect(APIView):
 				if user is not None:
 					if user_has_device(user):
 						request.session['pre_2fa_user_id'] = user.id
-						return redirect(f'https://localhost:5173/twoFa2?user_id={user.id}')
+						return redirect(f'http://localhost:5173/twoFa2?user_id={user.id}')
 					else:
 						login(request, user)
 						refresh = RefreshToken.for_user(user)
