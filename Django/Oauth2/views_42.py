@@ -21,9 +21,12 @@ def f42_redirect(request: HttpRequest):
 	if code:
 		access_token = exchange_code(code)
 		if access_token:
+			user_info_response = None
 			user_info_response = requests.get("https://api.intra.42.fr/v2/me/", headers={
 				"Authorization": f"Bearer {access_token}"
 			})
+			if user_info_response == None:
+					return HttpResponse ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 			user_info = user_info_response.json()
 			email = user_info.get('email')
 			username = user_info.get('login')

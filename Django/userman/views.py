@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from rest_framework.permissions import IsAuthenticated
 from .models import Player
 from .serializers import *
+from django.db.models import Q
 
 
 from django.db.models.aggregates import Count
@@ -276,7 +277,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 			return Response(data, status=status.HTTP_200_OK)
 		
 		except Exception as e:
-			return Response({'message': 'An Error Occurred!'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 		
 	@action(detail=False, methods=['GET'])
 	def friends(self, request):

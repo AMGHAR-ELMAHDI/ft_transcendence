@@ -29,9 +29,12 @@ class discord_redirect(APIView):
 		if code:
 			access_token = exchange_code(code)
 			if access_token:
+				user_info_response = None
 				user_info_response = requests.get("https://discord.com/api/v6/users/@me", headers={
 					"Authorization": f"Bearer {access_token}"
 				})
+				if user_info_response == None:
+						return Response ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 				user_info = user_info_response.json()
 				discord_id = user_info.get('id')
 				email = user_info.get('email')
