@@ -90,9 +90,9 @@ class Player(AbstractBaseUser):
     user_type = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=USER_NORMAL)
     
-    ball = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='ball', default='1')
-    paddle = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='paddle', default='1')
     table = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='table', default='1')
+    ball = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='ball', default='2')
+    paddle = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='paddle', default='3')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

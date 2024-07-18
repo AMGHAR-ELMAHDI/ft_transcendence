@@ -1,20 +1,22 @@
 	INSERT INTO userman_item
 ("path", "type", "name", "price", "color") VALUES
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Blue-Table.png?raw=true', 'G', 'Blue-Table', '100', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Green-Table.png?raw=true', 'G', 'Green-Table', '900', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Grey-Table.png?raw=true', 'G', 'Grey-Table', '600', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Orange-Table.png?raw=true', 'G', 'Orange-Table', '700', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Red-Table.png?raw=true', 'G', 'Red-Table', '600', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/blue-ball.png?raw=true', 'B', 'blue-ball', '800', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/orange-ball.png?raw=true', 'B', 'orange-ball', '700', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/purple-ball.png?raw=true', 'B', 'purple-ball', '800', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/red-ball.png?raw=true', 'B', 'red-ball', '100', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/yellow-ball.png?raw=true', 'B', 'yellow-ball', '100000', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/blue-paddle.png?raw=true', 'P', 'blue-paddle', '100', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/orange-paddle.png?raw=true', 'P', 'orange-paddle', '900', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/purple-paddle.png?raw=true', 'P', 'purple-paddle', '600', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/red-paddle.png?raw=true', 'P', 'red-paddle', '700', '#348feb'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/yellow-paddle.png?raw=true', 'P', 'yellow-paddle', '600', '#348feb');
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Blue-Table.png?raw=true', 'G', 'Blue-Table', '0', '#005379'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/blue-ball.png?raw=true', 'B', 'white-ball', '0', '#FFFFFF'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/blue-paddle.png?raw=true', 'P', 'white-paddle', '0', '#FFFFFF'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Green-Table.png?raw=true', 'G', 'Green-Table', '900', '#04DF1A'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Grey-Table.png?raw=true', 'G', 'Grey-Table', '600', '#636363'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Orange-Table.png?raw=true', 'G', 'Orange-Table', '700', '#FC7900'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Red-Table.png?raw=true', 'G', 'Red-Table', '600', '#790000'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/blue-ball.png?raw=true', 'B', 'blue-ball', '800', '#005379'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/orange-ball.png?raw=true', 'B', 'orange-ball', '700', '#FC7900'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/purple-ball.png?raw=true', 'B', 'purple-ball', '800', '#8633EF'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/red-ball.png?raw=true', 'B', 'red-ball', '100', '#F51D1D'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/yellow-ball.png?raw=true', 'B', 'yellow-ball', '100000', '#EAED3B'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/blue-paddle.png?raw=true', 'P', 'blue-paddle', '100', '#005379'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/orange-paddle.png?raw=true', 'P', 'orange-paddle', '900', '#FC7900'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/purple-paddle.png?raw=true', 'P', 'purple-paddle', '600', '#8633EF'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/red-paddle.png?raw=true', 'P', 'red-paddle', '700', '#F51D1D'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/yellow-paddle.png?raw=true', 'P', 'yellow-paddle', '600', '#EAED3B');
 
 
 INSERT INTO userman_achievement

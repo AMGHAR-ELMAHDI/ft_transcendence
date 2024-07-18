@@ -22,7 +22,10 @@
 	left: 50%;
 	transform: translateX(-50%);
 	align-items: center;
-	height: 100svh;	
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.544);
+	height: 100svh;
+	transition: .3s all;
 }
 .plate {
 	perspective: 1000px;

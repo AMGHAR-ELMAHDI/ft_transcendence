@@ -100,9 +100,9 @@ class GameConsumer(AsyncWebsocketConsumer):
             self.rooms[self.room_group_name] = {
                 'players': {},
                 'index': 0,
-                'ball': views.Ball(67, 67, 7, 7, 10),
-                'paddle2': views.Paddle(0, 20, 2, 2, 20, 160),
-                'paddle1': views.Paddle(0, 50, 2, 2, 20, 160),
+                'ball': views.Ball(67, 67, 7, 8, 8),
+                'paddle2': views.Paddle(0, 20, 1, 1, 20, 160),
+                'paddle1': views.Paddle(0, 50, 1, 1, 20, 160),
                 'winner': None,
                 'rank': None,
                 'id': 0,
@@ -253,7 +253,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 "message": message,
             },
         )
-    
+
     async def finals(self, event):
         message = event["message"]
         await self.send(
@@ -424,6 +424,7 @@ class GameConsumer(AsyncWebsocketConsumer):
         #     print(f"Error in createGameObject: {e}")
 
     async def sendBallPos(self):
+        await asyncio.sleep(3)
         self.date = timezone.now()
         while True:
             message = {
@@ -456,7 +457,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 self.rooms[self.room_group_name]['winner'] = self.rooms[self.room_group_name]['paddle2'].name
                 await self.createGameObject(self.rooms[self.room_group_name]['winner'])
                 await self.stop_task()
-            await asyncio.sleep(1 / 70)
+            await asyncio.sleep(1 / 65)
 
     async def stop_task(self):
         if self.task and not self.task.done():
@@ -614,7 +615,6 @@ class TournamentM_(AsyncWebsocketConsumer):
             await sync_to_async(self.instance.save)(update_fields=['status'])
             self.rooms[self.room_group_name]['onceAtTime'] = True
             player = self.rooms[self.room_group_name]['players']
-            print(f' -> {self.room_group_name}, {player}')
             self.task = asyncio.ensure_future(self.StartTournament())
 
     async def StartTournament(self):

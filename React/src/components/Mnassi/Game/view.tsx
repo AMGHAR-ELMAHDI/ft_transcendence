@@ -28,6 +28,17 @@ function UserView() {
 
 	const [PLAYER_1, GetFirst] = useState('BOT1');
 	const [PLAYER_2, GetSecond] = useState('BOT2');
+	const [data, setData] = useState<any>([]);
+
+	useEffect(()=> {
+		axios.get('https://localhost:2500/player/set/')
+		.then(response => {
+			setData(response.data)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	}, [])
 
 	useEffect(()=> {
 		let StopGame = false
@@ -60,7 +71,7 @@ function UserView() {
 			this.score = 0
 
 			this.draw = function() {
-				FillColor("#ffffff")
+				FillColor(data.paddle)
 				context?.fillRect(pos.x, pos.y, width, height)
 			}
 			this.HalfWidth = function() {
@@ -94,7 +105,7 @@ function UserView() {
 				this.pos.y += this.velocity.y
 			};
 			this.draw = function() {
-				FillColor("#ffffff")
+				FillColor(data.ball)
 				context?.beginPath()
 				context?.arc(pos.x, pos.y, radius, 0, Math.PI * 2)
 				context?.fill()
@@ -224,7 +235,7 @@ function UserView() {
 				<p id='Sscore'>0</p>
 			</div>
 			<div className="winner" id='winner'></div>
-			<canvas id="canvas"></canvas>
+			<canvas style={{"background": `linear-gradient(120deg, #${data.table}, rgba(0, 0, 0, 0.576))`}}  id="canvas"></canvas>
 		</div>
 	);
 }
