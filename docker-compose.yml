@@ -1,22 +1,22 @@
 version: "3"
 
 services:
-  back-end:
-    build: ./Django
-    ports:
-      - "2500:2500"
-    container_name: backEnd
-    volumes:
-      - ./Django:/code
-    depends_on:
-      - db
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
-    networks:
-      - ft_trans
+  # back-end:
+  #   build: ./Django
+  #   ports:
+  #     - "2500:2500"
+  #   container_name: backEnd
+  #   volumes:
+  #     - ./Django:/code
+  #   depends_on:
+  #     - db
+  # logging:
+  #   driver: gelf
+  #   options:
+  #     gelf-address: "udp://localhost:12201"
+  #     tag: "back-end"
+  #   networks:
+  #     - ft_trans
 
   db:
     container_name: database
@@ -32,38 +32,120 @@ services:
     env_file:
       - Django/.env
     logging:
-      driver: json-file
+      driver: gelf
       options:
-        max-size: "10m"
-        max-file: "3"
+        gelf-address: "udp://localhost:12201"
+        tag: "database"
     networks:
       - ft_trans
 
-  adminer:
-    container_name: adminer
-    image: adminer
-    restart: always
+  # adminer:
+  #   container_name: adminer
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - ft_trans
+
+  # frontend:
+  #   build:
+  #     context: ./React
+  #     dockerfile: Dockerfile
+  #   image: frontend
+  #   container_name: frontend
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./React:/app
+  #   depends_on:
+  #     - back-end
+  #   networks:
+  #     - ft_trans
+  #  logging:
+  #     driver: gelf
+  #     options:
+  #       gelf-address: "udp://localhost:12201"
+  #       tag: "frontend"
+  #   restart: unless-stopped
+  # -----------------------------DEVOPS--------------------------------
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.0"
+    container_name: elasticsearch
     ports:
-      - "8080:8080"
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    env_file:
+      - .env
     networks:
       - ft_trans
+    restart: on-failure
 
-  frontend:
-    build:
-      context: ./React
-      dockerfile: Dockerfile
-    image: frontend
-    container_name: frontend
+  kibana:
+    image: "docker.elastic.co/kibana/kibana:7.17.0"
+    container_name: kibana
     ports:
-      - "5173:5173"
+      - "5601:5601"
+    environment:
+      - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
+    depends_on:
+      - elasticsearch
+    env_file:
+      - .env
+    networks:
+      - ft_trans
+    restart: on-failure
+
+  # javaApp:+6
+  #   image: "febbweiss/java-log-generator:latest"
+  #   container_name: javaApp
+  #   depends_on:
+  #     - elasticsearch
+  #     - kibana
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - ft_trans
+  #   restart: on-failure
+
+  logstash:
+    image: "docker.elastic.co/logstash/logstash:7.17.0"
+    container_name: logstash
     volumes:
-      - ./React:/app
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
-    restart: unless-stopped
+      - ./DevOps/ELK/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./DevOps/ELK/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+    ports:
+      - "9600:9600"
+      - "12201:12201/udp"
+    env_file:
+      - .env
+    depends_on:
+      - kibana
+    environment:
+      - LOGSTASH_INTERNAL_PASSWORD:${ELASTIC_PASSWORD}
+    networks:
+      - ft_trans
+    restart: on-failure
+
+  filebeat:
+    image: "docker.elastic.co/beats/filebeat:7.17.0"
+    container_name: filebeat
+    user: root
+    env_file:
+      - .env
+    volumes:
+      - ./DevOps/ELK/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - kibana
+    networks:
+      - ft_trans
+    command: --strict.perms=false
+    restart: on-failure
 
 networks:
   ft_trans:
