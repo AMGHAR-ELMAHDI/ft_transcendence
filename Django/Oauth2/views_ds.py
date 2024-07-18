@@ -36,9 +36,10 @@ class discord_redirect(APIView):
 				if user_info_response == None:
 						return Response ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 				user_info = user_info_response.json()
-				discord_id = user_info.get('id')
 				email = user_info.get('email')
 				username = user_info.get('username')
+				if email == None or username == None:
+						return Response ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 				conflicting_user_mail = Player.objects.filter(email=email).exclude(user_type=Player.USER_DISCORD).first()
 				conflicting_user_user = Player.objects.filter(username=username).exclude(user_type=Player.USER_DISCORD).first()
 				if   conflicting_user_mail or conflicting_user_user:

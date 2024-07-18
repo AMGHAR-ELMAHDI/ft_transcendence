@@ -30,6 +30,8 @@ def f42_redirect(request: HttpRequest):
 			user_info = user_info_response.json()
 			email = user_info.get('email')
 			username = user_info.get('login')
+			if email == None or username == None:
+				return HttpResponse ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 			fname = user_info.get('first_name')
 			lname = user_info.get('last_name')
 			image = user_info.get('image')['link']
