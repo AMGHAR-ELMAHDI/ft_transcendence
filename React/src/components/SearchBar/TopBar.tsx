@@ -42,6 +42,7 @@ function TopBar() {
   useEffect(() => {
     getData();
   }, []);
+  console.log(JSON.stringify(data));
 
   return (
     <>

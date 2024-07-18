@@ -1,42 +1,52 @@
 version: "3"
 
 services:
-  # back-end:
-  #   build: ./Django
-  #   ports:
-  #     - "2500:2500"
-  #   container_name: backEnd
-  #   volumes:
-  #     - ./Django:/code
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - ft_trans
+  back-end:
+    build: ./Django
+    ports:
+      - "2500:2500"
+    container_name: backEnd
+    volumes:
+      - ./Django:/code
+    depends_on:
+      - db
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - ft_trans
 
-  # db:
-  #   container_name: database
-  #   image: postgres
-  #   restart: always
-  #   volumes:
-  #     - data:/var/lib/postgresql/data
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready"]
-  #     interval: 1s
-  #     timeout: 5s
-  #     retries: 10
-  #   env_file:
-  #     - Django/.env
-  #   networks:
-  #     - ft_trans
+  db:
+    container_name: database
+    image: postgres
+    restart: always
+    volumes:
+      - data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    env_file:
+      - Django/.env
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - ft_trans
 
-  # adminer:
-  #   container_name: adminer
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - ft_trans
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - ft_trans
 
   frontend:
     build:
@@ -48,6 +58,11 @@ services:
       - "5173:5173"
     volumes:
       - ./React:/app
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
 
 networks:
