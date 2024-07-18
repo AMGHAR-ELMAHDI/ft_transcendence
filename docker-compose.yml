@@ -29,14 +29,14 @@ services:
   #   networks:
   #     - ft_trans
 
-  # adminer:
-  #   container_name: adminer
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - ft_trans
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - ft_trans
 
   frontend:
     build:
@@ -47,10 +47,8 @@ services:
     ports:
       - "3000:3000"
       - "5173:5173"
-    # depends_on:
-    #   - backend
     volumes:
-      - frontend-data:/app
+      - ./React:/app
     restart: unless-stopped
 
 networks:

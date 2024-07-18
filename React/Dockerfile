@@ -1,7 +1,12 @@
-FROM node
-WORKDIR /code
-# RUN npm install
-# COPY . .
-# RUN npm run dev
+FROM node:20
 
-CMD [ "bash" ]
+WORKDIR /app
+
+RUN npm install -g npm@latest
+
+COPY . .
+
+RUN npm install
+
+
+CMD [ "npm", "start" ]
