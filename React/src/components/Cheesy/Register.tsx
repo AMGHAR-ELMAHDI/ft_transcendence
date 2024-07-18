@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FaDiscord } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
+import toast from "react-hot-toast";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -19,8 +21,18 @@ function Register() {
     password2: password,
   };
 
+  const handleDiscordAuth = () => {
+    window.location.href = "https://localhost:2500/discord/login/";
+  };
+
+  const handle42Auth = () => {
+    window.location.href = "https://localhost:2500/42/login/";
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log(JSON.stringify(obj));
+
     axios
       .post(url + "sign-up/", obj)
       .then((response) => {
@@ -47,7 +59,7 @@ function Register() {
           </div>
           <div className="member">
             <p>
-              already a member ? <a className="log">log in</a>
+              already a member ? <Link to={"/login"}>log in</Link>
             </p>
           </div>
           <div className="fullname">
@@ -170,11 +182,11 @@ function Register() {
             </svg>
           </div>
           <div className="buttons">
-            <button className="fourtytwo">
+            <button onClick={handle42Auth} className="fortytwo">
               <img src="/42.svg"></img>
             </button>
-            <button className="gmail">
-              <img src="/google.svg"></img>
+            <button onClick={handleDiscordAuth} className="gmail">
+              <FaDiscord className="ds" />
             </button>
             <button className="create" onClick={handleSubmit}>
               create account
