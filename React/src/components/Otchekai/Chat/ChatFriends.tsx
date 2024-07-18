@@ -25,6 +25,7 @@ interface Props {
   BlockedMe: any;
   setBlockedMe: any;
   setRerender: React.Dispatch<React.SetStateAction<boolean>>;
+  friends: Friend[];
 }
 
 function ChatFriends({
@@ -32,43 +33,44 @@ function ChatFriends({
   Blockedusers,
   setBlockedUsers,
   setRerender,
+  friends,
 }: Props) {
-  const [friends, setFriends] = useState<Friend[]>([]);
+  // const [friends, setFriends] = useState<Friend[]>([]);
 
-  const getFriends = async () => {
-    try {
-      const response = await api.get("player/friends/");
+  // const getFriends = async () => {
+  //   try {
+  //     const response = await api.get("player/friends/");
 
-      setFriends(response.data.friends);
-      console.log(response.data.friends);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setFriends(response.data.friends);
+  //     console.log(response.data.friends);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    getFriends();
-    const socket = new WebSocket(`wss://localhost:2500/ws/status/${token}/${1}`);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   getFriends();
+  //   const socket = new WebSocket(`wss://localhost:2500/ws/status/${token}/${1}`);
 
-    socket.onopen = () => {
-      console.log("[online status socket ] conected successfully !!!");
-    };
+  //   socket.onopen = () => {
+  //     console.log("[online status socket ] conected successfully !!!");
+  //   };
 
-    socket.onmessage = (event) => {
-      getFriends();
-    };
+  //   socket.onmessage = (event) => {
+  //     getFriends();
+  //   };
 
-    socket.onclose = () => {};
+  //   socket.onclose = () => {};
 
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
+  //   socket.onerror = (error) => {
+  //     console.error("WebSocket error:", error);
+  //   };
 
-    return () => {
-      socket.close();
-    };
-  }, []);
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }, []);
 
   return (
     <>

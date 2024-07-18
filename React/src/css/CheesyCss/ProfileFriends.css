@@ -54,6 +54,7 @@
 .ProfileFriendImg {
   width: 8rem;
   height: 8rem;
+  object-fit: cover;
   border-radius: 50%;
   box-shadow: 0 5px 5px 0 var(--blue-glow);
   cursor: pointer;

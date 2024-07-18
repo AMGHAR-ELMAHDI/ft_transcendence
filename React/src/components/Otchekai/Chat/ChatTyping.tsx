@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import FriendId from "../../../Atoms/FriendId";
 import api from "../../../api";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
@@ -7,7 +7,8 @@ import Sender from "./Sender";
 import Friendschat from "../../../Atoms/Chatfriends";
 import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
 import Url from "../../../Atoms/Url";
-import { useNavigate } from "react-router-dom";
+import "../../../css/Otchekai/Chat-animation.css";
+import toast from "react-hot-toast";
 
 interface Friend {
   id: number;
@@ -21,16 +22,36 @@ interface Props {
   Blockedusers: any;
   myId: any;
   BlockedMe: any;
+  friends: Friend[];
 }
 
-function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
-  const UsersData: Friend[] = useRecoilValue(Friendschat);
+function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe,friends }: Props) {
+  // const UsersData: Friend[] = useRecoilValue(Friendschat);
+
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
-  const Friend: any = UsersData.find((f) => f.id === Selectedfriend);
+  const Friend: any = friends.find((f) => f.id === Selectedfriend);
   const url = useRecoilValue(Url);
   const [gameSocket, setGameSocket] = useState<WebSocket | null>(null);
   const connType = 1;
+  const chatBoxRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [allMessages]);
+
+  const isUserBlocked = useMemo(() => {
+    return (
+      Blockedusers.some((user: any) => user.id === Selectedfriend) ||
+      BlockedMe.some((user: any) => user.id === Selectedfriend)
+    );
+  }, [Blockedusers, BlockedMe, Selectedfriend]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -67,6 +88,30 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
+    // --------------------------------------------------
+
+    //     getFriends();
+    //     const socket = new WebSocket(`wss://localhost:2500/ws/status/${token}/${1}`);
+
+    //     socket.onopen = () => {
+    //       console.log("[online status socket ] conected successfully !!!");
+    //     };
+
+    //     socket.onmessage = (event) => {
+    //       getFriends();
+    //     };
+
+    //     socket.onclose = () => {};
+
+    //     socket.onerror = (error) => {
+    //       console.error("WebSocket error:", error);
+    //     };
+
+    //     return () => {
+    //       socket.close();
+    //     };
+    // --------------------------------------------------
+
     return () => {
       chatSocket.close();
     };
@@ -101,6 +146,10 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
   }
 
   const handleInvite = () => {
+    if (isUserBlocked) {
+      toast.error("User is Blocked");
+      return;
+    }
     const token = localStorage.getItem("token");
     if (!token) {
       console.error("No token found in localStorage.");
@@ -120,24 +169,39 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
       };
       gameSocket.send(JSON.stringify(inviteMessage));
     };
-
+    toast.success("The Request has been sent!!");
     return () => {
       gameSocket.close();
     };
   };
 
-    const navigate = useNavigate();
+  if (Selectedfriend === 0) {
+    return (
+      <div className="animation-container">
+        <div className="Parent-animation">
+          <div className="left_wall"></div>
+          <div className="ball"></div>
+          <div className="right_wall"></div>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
-     {Friend != undefined &&  <div className="negotiator">
-        <img src={GetCorrect(Friend?.avatar, url)} id="chatperson" />
+      <div className="negotiator">
+        <img
+          src={GetCorrect(Friend?.avatar, url)}
+          id="chatperson"
+          className={Friend?.status !== "O" ? "offline" : ""}
+          alt="Friend avatar"
+        />
         <div className="Friend-header-name">
-          <h1 onClick={() => navigate(`/profile/${Friend?.username}`)}>{Friend?.username}</h1>
-          <h2>online</h2>
+          <h1>{Friend?.username}</h1>
+          <h2>{Friend?.status === "O" ? "online" : "offline"}</h2>
         </div>
-      </div>}
+      </div>
       <div className="Type-wrapper">
-        <div className="Chat-box">
+        <div className="Chat-box" ref={chatBoxRef}>
           {allMessages.map((msg: any, index) => (
             <Sender
               key={index}
@@ -153,25 +217,16 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe }: Props) {
             <input
               id="message-input"
               type="text"
-              disabled={
-                Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-                BlockedMe.some((user: any) => user.id === Selectedfriend)
-              }
+              disabled={isUserBlocked}
               placeholder={
-                Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-                BlockedMe.some((user: any) => user.id === Selectedfriend)
-                  ? "The user is blocked"
-                  : "Type Something ..."
+                isUserBlocked ? "The user is blocked" : "Type Something ..."
               }
             />
           </div>
           <button
             type="submit"
             className="Chat-send-button"
-            disabled={
-              Blockedusers.some((user: any) => user.id === Selectedfriend) ||
-              BlockedMe.some((user: any) => user.id === Selectedfriend)
-            }
+            disabled={isUserBlocked}
           >
             <img src="/Send-button.svg" id="bottona" />
           </button>

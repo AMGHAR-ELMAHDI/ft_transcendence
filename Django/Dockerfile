@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
 RUN chmod +x run.sh
 
 CMD ["bash", "run.sh"]

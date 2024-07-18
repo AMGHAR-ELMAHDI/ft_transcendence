@@ -76,6 +76,7 @@ function ProfileFriends() {
         typeSpeed: 50,
         startDelay: 400,
         loop: true,
+        showCursor: false,
       });
 
       return () => {
@@ -87,7 +88,7 @@ function ProfileFriends() {
   }, []);
 
   const length: boolean = data?.length ? true : false;
-  if (!isLoading && !length)
+  if (!data?.length)
     return (
       <div className="textContainer">
         <h1 className="emptyData"></h1>

@@ -1,5 +1,6 @@
+import './pong.css'
 
-function pingpong() {
+function Pingpong() {
 	return (
 		<div className='co_'>
 			<div className='plate'>
@@ -12,4 +13,4 @@ function pingpong() {
 	)
 }
 
-export default pingpong
+export default Pingpong

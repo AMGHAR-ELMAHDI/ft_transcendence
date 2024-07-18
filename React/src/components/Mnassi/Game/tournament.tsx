@@ -167,8 +167,6 @@ function tournament({ NetType }: OnlineGame) {
     if (error[1]) result = error[1]?.replace("room_name=", "");
     const room_name = decodeAndReplace(result)
 
-    console.log('->', room_name)
-
     const token = localStorage.getItem('token')
     TnSocket = new WebSocket(`wss://localhost:2500/ws/game-tn/${token}/${room_name}`);
 
@@ -186,7 +184,6 @@ function tournament({ NetType }: OnlineGame) {
       const data = JSON.parse(e.data);
       const dataType = data.type;
 
-      console.log(data);
       if (dataType === "identify") {
         index = data.player;
         name = data.name;
@@ -206,13 +203,14 @@ function tournament({ NetType }: OnlineGame) {
           final_2!.innerHTML = data?.message?.final2;
         }
         if (data?.message?.winner != "")
-          winner!.innerHTML = data?.message?.winner;
+          winner!.innerHTML = data?.message?.winner
       }
       if (
         data?.message?.type === "firstGame" &&
         (data?.message?.player1 === index.toString() ||
           data?.message?.player2 === index.toString())
       ) {
+        // toast.success('game will start soon')
         const data = JSON.parse(localStorage.getItem("dataTn")!);
         setName(data.player1);
         setName1(data.player2);
@@ -223,6 +221,7 @@ function tournament({ NetType }: OnlineGame) {
         (data?.message?.player1 === index.toString() ||
           data?.message?.player2 === index.toString())
       ) {
+        // toast.success('game will start soon')
         const data = JSON.parse(localStorage.getItem("dataTn")!);
         setName(data.player3);
         setName1(data.player4);
@@ -237,10 +236,11 @@ function tournament({ NetType }: OnlineGame) {
               field2: final_2?.innerHTML,
             })
           );
-          setName(final_1!.textContent!); // take it from the back
+          setName(final_1!.textContent!);
           setName1(final_2!.textContent!);
         }
         if (name === final_1?.textContent || name === final_2?.textContent)
+          // toast.success('game will start soon')
           setTimeout(() => SetFinal2(true), 3000);
       }
       if (data?.type == 'error')
@@ -259,14 +259,9 @@ function tournament({ NetType }: OnlineGame) {
         }
       }
     };
-    // return(()=> {
-    // localStorage.remove
-    // localStorage.remove
-    // })
   }, []);
 
   return (
-    // <div className='VirParent'>
     <>
       {!run && !secondRun && !Final && !FirstGame && !SecGame && !final && (
         <_tournament />
@@ -282,7 +277,6 @@ function tournament({ NetType }: OnlineGame) {
       {SecGame && <_OnlineGame Type="Online2" Name={Player1} Name2={Player2} />}
       {final && <_OnlineGame Type="final" Name={Player1} Name2={Player2} />}
     </>
-    // </div>
   );
 }
 

@@ -52,6 +52,7 @@ function ProfileItems({ UserData, UseUserData }: UserDataProps) {
         typeSpeed: 50,
         startDelay: 400,
         loop: true,
+        showCursor: false,
       });
 
       return () => {

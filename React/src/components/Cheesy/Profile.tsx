@@ -45,6 +45,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     friends: data.friends,
     win_rate: data.win_rate,
     level: data.level,
+    points: data.points,
     achievements_rate: data.achievements_rate,
     achievements: data.achievements,
   };
@@ -73,8 +74,8 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
               {boolRender && <div></div>}
               <div id="profile-level-container">
                 <div id="profile-level-text">
-                  <h2>Level {Math.floor(obj.level / 1000)}</h2>
-                  <h2>{obj.level}/1000</h2>
+                  <h2>Level {obj.level}</h2>
+                  <h2>{Math.floor(obj.points % 1000)}/1000</h2>
                 </div>
                 <div id="profile-level-bar">
                   <progress id="progress-bar" value={obj.level} max={1000} />

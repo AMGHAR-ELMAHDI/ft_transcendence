@@ -42,7 +42,6 @@ function TopBar() {
   useEffect(() => {
     getData();
   }, []);
-  console.log(JSON.stringify(data));
 
   return (
     <>
@@ -74,6 +73,9 @@ function TopBar() {
           {<SearchBar />}
           <div className="NotifProfileContainer">
             {<Notif />}
+            {window.location.pathname === "/shop" && (
+              <div className="CoinsShop">{data?.coins}$</div>
+            )}
             {<DropDownMenuContainer avatar={data?.avatar} />}
           </div>
         </div>

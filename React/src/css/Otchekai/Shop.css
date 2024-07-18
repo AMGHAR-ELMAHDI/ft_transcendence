@@ -239,4 +239,7 @@
   .itemsContainer {
     max-width: 100vw;
   }
+  .wrapper {
+    width: 80vw;
+  }
 }

@@ -7,6 +7,7 @@ import _Queue from "./inQueue";
 import _title from "./title";
 import { RecoilRoot } from "recoil";
 import { PiCoinsBold } from "react-icons/pi";
+import Pingpong from "./ping";
 
 interface LocalGameProps {
   Type: string;
@@ -14,7 +15,19 @@ interface LocalGameProps {
   Name2: string;
 }
 
+
 function GameInterface({ Type, Name, Name2 }: LocalGameProps) {
+  const [data, setData] = useState<any>([]);
+
+  useEffect(()=> {
+    axios.get('https://localhost:2500/player/set/')
+    .then(response => {
+      setData(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }, [])
   return (
     <>
       {<_title title={Name + " vs " + Name2}></_title>}
@@ -25,7 +38,7 @@ function GameInterface({ Type, Name, Name2 }: LocalGameProps) {
           <p id="Sscore">0</p>
         </div>
         <div className="winner" id="winner"></div>
-        <canvas id="canvas"></canvas>
+			  <canvas style={{"background": `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`}}  id="canvas"></canvas>
       </div>
     </>
   );
@@ -49,18 +62,23 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
     GetCenter(): Vector;
   }
 
-  interface Ball {
-    pos: Vector;
-    velocity: Vector;
-    radius: number;
-  }
-
-  const [DataReady, StatusCode] = useState<boolean>(false);
+  
   const [Exit, setExit] = useState<boolean>(false);
   const [Exit2, setExit2] = useState<boolean>(false);
   const [SetIt, Lost] = useState<boolean>(false);
   const [WON, SetWinner] = useState<boolean>(false);
   const [lastGame, SetLastGame] = useState<boolean>(false);
+  var data: any = []
+
+  useEffect(()=> {
+    axios.get('https://localhost:2500/player/set/')
+    .then(response => {
+      data = response.data
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }, [])
 
   useEffect(() => {
     var room_group_name = "";
@@ -143,9 +161,9 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
           this.radius
         );
         context!.closePath();
-        context!.fillStyle = "white";
+        context!.fillStyle = data.paddle;
         context?.fill();
-        context!.strokeStyle = "white";
+        context!.strokeStyle = data.paddle;
         context?.stroke();
       };
       this.HalfWidth = function () {
@@ -172,7 +190,7 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
         this.pos.y += this.velocity.y;
       };
       this.draw = function () {
-        FillColor("#ffffff");
+        FillColor(`#${data.ball}`);
         context?.beginPath();
         context?.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
         context?.fill();

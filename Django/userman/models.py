@@ -6,6 +6,7 @@ from django.db.models import F
 from chat.models import Block
 
 
+
 class PlayerManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -27,6 +28,24 @@ class PlayerManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
 
+class Item(models.Model):
+    ITEM_BALL = 'B'
+    ITEM_PADDLE = 'P'
+    ITEM_BGC = 'G'
+    ITEM_AVATAR = 'A'
+
+    ITEM_CHOICES = [
+        (ITEM_BALL, 'BALL'),
+        (ITEM_PADDLE, 'PADDLE'),
+        (ITEM_BGC, 'BGC'),
+        (ITEM_AVATAR, 'AVATAR'),
+    ]
+    type =  models.CharField(
+        max_length=1, choices=ITEM_CHOICES)
+    name = models.CharField(max_length=32)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    path = models.CharField(max_length=256)
+    color = models.CharField(max_length=6, default='327fa8')
 
 class Player(AbstractBaseUser):
     
@@ -70,13 +89,18 @@ class Player(AbstractBaseUser):
     )
     user_type = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=USER_NORMAL)
+    
+    table = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='table', default='1')
+    ball = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='ball', default='2')
+    paddle = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='paddle', default='3')
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
     objects = PlayerManager()
     
     def __str__(self):
-        return self.email
+        return self.username
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -222,23 +246,7 @@ class Invites(models.Model):
     room_id = models.TextField(null=False, blank=False)
 
 
-class Item(models.Model):
-    ITEM_BALL = 'B'
-    ITEM_PADDLE = 'P'
-    ITEM_BGC = 'G'
-    ITEM_AVATAR = 'A'
 
-    ITEM_CHOICES = [
-        (ITEM_BALL, 'BALL'),
-        (ITEM_PADDLE, 'PADDLE'),
-        (ITEM_BGC, 'BGC'),
-        (ITEM_AVATAR, 'AVATAR'),
-    ]
-    type =  models.CharField(
-        max_length=1, choices=ITEM_CHOICES)
-    name = models.CharField(max_length=32)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    path = models.CharField(max_length=256)
 
 
 class ItemsPerUser(models.Model):

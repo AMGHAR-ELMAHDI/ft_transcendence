@@ -101,7 +101,11 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
             return
         print(f"Sending game invite from player ID {self.user.id} to player ID {invite_to_player_id}")
         room_id = get_group_name(self, self.user.id, invite_to_player_id)
-        await self.create_invite(self.user.id, invite_to_player_id, room_id)
+        test_create = await self.create_invite(self.user.id, invite_to_player_id, room_id)
+        if test_create == None:
+            print('Player already invited !!!')
+            return
+
 
     @database_sync_to_async
     def get_invite_by_id(self, invite_id):
@@ -126,6 +130,9 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
 
         sender = get_object_or_404(Player, pk=sender_id)
         receiver = get_object_or_404(Player, pk=receiver_id)
+        test = Invites.objects.filter(sender=sender, receiver=receiver, room_id=room_id, status="P")
+        if test.exists():
+                return None
         invite = Invites(sender=sender, receiver=receiver, room_id=room_id)
         invite.save()
         return invite

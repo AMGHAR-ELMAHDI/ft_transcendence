@@ -13,28 +13,24 @@ function buttons() {
 				keyUp?.classList.remove('clicked')
 			if (e.key === 's')
 				keydown?.classList.remove('clicked')
-			console.log(e.key)
 		})
 		window.addEventListener('keydown', function(e) {
 			if (e.key === 'w')
 				keyUp?.classList.add('clicked')
 			if (e.key === 's')
 				keydown?.classList.add('clicked')
-			console.log(e.key)
 		})
 		window.addEventListener('keyup', function(e) {
 			if (e.key === 'ArrowUp')
 				arrowUp?.classList.remove('clicked')
 			if (e.key === 'ArrowDown')
 				arrowDown?.classList.remove('clicked')
-			console.log(e.key)
 		})
 		window.addEventListener('keydown', function(e) {
 			if (e.key === 'ArrowUp')
 				arrowUp?.classList.add('clicked')
 			if (e.key === 'ArrowDown')
 				arrowDown?.classList.add('clicked')
-			console.log(e.key)
 		})
 	})
 	return (

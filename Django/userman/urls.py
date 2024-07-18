@@ -18,7 +18,7 @@ urlpatterns = [
 	path('player/<str:username>/achievements/', PlayerViewSet.as_view({'get': 'achievements'})),
 	path('player/<str:username>/items/', PlayerViewSet.as_view({'get': 'items'})),
 	
-	
+	path('user/<int:invites_id>/', getID),
 
 	path('shop/',ShopView.as_view(), name='user-shop'),
 	path('reqs/',FriendshipAPIView.as_view(), name='user-friends'),

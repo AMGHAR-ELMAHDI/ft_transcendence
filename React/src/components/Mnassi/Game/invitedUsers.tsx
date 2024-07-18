@@ -7,6 +7,8 @@ import _Queue from "./inQueue";
 import _title from "./title";
 import { RecoilRoot } from "recoil";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import Pingpong from "./ping";
 
 interface LocalGameProps {
   Type: string;
@@ -15,6 +17,17 @@ interface LocalGameProps {
 }
 
 function GameInterface_({ Type, Name, Name2 }: LocalGameProps) {
+  const [data, setData] = useState<any>([]);
+
+useEffect(()=> {
+  axios.get('https://localhost:2500/player/set/')
+  .then(response => {
+    setData(response.data)
+  })
+  .catch(error => {
+    console.log(error)
+  })
+}, [])
   return (
     <>
       {<_title title={Name + " vs " + Name2}></_title>}
@@ -25,7 +38,7 @@ function GameInterface_({ Type, Name, Name2 }: LocalGameProps) {
           <p id="Sscore">0</p>
         </div>
         <div className="winner" id="winner"></div>
-        <canvas id="canvas"></canvas>
+			  <canvas style={{"background": `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`}}  id="canvas"></canvas>
       </div>
     </>
   );
@@ -55,12 +68,20 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
     radius: number;
   }
 
-  const [DataReady, StatusCode] = useState<boolean>(false);
-  const [Exit, setExit] = useState<boolean>(false);
-  const [SetIt, Lost] = useState<boolean>(false);
-  const [WON, SetWinner] = useState<boolean>(false);
-  const [winner, setWinner2] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+
   const navigate = useNavigate();
+  var data: any = []
+
+  useEffect(()=> {
+    axios.get('https://localhost:2500/player/set/')
+    .then(response => {
+      data = response.data
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }, [])
 
   useEffect(() => {
     var room_group_name = "";
@@ -143,9 +164,10 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
           this.radius
         );
         context!.closePath();
-        context!.fillStyle = "white";
+        context!.fillStyle = data.paddle;
+        console.log(data.paddle)
         context?.fill();
-        context!.strokeStyle = "white";
+        context!.strokeStyle = data.paddle;
         context?.stroke();
       };
       this.HalfWidth = function () {
@@ -172,7 +194,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
         this.pos.y += this.velocity.y;
       };
       this.draw = function () {
-        FillColor("#ffffff");
+        FillColor(data.ball);
         context?.beginPath();
         context?.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
         context?.fill();
@@ -262,6 +284,10 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
         ball.pos.x = data?.message?.BallX;
         ball.pos.y = data?.message?.BallY;
       }
+      if (data?.message?.type == 'earnedAch' && data?.message?.index === index)
+        toast.success('new achievement unlocked')
+      if (data?.message?.type == 'start')
+        setLoading(false)
       if (
         data?.message?.type === "paddleChan" &&
         data?.message?.index === "1"
@@ -323,11 +349,8 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
   return (
     // send the two palyers to tn file
     <>
-      {SetIt && <_Queue TheTitle="YOU LOST" />}
-      {WON && <_Queue TheTitle="YOU WON" />}
-      {!Exit && (
-        <GameInterface_ Type="" Name={Name} Name2={Name2} />
-      )}
+      <div><GameInterface_ Type="" Name={Name} Name2={Name2} /></div>
+      {loading && <Pingpong/>}
     </>
   );
 }
