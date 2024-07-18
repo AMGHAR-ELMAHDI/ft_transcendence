@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { setAuthToken } from "./setAuthToken";
 import { useRecoilState } from "recoil";
-import ProfilePic from "../../Atoms/ProfilePic";
 
 const getCookie = (name: string) => {
   const cookies = document.cookie
@@ -17,14 +16,9 @@ const deleteCookie = (name: string) => {
 };
 
 function ProtectedRoutes() {
-  const [data, setData] = useState<any>({});
-  const [pic, setProfilePic] = useRecoilState(ProfilePic);
-
   const getData = async () => {
     try {
       const response = await axios.get("player/me/");
-      setData(response.data);
-      setProfilePic(response.data?.avatar);
     } catch (error: any) {
       console.log("Error message:", error.message);
     }

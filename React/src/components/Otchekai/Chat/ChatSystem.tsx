@@ -7,12 +7,13 @@ import ChatTyping from "./ChatTyping";
 import Typed from "typed.js";
 
 function ChatSystem() {
-  const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
+  // const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [BlockRerender, setRerender] = useState<boolean>(false);
   const [Blockedusers, setBlockedUsers] = useState<any[]>([]);
   const [BlockedMe, setBlockedMe] = useState<any[]>([]);
   const [myId, setmyId] = useState<number | null>(null);
+  const [FriendsChat, SetFriendlist] = useState([]);
 
   const getData = async () => {
     try {
@@ -39,10 +40,29 @@ function ChatSystem() {
   useEffect(() => {
     getMyData();
     getData();
-    console.log(BlockRerender, "hnaya hna hona");
   }, [BlockRerender]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    getData();
+    const socket = new WebSocket(
+      `wss://localhost:2500/ws/status/${token}/${1}`
+    );
+
+    socket.onopen = () => {
+      console.log("[online status socket ] conected successfully !!!");
+    };
+
+    socket.onmessage = (event) => {
+      getData();
+    };
+
+    socket.onclose = () => {};
+
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
     const emptyDataElement = document.querySelector("#text");
     if (emptyDataElement) {
       const typed = new Typed(emptyDataElement, {
@@ -54,6 +74,7 @@ function ChatSystem() {
       });
 
       return () => {
+        socket.close();
         typed.destroy();
       };
     }
@@ -78,6 +99,7 @@ function ChatSystem() {
             setBlockedUsers={setBlockedUsers}
             setBlockedMe={setBlockedMe}
             myId={myId}
+            friends={FriendsChat}
           />
         </div>
         <div className="iamJustALine"></div>
@@ -88,6 +110,7 @@ function ChatSystem() {
             Blockedusers={Blockedusers}
             BlockedMe={BlockedMe}
             myId={myId}
+            friends={FriendsChat}
           />
         </div>
       </div>

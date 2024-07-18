@@ -10,20 +10,15 @@ import api from "../../api";
 import GetGreeting, { getPageName } from "./GetGreeting";
 import DropDownMenuContainer from "./DropDownMenuContainer";
 import Notif from "../Cheesy/Notif";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Username from "../../Atoms/Username";
-import AcessToken from "../../Atoms/AccessToken";
 import { AxiosError } from "axios";
-import ProfilePic from "../../Atoms/ProfilePic";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [recoilUsername, setRecoilUsername] = useRecoilState(Username);
-  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
-  const pic = useRecoilValue(ProfilePic);
-  console.log("pic dropdown: " + pic);
 
   const navigate = useNavigate();
 
@@ -36,7 +31,6 @@ function TopBar() {
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         if (error.request) {
-          setTokenValue("");
           localStorage.removeItem("token");
           navigate("/login");
         }
@@ -53,7 +47,6 @@ function TopBar() {
     <>
       {isLoading && LoadingData()}
       <div id="TopBar">
-        <div className="testNodiplay">{pic}</div>
         <div className="absolute">
           <div className="BurgerMenu">
             <TiThMenu onClick={() => setIsOpen(!isOpen)} />
@@ -80,6 +73,9 @@ function TopBar() {
           {<SearchBar />}
           <div className="NotifProfileContainer">
             {<Notif />}
+            {window.location.pathname === "/shop" && (
+              <div className="CoinsShop">{data?.coins}$</div>
+            )}
             {<DropDownMenuContainer avatar={data?.avatar} />}
           </div>
         </div>

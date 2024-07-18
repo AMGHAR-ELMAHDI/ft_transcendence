@@ -98,7 +98,9 @@ function ChatFriendComponent({
       setBlockedUsers(newBlockedUsers);
     }
   };
-  
+
+  const isBlocked = Blockedusers.some((user: any) => user.id === friend.id);
+
   return (
     <div
       className={`Chat-Friendslist ${
@@ -107,7 +109,7 @@ function ChatFriendComponent({
       onClick={() => getID(friend.id)}
     >
       <div className="Friend-img">
-        <div className="chatImgNameContainer">          
+        <div className="chatImgNameContainer">
           <img src={GetCorrect(friend.avatar, url)} className="Friend-imgImg" />
           <div
             className={`status-circle ${
@@ -119,18 +121,15 @@ function ChatFriendComponent({
         <h1 id="Friend-name">{friend.username}</h1>
       </div>
       <div
-        onClick={
-          Blockedusers.some((user: any) => user.id === friend.id)
-            ? handleUnblock
-            : handleBlock
-        }
-        className="Block-button"
+        onClick={() => {
+          if (selectedfriend !== 0) {
+            isBlocked ? handleUnblock() : handleBlock();
+          }
+        }}
+        className={`Block-button ${selectedfriend === 0 ? "disabled" : ""}`}
       >
-        <div
-          className={`block ${isAnimated ? "animateParent" : ""}`}
-          onClick={handleClick}
-        >
-          <div className={`line ${isAnimated ? "animate" : ""}`}></div>
+        <div className={`block ${isBlocked ? "animateParent" : ""}`}>
+          <div className={`line ${isBlocked ? "animate" : ""}`}></div>
         </div>
       </div>
     </div>

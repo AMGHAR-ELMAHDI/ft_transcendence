@@ -213,6 +213,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 				'last_name': serializer.data['last_name'],
 				'coins' : player.coins,
 				'level': player.level,
+				'points': player.points,
 				'win_rate': round(win_rate, 2),
 				'achievements_rate': round(achievements_rate, 2),
 				'blocked_users' : blocked_list,
