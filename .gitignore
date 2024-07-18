@@ -23,8 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# python3 manage.py runserver 2500
+# Django
 *.sqlite3
+.env
 token
 trans
 venv
