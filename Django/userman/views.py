@@ -97,7 +97,7 @@ class ShopView(APIView):
 			'all_achievements' : all_serialized_achievements.data,
 			'all_items' : all_serialized_items.data,
 		}
-		return Response(data, status=HTTP_200_success)
+		return Response(data, status=status.HTTP_200_OK)
 	
 	def post(self, request):
 		item_id = request.data.get('item_id')
@@ -110,6 +110,9 @@ class ShopView(APIView):
 		except Item.DoesNotExist:
 			return Response({'message': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
 
+		if  ItemsPerUser.objects.filter(user=user, item=item).exists():
+			return Response({'message': 'Item already owned'}, status=status.HTTP_403_FORBIDDEN)
+		
 		if user.coins >= item.price:
 			user.coins -= item.price
 			user.save()
@@ -117,7 +120,7 @@ class ShopView(APIView):
 			ItemsPerUser.objects.create(user=user, item=item)
 			return Response({'message': 'Purchase successful'}, status=status.HTTP_201_CREATED)
 		else:
-			return Response({'message': 'Not enough coins'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({'message': 'Not enough coins'}, status=status.HTTP_403_FORBIDDEN)
 	
 
 	@action(detail=False, methods=['POST'])

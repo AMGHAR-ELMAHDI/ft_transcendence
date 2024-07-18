@@ -49,7 +49,8 @@ class discord_redirect(APIView):
 					user = Player.objects.create(
 						email=email,
 						username=username,
-						user_type=Player.USER_DISCORD
+						user_type=Player.USER_DISCORD,
+						coins = 1000
 					)
 					user.set_password(random_password)
 					user.save()
