@@ -104,6 +104,7 @@ class FriendshipPlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'image']
+
         
 class InvitesSerializer(serializers.ModelSerializer):
     sender_username = serializers.SerializerMethodField()
@@ -167,3 +168,14 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+class PlayerSet(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['email', 'ball', 'paddle', 'table']
+
+    
+class ItemSet(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['name', 'path']

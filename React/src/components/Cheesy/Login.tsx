@@ -11,7 +11,6 @@ import Url from "../../Atoms/Url";
 function getGeneralInfo() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
   const url = useRecoilValue(Url);
 
   const obj = {
@@ -28,9 +27,7 @@ function getGeneralInfo() {
       .then((response) => {
         var str = response.data;
         if (response.status === 200) {
-          setTokenValue(str.access);
           setAuthToken();
-          console.log(tokenValue);
           localStorage.setItem("token", str.access);
           navigate("/");
         }

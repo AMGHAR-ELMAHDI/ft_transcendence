@@ -21,12 +21,17 @@ def f42_redirect(request: HttpRequest):
 	if code:
 		access_token = exchange_code(code)
 		if access_token:
+			user_info_response = None
 			user_info_response = requests.get("https://api.intra.42.fr/v2/me/", headers={
 				"Authorization": f"Bearer {access_token}"
 			})
+			if user_info_response == None:
+					return HttpResponse ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 			user_info = user_info_response.json()
 			email = user_info.get('email')
 			username = user_info.get('login')
+			if email == None or username == None:
+				return HttpResponse ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 			fname = user_info.get('first_name')
 			lname = user_info.get('last_name')
 			image = user_info.get('image')['link']
@@ -54,7 +59,7 @@ def f42_redirect(request: HttpRequest):
 			if user is not None:
 				if user_has_device(user):
 					request.session['pre_2fa_user_id'] = user.id
-					return redirect(f'https://localhost:5173/twoFa2?user_id={user.id}')
+					return redirect(f'http://localhost:5173/twoFa2?user_id={user.id}')
 				else:
 					login(request, user)
 					refresh = RefreshToken.for_user(user)

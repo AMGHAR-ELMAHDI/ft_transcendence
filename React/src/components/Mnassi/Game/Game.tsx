@@ -10,9 +10,10 @@ import _LocTn from "./LocTn";
 import _mods from "./mods";
 import _title from "./title";
 import _Queue from "./inQueue";
+import TestingTn from "./TournamentList";
 // import './Game.css'
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Options() {
   const [type, setMod] = useState<string>("");
@@ -20,6 +21,13 @@ function Options() {
   useEffect(() => {
     const btn = document?.getElementById("mods");
     const mods = document?.querySelectorAll(".Imods");
+
+    const btn_mods = document.querySelector('.btn-moded')
+		btn_mods?.addEventListener('click', ()=> {
+      const mods = document?.querySelector('.mod_Cont')
+			mods?.classList.add('showMods_')
+		})
+
     btn?.addEventListener("click", () => {
       setMod("");
     });
@@ -41,7 +49,7 @@ function Options() {
     </div>
   ) : type === "2" ? (
     <div>
-      <_tournament NetType="" />
+      <TestingTn />
     </div>
   ) : type === "3" ? (
     <div>
@@ -53,29 +61,12 @@ function Options() {
       <_title title="Overview" />
       <_UserViews />
       <_mods />
+      <_buttons/>
     </div>
   );
-  // <div><_Main/><_multiplayer Type='' Name='mnassi' Name2='otchekai'/></div>
-  // <div><_Main/><_Queue TheTitle='YOU LOST'/></div>
 }
 
 function Game() {
-  const [User, GuestOrUser] = useState<boolean>(false);
-
-  // useEffect(()=> {
-  //     axios.defaults.withCredentials = true;
-  //     axios?.get('https://localhost:2500/check/', {
-  //       withCredentials: true,
-  //     })
-  //     .then(response => {
-  //       if (response?.status === 200)
-  //         GuestOrUser(true)
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //     })
-  // }, [])
-
   return <Options />;
 }
 

@@ -9,9 +9,6 @@ import { useEffect, useState } from "react";
 import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
-import OnlineStatus from "../zmakhkha/OnlineStatus";
-// import GetCorrectImage from "../Cheesy/GetCorrectImage";
-// import { GetCorrect } from "../Cheesy/LeaderBoardGetTop3";
 
 interface CardProps {
   name: string;
@@ -21,11 +18,8 @@ interface CardProps {
 }
 
 function ShopContainer() {
-  const token: any = localStorage.getItem("token");
-
   return (
     <>
-      {/* <OnlineStatus token={token} type={1} /> */}
       <div className="AppClass">
         <SideBar />
         <div className="main">
@@ -123,9 +117,7 @@ function ShopDesign() {
   setAuthToken();
   const getData = async () => {
     try {
-      const response = await api.get("items");
-      console.log(response.data);
-
+      const response = await api.get("items/");
       setShopItems(response.data);
     } catch (error) {
       console.log(error);
@@ -141,8 +133,6 @@ function ShopDesign() {
     try {
       const response = await api.get("player/items/");
       setownedItems(response.data.items);
-      console.log(ownedItems);
-      console.log(shopItems);
     } catch (error) {
       console.log(error);
     }
@@ -188,6 +178,8 @@ function Card({ name, price, image, id }: CardProps) {
     if (FilterItems(owned, name)) setPurchased(true);
   }, [owned, name]);
 
+    if(price == 0)
+        return
   return (
     <div className="Card-container">
       <div onClick={() => handleBuy()} className="Item-img">
@@ -195,7 +187,6 @@ function Card({ name, price, image, id }: CardProps) {
           <p>BUY IT!</p>
         </div>
         <img src={image} alt="item" />
-        {/* <img src="/purple-paddle.png" alt="item" /> */}
         <div className="Item-img-animation2"></div>
       </div>
       <div className="ItemValueContainer">

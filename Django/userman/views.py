@@ -1,7 +1,9 @@
 from rest_framework import viewsets
+from django.http import JsonResponse
 from rest_framework.permissions import IsAuthenticated
 from .models import Player
 from .serializers import *
+from django.db.models import Q
 
 
 from django.db.models.aggregates import Count
@@ -95,7 +97,7 @@ class ShopView(APIView):
 			'all_achievements' : all_serialized_achievements.data,
 			'all_items' : all_serialized_items.data,
 		}
-		return Response(data, status=HTTP_200_success)
+		return Response(data, status=status.HTTP_200_OK)
 	
 	def post(self, request):
 		item_id = request.data.get('item_id')
@@ -108,6 +110,9 @@ class ShopView(APIView):
 		except Item.DoesNotExist:
 			return Response({'message': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
 
+		if  ItemsPerUser.objects.filter(user=user, item=item).exists():
+			return Response({'message': 'Item already owned'}, status=status.HTTP_403_FORBIDDEN)
+		
 		if user.coins >= item.price:
 			user.coins -= item.price
 			user.save()
@@ -115,7 +120,7 @@ class ShopView(APIView):
 			ItemsPerUser.objects.create(user=user, item=item)
 			return Response({'message': 'Purchase successful'}, status=status.HTTP_201_CREATED)
 		else:
-			return Response({'message': 'Not enough coins'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({'message': 'Not enough coins'}, status=status.HTTP_403_FORBIDDEN)
 	
 
 	@action(detail=False, methods=['POST'])
@@ -211,6 +216,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 				'last_name': serializer.data['last_name'],
 				'coins' : player.coins,
 				'level': player.level,
+				'points': player.points,
 				'win_rate': round(win_rate, 2),
 				'achievements_rate': round(achievements_rate, 2),
 				'blocked_users' : blocked_list,
@@ -232,15 +238,50 @@ class PlayerViewSet(viewsets.ModelViewSet):
 			else:
 				try:
 					player = Player.objects.get(username=username)
-				except:
-					return Response({'message' : 'Player Not Found !'}, status=status.HTTP_404_NOT_FOUND)
-			games = player.games
-			data = {
-				'games' : games
-			}
+				except Player.DoesNotExist:
+					return Response({'message': 'Player Not Found!'}, status=status.HTTP_404_NOT_FOUND)
+			
+			played_games = GameHistory.objects.filter(Q(player=player) | Q(opponent=player))
+			data = []
+			for g in played_games:
+				player1 = Player.objects.get(id=g.player_id)
+				player2 = Player.objects.get(id=g.opponent_id)
+				opponent_username = player2 if player.username == player1 else player1
+
+				if (player == player1):
+					opponent_username = player2.username
+					opponent_avatar = player2.image
+					player_score = g.player_score
+					opponent_score= g.opponent_score
+				else:
+					opponent_username = player1.username
+					opponent_avatar = player1.image
+					player_score = g.opponent_score
+					opponent_score= g.player_score
+
+				Player.objects.get(id=g.opponent_id).image
+				
+				game_data = {
+					'id': g.id,
+					'date': g.date,
+					'player_id': player.id,
+					'opponent_username': opponent_username,
+					'player_score':player_score,
+					'opponent_score':opponent_score,
+					'winner_id': g.winner_id,
+					'opponent_avatar':str(opponent_avatar),
+					'game_mode':g.game_mode,
+					'game_duration':g.game_duration_minutes,
+					# 'opponent_id':' g.opponent_id',
+					# 'player_username':' player.username',
+					# 'opponent_score':' g.opponent_score',
+				}
+				data.append(game_data)
+			
 			return Response(data, status=status.HTTP_200_OK)
+		
 		except Exception as e:
-			return Response({'message' : '--An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 		
 	@action(detail=False, methods=['GET'])
 	def friends(self, request):
@@ -291,6 +332,36 @@ class PlayerViewSet(viewsets.ModelViewSet):
 			return Response(data, status=status.HTTP_200_OK)
 		except Exception as e:
 			return Response({'message' : 'An Error Occured !'}, status=status.HTTP_400_BAD_REQUEST)
+	
+	@action(detail=False, methods=['GET', 'PUT'])
+	def set(self, request):
+		player = self.request.user
+		if request.method == 'GET':
+			serializer = PlayerSet(player)
+			ball_id = serializer.data['ball']
+			table_id = serializer.data['table']
+			paddle_id = serializer.data['paddle']
+			ball = Item.objects.get(id=ball_id)
+			table = Item.objects.get(id=table_id)
+			paddle = Item.objects.get(id=paddle_id)
+			data = {
+				'email' : player.email,
+				'table' : table.color,
+				'paddle' : paddle.color,
+				'ball' : ball.color,
+				'table_id' : table.id,
+				'paddle_id' : paddle.id,
+				'ball_id' : ball.id,
+			}
+			return Response(data, status=status.HTTP_200_OK)
+		
+
+		if request.method == 'PUT':
+			serialized_player = PlayerSet(player, data=request.data)
+			serialized_player.is_valid(raise_exception=True)
+			self.perform_update(serialized_player)
+			return Response(serialized_player.data)
+			# return Response("---------")
 
 
 
@@ -427,3 +498,12 @@ class TokenVerifyView(APIView):
 		except Player.DoesNotExist:
 				return Response({'detail': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
 		return Response({'detail': 'Token valid'}, status=status.HTTP_200_OK)
+
+def getID(request, invites_id):
+	try :
+		if request.method == 'GET':
+			InviteObj = Invites.objects.get(id=invites_id)
+			return JsonResponse({'sender': InviteObj.sender.username, 'receiver': InviteObj.receiver.username}, safe=False)
+		return JsonResponse({'status': 'method not allowed'}, status=405)
+	except Invites.DoesNotExist:
+		return JsonResponse({'status': 'no gameInvite provided with the following id'}, status=404)

@@ -19,8 +19,7 @@ function GetSecurity() {
 
   const SetupTwoFa = async () => {
     try {
-      const response = await api.post("setup-2fa/", obj);
-      console.log(response.data);
+      await api.post("setup-2fa/", obj);
       toast.success("2FA has been enabled");
     } catch (error) {
       toast.error("2FA Code is incorrect");

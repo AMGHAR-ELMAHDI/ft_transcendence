@@ -6,8 +6,10 @@ import { useRecoilValue } from "recoil";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
 import Typed from "typed.js";
+import { Friend } from "../Otchekai/Chat/ChatFriends";
 
-function getFriendStatus() {
+function getFriendStatus(string: any) {
+  if (string === "F") return "Offline";
   return "Online";
 }
 
@@ -36,7 +38,7 @@ function getProfileToolTip() {
 }
 
 function ProfileFriends() {
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<Friend[]>([]);
   const url = useRecoilValue(Url);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -54,6 +56,19 @@ function ProfileFriends() {
 
   useEffect(() => {
     getData();
+    const token = localStorage.getItem("token");
+    const socket = new WebSocket(
+      `wss://localhost:2500/ws/status/${token}/${1}`
+    );
+    socket.onopen = () => {};
+    socket.onmessage = (event) => {
+      getData();
+    };
+    socket.onclose = () => {};
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
     const emptyDataElement = document.querySelector(".emptyData");
     if (emptyDataElement) {
       const typed = new Typed(emptyDataElement, {
@@ -61,16 +76,19 @@ function ProfileFriends() {
         typeSpeed: 50,
         startDelay: 400,
         loop: true,
+        showCursor: false,
       });
 
       return () => {
+        socket.close();
+
         typed.destroy();
       };
     }
   }, []);
 
   const length: boolean = data?.length ? true : false;
-  if (!length)
+  if (!data?.length)
     return (
       <div className="textContainer">
         <h1 className="emptyData"></h1>
@@ -85,16 +103,16 @@ function ProfileFriends() {
         <div id="ProfileFriendsContainer">
           <table>
             {getProfileToolTip()}
-            {data.map((friend: any) => (
-              <tbody key={friend?.id}>
+            {data.map((friend: Friend) => (
+              <tbody key={friend.id}>
                 <tr className="ProfileFriendsContent">
                   <td className="removeit">
                     <div>
                       <img
                         className="ProfileFriendImg"
-                        src={GetCorrect(friend?.avatar, url)}
+                        src={GetCorrect(friend.avatar, url)}
                         onClick={() => {
-                          navigate(`/profile/${friend?.username}`);
+                          navigate(`/profile/${friend.username}`);
                         }}
                       />
                     </div>
@@ -102,24 +120,24 @@ function ProfileFriends() {
                   <td>
                     <h1
                       className="ProfileFriendUsername ProfileFriendH1"
-                      onClick={() => navigate(`/profile/${friend?.username}`)}
+                      onClick={() => navigate(`/profile/${friend.username}`)}
                     >
-                      {friend?.username}
+                      {friend.username}
                     </h1>
                   </td>
                   <td className="remove">
                     <h1 className="ProfileFriendLevel ProfileFriendH1">
-                      {friend?.level}
+                      {friend.level}
                     </h1>
                   </td>
                   <td className="remove">
                     <h1 className="ProfileFriendCoins ProfileFriendH1">
-                      {friend?.coins}
+                      {friend.level}
                     </h1>
                   </td>
                   <td>
                     <h1 className="ProfileFriendStatus ProfileFriendH1">
-                      {getFriendStatus()}
+                      {getFriendStatus(friend.status)}
                     </h1>
                   </td>
                 </tr>

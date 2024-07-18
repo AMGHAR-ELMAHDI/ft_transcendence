@@ -29,13 +29,17 @@ class discord_redirect(APIView):
 		if code:
 			access_token = exchange_code(code)
 			if access_token:
+				user_info_response = None
 				user_info_response = requests.get("https://discord.com/api/v6/users/@me", headers={
 					"Authorization": f"Bearer {access_token}"
 				})
+				if user_info_response == None:
+						return Response ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 				user_info = user_info_response.json()
-				discord_id = user_info.get('id')
 				email = user_info.get('email')
 				username = user_info.get('username')
+				if email == None or username == None:
+						return Response ({"Error" : "empty response"}, status=status.HTTP_400_BAD_REQUEST)
 				conflicting_user_mail = Player.objects.filter(email=email).exclude(user_type=Player.USER_DISCORD).first()
 				conflicting_user_user = Player.objects.filter(username=username).exclude(user_type=Player.USER_DISCORD).first()
 				if   conflicting_user_mail or conflicting_user_user:
@@ -46,14 +50,15 @@ class discord_redirect(APIView):
 					user = Player.objects.create(
 						email=email,
 						username=username,
-						user_type=Player.USER_DISCORD
+						user_type=Player.USER_DISCORD,
+						coins = 1000
 					)
 					user.set_password(random_password)
 					user.save()
 				if user is not None:
 					if user_has_device(user):
 						request.session['pre_2fa_user_id'] = user.id
-						return redirect(f'https://localhost:5173/twoFa2?user_id={user.id}')
+						return redirect(f'http://localhost:5173/twoFa2?user_id={user.id}')
 					else:
 						login(request, user)
 						refresh = RefreshToken.for_user(user)

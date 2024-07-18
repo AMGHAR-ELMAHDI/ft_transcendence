@@ -27,6 +27,20 @@
   height: 80vh;
 }
 
+.negotiator,
+.Type-wrapper {
+  animation: ShowChat 1s ease-out 1;
+}
+
+@keyframes ShowChat {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 #Chatlogo {
   margin-bottom: 2rem;
   font-size: 3.5rem;
@@ -35,14 +49,7 @@
 
 .Chat-Friendslist.Other-Chat-Friendslist {
   background-color: #1d90f5;
-  box-shadow: rgba(30, 142, 243, 1) 0px 1px 25px 0px,
-    rgba(30, 142, 243, 1) 0px 0px 0px 1px;
-}
-
-.Chat-Friendslist.Other-Chat-Friendslist {
-  background-color: #1d90f5;
-  box-shadow: rgba(30, 142, 243, 1) 0px 1px 25px 0px,
-    rgba(30, 142, 243, 1) 0px 0px 0px 1px;
+  box-shadow: 0px 1px 15px 0px rgba(30, 142, 243, 1);
 }
 
 .ChatFriendsContainer {
@@ -64,22 +71,16 @@
   justify-content: space-between;
   align-items: center;
   background-color: #15171f;
-  padding: 1rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 25px;
   gap: 1rem;
   transition: 0.4s;
+  margin-bottom: 1rem;
   cursor: pointer;
 }
 
 .Chat-Friendslist:hover:not(.Other-Chat-Friendslist) {
   background-color: rgba(128, 128, 128, 0.213);
-  scale: 1.015;
-  transition: 0.4s;
-}
-
-.Chat-Friendslist:hover:not(.Other-Chat-Friendslist) {
-  background-color: rgba(128, 128, 128, 0.213);
-  scale: 1.015;
 }
 
 .chatImgNameContainer {
@@ -96,10 +97,13 @@
 }
 
 .Friend-img img {
-  height: 90px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   object-fit: cover;
   border-radius: 50%;
+  border: 4px solid white;
+  box-sizing: border-box;
+  background-color: #15171f;
 }
 
 #Friend-name {
@@ -109,22 +113,61 @@
 .Block-button {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-right: 0.5rem;
   cursor: pointer;
   width: 50px;
+  position: relative;
+}
+
+.Block-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.block {
+  border-radius: 50%;
+  border: 4px solid #e3567c;
+  overflow: hidden;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  transition: 0.3s ease-out;
+}
+
+.line {
+  width: 16%;
+  height: 100%;
+  background-color: #e3567c;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) rotate(25deg);
+  bottom: 0;
+  transition: 0.3s ease-out;
+}
+
+.animate {
+  width: 0%;
+}
+
+.animateParent {
+  border: 4px solid white;
 }
 
 .status-circle {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 25%;
-  height: 25%;
+  bottom: 4px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
+  background-color: gray;
 }
 
 .status-circle-online {
-  background-color: green;
+  background-color: #4caf50;
 }
 
 /*-------------------------------------------CHAT BOX---------------------------------------------  */
@@ -135,7 +178,6 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  /* justify-content: center; */
 }
 
 .negotiator {
@@ -144,11 +186,29 @@
   gap: 1rem;
 }
 
-#chatperson {
-  width: 100px;
-  height: 100px;
+.chatperson.disabled {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
   border-radius: 50%;
   padding: 5px;
+  border: 4px solid white;
+  box-sizing: border-box;
+}
+
+#chatperson {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  padding: 5px;
+  border: 4px solid #5fcae4;
+  box-sizing: border-box;
+  transition: 0.4s;
+}
+
+#chatperson.offline {
+  border: 4px solid gray;
 }
 
 .Friend-header-name {
@@ -158,12 +218,12 @@
 }
 
 .Friend-header-name > h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .Friend-header-name > h2 {
   color: gray;
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-left: 3px;
 }
 
@@ -178,7 +238,7 @@
 
 .Chat-box {
   height: 100%;
-  max-height: 50vh;
+  max-height: 60vh;
   width: 100%;
   min-width: 500px;
   background: #323644;
@@ -196,18 +256,6 @@
 .Chat-box::-webkit-scrollbar {
   display: none;
 }
-
-/* .Chat-box::before {
-  content: "";
-  background: linear-gradient(#0c0e14, transparent);
-  width: 60%;
-  height: 2.5%;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  z-index: 5;
-} */
 
 ::-webkit-scrollbar-track {
   background-color: transparent;
@@ -343,6 +391,7 @@
   transition: 0.4s;
   height: 100%;
   cursor: pointer;
+  padding: 12.5px;
 }
 
 #bottona-dyal-les-jox {
@@ -417,13 +466,22 @@
   #Friend-name {
     font-size: 1.2rem;
   }
+  .status-circle {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: gray;
+  }
+
+  .status-circle-online {
+    background-color: #4caf50;
+  }
   /*-------------------------------------------CHAT BOX---------------------------------------------  */
   .Type-wrapper {
     justify-content: flex-end;
-  }
-  .Chat-box-menu {
-    height: 80vh;
-    gap: 0rem;
   }
   #chatperson {
     width: 80px;
@@ -483,6 +541,18 @@
   }
   #Friend-name {
     font-size: 1.1rem;
+  }
+  .status-circle {
+    position: absolute;
+    bottom: 3px;
+    right: 2px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: gray;
+  }
+  .status-circle-online {
+    background-color: #4caf50;
   }
   /*-------------------------------------------CHAT BOX---------------------------------------------  */
   #chatperson {
@@ -578,7 +648,7 @@
 
 @media only screen and (max-width: 450px) {
   .Chat-box {
-    max-height: 80vh;
+    max-height: 60vh;
     width: 95vw;
     min-width: 200px;
   }
@@ -591,6 +661,6 @@
   }
   #message-input {
     width: 100px;
-    min-width: 200px;
+    min-width: 120px;
   }
 }

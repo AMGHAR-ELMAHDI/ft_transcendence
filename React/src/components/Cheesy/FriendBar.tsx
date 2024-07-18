@@ -7,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { GetCorrect } from "./LeaderBoardGetTop3";
 import LoadingData from "./LoadingData";
 
+interface Message {
+  type: string;
+  data: any;
+}
+
 function FriendBar() {
   const [data, setData] = React.useState<any>([]);
   const [showList, setShowList] = React.useState<boolean>(false);
@@ -14,6 +19,7 @@ function FriendBar() {
   const [isLoading, setLoading] = useState(true);
   const url = useRecoilValue(Url);
 
+  const token = localStorage.getItem("token");
   setAuthToken();
   const getData = async () => {
     try {
@@ -28,6 +34,26 @@ function FriendBar() {
 
   useEffect(() => {
     getData();
+
+    const socket = new WebSocket(
+      `wss://localhost:2500/ws/status/${token}/${1}`
+    );
+
+    socket.onopen = () => {};
+
+    socket.onmessage = (event) => {
+      getData();
+    };
+
+    socket.onclose = () => {};
+
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    return () => {
+      socket.close();
+    };
   }, []);
 
   const navigate = useNavigate();
@@ -63,6 +89,13 @@ function FriendBar() {
                   className="friend-sb"
                   src={GetCorrect(friend?.avatar, url)}
                 />
+                <div
+                  className={
+                    friend?.status == "O"
+                      ? "friendIconOnline"
+                      : "friendIconOffline"
+                  }
+                ></div>
 
                 {renderName && (
                   <h1 className="friend-bar-username">{friend?.username}</h1>

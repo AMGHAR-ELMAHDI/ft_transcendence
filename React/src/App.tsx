@@ -10,6 +10,7 @@ import ChatContainer from "./components/Otchekai/Chat/ChatContainer";
 import LeaderBoardContainer from "./components/Cheesy/LeaderBoardContainer";
 import NotFound from "./components/Cheesy/NotFound";
 import Settings from "./components/Cheesy/Settings";
+import GameContainer_invite from "./components/Mnassi/Game/GameContainer_invite";
 import ShopContainer from "./components/Otchekai/ShopContainer";
 import Login from "./components/Mnassi/LoginRegister/Login";
 import Register from "./components/Cheesy/Register";
@@ -20,9 +21,11 @@ import Verify2FA from "./components/zmakhkha/Verify2FA";
 import { Toaster } from "react-hot-toast";
 import Error_403 from "./components/Cheesy/Error403";
 import "./Imports";
-import Gametst from "./components/zmakhkha/Gametst";
 import GameLayout from "./components/Cheesy/GameLayout";
-
+import _tournament from "./components/Mnassi/Game/tournament";
+import Game from "./components/Mnassi/Game/Game";
+import './components/Mnassi/Game/responsive.css'
+// import PopUp from "./components/Mnassi/Game/popUp";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -36,12 +39,15 @@ const router = createBrowserRouter(
         <Route path="chat" element={<ChatContainer />} />
         <Route path="leaderboard" element={<LeaderBoardContainer />} />
         <Route path="shop" element={<ShopContainer />} />
-        <Route path="gametst" element={<Gametst />} />
-        <Route path="game" element={<GameLayout />} />
+        <Route path="game" element={<GameLayout />}>
+          <Route index element={<Game />} />
+          <Route path="gameplay" element={<_tournament NetType="" />} />
+        </Route>
         <Route path="profile" element={<ProfileLayout />}>
           <Route index element={<ProfileContainer />} />
           <Route path=":username" element={<Users />} loader={UsersLoader} />
         </Route>
+        <Route path="/invite-only" element={<GameContainer_invite />} />
         <Route path="settings" element={<Settings />} />
       </Route>
 

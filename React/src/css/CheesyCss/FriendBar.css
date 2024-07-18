@@ -23,7 +23,9 @@
 .friend-sb {
   cursor: pointer;
   width: 3rem;
+  height: 3rem;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .friend-svg {
@@ -53,6 +55,21 @@
   scale: 1.05;
 }
 
+.friendIconOnline,
+.friendIconOffline {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #36ba98;
+}
+
+.friendIconOffline {
+  background-color: #ef5a6f;
+}
+
 @media only screen and (max-width: 2560px) {
   #friend-container {
     padding: 1.2rem;
@@ -62,6 +79,12 @@
   }
   .friend-sb {
     width: 2rem;
+    height: 2rem;
+  }
+  .friendIconOnline,
+  .friendIconOffline {
+    width: 15px;
+    height: 15px;
   }
 }
 

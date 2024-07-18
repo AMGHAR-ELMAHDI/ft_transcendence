@@ -4,7 +4,17 @@
   --grey-bg-color: hsl(227, 15%, 23%);
   --blue-glow: #5fcae4;
 }
-
+.CoinsShop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  padding: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--blue-glow);
+  box-shadow: 0 0 5px 1px var(--blue-glow);
+}
 #TopBar {
   display: flex;
   align-items: center;
@@ -276,6 +286,12 @@ ul {
   cursor: pointer;
 }
 
+.testNodiplay {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 @media only screen and (max-width: 2560px) {
   #welcome-bar > h1 {
     font-size: 1.8rem;
@@ -417,6 +433,9 @@ ul {
 }
 
 @media only screen and (max-width: 768px) {
+  .CoinsShop {
+    display: none;
+  }
   .BurgerMenu > * {
     font-size: 1.5rem;
     margin-right: 10px;

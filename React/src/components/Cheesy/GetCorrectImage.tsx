@@ -5,6 +5,7 @@ function GetCorrectImage(image: string) {
   const url = useRecoilValue(Url);
   let correctImage = image;
 
+
   if (image?.includes("/media/store/images/")) {
     correctImage = url.slice(0, url.length - 1) + image;
   } else if (image?.includes("https://localhost:2500/media/media/store/")) {

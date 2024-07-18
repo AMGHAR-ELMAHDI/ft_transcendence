@@ -54,16 +54,12 @@ function SideBarLinks() {
 
 function SideBar() {
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-  const [tokenValue, setTokenValue] = useRecoilState(AcessToken);
   const [Logged, setLogged] = useRecoilState(IsLogged);
 
   const handleConfirmLogout = () => {
     setShowLogoutPopup(false);
-    setTokenValue("");
     localStorage.removeItem("token");
     setLogged(false);
-    console.log(tokenValue);
-    console.log(Logged);
   };
 
   const handleCancelLogout = () => {

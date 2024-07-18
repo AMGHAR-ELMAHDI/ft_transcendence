@@ -36,8 +36,6 @@ function Verify2FA() {
       .catch((error) => {
         console.log(error);
         toast.error(error.response?.data?.error);
-        if (error.response.data?.error == "No user in session")
-          navigate("/login");
         navigate("/login");
       });
   };

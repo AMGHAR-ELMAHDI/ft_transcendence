@@ -1,4 +1,3 @@
-# Imports and Environment Setup
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -7,15 +6,15 @@ load_dotenv()
 # Base Directory and Settings Initialization
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 
-# Installed Apps
 INSTALLED_APPS = [
-    'daphne',  # Daphne should be placed first to ensure proper ASGI setup
+    'daphne',
     
     # Django built-in apps
     'django.contrib.admin',
@@ -40,12 +39,10 @@ INSTALLED_APPS = [
     # # Custom apps
     'userman',
     'Oauth2',
-    'purshase',
     'online',
     'chat',
 ]
 
-# Middleware Settings
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -77,6 +74,10 @@ DJOSER = {
         'user_create': 'userman.serializers.PlayerCreateSerializer',
     },
 }
+
+# SWAGGER_SETTINGS = {
+#     'VALIDATOR_URL': 'http://localhost:8189',
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -129,6 +130,8 @@ EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'False') == 'True'
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False') == 'True'
+
+
 
 # Database Configuration
 # use this to work without docker 
@@ -198,7 +201,7 @@ GRAPH_MODELS = {
 }
 
 GRAPH_MODELS = {
-    'app_labels': ["chat", "purshase", "userman"],
+    'app_labels': ["chat", "userman"],
 }
 
 LOGIN_REDIRECT_URL = 'http://localhost:2500/auth/jwt/create'

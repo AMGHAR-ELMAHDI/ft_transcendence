@@ -2,9 +2,13 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import *
 from .login_views import SignInAPIView, SignUpAPIView, TwoFactorSetupView, TwoFactorVerifyView
+from .views_shop import AchievementViewSet, ItemViewSet
+
 
 router = DefaultRouter()
 router.register('player', PlayerViewSet, basename = 'player')
+router.register('achievements', AchievementViewSet)
+router.register('items', ItemViewSet)
 from .views import TokenVerifyView
 urlpatterns = [
     path('', include(router.urls)), 
@@ -14,7 +18,7 @@ urlpatterns = [
 	path('player/<str:username>/achievements/', PlayerViewSet.as_view({'get': 'achievements'})),
 	path('player/<str:username>/items/', PlayerViewSet.as_view({'get': 'items'})),
 	
-	
+	path('user/<int:invites_id>/', getID),
 
 	path('shop/',ShopView.as_view(), name='user-shop'),
 	path('reqs/',FriendshipAPIView.as_view(), name='user-friends'),
