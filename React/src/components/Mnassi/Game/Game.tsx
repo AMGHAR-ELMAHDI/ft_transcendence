@@ -1,6 +1,5 @@
 import _game2D from "./interface";
 import _UserViews from "./view";
-import _Main from "./mainComponent";
 import _multiplayer2 from "./multiplayer2";
 import _multiplayer from "./multiplayer";
 import _tournament from "./tournament";
@@ -11,9 +10,7 @@ import _mods from "./mods";
 import _title from "./title";
 import _Queue from "./inQueue";
 import TestingTn from "./TournamentList";
-// import './Game.css'
-import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Options() {
   const [type, setMod] = useState<string>("");

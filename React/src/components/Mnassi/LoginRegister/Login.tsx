@@ -1,9 +1,6 @@
 import _loginEl from "./loginEl";
 import _idx from "./idx";
 import _register from "./register";
-import Dashboard from "../../Cheesy/Dashboard";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 function Login() {
   return (

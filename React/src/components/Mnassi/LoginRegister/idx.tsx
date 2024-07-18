@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import _idx from './idx';
 
 function idx() {

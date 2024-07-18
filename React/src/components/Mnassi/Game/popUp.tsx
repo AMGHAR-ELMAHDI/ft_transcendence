@@ -1,4 +1,3 @@
-import React from 'react'
 import './popUp.css'
 
 interface Props {
@@ -11,11 +10,11 @@ export default function PopUp({title, image, descr}: Props) {
   return (
     <div className="contai__">
         <div className="achievementIm">
-            <img src={image || '/60sGirl.png'} alt="" />
+            <img src={image || '/logoConfirm.png'} alt="" />
         </div>
         <div className="infosAch">
             <h1>{title || 'test allah allah'}</h1>
-            <h3>{descr || 'this achievement is a$$'}</h3>
+            <h3>{descr || ''}</h3>
         </div>
     </div>
   )

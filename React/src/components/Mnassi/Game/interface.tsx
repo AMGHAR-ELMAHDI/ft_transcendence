@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 function game2D() {
@@ -25,9 +25,17 @@ function game2D() {
 		radius: number
 	}
 
-	const [PLAYER_1, GetFirst] = useState('PLAYER1');
-	const [PLAYER_2, GetSecond] = useState('PLAYER2');
+	const [data, setData] = useState<any>([])
 
+	useEffect(()=> {
+		axios.get('https://localhost:2500/player/set/')
+		.then(response => {
+		  setData(response.data)
+		})
+		.catch(error => {
+		  console.log(error)
+		})
+	  }, [])
 	useEffect(()=> {
 		let StopGame = false
 		const KEY_UP = 38
@@ -78,7 +86,7 @@ function game2D() {
 			};
 
 			this.draw = function() {
-				FillColor("#ffffff")
+				FillColor(data.paddle)
 				context!.lineJoin = 'round';
 				context?.fillRect(pos.x, pos.y, width, height)
 			}
@@ -113,7 +121,7 @@ function game2D() {
 				this.pos.y += this.velocity.y
 			};
 			this.draw = function() {
-				FillColor("#ffffff")
+				FillColor(data.ball)
 				context?.beginPath()
 				context?.arc(pos.x, pos.y, radius, 0, Math.PI * 2)
 				context?.fill()
@@ -127,8 +135,8 @@ function game2D() {
 
 		const ball = new (Ball as any)(TwoVect(canvas.width / 2, canvas.height / 2), TwoVect(20, 20), 10)
 
-		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(20, 20), 20, 160, PLAYER_1)
-		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(20, 20), 20, 160, PLAYER_2)
+		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(20, 20), 20, 160, 'PLAYER1')
+		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(20, 20), 20, 160, 'PLAYER2')
 
 		function BallIntersection(paddle: Paddles, ball: Ball) {
 			let x1 = Math.abs(ball.pos.x - paddle.GetCenter().x)
@@ -255,7 +263,7 @@ function game2D() {
 				<button id='retry'>retry</button>
 				<button id='mods'>change Mods</button>
 			</div>
-			<canvas id="canvas"></canvas>
+			<canvas style={{"background": `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`}} id="canvas"></canvas>
 		</div>
 	);
 }

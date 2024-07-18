@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import SideBar from "../../Cheesy/SideBar";
-import TopBar from "../../SearchBar/TopBar";
-import OnlineStatus from "../../zmakhkha/OnlineStatus";
 import { useNavigate } from "react-router-dom";
 import './TournamentList.css'
 import axios from "axios";

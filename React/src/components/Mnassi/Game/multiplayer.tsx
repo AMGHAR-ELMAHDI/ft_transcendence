@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import PlayersReady from "./Game";
 import _tournament from "./tournament";
 import axios from "axios";
 import "./interface.css";
 import _Queue from "./inQueue";
 import _title from "./title";
-import { RecoilRoot } from "recoil";
-import { PiCoinsBold } from "react-icons/pi";
-import Pingpong from "./ping";
 
 interface LocalGameProps {
   Type: string;
@@ -16,7 +12,7 @@ interface LocalGameProps {
 }
 
 
-function GameInterface({ Type, Name, Name2 }: LocalGameProps) {
+function GameInterface({ Name, Name2 }: LocalGameProps) {
   const [data, setData] = useState<any>([]);
 
   useEffect(()=> {

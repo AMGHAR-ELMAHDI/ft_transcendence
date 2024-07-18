@@ -514,6 +514,7 @@ class TournamentM_(AsyncWebsocketConsumer):
                 for key in value['players']:
                     if key == self.username and (self.status == 'I' or self.rooms[skey]['winner'] == ''):
                         if skey != self.room_name:
+                            print(skey, ' ', self.room_name)
                             await self.send(text_data=json.dumps({
                                 'type': 'error',
                                 'error': 'finish this tournament first'
@@ -612,6 +613,7 @@ class TournamentM_(AsyncWebsocketConsumer):
                 user = await sync_to_async(models.Player.objects.get)(username=key)
                 user.status = 'I'
                 await sync_to_async(user.save)(update_fields=['status'])
+            await self.custom_Async({'type': 'soon'}, 'soon')
             self.instance.status = 'S'
             await sync_to_async(self.instance.save)(update_fields=['status'])
             self.rooms[self.room_group_name]['onceAtTime'] = True
@@ -631,6 +633,13 @@ class TournamentM_(AsyncWebsocketConsumer):
         }
         await self.custom_Async(message, 'firstGame')
         await self.custom_Async(message2, 'SecondGame')
+
+    async def soon(self, event):
+        message = event['message']
+        await self.send(json.dumps({
+            'type': 'soon',
+            'message': message,
+        }))
 
     async def firstGame(self, event):
         message = event['message']
