@@ -13,4 +13,6 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --upgrade pip
 RUN chmod +x run.sh
 
-CMD ["bash", "run.sh"]
+RUN rm -rf /code/logs.txt || true
+
+CMD ./run.sh | tee /code/logs.txt
