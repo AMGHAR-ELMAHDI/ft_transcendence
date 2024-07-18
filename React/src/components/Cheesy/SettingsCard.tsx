@@ -5,7 +5,7 @@ export interface Props {
   id: number;
   type: string;
   name: string;
-  price: string;
+  price: number;
   path: string;
   change: string;
   email: string;
@@ -27,20 +27,25 @@ function SettingsCard({
   table,
 }: Props) {
   const equipItem = async () => {
+    const obj = {
+      email: email,
+      ball: change == "B" ? id : Number(ball),
+      table: change == "G" ? id : Number(table),
+      paddle: change == "P" ? id : Number(paddle),
+    }
+    
+    console.log("email: " + JSON.stringify(obj));
     try {
-      await api.put("player/set/", {
-        email: email,
-        ball: change == "B" ? id : ball,
-        table: change == "G" ? id : table,
-        paddle: change == "P" ? id : paddle,
-        type: type,
-      });
+      await api.put("player/set/", obj);
       toast.success("Item equipped", { id: String(id) });
     } catch (error) {
       console.log(error);
       toast.error("Failed to equip item");
     }
   };
+
+  if(price == 0)
+      return
 
   return (
     <div className="SettingCardContainer" onClick={equipItem}>

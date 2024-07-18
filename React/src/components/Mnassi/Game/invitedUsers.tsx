@@ -69,17 +69,14 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
   }
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [Exit, setExit] = useState<boolean>(false);
-  const [achi, SetAchievement] = useState<boolean>(false);
-  const [array, setArray] = useState<any>([]);
 
   const navigate = useNavigate();
-  const [data, setData] = useState<any>([]);
+  var data: any = []
 
   useEffect(()=> {
     axios.get('https://localhost:2500/player/set/')
     .then(response => {
-      setData(response.data)
+      data = response.data
     })
     .catch(error => {
       console.log(error)
@@ -197,7 +194,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
         this.pos.y += this.velocity.y;
       };
       this.draw = function () {
-        FillColor(`${data.ball}`);
+        FillColor(data.ball);
         context?.beginPath();
         context?.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
         context?.fill();
@@ -352,9 +349,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
   return (
     // send the two palyers to tn file
     <>
-      {!Exit && (
-        <div><GameInterface_ Type="" Name={Name} Name2={Name2} /></div>
-      )}
+      <div><GameInterface_ Type="" Name={Name} Name2={Name2} /></div>
       {loading && <Pingpong/>}
     </>
   );

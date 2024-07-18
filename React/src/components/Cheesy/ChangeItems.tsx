@@ -5,7 +5,7 @@ import Typed from "typed.js";
 import SettingsCard from "./SettingsCard";
 import LoadingData from "./LoadingData";
 
-export interface SettingsProps {
+export interface Items {
   id: number;
   type: string;
   name: string;
@@ -40,7 +40,7 @@ function ChangeItems() {
     const getEquiped = async () => {
       try {
         const response = await api.get("player/set/");
-        setEquiped(response.data.items);
+        setEquiped(response.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -64,7 +64,6 @@ function ChangeItems() {
     }
   }, []);
 
-  console.log("items length: " + items.length);
 
   if (!items.length)
     return (
@@ -73,12 +72,13 @@ function ChangeItems() {
       </div>
     );
 
-  const paddles = items?.filter((item: SettingsProps) => item?.type === "P");
+  const paddles = items?.filter((item: Items) => item?.type === "P");
   const backgrounds = items?.filter(
-    (item: SettingsProps) => item?.type === "G"
+    (item: Items) => item?.type === "G"
   );
-  const balls = items?.filter((item: SettingsProps) => item?.type === "B");
-
+  const balls:Items[] = items?.filter((item: Items) => item?.type === "B");
+  console.log(equiped);
+  
   return (
     <>
       {isLoading && <LoadingData />}
@@ -87,7 +87,7 @@ function ChangeItems() {
           {paddles.length != 0 && <h1>Paddles</h1>}
           {paddles.length != 0 && (
             <div className="settingsPaddlesContainer">
-              {paddles.map((item: SettingsProps) => (
+              {paddles.map((item: Items) => (
                 <SettingsCard
                   key={item.id}
                   id={item.id}
@@ -97,9 +97,9 @@ function ChangeItems() {
                   type={item.type}
                   change={"P"}
                   email={equiped?.email}
-                  ball={equiped?.ball}
-                  paddle={equiped?.paddle}
-                  table={equiped?.table}
+                  ball={equiped?.ball_id}
+                  paddle={equiped?.paddle_id}
+                  table={equiped?.table_id}
                 />
               ))}
             </div>
@@ -107,7 +107,7 @@ function ChangeItems() {
           {backgrounds.length != 0 && <h1>Backgrounds</h1>}
           {backgrounds.length != 0 && (
             <div className="settingsBackgroundsContainer">
-              {backgrounds.map((item: SettingsProps) => (
+              {backgrounds.map((item: Items) => (
                 <SettingsCard
                   key={item.id}
                   id={item.id}
@@ -117,9 +117,9 @@ function ChangeItems() {
                   type={item.type}
                   change={"G"}
                   email={equiped?.email}
-                  ball={equiped?.ball}
-                  paddle={equiped?.paddle}
-                  table={equiped?.table}
+                  ball={equiped?.ball_id}
+                  paddle={equiped?.paddle_id}
+                  table={equiped?.table_id}
                 />
               ))}
             </div>
@@ -127,7 +127,7 @@ function ChangeItems() {
           {balls.length != 0 && <h1>Balls</h1>}
           {balls.length != 0 && (
             <div className="settingsBallsContainer">
-              {balls.map((item: SettingsProps) => (
+              {balls.map((item: Items) => (
                 <SettingsCard
                   key={item.id}
                   id={item.id}
@@ -137,9 +137,9 @@ function ChangeItems() {
                   type={item.type}
                   change={"B"}
                   email={equiped?.email}
-                  ball={equiped?.ball}
-                  paddle={equiped?.paddle}
-                  table={equiped?.table}
+                  ball={equiped?.ball_id}
+                  paddle={equiped?.paddle_id}
+                  table={equiped?.table_id}
                 />
               ))}
             </div>

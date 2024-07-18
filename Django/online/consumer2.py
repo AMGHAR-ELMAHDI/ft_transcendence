@@ -346,12 +346,14 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             self.rooms[self.room_group_name]['id'] = game.id
 
             winner.points += winner.level * 30
+            winner.coins += 30
 
             if winner.points >= winner.level * 1000:
                 winner.level += 1
                 winner.points = 0
                 await sync_to_async(winner.save)(update_fields=['level'])
             await sync_to_async(winner.save)(update_fields=['points'])
+            await sync_to_async(winner.save)(update_fields=['coins'])
 
             self.InviteObj.status = 'E'
             await sync_to_async(self.InviteObj.save)(update_fields=['status'])

@@ -400,6 +400,7 @@ class GameConsumer(AsyncWebsocketConsumer):
             )
 
             winner.points += winner.level * 30
+            winner.coins += 30
 
             if winner.points >= winner.level * 1000:
                 winner.coins += 10 * winner.level

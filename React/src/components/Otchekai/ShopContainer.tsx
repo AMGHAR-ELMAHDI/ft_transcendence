@@ -178,6 +178,8 @@ function Card({ name, price, image, id }: CardProps) {
     if (FilterItems(owned, name)) setPurchased(true);
   }, [owned, name]);
 
+    if(price == 0)
+        return
   return (
     <div className="Card-container">
       <div onClick={() => handleBuy()} className="Item-img">

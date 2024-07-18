@@ -342,9 +342,13 @@ class PlayerViewSet(viewsets.ModelViewSet):
 			table = Item.objects.get(id=table_id)
 			paddle = Item.objects.get(id=paddle_id)
 			data = {
+				'email' : player.email,
 				'table' : table.color,
 				'paddle' : paddle.color,
 				'ball' : ball.color,
+				'table_id' : table.id,
+				'paddle_id' : paddle.id,
+				'ball_id' : ball.id,
 			}
 			return Response(data, status=status.HTTP_200_OK)
 		

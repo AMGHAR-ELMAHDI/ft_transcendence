@@ -15,6 +15,7 @@ interface LocalGameProps {
   Name2: string;
 }
 
+
 function GameInterface({ Type, Name, Name2 }: LocalGameProps) {
   const [data, setData] = useState<any>([]);
 
@@ -61,17 +62,18 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
     GetCenter(): Vector;
   }
 
+  
   const [Exit, setExit] = useState<boolean>(false);
   const [Exit2, setExit2] = useState<boolean>(false);
   const [SetIt, Lost] = useState<boolean>(false);
   const [WON, SetWinner] = useState<boolean>(false);
   const [lastGame, SetLastGame] = useState<boolean>(false);
-  const [data, setData] = useState<any>([]);
+  var data: any = []
 
   useEffect(()=> {
     axios.get('https://localhost:2500/player/set/')
     .then(response => {
-      setData(response.data)
+      data = response.data
     })
     .catch(error => {
       console.log(error)

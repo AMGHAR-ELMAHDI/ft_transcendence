@@ -235,7 +235,7 @@ function UserView() {
 				<p id='Sscore'>0</p>
 			</div>
 			<div className="winner" id='winner'></div>
-			<canvas style={{"background": `linear-gradient(120deg, #${data.table}, rgba(0, 0, 0, 0.576))`}}  id="canvas"></canvas>
+			<canvas style={{"background": `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`}}  id="canvas"></canvas>
 		</div>
 	);
 }
