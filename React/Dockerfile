@@ -13,5 +13,4 @@ RUN npm install
 
 # CMD ["/bin/sh", "-c", "while true; do sleep 3600; done"]
 
-
 CMD [ "npm", "start" ]
