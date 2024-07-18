@@ -71,6 +71,7 @@ services:
   #   restart: unless-stopped
   # -----------------------------DEVOPS--------------------------------
 
+  # -----------------------------ELK--------------------------------
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.0"
     container_name: elasticsearch
@@ -79,16 +80,13 @@ services:
       - "9300:9300"
     environment:
       - discovery.type=single-node
-      # - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      # - xpack.security.enabled=true
-      # - ELASTIC_USERNAME=elastic
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - xpack.security.enabled=true
+      - ELASTIC_USERNAME=elastic
     volumes:
       - esdata:/usr/share/elasticsearch/data
     env_file:
       - .env
-    depends_on:
-      - logstash
-      - filebeat
     networks:
       - ft_trans
     restart: on-failure
@@ -100,8 +98,8 @@ services:
       - "5601:5601"
     environment:
       - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
-      # - "ELASTICSEARCH_USERNAME=elastic"
-      # - "ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}"
+      - "ELASTICSEARCH_USERNAME=elastic"
+      - "ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}"
     depends_on:
       - elasticsearch
     env_file:
@@ -146,6 +144,8 @@ services:
       - ft_trans
     command: --strict.perms=false
     restart: on-failure
+
+# -----------------------------PROMETHEUS GRAFANA--------------------------------
 
 networks:
   ft_trans:
