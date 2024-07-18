@@ -29,13 +29,14 @@ services:
       interval: 1s
       timeout: 5s
       retries: 10
-    env_file:
-      - Django/.env
     logging:
       driver: gelf
       options:
         gelf-address: "udp://localhost:12201"
-        tag: "database"
+        tag: "db"
+
+    env_file:
+      - Django/.env
     networks:
       - ft_trans
 
@@ -62,13 +63,14 @@ services:
   #     - back-end
   #   networks:
   #     - ft_trans
-  #  logging:
+  #   logging:
   #     driver: gelf
   #     options:
   #       gelf-address: "udp://localhost:12201"
   #       tag: "frontend"
   #   restart: unless-stopped
   # -----------------------------DEVOPS--------------------------------
+
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.0"
     container_name: elasticsearch
@@ -77,9 +79,16 @@ services:
       - "9300:9300"
     environment:
       - discovery.type=single-node
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      # - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      # - xpack.security.enabled=true
+      # - ELASTIC_USERNAME=elastic
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
     env_file:
       - .env
+    depends_on:
+      - logstash
+      - filebeat
     networks:
       - ft_trans
     restart: on-failure
@@ -91,6 +100,8 @@ services:
       - "5601:5601"
     environment:
       - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
+      # - "ELASTICSEARCH_USERNAME=elastic"
+      # - "ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}"
     depends_on:
       - elasticsearch
     env_file:
@@ -99,18 +110,6 @@ services:
       - ft_trans
     restart: on-failure
 
-  # javaApp:+6
-  #   image: "febbweiss/java-log-generator:latest"
-  #   container_name: javaApp
-  #   depends_on:
-  #     - elasticsearch
-  #     - kibana
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - ft_trans
-  #   restart: on-failure
-
   logstash:
     image: "docker.elastic.co/logstash/logstash:7.17.0"
     container_name: logstash
@@ -118,14 +117,15 @@ services:
       - ./DevOps/ELK/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
       - ./DevOps/ELK/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
     ports:
-      - "9600:9600"
       - "12201:12201/udp"
+      - "12201:12201/tcp"
     env_file:
       - .env
     depends_on:
-      - kibana
-    environment:
-      - LOGSTASH_INTERNAL_PASSWORD:${ELASTIC_PASSWORD}
+      - elasticsearch
+    # environment:
+    #   - LOGSTASH_INTERNAL_PASSWORD=${ELASTIC_PASSWORD}
+    #   - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     networks:
       - ft_trans
     restart: on-failure
@@ -137,11 +137,11 @@ services:
     env_file:
       - .env
     volumes:
-      - ./DevOps/ELK/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./DevOps/ELK/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     depends_on:
-      - kibana
+      - logstash
     networks:
       - ft_trans
     command: --strict.perms=false
@@ -153,3 +153,4 @@ networks:
 
 volumes:
   data:
+  esdata:
