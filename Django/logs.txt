@@ -4,7 +4,7 @@ Collecting attrs==23.2.0 (from -r requirements.txt (line 2))
   Downloading attrs-23.2.0-py3-none-any.whl.metadata (9.5 kB)
 Collecting autobahn==23.6.2 (from -r requirements.txt (line 3))
   Downloading autobahn-23.6.2.tar.gz (480 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 480.8/480.8 kB 3.3 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 480.8/480.8 kB 1.4 MB/s eta 0:00:00
   Preparing metadata (setup.py): started
   Preparing metadata (setup.py): finished with status 'done'
 Collecting Automat==22.10.0 (from -r requirements.txt (line 4))
@@ -143,125 +143,125 @@ Collecting zipp==3.18.1 (from -r requirements.txt (line 69))
   Downloading zipp-3.18.1-py3-none-any.whl.metadata (3.5 kB)
 Collecting zope.interface==6.3 (from -r requirements.txt (line 70))
   Downloading zope.interface-6.3-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (42 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.0/42.0 kB 10.0 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.0/42.0 kB 317.7 kB/s eta 0:00:00
 Requirement already satisfied: setuptools in /usr/local/lib/python3.9/site-packages (from autobahn==23.6.2->-r requirements.txt (line 3)) (58.1.0)
 Downloading asgiref-3.8.1-py3-none-any.whl (23 kB)
 Downloading attrs-23.2.0-py3-none-any.whl (60 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.8/60.8 kB 12.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.8/60.8 kB 495.9 kB/s eta 0:00:00
 Downloading Automat-22.10.0-py2.py3-none-any.whl (26 kB)
 Downloading certifi-2024.2.2-py3-none-any.whl (163 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 163.8/163.8 kB 19.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 163.8/163.8 kB 448.5 kB/s eta 0:00:00
 Downloading cffi-1.16.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (443 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 443.4/443.4 kB 8.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 443.4/443.4 kB 957.1 kB/s eta 0:00:00
 Downloading channels-4.1.0-py3-none-any.whl (30 kB)
 Downloading charset_normalizer-3.3.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (142 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 142.3/142.3 kB 11.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 142.3/142.3 kB 3.0 MB/s eta 0:00:00
 Downloading constantly-23.10.4-py3-none-any.whl (13 kB)
 Downloading cryptography-42.0.6-cp39-abi3-manylinux_2_28_x86_64.whl (3.8 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 21.3 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 537.0 kB/s eta 0:00:00
 Downloading daphne-4.1.2-py3-none-any.whl (30 kB)
 Downloading defusedxml-0.8.0rc2-py2.py3-none-any.whl (25 kB)
 Downloading Django-4.2.11-py3-none-any.whl (8.0 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.0/8.0 MB 19.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.0/8.0 MB 488.6 kB/s eta 0:00:00
 Downloading django_channels-0.7.0-py3-none-any.whl (9.5 kB)
 Downloading django_cors_headers-4.3.1-py3-none-any.whl (12 kB)
 Downloading django_extensions-3.2.3-py3-none-any.whl (229 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 18.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 344.3 kB/s eta 0:00:00
 Downloading django_filter-24.2-py3-none-any.whl (94 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.5/94.5 kB 7.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.5/94.5 kB 111.7 kB/s eta 0:00:00
 Downloading django_formtools-2.5.1-py3-none-any.whl (170 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 170.7/170.7 kB 14.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 170.7/170.7 kB 1.1 MB/s eta 0:00:00
 Downloading django_otp-1.5.0-py3-none-any.whl (80 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 81.0/81.0 kB 21.3 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 81.0/81.0 kB 253.4 kB/s eta 0:00:00
 Downloading django_phonenumber_field-7.3.0-py3-none-any.whl (66 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 66.5/66.5 kB 4.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 66.5/66.5 kB 79.7 kB/s eta 0:00:00
 Downloading django_templated_mail-1.1.1-py3-none-any.whl (4.7 kB)
 Downloading django_two_factor_auth-1.16.0-py3-none-any.whl (298 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 298.7/298.7 kB 17.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 298.7/298.7 kB 71.2 kB/s eta 0:00:00
 Downloading djangorestframework-3.15.1-py3-none-any.whl (1.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 11.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 296.9 kB/s eta 0:00:00
 Downloading djangorestframework_simplejwt-5.3.1-py3-none-any.whl (101 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.3/101.3 kB 22.3 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.3/101.3 kB 139.8 kB/s eta 0:00:00
 Downloading djoser-2.2.2-py3-none-any.whl (42 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.6/42.6 kB 10.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.6/42.6 kB 33.1 kB/s eta 0:00:00
 Downloading drf_yasg-1.21.7-py3-none-any.whl (4.3 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 18.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 200.8 kB/s eta 0:00:00
 Downloading exceptiongroup-1.2.1-py3-none-any.whl (16 kB)
 Downloading hyperlink-21.0.0-py2.py3-none-any.whl (74 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.6/74.6 kB 22.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.6/74.6 kB 192.1 kB/s eta 0:00:00
 Downloading idna-3.7-py3-none-any.whl (66 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 66.8/66.8 kB 19.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 66.8/66.8 kB 249.0 kB/s eta 0:00:00
 Downloading importlib_metadata-7.1.0-py3-none-any.whl (24 kB)
 Downloading incremental-22.10.0-py2.py3-none-any.whl (16 kB)
 Downloading inflection-0.5.1-py2.py3-none-any.whl (9.5 kB)
 Downloading iniconfig-2.0.0-py3-none-any.whl (5.9 kB)
 Downloading Markdown-3.6-py3-none-any.whl (105 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 105.4/105.4 kB 25.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 105.4/105.4 kB 35.4 kB/s eta 0:00:00
 Downloading oauthlib-3.2.2-py3-none-any.whl (151 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 151.7/151.7 kB 11.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 151.7/151.7 kB 12.8 kB/s eta 0:00:00
 Downloading packaging-24.0-py3-none-any.whl (53 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.5/53.5 kB 16.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.5/53.5 kB 116.5 kB/s eta 0:00:00
 Downloading phonenumbers-8.13.38-py2.py3-none-any.whl (2.6 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.6/2.6 MB 22.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.6/2.6 MB 358.4 kB/s eta 0:00:00
 Downloading pillow-10.3.0-cp39-cp39-manylinux_2_28_x86_64.whl (4.5 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 21.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 622.2 kB/s eta 0:00:00
 Downloading pluggy-1.5.0-py3-none-any.whl (20 kB)
 Downloading psycopg-3.1.19-py3-none-any.whl (179 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 179.4/179.4 kB 10.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 179.4/179.4 kB 925.9 kB/s eta 0:00:00
 Downloading psycopg_binary-3.1.19-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 15.3 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 684.0 kB/s eta 0:00:00
 Downloading pyasn1-0.6.0-py2.py3-none-any.whl (85 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.3/85.3 kB 26.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.3/85.3 kB 604.5 kB/s eta 0:00:00
 Downloading pyasn1_modules-0.4.0-py3-none-any.whl (181 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.2/181.2 kB 23.3 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.2/181.2 kB 494.3 kB/s eta 0:00:00
 Downloading pycparser-2.22-py3-none-any.whl (117 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 117.6/117.6 kB 21.7 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 117.6/117.6 kB 758.4 kB/s eta 0:00:00
 Downloading PyJWT-2.8.0-py3-none-any.whl (22 kB)
 Downloading pyOpenSSL-24.1.0-py3-none-any.whl (56 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.9/56.9 kB 12.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.9/56.9 kB 1.6 MB/s eta 0:00:00
 Downloading pypng-0.20220715.0-py3-none-any.whl (58 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.1/58.1 kB 16.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.1/58.1 kB 498.4 kB/s eta 0:00:00
 Downloading pytest-8.2.0-py3-none-any.whl (339 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 339.2/339.2 kB 21.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 339.2/339.2 kB 729.2 kB/s eta 0:00:00
 Downloading pytest_django-4.8.0-py3-none-any.whl (23 kB)
 Downloading python_dotenv-1.0.1-py3-none-any.whl (19 kB)
 Downloading python3_openid-3.2.0-py3-none-any.whl (133 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.7/133.7 kB 29.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.7/133.7 kB 1.4 MB/s eta 0:00:00
 Downloading pytz-2024.1-py2.py3-none-any.whl (505 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 505.5/505.5 kB 21.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 505.5/505.5 kB 944.2 kB/s eta 0:00:00
 Downloading PyYAML-6.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (738 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 738.9/738.9 kB 23.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 738.9/738.9 kB 463.9 kB/s eta 0:00:00
 Downloading qrcode-7.4.2-py3-none-any.whl (46 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.2/46.2 kB 13.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.2/46.2 kB 609.9 kB/s eta 0:00:00
 Downloading requests-2.31.0-py3-none-any.whl (62 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 17.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 551.5 kB/s eta 0:00:00
 Downloading requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
 Downloading service_identity-24.1.0-py3-none-any.whl (12 kB)
 Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
 Downloading social_auth_app_django-5.4.1-py3-none-any.whl (26 kB)
 Downloading social_auth_core-4.5.4-py3-none-any.whl (410 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.2/410.2 kB 18.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.2/410.2 kB 559.1 kB/s eta 0:00:00
 Downloading sqlparse-0.5.0-py3-none-any.whl (43 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.0/44.0 kB 14.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.0/44.0 kB 398.4 kB/s eta 0:00:00
 Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
 Downloading twisted-24.3.0-py3-none-any.whl (3.2 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 23.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 856.1 kB/s eta 0:00:00
 Downloading txaio-23.1.1-py2.py3-none-any.whl (30 kB)
 Downloading typing_extensions-4.11.0-py3-none-any.whl (34 kB)
 Downloading uritemplate-4.1.1-py2.py3-none-any.whl (10 kB)
 Downloading urllib3-2.2.1-py3-none-any.whl (121 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.1/121.1 kB 23.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.1/121.1 kB 536.6 kB/s eta 0:00:00
 Downloading zipp-3.18.1-py3-none-any.whl (8.2 kB)
 Downloading zope.interface-6.3-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (246 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 246.5/246.5 kB 18.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 246.5/246.5 kB 835.7 kB/s eta 0:00:00
 Building wheels for collected packages: autobahn, env
   Building wheel for autobahn (setup.py): started
   Building wheel for autobahn (setup.py): finished with status 'done'
-  Created wheel for autobahn: filename=autobahn-23.6.2-py2.py3-none-any.whl size=666846 sha256=05f06047ad1200cf447a5b3f0afb7ee133331e889133b8b19340552394dbdad7
+  Created wheel for autobahn: filename=autobahn-23.6.2-py2.py3-none-any.whl size=666846 sha256=b60764a39f0bf95031298b598dc623f43ed399e2a86d168ca5b45890b06b4afb
   Stored in directory: /root/.cache/pip/wheels/20/16/6e/4b433a15741a0d9380bca9eb46816eb14f32afbc7b37cb1401
   Building wheel for env (setup.py): started
   Building wheel for env (setup.py): finished with status 'done'
-  Created wheel for env: filename=env-0.1.0-py3-none-any.whl size=2016 sha256=049ba0061bf39778a63ecbcf092a42789599a7d3ce839ab9ef5dbe629e47fd73
+  Created wheel for env: filename=env-0.1.0-py3-none-any.whl size=2016 sha256=891843481af132636d702120a0c3acd9e17306beafcbf6a02d725cd31619cac7
   Stored in directory: /root/.cache/pip/wheels/6a/1b/be/d7a034b1ad5fa538bde21f1affdee70e4849c3555f40bca253
 Successfully built autobahn env
 Installing collected packages: pytz, pypng, phonenumbers, incremental, env, django-templated-mail, zope.interface, zipp, urllib3, uritemplate, typing-extensions, txaio, tomli, sqlparse, six, PyYAML, python-dotenv, PyJWT, pycparser, pyasn1, psycopg-binary, pluggy, pillow, packaging, oauthlib, iniconfig, inflection, idna, exceptiongroup, defusedxml, constantly, charset-normalizer, certifi, attrs, requests, qrcode, python3-openid, pytest, pyasn1-modules, psycopg, importlib-metadata, hyperlink, cffi, Automat, asgiref, twisted, requests-oauthlib, pytest-django, Markdown, Django, cryptography, social-auth-core, service-identity, pyOpenSSL, djangorestframework, django-phonenumber-field, django-otp, django-formtools, django-filter, django-extensions, django-cors-headers, django-channels, channels, autobahn, social-auth-app-django, drf-yasg, djangorestframework-simplejwt, django-two-factor-auth, djoser, daphne
@@ -273,96 +273,3 @@ Running migrations:
   No migrations to apply.
 Populating the PostgreSQL database...
 Successfully populated the PostgreSQL database
-172.18.0.1:59002 - - [18/Jul/2024:21:49:26] "GET /42/login/" 302 -
-172.18.0.1:59002 - - [18/Jul/2024:21:49:28] "GET /42/login/redirect?code=178a14f7563e3fc9bcd2e73f41c45d42ee408fffc638c4b0564169bfa67b44ce" 302 -
-172.18.0.1:59002 - - [18/Jul/2024:21:49:28] "GET /oauth2/set-cookie" 302 -
-172.18.0.1:59140 - - [18/Jul/2024:21:49:30] "OPTIONS /player/" 200 -
-172.18.0.1:59230 - - [18/Jul/2024:21:49:31] "WSCONNECTING /ws/single-game/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-172.18.0.1:59218 - - [18/Jul/2024:21:49:31] "WSCONNECTING /ws/friend-reqs/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-172.18.0.1:59172 - - [18/Jul/2024:21:49:31] "OPTIONS /player/me/" 200 -
-172.18.0.1:59170 - - [18/Jul/2024:21:49:31] "OPTIONS /player/me/" 200 -
-172.18.0.1:59198 - - [18/Jul/2024:21:49:31] "OPTIONS /player/friends/" 200 -
-172.18.0.1:59178 - - [18/Jul/2024:21:49:31] "OPTIONS /player/games/" 200 -
-172.18.0.1:59188 - - [18/Jul/2024:21:49:31] "OPTIONS /reqs/" 200 -
-token : |eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ|
-172.18.0.1:59140 - - [18/Jul/2024:21:49:31] "OPTIONS /player/" 200 -
-172.18.0.1:59230 - - [18/Jul/2024:21:49:31] "WSCONNECT /ws/single-game/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-[RequestSingleGameConsumer] connected successfully 
-172.18.0.1:59172 - - [18/Jul/2024:21:49:31] "OPTIONS /game-invites/" 200 -
-172.18.0.1:59016 - - [18/Jul/2024:21:49:31] "GET /media/undefined" 404 16073
-172.18.0.1:59218 - - [18/Jul/2024:21:49:31] "WSCONNECT /ws/friend-reqs/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-[FriendshipRequestConsumer] eamghar connected!
-172.18.0.1:64110 - - [18/Jul/2024:21:49:31] "WSCONNECTING /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Attempting to connect...
-172.18.0.1:59198 - - [18/Jul/2024:21:49:31] "GET /player/" 200 245
-user-> eamghar
-172.18.0.1:59170 - - [18/Jul/2024:21:49:31] "GET /player/friends/" 200 14
-172.18.0.1:64110 - - [18/Jul/2024:21:49:31] "WSCONNECT /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Player 1 (eamghar) connected with status: ONLINE
-172.18.0.1:59140 - - [18/Jul/2024:21:49:31] "GET /reqs/" 200 15
-172.18.0.1:59188 - - [18/Jul/2024:21:49:31] "GET /player/games/" 200 2
-172.18.0.1:59178 - - [18/Jul/2024:21:49:31] "GET /player/me/" 200 305
-172.18.0.1:59172 - - [18/Jul/2024:21:49:31] "GET /game-invites/" 200 38
-172.18.0.1:59198 - - [18/Jul/2024:21:49:31] "GET /player/" 200 245
-172.18.0.1:59140 - - [18/Jul/2024:21:49:31] "GET /player/friends/" 200 14
-172.18.0.1:59188 - - [18/Jul/2024:21:49:31] "GET /player/me/" 200 305
-172.18.0.1:64110 - - [18/Jul/2024:21:49:33] "WSDISCONNECT /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-172.18.0.1:59218 - - [18/Jul/2024:21:49:33] "WSDISCONNECT /ws/friend-reqs/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-172.18.0.1:59230 - - [18/Jul/2024:21:49:33] "WSDISCONNECT /ws/single-game/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-[Socket Connection] Player 1 (eamghar) disconnected.
-172.18.0.1:59188 - - [18/Jul/2024:21:49:33] "GET /player/" 200 245
-172.18.0.1:59178 - - [18/Jul/2024:21:49:33] "GET /player/friends/" 200 14
-172.18.0.1:59140 - - [18/Jul/2024:21:49:33] "GET /reqs/" 200 15
-172.18.0.1:59198 - - [18/Jul/2024:21:49:33] "GET /game-invites/" 200 38
-172.18.0.1:59172 - - [18/Jul/2024:21:49:33] "GET /player/me/" 200 305
-172.18.0.1:64180 - - [18/Jul/2024:21:49:33] "WSCONNECTING /ws/friend-reqs/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-172.18.0.1:64130 - - [18/Jul/2024:21:49:33] "GET /media/undefined" 404 16073
-token : |eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ|
-172.18.0.1:59170 - - [18/Jul/2024:21:49:33] "GET /player/" 200 245
-172.18.0.1:64180 - - [18/Jul/2024:21:49:33] "WSCONNECT /ws/friend-reqs/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-[FriendshipRequestConsumer] eamghar connected!
-172.18.0.1:59188 - - [18/Jul/2024:21:49:33] "GET /player/friends/" 200 14
-172.18.0.1:64194 - - [18/Jul/2024:21:49:33] "WSCONNECTING /ws/single-game/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-172.18.0.1:59198 - - [18/Jul/2024:21:49:33] "GET /player/me/" 200 305
-172.18.0.1:64194 - - [18/Jul/2024:21:49:33] "WSCONNECT /ws/single-game/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-[RequestSingleGameConsumer] connected successfully 
-172.18.0.1:59170 - - [18/Jul/2024:21:49:33] "GET /player/friends/" 200 14
-172.18.0.1:64204 - - [18/Jul/2024:21:49:33] "WSCONNECTING /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Attempting to connect...
-user-> eamghar
-172.18.0.1:64204 - - [18/Jul/2024:21:49:33] "WSCONNECT /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Player 1 (eamghar) connected with status: ONLINE
-172.18.0.1:64220 - - [18/Jul/2024:21:49:33] "WSCONNECTING /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Attempting to connect...
-172.18.0.1:59170 - - [18/Jul/2024:21:49:33] "GET /player/friends/" 200 14
-user-> eamghar
-172.18.0.1:64220 - - [18/Jul/2024:21:49:33] "WSCONNECT /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Player 1 (eamghar) connected with status: ONLINE
-172.18.0.1:59170 - - [18/Jul/2024:21:49:33] "GET /player/friends/" 200 14
-172.18.0.1:59198 - - [18/Jul/2024:21:49:33] "GET /player/friends/" 200 14
-172.18.0.1:64220 - - [18/Jul/2024:21:49:34] "WSDISCONNECT /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-172.18.0.1:64194 - - [18/Jul/2024:21:49:34] "WSDISCONNECT /ws/single-game/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-172.18.0.1:64180 - - [18/Jul/2024:21:49:34] "WSDISCONNECT /ws/friend-reqs/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-172.18.0.1:64204 - - [18/Jul/2024:21:49:34] "WSDISCONNECT /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Player 1 (eamghar) disconnected.
-[Socket Connection] Player 1 (eamghar) disconnected.
-172.18.0.1:59170 - - [18/Jul/2024:21:49:34] "OPTIONS /player/set/" 200 -
-172.18.0.1:64246 - - [18/Jul/2024:21:49:34] "WSCONNECTING /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Attempting to connect...
-user-> eamghar
-172.18.0.1:59172 - - [18/Jul/2024:21:49:34] "GET /game-invites/" 200 38
-172.18.0.1:59198 - - [18/Jul/2024:21:49:34] "GET /player/" 200 245
-172.18.0.1:59188 - - [18/Jul/2024:21:49:34] "GET /reqs/" 200 15
-172.18.0.1:64246 - - [18/Jul/2024:21:49:34] "WSCONNECT /ws/status/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ/1" - -
-[Socket Connection] Player 1 (eamghar) connected with status: ONLINE
-172.18.0.1:64230 - - [18/Jul/2024:21:49:34] "GET /media/undefined" 404 16073
-172.18.0.1:59140 - - [18/Jul/2024:21:49:34] "GET /player/me/" 200 305
-172.18.0.1:59170 - - [18/Jul/2024:21:49:34] "GET /player/set/" 200 128
-172.18.0.1:64258 - - [18/Jul/2024:21:49:34] "WSCONNECTING /ws/friend-reqs/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-token : |eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ|
-172.18.0.1:64258 - - [18/Jul/2024:21:49:34] "WSCONNECT /ws/friend-reqs/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-[FriendshipRequestConsumer] eamghar connected!
-172.18.0.1:59172 - - [18/Jul/2024:21:49:34] "GET /player/" 200 245
-172.18.0.1:64262 - - [18/Jul/2024:21:49:34] "WSCONNECTING /ws/single-game/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-172.18.0.1:64262 - - [18/Jul/2024:21:49:34] "WSCONNECT /ws/single-game/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNDI1NzY4LCJpYXQiOjE3MjEzMzkzNjgsImp0aSI6ImZkMjA4NDE3YmY1ODQzNTNiNjFkZjAzOWNjMzEzZTFmIiwidXNlcl9pZCI6MX0.gYlsENvv5TqW4bbp8cF5yY0f8fq27lh4kSJCbA6nLpQ" - -
-[RequestSingleGameConsumer] connected successfully 

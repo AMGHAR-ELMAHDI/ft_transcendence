@@ -1,5 +1,0 @@
-{"timestamp":"2024-07-18T16:21:15.000Z","level":"INFO","message":"Server started on port 3000","container_id":"abc123def456","container_name":"my_app_container","image_name":"my-app:latest","host_name":"docker-host-1"}
-{"timestamp":"2024-07-18T16:21:16.234Z","level":"DEBUG","message":"Connection established","container_id":"abc123def456","container_name":"my_app_container","image_name":"my-app:latest","host_name":"docker-host-1"}
-{"timestamp":"2024-07-18T16:21:17.567Z","level":"INFO","message":"Processing request","container_id":"abc123def456","container_name":"my_app_container","image_name":"my-app:latest","host_name":"docker-host-1"}
-{"timestamp":"2024-07-18T16:21:18.890Z","level":"WARN","message":"High CPU usage detected","container_id":"abc123def456","container_name":"my_app_container","image_name":"my-app:latest","host_name":"docker-host-1"}
-{"timestamp":"2024-07-18T16:21:19.123Z","level":"ERROR","message":"Failed to connect to database","container_id":"abc123def456","container_name":"my_app_container","image_name":"my-app:latest","host_name":"docker-host-1"}

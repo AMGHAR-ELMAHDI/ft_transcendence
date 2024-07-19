@@ -1,9 +1,19 @@
-FROM node:20.6.1
+FROM node:latest
 
-WORKDIR /app/
+RUN apt-get update
 
-RUN npm install || true
+WORKDIR /app
 
-RUN rm -rf /app/logs.txt || true
+COPY package.json .
 
-CMD npm start | tee /app/logs.txt
+COPY package-lock.json .
+
+RUN npm install
+
+COPY . .
+
+RUN npm install -g vite
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+CMD [ "npm", "start" ]

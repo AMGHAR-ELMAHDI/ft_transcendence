@@ -14,7 +14,6 @@ services:
       - ft_trans
     restart: unless-stopped
 
-
   db:
     container_name: database
     image: postgres
@@ -25,25 +24,20 @@ services:
       interval: 1s
       timeout: 5s
       retries: 10
-    logging:
-      driver: gelf
-      options:
-        gelf-address: "udp://localhost:12201"
-        tag: "database"
     env_file:
       - Django/.env
     networks:
       - ft_trans
-    restart: always
+    restart: unless-stopped
 
   adminer:
     container_name: adminer
     image: adminer
-    restart: always
     ports:
       - "8080:8080"
     networks:
       - ft_trans
+    restart: unless-stopped
 
   frontend:
     build:
@@ -53,8 +47,6 @@ services:
     container_name: frontend
     ports:
       - "5173:5173"
-    volumes:
-      - ./React:/app
     depends_on:
       - back-end
     networks:
@@ -62,78 +54,78 @@ services:
     restart: unless-stopped
   # -----------------------------DEVOPS--------------------------------
 
-  # elasticsearch:
-  #   image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.0"
-  #   container_name: elasticsearch
-  #   ports:
-  #     - "9200:9200"
-  #     - "9300:9300"
-  #   environment:
-  #     - discovery.type=single-node
-  #     - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-  #     - xpack.security.enabled=true
-  #     - ELASTIC_USERNAME=elastic
-  #   volumes:
-  #     - esdata:/usr/share/elasticsearch/data
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - ft_trans
-  #   restart: on-failure
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.0"
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - xpack.security.enabled=true
+      - ELASTIC_USERNAME=elastic
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    env_file:
+      - .env
+    networks:
+      - ft_trans
+    restart: unless-stopped
 
-  # kibana:
-  #   image: "docker.elastic.co/kibana/kibana:7.17.0"
-  #   container_name: kibana
-  #   ports:
-  #     - "5601:5601"
-  #   environment:
-  #     - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
-  #     - "ELASTICSEARCH_USERNAME=elastic"
-  #     - "ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}"
-  #   depends_on:
-  #     - elasticsearch
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - ft_trans
-  #   restart: on-failure
+  kibana:
+    image: "docker.elastic.co/kibana/kibana:7.17.0"
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
+      - "ELASTICSEARCH_USERNAME=elastic"
+      - "ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}"
+    depends_on:
+      - elasticsearch
+    env_file:
+      - .env
+    networks:
+      - ft_trans
+    restart: unless-stopped
 
-  # logstash:
-  #   image: "docker.elastic.co/logstash/logstash:7.17.0"
-  #   container_name: logstash
-  #   volumes:
-  #     - ./DevOps/ELK/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
-  #     - ./DevOps/ELK/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-  #   ports:
-  #     - "12201:12201/udp"
-  #     - "12201:12201/tcp"
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - elasticsearch
-  #   # environment:
-  #   #   - LOGSTASH_INTERNAL_PASSWORD=${ELASTIC_PASSWORD}
-  #   #   - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-  #   networks:
-  #     - ft_trans
-  #   restart: on-failure
+  logstash:
+    image: "docker.elastic.co/logstash/logstash:7.17.0"
+    container_name: logstash
+    volumes:
+      - ./DevOps/ELK/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./DevOps/ELK/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+    ports:
+      - "12201:12201/udp"
+      - "12201:12201/tcp"
+    env_file:
+      - .env
+    depends_on:
+      - elasticsearch
+    # environment:
+    #   - LOGSTASH_INTERNAL_PASSWORD=${ELASTIC_PASSWORD}
+    #   - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    networks:
+      - ft_trans
+    restart: unless-stopped
 
-  # filebeat:
-  #   image: "docker.elastic.co/beats/filebeat:7.17.0"
-  #   container_name: filebeat
-  #   user: root
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - ./DevOps/ELK/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-  #     - /var/lib/docker/containers:/var/lib/docker/containers:ro
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #   depends_on:
-  #     - logstash
-  #   networks:
-  #     - ft_trans
-  #   command: --strict.perms=false
-  #   restart: on-failure
+  filebeat:
+    image: "docker.elastic.co/beats/filebeat:7.17.0"
+    container_name: filebeat
+    user: root
+    env_file:
+      - .env
+    volumes:
+      - ./DevOps/ELK/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - logstash
+    networks:
+      - ft_trans
+    command: --strict.perms=false
+    restart: unless-stopped
 
   # # -----------------------------PROMETHEUS GRAFANA--------------------------------
   # node-exporter:

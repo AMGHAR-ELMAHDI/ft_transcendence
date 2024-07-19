@@ -1,9 +1,0 @@
-
-> react@0.0.0 start
-> vite --host
-
-
-  VITE v5.1.6  ready in 361 ms
-
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: http://172.18.0.5:5173/
