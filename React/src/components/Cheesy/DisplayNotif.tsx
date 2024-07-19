@@ -66,7 +66,7 @@ function DisplayNotif({
       "-----------------------END OF PLAYERS------------------------"
     );
   }
-  
+
   if (pending.length > 0) {
     console.log("-----------------------PENDING------------------------");
     console.log(pending);
@@ -171,10 +171,7 @@ function DisplayNotif({
               className="notifButton"
               onClick={() => {
                 toast.success(
-                  "You Accepted" +
-                    accepted[index].sender_username +
-                    "'s invite",
-                  { duration: 1000000000000 }
+                  "You Accepted" + accepted[index].sender_username + "'s invite"
                 );
                 localStorage.setItem("invite_id", String(accepted[index].id));
                 toast.dismiss(String(num));
@@ -208,12 +205,10 @@ function DisplayNotif({
               className="notifButton"
               onClick={() => {
                 toast.success(
-                  sent[index].sender_username + "Accepted Your invite",
-                  { duration: 1000000000000 }
+                  sent[index].sender_username + "Accepted Your invite"
                 );
                 localStorage.setItem("invite_id", String(sent[index].id));
-
-                toast.remove(String(num));
+                toast.dismiss(String(num));
                 navigate("/invite-only");
               }}
             >
@@ -222,7 +217,7 @@ function DisplayNotif({
             <button
               className="notifButton"
               onClick={() => {
-                // toast.dismiss(String(num));
+                toast.dismiss(String(num));
               }}
             >
               Decline

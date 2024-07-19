@@ -51,6 +51,7 @@
 .Lost {
   text-align: center;
   transition: 0.5s all;
+  height: 150px;
 }
 
 .Won:hover,
@@ -157,9 +158,9 @@ td > h1 {
     height: 1rem;
   }
 
-  .ScoreTd {
+  /* .ScoreTd {
     height: 6rem;
-  }
+  } */
   .zekton > h1 {
     font-size: 0.9rem;
   }
@@ -180,9 +181,9 @@ td > h1 {
   .spacing {
     height: 0.8rem;
   }
-  .ScoreTd {
+  /* .ScoreTd {
     height: 4rem;
-  }
+  } */
   .zekton > h1 {
     font-size: 0.7rem;
   }
@@ -209,6 +210,10 @@ td > h1 {
     padding: 0 1rem;
   }
   .RenderRadius {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .Render{
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
   }
@@ -241,6 +246,10 @@ td > h1 {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .roundedd{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
   }
 }
 
