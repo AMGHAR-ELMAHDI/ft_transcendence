@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
 import { FaDiscord } from "react-icons/fa";
 import _register from './register';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function register() {
 		const handleDiscordAuth = () => {

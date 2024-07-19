@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import SideBar from "../../Cheesy/SideBar";
-import TopBar from "../../SearchBar/TopBar";
-import OnlineStatus from "../../zmakhkha/OnlineStatus";
 import { useNavigate } from "react-router-dom";
 import './TournamentList.css'
 import axios from "axios";
@@ -52,14 +49,20 @@ function Filler() {
             document.querySelector('.create-option')?.classList.add('show')
         })
 
-        // document.querySelector('.cards')?.addEventListener('click', ()=> {
+        function CheckSpecialChars(input: any) {
+            const SpecialCharacters = "\'\"!@#$%^&*()_+=-][{};:?/>.<,`~"
 
-        //     document.querySelector('.create-option')?.classList.remove('show')
-        // })
+            for (let i = 0; i < SpecialCharacters.length; i++) {
+                if (input.includes(SpecialCharacters[i]))
+                    return true;
+            }
+            return false;
+        }
 
         btn_cr?.addEventListener('click', ()=> {
             const v_ = input_v.value
-            if (v_ !== "")
+            const rs = CheckSpecialChars(v_)
+            if (v_ !== "" && !rs)
                 HandleClick(input_v.value)
             else if (v_ === "") {
                 input_v.classList.add('error_')
@@ -85,28 +88,12 @@ function Filler() {
                 </div>
                 <div className="cards">
                     {array.map((element:any, index:any) => {
-                        return <TnList key={index} players={element.fields.players} room_name={element.fields.name} onJoin={HandleClick}/>;
+                        if (element.fields.status == 'S' || element.fields.status == 'Q') return <TnList key={index} players={element.fields.players} room_name={element.fields.name} onJoin={HandleClick}/>;
                     })}
                 </div>
             </div>
         </>
     )
 }
-
-// function TournamentList() {
-//     const token: any = localStorage.getItem("token");
-//     return (
-//         <>
-//             <OnlineStatus token={token} type={1} />
-//             <div className="AppClass">
-//                 <SideBar />
-//                 <div className="main">
-//                     <TopBar />
-//                     <Filler />
-//                 </div>
-//             </div>
-//         </>
-//     );
-// }
 
 export default Filler

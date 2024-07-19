@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import _LocalGame from "./multiplayer2";
 import _title from "./title";
 import _OnlineGame from "./multiplayer";
-import { useRecoilState, useRecoilValue } from "recoil";
 
 import "./tournament.css";
 import "./interface.css";
-import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 function _tournament() {
   return (
     <>
@@ -62,7 +61,6 @@ function tournament({ NetType }: OnlineGame) {
   const [player2, setNameP2] = useState<string>("...");
   const [FirstGame, RunFirstGame] = useState<boolean>(false);
   const [SecGame, RunSecGame] = useState<boolean>(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const player_1 = document.querySelector(".LeftJoin .first");
@@ -72,7 +70,7 @@ function tournament({ NetType }: OnlineGame) {
     const CupWinner = document.querySelector(".CupWinner");
     const final_1 = document.querySelector(".final_1");
     const final_2 = document.querySelector(".final_2");
-    const AnimationWinner = document.querySelector(".void");
+
 
     if (NetType === "") return;
     const JsonData = localStorage.getItem("dataTn");
@@ -123,6 +121,7 @@ function tournament({ NetType }: OnlineGame) {
   const [Player1, setName] = useState<string>("p1");
   const [Player2, setName1] = useState<string>("p2");
   const [final, SetFinal2] = useState<boolean>(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     let index = 0;
@@ -140,15 +139,6 @@ function tournament({ NetType }: OnlineGame) {
       NetType === "final"
     )
       return;
-
-    console.log(NetType);
-    // if (NetType === 'endT') {
-
-    // }
-
-    function isWebSocketConnected(): boolean {
-      return TnSocket && TnSocket.readyState === WebSocket.OPEN;
-    }
 
     function modifyDisplay(data: any) {
       players[0].innerHTML = data.message.array.name_1.name;
@@ -184,6 +174,7 @@ function tournament({ NetType }: OnlineGame) {
       const data = JSON.parse(e.data);
       const dataType = data.type;
 
+      console.log(data)
       if (dataType === "identify") {
         index = data.player;
         name = data.name;
@@ -210,18 +201,18 @@ function tournament({ NetType }: OnlineGame) {
         (data?.message?.player1 === index.toString() ||
           data?.message?.player2 === index.toString())
       ) {
-        // toast.success('game will start soon')
         const data = JSON.parse(localStorage.getItem("dataTn")!);
         setName(data.player1);
         setName1(data.player2);
         setTimeout(() => RunFirstGame(true), 3000);
       }
+      if (data?.message?.type === 'soon')
+        toast.success('game will start soon')
       if (
         data?.message?.type === "SecondGame" &&
         (data?.message?.player1 === index.toString() ||
           data?.message?.player2 === index.toString())
       ) {
-        // toast.success('game will start soon')
         const data = JSON.parse(localStorage.getItem("dataTn")!);
         setName(data.player3);
         setName1(data.player4);
@@ -240,11 +231,12 @@ function tournament({ NetType }: OnlineGame) {
           setName1(final_2!.textContent!);
         }
         if (name === final_1?.textContent || name === final_2?.textContent)
-          // toast.success('game will start soon')
           setTimeout(() => SetFinal2(true), 3000);
       }
-      if (data?.type == 'error')
-        toast.error(data?.error)
+      if (data?.type == 'error') {
+        toast.error('you can only join one tournament')
+        navigate(`/game/gameplay?room_name=${data?.room_name}`)
+      }
       if (NetType === "endT") {
         const parent = document!.querySelector(".tournCont");
         if (name === winner?.textContent) parent!.classList.add("win_");

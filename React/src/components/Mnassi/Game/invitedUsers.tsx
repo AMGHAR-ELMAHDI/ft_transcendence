@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
-import PlayersReady from "./Game";
 import _tournament from "./tournament";
 import axios from "axios";
 import "./interface.css";
 import _Queue from "./inQueue";
 import _title from "./title";
-import { RecoilRoot } from "recoil";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Pingpong from "./ping";
 
 interface LocalGameProps {
-  Type: string;
   Name: string;
   Name2: string;
 }
 
-function GameInterface_({ Type, Name, Name2 }: LocalGameProps) {
+function GameInterface_({ Name, Name2 }: LocalGameProps) {
   const [data, setData] = useState<any>([]);
 
 useEffect(()=> {
@@ -44,7 +41,7 @@ useEffect(()=> {
   );
 }
 
-function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
+function InvitedUsers({ Name, Name2 }: LocalGameProps) {
   interface Vector {
     x: number;
     y: number;
@@ -60,12 +57,6 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
     HalfWidth(): number;
     HalfHeight(): number;
     GetCenter(): Vector;
-  }
-
-  interface Ball {
-    pos: Vector;
-    velocity: Vector;
-    radius: number;
   }
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -349,7 +340,7 @@ function InvitedUsers({ Type, Name, Name2 }: LocalGameProps) {
   return (
     // send the two palyers to tn file
     <>
-      <div><GameInterface_ Type="" Name={Name} Name2={Name2} /></div>
+      <div><GameInterface_ Name={Name} Name2={Name2} /></div>
       {loading && <Pingpong/>}
     </>
   );

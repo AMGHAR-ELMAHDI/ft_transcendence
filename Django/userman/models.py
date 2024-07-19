@@ -71,7 +71,7 @@ class Player(AbstractBaseUser):
     coins = models.IntegerField(default=0)
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default=STATUS_OFFLINE)
-    level = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
     points = models.IntegerField(default=0)
     friends = models.ManyToManyField('self', through='Friendship', symmetrical=False)
     email = models.EmailField(unique=True)
@@ -302,6 +302,7 @@ class TnRooms(models.Model):
     STATUS_TOURNAMENT = [
         ('Q', 'QUEUE'),
         ('S', 'STARTED'),
+        ('E', 'ENDED'),
     ]
     name = models.CharField(max_length=255, default='', unique=True)
     status = models.CharField(max_length=255, choices=STATUS_TOURNAMENT, default='Q')
@@ -309,4 +310,3 @@ class TnRooms(models.Model):
 
     def __str__(self):
         return self.name
-    

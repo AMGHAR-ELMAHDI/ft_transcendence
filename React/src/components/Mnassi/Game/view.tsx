@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './view.css'
 
@@ -26,8 +26,6 @@ function UserView() {
 		radius: number
 	}
 
-	const [PLAYER_1, GetFirst] = useState('BOT1');
-	const [PLAYER_2, GetSecond] = useState('BOT2');
 	const [data, setData] = useState<any>([]);
 
 	useEffect(()=> {
@@ -119,8 +117,8 @@ function UserView() {
 
 		const ball = new (Ball as any)(TwoVect(canvas.width / 2, canvas.height / 2), TwoVect(20, 20), 10)
 
-		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(30, 30), 20, 160, PLAYER_1)
-		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(30, 30), 20, 160, PLAYER_2)
+		const paddle1 = new (Paddles as any)(TwoVect(0, 50), TwoVect(30, 30), 20, 160, 'BOT1')
+		const paddle2 = new (Paddles as any)(TwoVect(canvas.width - 20, 20), TwoVect(30, 30), 20, 160, 'BOT2')
 
 		function BallIntersection(paddle: Paddles, ball: Ball) {
 			let x1 = Math.abs(ball.pos.x - paddle.GetCenter().x)

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import __tournament from './tournament';
-import { useRecoilState } from 'recoil';
 
 interface LocalGameProps {
 	type: string;
@@ -33,13 +32,22 @@ function multiplayer2({type, Name1, Name2}: LocalGameProps) {
 		radius: number
 	}
 
-	const [PLAYER_1, GetFirst] = useState('PLAYER1');
-	const [PLAYER_2, GetSecond] = useState('PLAYER2');
-
-	const [DataReady, StatusCode] = useState<boolean>(false);
 	const [Exit, SetExit] = useState<boolean>(false);
 	const [Exit2, SetSecExit] = useState<boolean>(false);
 	const [finals, SetFinalExit] = useState<boolean>(false);
+	const [data, setData] = useState<any>([])
+	var data_: any = ""
+
+	useEffect(()=> {
+		axios.get('https://localhost:2500/player/set/')
+		.then(response => {
+		  setData(response.data)
+		  data_ = response.data
+		})
+		.catch(error => {
+		  console.log(error)
+		})
+	  }, [])
 
 	useEffect(()=> {
 		let timer: number = 0
@@ -102,7 +110,7 @@ function multiplayer2({type, Name1, Name2}: LocalGameProps) {
 			};
 
 			this.draw = function() {
-				FillColor("#ffffff")
+				FillColor(data_.paddle)
 				context!.lineJoin = 'round';
 				context?.fillRect(pos.x, pos.y, width, height)
 			}
@@ -137,7 +145,7 @@ function multiplayer2({type, Name1, Name2}: LocalGameProps) {
 				this.pos.y += this.velocity.y
 			};
 			this.draw = function() {
-				FillColor("#ffffff")
+				FillColor(data_.ball)
 				context?.beginPath()
 				context?.arc(pos.x, pos.y, radius, 0, Math.PI * 2)
 				context?.fill()
@@ -276,19 +284,6 @@ function multiplayer2({type, Name1, Name2}: LocalGameProps) {
 
 	}, [])
 
-	useEffect(()=> {
-		axios.defaults.withCredentials = true;
-		axios.get('http://localhost:8001/check/', {
-			withCredentials: true,	
-		})
-		.then(response=> {
-			if (response.status === 200)
-				StatusCode(true)
-		})
-		.catch(error=> {
-			console.log(error)
-		})
-	}, [])
 	return (
 		<div>
 			{(!Exit && !Exit2 && !finals) &&
@@ -304,7 +299,7 @@ function multiplayer2({type, Name1, Name2}: LocalGameProps) {
 					<button id='retry'>retry</button>
 					<button id='mods'>change Mods</button>
 				</div>
-				<canvas id="canvas"></canvas>
+				<canvas style={{"background": `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`}}  id="canvas"></canvas>
 			</div>}
 			{Exit && <__tournament NetType='local2'/>}
 			{Exit2 && <__tournament NetType='local3'/>}
