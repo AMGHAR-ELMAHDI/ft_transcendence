@@ -63,6 +63,7 @@ function getHistoryTabs(id: string, winner: string) {
   else return "Lost";
 }
 
+
 function History({ UserData, UseUserData }: UserDataProps) {
   const [data, setData] = useState<any>([]);
   const [isLoading, setLoading] = useState(true);
@@ -125,7 +126,7 @@ function History({ UserData, UseUserData }: UserDataProps) {
                 <td className="leftTd zekton DontRenderF">
                   <h1>{getDate(game?.date)}</h1>
                 </td>
-                <td className="Toruk">
+                <td className="Toruk roundedd">
                   <h1>{game?.opponent_username}</h1>
                 </td>
                 <td className="ScoreTd Toruk">

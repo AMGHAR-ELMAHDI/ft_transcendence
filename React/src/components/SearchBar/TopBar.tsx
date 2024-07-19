@@ -72,7 +72,7 @@ function TopBar() {
         <div className="NotifProfile">
           {<SearchBar />}
           <div className="NotifProfileContainer">
-            {<Notif />}
+            {(window.location.pathname != "/invite-only" &&  window.location.pathname != "/game") && <Notif />}
             {window.location.pathname === "/shop" && (
               <div className="CoinsShop">{data?.coins}$</div>
             )}
