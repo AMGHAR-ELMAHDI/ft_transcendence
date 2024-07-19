@@ -200,8 +200,6 @@ class GameConsumer(AsyncWebsocketConsumer):
                     }
                     await self.sendMultipleRooms(message, 'winner', TempOne - 1)
                     await self.sendMultipleRooms(message, 'winner', TempOne)
-                # else:
-                #     print('error->>')
 
             if not TempOne % 3:
                 print('->>', TempOne)
@@ -414,6 +412,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 winner.points = 0
                 await sync_to_async(winner.save)(update_fields=['level'])
             await sync_to_async(winner.save)(update_fields=['points'])
+            await sync_to_async(winner.save)(update_fields=['coins'])
 
             await sync_to_async(game.save)()
             self.rooms[self.room_group_name]['id'] = game.id
