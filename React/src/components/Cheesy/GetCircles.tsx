@@ -14,7 +14,7 @@ function GetCircles(person: { win_rate: number; achievements_rate: number }) {
   return (
     <div id="circles">
       <CircularProgressbarWithChildren
-        value={person.win_rate}
+        value={Math.floor(person.win_rate*100)}
         styles={buildStyles({
           pathColor: `rgba(95, 202, 228, 1)`,
           textColor: "#FFFFFF",
@@ -33,11 +33,11 @@ function GetCircles(person: { win_rate: number; achievements_rate: number }) {
           Win Rate
         </div>
         <div style={{ fontSize: font_Size, fontFamily: "Roboto" }}>
-          {person.win_rate}%
+          {Math.floor(person.win_rate*100)}%
         </div>
       </CircularProgressbarWithChildren>
       <CircularProgressbarWithChildren
-        value={person.achievements_rate}
+        value={Math.floor(person.achievements_rate*100)}
         styles={buildStyles({
           pathColor: `rgba(95, 202, 228, 1)`,
           textColor: "#FFFFFF",
@@ -56,7 +56,7 @@ function GetCircles(person: { win_rate: number; achievements_rate: number }) {
           Trophies
         </div>
         <div style={{ fontSize: font_Size, fontFamily: "Roboto" }}>
-          {person.achievements_rate}%
+          {Math.floor(person.achievements_rate*100)}%
         </div>
       </CircularProgressbarWithChildren>
     </div>

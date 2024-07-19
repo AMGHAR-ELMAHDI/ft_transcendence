@@ -345,12 +345,12 @@ class GameConsumer_2(AsyncWebsocketConsumer):
 
             self.rooms[self.room_group_name]['id'] = game.id
 
-            winner.points += winner.level * 30
+            winner.points += winner.level * 300
             winner.coins += 30
 
             if winner.points >= winner.level * 1000:
                 winner.level += 1
-                winner.points = 0
+                winner.points -= 1000
                 await sync_to_async(winner.save)(update_fields=['level'])
             await sync_to_async(winner.save)(update_fields=['points'])
             await sync_to_async(winner.save)(update_fields=['coins'])

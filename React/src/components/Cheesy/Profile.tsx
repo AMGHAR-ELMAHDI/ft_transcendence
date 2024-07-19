@@ -50,6 +50,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     achievements: data.achievements,
   };
 
+    
   return (
     <>
       {isLoading && LoadingData()}
@@ -78,7 +79,7 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
                   <h2>{Math.floor(obj.points % 1000)}/1000</h2>
                 </div>
                 <div id="profile-level-bar">
-                  <progress id="progress-bar" value={obj.level} max={1000} />
+                  <progress id="progress-bar" value={obj.points} max={1000} />
                 </div>
               </div>
               {boolRender && (
