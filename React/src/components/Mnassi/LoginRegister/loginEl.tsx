@@ -42,11 +42,11 @@ function loginEl() {
       });
   };
   const handleDiscordAuth = () => {
-    window.location.href = "https://localhost:2500/discord/login/";
+    window.location.href = import.meta.env.VITE_API_URL + "discord/login/";
   };
 
   const handle42Auth = () => {
-    window.location.href = "https://localhost:2500/42/login/";
+    window.location.href = import.meta.env.VITE_API_URL + "42/login/";
   };
 
   useEffect(() => {

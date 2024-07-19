@@ -65,7 +65,7 @@ def f42_redirect(request: HttpRequest):
 					refresh = RefreshToken.for_user(user)
 					request.session['access'] = str(refresh.access_token)
 					request.session['refresh'] = str(refresh)
-					return HttpResponseRedirect(redirect_to='https://{settings.B_HOST}:2500/oauth2/set-cookie')
+					return HttpResponseRedirect(redirect_to=f"https://{settings.B_HOST}:2500/oauth2/set-cookie")
 			else:
 				return redirect (settings.HTTP_401_UNAUTHORIZED)
 		else:

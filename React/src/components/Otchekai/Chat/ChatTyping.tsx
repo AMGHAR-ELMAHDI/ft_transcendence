@@ -59,7 +59,7 @@ function ChatTyping({
     const token = localStorage.getItem("token");
 
     const chatSocket = new WebSocket(
-      `wss://localhost:2500/ws/chat/${Selectedfriend}/${token}`
+      `wss://${import.meta.env.VITE_WS_URL}ws/chat/${Selectedfriend}/${token}`
     );
     setSocket(chatSocket);
     chatSocket.onopen = function () {};
@@ -132,7 +132,7 @@ function ChatTyping({
     }
 
     const gameSocket = new WebSocket(
-      `wss://localhost:2500/ws/single-game/${token}`
+      `wss://${import.meta.env.VITE_WS_URL}ws/single-game/${token}`
     );
     setGameSocket(gameSocket);
 

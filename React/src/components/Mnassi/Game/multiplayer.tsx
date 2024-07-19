@@ -5,6 +5,7 @@ import "./interface.css";
 import _Queue from "./inQueue";
 import _title from "./title";
 import toast from "react-hot-toast";
+import api from "../../../api";
 
 interface LocalGameProps {
   Type: string;
@@ -12,19 +13,19 @@ interface LocalGameProps {
   Name2: string;
 }
 
-
 function GameInterface({ Name, Name2 }: LocalGameProps) {
   const [data, setData] = useState<any>([]);
 
-  useEffect(()=> {
-    axios.get('https://localhost:2500/player/set/')
-    .then(response => {
-      setData(response.data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }, [])
+  useEffect(() => {
+    api
+      .get("player/set/")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <>
       {<_title title={Name + " vs " + Name2}></_title>}
@@ -35,7 +36,12 @@ function GameInterface({ Name, Name2 }: LocalGameProps) {
           <p id="Sscore">0</p>
         </div>
         <div className="winner" id="winner"></div>
-			  <canvas style={{"background": `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`}}  id="canvas"></canvas>
+        <canvas
+          style={{
+            background: `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`,
+          }}
+          id="canvas"
+        ></canvas>
       </div>
     </>
   );
@@ -59,23 +65,23 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
     GetCenter(): Vector;
   }
 
-  
   const [Exit, setExit] = useState<boolean>(false);
   const [Exit2, setExit2] = useState<boolean>(false);
   const [SetIt, Lost] = useState<boolean>(false);
   const [WON, SetWinner] = useState<boolean>(false);
   const [lastGame, SetLastGame] = useState<boolean>(false);
-  var data: any = []
+  var data: any = [];
 
-  useEffect(()=> {
-    axios.get('https://localhost:2500/player/set/')
-    .then(response => {
-      data = response.data
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }, [])
+  useEffect(() => {
+    api
+      .get("player/set/")
+      .then((response) => {
+        data = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     var room_group_name = "";
@@ -237,8 +243,8 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
     }
 
     function connectBackend() {
-      const token = localStorage.getItem('token')
-      const url = `wss://localhost:2500/ws/remote/${token}`;
+      const token = localStorage.getItem("token");
+      const url = `wss://${import.meta.env.VITE_WS_URL}ws/remote/${token}`;
       return new WebSocket(url);
     }
 
@@ -298,7 +304,7 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
         const firstwinner = document?.querySelector(".final_1");
         const secondwinner = document?.querySelector(".final_2");
         if (Type === "Online") {
-          toast.success('game will start soon')
+          toast.success("game will start soon");
           setExit(true);
         }
         if (Type === "Online2") setExit2(true);

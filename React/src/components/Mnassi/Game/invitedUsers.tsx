@@ -7,6 +7,7 @@ import _title from "./title";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Pingpong from "./ping";
+import api from "../../../api";
 
 interface LocalGameProps {
   Name: string;
@@ -16,15 +17,16 @@ interface LocalGameProps {
 function GameInterface_({ Name, Name2 }: LocalGameProps) {
   const [data, setData] = useState<any>([]);
 
-useEffect(()=> {
-  axios.get('https://localhost:2500/player/set/')
-  .then(response => {
-    setData(response.data)
-  })
-  .catch(error => {
-    console.log(error)
-  })
-}, [])
+  useEffect(() => {
+    api
+      .get("player/set/")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <>
       {<_title title={Name + " vs " + Name2}></_title>}
@@ -35,7 +37,12 @@ useEffect(()=> {
           <p id="Sscore">0</p>
         </div>
         <div className="winner" id="winner"></div>
-			  <canvas style={{"background": `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`}}  id="canvas"></canvas>
+        <canvas
+          style={{
+            background: `linear-gradient(120deg, ${data.table}, rgba(0, 0, 0, 0.576))`,
+          }}
+          id="canvas"
+        ></canvas>
       </div>
     </>
   );
@@ -62,17 +69,18 @@ function InvitedUsers({ Name, Name2 }: LocalGameProps) {
   const [loading, setLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
-  var data: any = []
+  var data: any = [];
 
-  useEffect(()=> {
-    axios.get('https://localhost:2500/player/set/')
-    .then(response => {
-      data = response.data
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }, [])
+  useEffect(() => {
+    api
+      .get("player/set/")
+      .then((response) => {
+        data = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     var room_group_name = "";
@@ -234,10 +242,12 @@ function InvitedUsers({ Name, Name2 }: LocalGameProps) {
     }
 
     function connectBackend() {
-		const token = localStorage.getItem('token')
-		const invite_id = localStorage.getItem("invite_id");
-		const url = `wss://localhost:2500/ws/start-single-game/${token}/${invite_id}`;
-		return new WebSocket(url);
+      const token = localStorage.getItem("token");
+      const invite_id = localStorage.getItem("invite_id");
+      const url = `wss://${
+        import.meta.env.VITE_WS_URL
+      }ws/start-single-game/${token}/${invite_id}`;
+      return new WebSocket(url);
     }
 
     function isWebSocketConnected(): boolean {
@@ -274,10 +284,9 @@ function InvitedUsers({ Name, Name2 }: LocalGameProps) {
         ball.pos.x = data?.message?.BallX;
         ball.pos.y = data?.message?.BallY;
       }
-      if (data?.message?.type == 'earnedAch' && data?.message?.index === index)
-        toast.success('new achievement unlocked')
-      if (data?.message?.type == 'start')
-        setLoading(false)
+      if (data?.message?.type == "earnedAch" && data?.message?.index === index)
+        toast.success("new achievement unlocked");
+      if (data?.message?.type == "start") setLoading(false);
       if (
         data?.message?.type === "paddleChan" &&
         data?.message?.index === "1"
@@ -297,8 +306,8 @@ function InvitedUsers({ Name, Name2 }: LocalGameProps) {
         BallSettings(paddle1, paddle2);
       }
       if (data?.message?.type === "finals") {
-        winner!.innerHTML = data?.message?.winner
-        setTimeout(()=> navigate('/'), 1000)
+        winner!.innerHTML = data?.message?.winner;
+        setTimeout(() => navigate("/"), 1000);
       }
       if (isWebSocketConnected() && KeyPressed[KEY_UP]) {
         objSocket.send(
@@ -339,8 +348,10 @@ function InvitedUsers({ Name, Name2 }: LocalGameProps) {
   return (
     // send the two palyers to tn file
     <>
-      <div><GameInterface_ Name={Name} Name2={Name2} /></div>
-      {loading && <Pingpong/>}
+      <div>
+        <GameInterface_ Name={Name} Name2={Name2} />
+      </div>
+      {loading && <Pingpong />}
     </>
   );
 }

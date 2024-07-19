@@ -64,7 +64,7 @@ class discord_redirect(APIView):
 						refresh = RefreshToken.for_user(user)
 						request.session['access'] = str(refresh.access_token)
 						request.session['refresh'] = str(refresh)
-						return HttpResponseRedirect(redirect_to='https://{settings.B_HOST}:2500/oauth2/set-cookie')
+						return HttpResponseRedirect(redirect_to=f"https://{settings.B_HOST}:2500/oauth2/set-cookie")
 				else:
 					return redirect (settings.HTTP_401_UNAUTHORIZED)
 			else:
@@ -118,7 +118,7 @@ def set_cookie(request):
 	refresh_token = request.session.get('refresh')
 
 	if access_token and refresh_token:
-		response = HttpResponseRedirect('http://{settings.F_HOST}:5173/')
+		response = HttpResponseRedirect(f"http://{settings.F_HOST}:5173/")
 		response.set_cookie('access', access_token)
 		response.set_cookie('refresh', refresh_token)
 		return response

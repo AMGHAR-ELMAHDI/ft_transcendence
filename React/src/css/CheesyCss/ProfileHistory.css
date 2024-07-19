@@ -51,6 +51,7 @@
 .Lost {
   text-align: center;
   transition: 0.5s all;
+  height: 150px;
 }
 
 .Won:hover,

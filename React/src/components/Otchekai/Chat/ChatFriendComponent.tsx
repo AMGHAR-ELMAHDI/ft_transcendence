@@ -38,7 +38,7 @@ function ChatFriendComponent({
   useEffect(() => {
     const token = localStorage.getItem("token");
     const newSocket = new WebSocket(
-      `wss://localhost:2500/ws/block-unblock/${token}`
+      `wss://${import.meta.env.VITE_WS_URL}ws/block-unblock/${token}`
     );
     newSocket.onopen = () => {};
     newSocket.onmessage = (event) => {

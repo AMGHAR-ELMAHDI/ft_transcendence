@@ -13,7 +13,7 @@ export interface Message {
 const OnlineStatus: React.FC<OnlineStatusProps> = ({ token, type }) => {
   useEffect(() => {
     const socket = new WebSocket(
-      `wss://localhost:2500/ws/status/${token}/${type}`
+      `wss://${import.meta.env.VITE_WS_URL}ws/status/${token}/${type}`
     );
 
     socket.onopen = () => {};

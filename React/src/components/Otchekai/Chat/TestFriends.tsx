@@ -48,7 +48,9 @@ function TestFriend({
   useEffect(() => {
     const token = localStorage.getItem("token");
     getFriends();
-    const socket = new WebSocket(`wss://localhost:2500/ws/status/${token}/${1}`);
+    const socket = new WebSocket(
+      `wss://${import.meta.env.VITE_WS_URL}ws/status/${token}/${1}`
+    );
 
     socket.onopen = () => {};
 

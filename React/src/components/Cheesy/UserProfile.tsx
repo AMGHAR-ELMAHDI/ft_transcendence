@@ -46,7 +46,7 @@ function UserProfile({ show, setRender, data, myProfile }: UserProps) {
     getFriends();
     const token = localStorage.getItem("token");
     const newSocket = new WebSocket(
-      `wss://localhost:2500/ws/friend-reqs/${token}`
+      `wss://${import.meta.env.VITE_WS_URL}ws/friend-reqs/${token}`
     );
     setSocket(newSocket);
     return () => {

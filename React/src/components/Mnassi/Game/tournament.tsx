@@ -71,7 +71,6 @@ function tournament({ NetType }: OnlineGame) {
     const final_1 = document.querySelector(".final_1");
     const final_2 = document.querySelector(".final_2");
 
-
     if (NetType === "") return;
     const JsonData = localStorage.getItem("dataTn");
     const data = JSON.parse(JsonData!);
@@ -121,7 +120,7 @@ function tournament({ NetType }: OnlineGame) {
   const [Player1, setName] = useState<string>("p1");
   const [Player2, setName1] = useState<string>("p2");
   const [final, SetFinal2] = useState<boolean>(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     let index = 0;
@@ -148,17 +147,19 @@ function tournament({ NetType }: OnlineGame) {
     }
 
     function decodeAndReplace(queryParam: string): string {
-      return decodeURIComponent(queryParam.replace(/%20|%09/g, ''));
+      return decodeURIComponent(queryParam.replace(/%20|%09/g, ""));
     }
 
-    var result = ""
+    var result = "";
     var query = location.search;
     var error = query?.split("?");
     if (error[1]) result = error[1]?.replace("room_name=", "");
-    const room_name = decodeAndReplace(result)
+    const room_name = decodeAndReplace(result);
 
-    const token = localStorage.getItem('token')
-    TnSocket = new WebSocket(`wss://localhost:2500/ws/game-tn/${token}/${room_name}`);
+    const token = localStorage.getItem("token");
+    TnSocket = new WebSocket(
+      `wss://${import.meta.env.VITE_WS_URL}ws/game-tn/${token}/${room_name}`
+    );
 
     function StoreInStorage(data: any) {
       const Content = {
@@ -193,7 +194,7 @@ function tournament({ NetType }: OnlineGame) {
           final_2!.innerHTML = data?.message?.final2;
         }
         if (data?.message?.winner != "")
-          winner!.innerHTML = data?.message?.winner
+          winner!.innerHTML = data?.message?.winner;
       }
       if (
         data?.message?.type === "firstGame" &&
@@ -205,8 +206,7 @@ function tournament({ NetType }: OnlineGame) {
         setName1(data.player2);
         setTimeout(() => RunFirstGame(true), 3000);
       }
-      if (data?.message?.type === 'soon')
-        toast.success('game will start soon')
+      if (data?.message?.type === "soon") toast.success("game will start soon");
       if (
         data?.message?.type === "SecondGame" &&
         (data?.message?.player1 === index.toString() ||
@@ -232,9 +232,9 @@ function tournament({ NetType }: OnlineGame) {
         if (name === final_1?.textContent || name === final_2?.textContent)
           setTimeout(() => SetFinal2(true), 3000);
       }
-      if (data?.type == 'error') {
-        toast.error('you can only join one tournament')
-        navigate(`/game/gameplay?room_name=${data?.room_name}`)
+      if (data?.type == "error") {
+        toast.error("you can only join one tournament");
+        navigate(`/game/gameplay?room_name=${data?.room_name}`);
       }
       if (NetType === "endT") {
         const parent = document!.querySelector(".tournCont");
