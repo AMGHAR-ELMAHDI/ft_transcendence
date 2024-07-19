@@ -16,6 +16,7 @@ interface UserProps {
     last_name: string;
     avatar: string;
     level: number;
+    points: number;
     coins: number;
     email: string;
     win_rate: number;
@@ -30,7 +31,6 @@ function UserProfile({ show, setRender, data, myProfile }: UserProps) {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const url = useRecoilValue(Url);
   const profileLevelStyle = { justifyContent: "space-between" };
-  let levelStart = Math.floor(data.level / 10);
   let Dont: boolean = false;
 
   const getFriends = async () => {
@@ -108,11 +108,11 @@ function UserProfile({ show, setRender, data, myProfile }: UserProps) {
           <div></div>
           <div id="profile-level-container">
             <div id="profile-level-text">
-              <h2>Level {Math.floor(data.level / 1000)}</h2>
-              <h2>{levelStart}/1000</h2>
+              <h2>Level {data.level}</h2>
+              <h2>{data.points}/1000</h2>
             </div>
             <div id="profile-level-bar">
-              <progress id="progress-bar" value={levelStart} max={1000} />
+              <progress id="progress-bar" value={data.points} max={1000} />
             </div>
           </div>
           <div id="profile-tabs">

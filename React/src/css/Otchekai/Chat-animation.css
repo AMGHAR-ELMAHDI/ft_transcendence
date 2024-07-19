@@ -39,7 +39,7 @@
   animation: paddles 5s ease-out infinite 1.2s;
 }
 
-.ball {
+.Chat-ball {
   position: absolute;
   top: 10%;
   left: 1%;

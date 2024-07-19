@@ -107,7 +107,7 @@ function DisplayNotif({
                   id: pending[index].id,
                 };
                 socketGame.current?.send(JSON.stringify(inviteMessage));
-                // toast.remove(String(num));
+                toast.dismiss(String(num));
               }}
             >
               Accept
@@ -120,7 +120,7 @@ function DisplayNotif({
                   id: pending[index].id,
                 };
                 socketGame.current?.send(JSON.stringify(inviteMessage));
-                // toast.remove(String(num));
+                toast.dismiss(String(num));
               }}
             >
               Decline
@@ -144,11 +144,10 @@ function DisplayNotif({
                 toast.success(
                   "You Accepted" +
                     accepted[index].sender_username +
-                    "'s invite",
-                  { duration: 1000000000000 }
+                    "'s invite"
                 );
                 localStorage.setItem("invite_id", String(accepted[index].id));
-                toast.remove(String(num));
+                toast.dismiss(String(num));
                 navigate("/invite-only");
               }}
             >
@@ -157,7 +156,7 @@ function DisplayNotif({
             <button
               className="notifButton"
               onClick={() => {
-                // toast.dismiss(String(num));
+                toast.dismiss(String(num));
               }}
             >
               Decline
@@ -179,8 +178,7 @@ function DisplayNotif({
               className="notifButton"
               onClick={() => {
                 toast.success(
-                  sent[index].sender_username + "Accepted Your invite",
-                  { duration: 1000000000000 }
+                  sent[index].sender_username + "Accepted Your invite"
                 );
                 localStorage.setItem("invite_id", String(sent[index].id));
 
@@ -193,7 +191,7 @@ function DisplayNotif({
             <button
               className="notifButton"
               onClick={() => {
-                // toast.dismiss(String(num));
+                toast.dismiss(String(num));
               }}
             >
               Decline

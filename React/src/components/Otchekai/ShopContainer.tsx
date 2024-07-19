@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
+import toast from "react-hot-toast";
 
 interface CardProps {
   name: string;
@@ -34,10 +35,14 @@ function ShopContainer() {
 
 export default ShopContainer;
 
-function FilterItems(ownedItems: any[], name: string) {
-  const Filter = Array(ownedItems).find((obj: any) => obj.name === name);
-  if (Filter) return true;
-  else return false;
+function FilterItems(ownedItems: any, name: string) {
+  if (!Array.isArray(ownedItems)) {
+    console.error("ownedItems is not an array:", ownedItems);
+    return false;
+  }
+
+  const Filter = ownedItems.find((obj) => obj.name === name);
+  return !!Filter;
 }
 
 function GetPaddle() {
@@ -164,27 +169,29 @@ function Card({ name, price, image, id }: CardProps) {
   const owned = useRecoilValue(OwnedItems);
   const url = useRecoilValue(Url);
 
-  // const item = document.querySelector("Item-img-animation");
   const handleBuy = async () => {
     try {
       await axios.post(url + "shop/", obj);
       setPurchased(true);
+      toast.success("You Successfully Purchased the Item!");
     } catch (error) {
+      toast.error("You Can't buy the Item");
       console.log(error);
     }
   };
 
   useEffect(() => {
-    if (FilterItems(owned, name)) setPurchased(true);
+    if (Array.isArray(owned) && FilterItems(owned, name)) {
+      setPurchased(true);
+    }
   }, [owned, name]);
 
-    if(price == 0)
-        return
+  if (price == 0) return;
   return (
     <div className="Card-container">
       <div onClick={() => handleBuy()} className="Item-img">
         <div className="Item-img-animation">
-          <p>BUY IT!</p>
+          <p>{purchased ? "Owned" : "BUY IT!"}</p>
         </div>
         <img src={image} alt="item" />
         <div className="Item-img-animation2"></div>

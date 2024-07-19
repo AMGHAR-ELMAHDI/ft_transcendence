@@ -45,7 +45,7 @@ class Item(models.Model):
     name = models.CharField(max_length=32)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     path = models.CharField(max_length=256)
-    color = models.CharField(max_length=6, default='327fa8')
+    color = models.CharField(max_length=7, default='#327fa8')
 
 class Player(AbstractBaseUser):
     
@@ -310,4 +310,3 @@ class TnRooms(models.Model):
 
     def __str__(self):
         return self.name
-    

@@ -1,3 +1,0 @@
-inform the user that he's gonna start a game soon
-tostify for the achievement
-error lose win in front, just check winner name in backend and send it using self.send directly

@@ -1,10 +1,8 @@
 import { useRecoilValue } from "recoil";
 import { useEffect, useMemo, useRef, useState } from "react";
-import FriendId from "../../../Atoms/FriendId";
 import api from "../../../api";
 import SelectedFriend from "../../../Atoms/SelectedFriend";
 import Sender from "./Sender";
-import Friendschat from "../../../Atoms/Chatfriends";
 import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
 import Url from "../../../Atoms/Url";
 import "../../../css/Otchekai/Chat-animation.css";
@@ -25,9 +23,13 @@ interface Props {
   friends: Friend[];
 }
 
-function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe,friends }: Props) {
-  // const UsersData: Friend[] = useRecoilValue(Friendschat);
-
+function ChatTyping({
+  socket,
+  setSocket,
+  Blockedusers,
+  BlockedMe,
+  friends,
+}: Props) {
   const [allMessages, setAllMessages] = useState<any[]>([]);
   const Selectedfriend = useRecoilValue(SelectedFriend);
   const Friend: any = friends.find((f) => f.id === Selectedfriend);
@@ -180,7 +182,7 @@ function ChatTyping({ socket, setSocket, Blockedusers, BlockedMe,friends }: Prop
       <div className="animation-container">
         <div className="Parent-animation">
           <div className="left_wall"></div>
-          <div className="ball"></div>
+          <div className="Chat-ball"></div>
           <div className="right_wall"></div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import *
-from .login_views import SignInAPIView, SignUpAPIView, TwoFactorSetupView, TwoFactorVerifyView
-from .views_shop import AchievementViewSet, ItemViewSet
-
+from .v_login_viewset import SignInAPIView, SignUpAPIView, TwoFactorSetupView, TwoFactorVerifyView
+from .v_shop_viewset import AchievementViewSet, ItemViewSet
+from .v_player_viewset import PlayerViewSet
 
 router = DefaultRouter()
 router.register('player', PlayerViewSet, basename = 'player')
@@ -18,13 +18,12 @@ urlpatterns = [
 	path('player/<str:username>/achievements/', PlayerViewSet.as_view({'get': 'achievements'})),
 	path('player/<str:username>/items/', PlayerViewSet.as_view({'get': 'items'})),
 	
-	path('user/<int:invites_id>/', getID),
+	path('user/<int:invites_id>/', getGameInvites, name='game-invites'),
 
 	path('shop/',ShopView.as_view(), name='user-shop'),
 	path('reqs/',FriendshipAPIView.as_view(), name='user-friends'),
 	path('game-invites/',InvitesAPIView.as_view(), name='game-invites'),
 
-	path('password/reset/confirm/<str:uid>/<str:token>', ResetPasswordAPIView.as_view()),
 
 	path('sign-in/', SignInAPIView.as_view(), name='sign_in'),
     path('sign-up/', SignUpAPIView.as_view(), name='sign_up'),

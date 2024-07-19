@@ -8,6 +8,15 @@ import json
 import jwt
 from userman.models import FriendshipRequest, Player, Friendship
 
+
+@database_sync_to_async
+def is_invite_exists(from_user, to_user):
+        test1 =  FriendshipRequest.objects.filter(from_user=from_user, to_user=to_user, status="P")
+        test2 =  FriendshipRequest.objects.filter(from_user=to_user, to_user=from_user, status="P")
+        if test1.exists() or test2.exists():    
+            return True
+        return False
+
 @database_sync_to_async
 def get_user_by_id(user_id):
     return get_object_or_404(get_user_model(), pk=user_id)
@@ -79,17 +88,22 @@ class FriendshipRequestConsumer(AsyncWebsocketConsumer):
         if friend == self.user:
             await self.send(text_data=json.dumps({'error': 'You cannot send an invitation to yourself'}))
             return
+        test = await is_invite_exists(self.user, friend)
+        if test:
+            print("[exists ++++++++++++++]")
+            return
+        else:
+            print("[exists -------------------")
+            new_friendship_request = FriendshipRequest(from_user=self.user, to_user=friend)
+            await sync_to_async(new_friendship_request.save)()
 
-        new_friendship_request = FriendshipRequest(from_user=self.user, to_user=friend)
-        await sync_to_async(new_friendship_request.save)()
-
-        await self.channel_layer.group_send(
-            "friendship",
-            {
-                'type': 'friend_request_update',
-                'message': 'new_friend_request'
-            }
-        )
+            await self.channel_layer.group_send(
+                "friendship",
+                {
+                    'type': 'friend_request_update',
+                    'message': 'new_friend_request'
+                }
+            )
 
     async def acceptReq(self, data):
         friend_id = data.get('friend')
