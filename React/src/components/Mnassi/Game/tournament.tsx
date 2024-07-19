@@ -6,6 +6,7 @@ import _OnlineGame from "./multiplayer";
 import "./tournament.css";
 import "./interface.css";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 function _tournament() {
   return (
     <>
@@ -70,6 +71,7 @@ function tournament({ NetType }: OnlineGame) {
     const final_1 = document.querySelector(".final_1");
     const final_2 = document.querySelector(".final_2");
 
+
     if (NetType === "") return;
     const JsonData = localStorage.getItem("dataTn");
     const data = JSON.parse(JsonData!);
@@ -119,6 +121,7 @@ function tournament({ NetType }: OnlineGame) {
   const [Player1, setName] = useState<string>("p1");
   const [Player2, setName1] = useState<string>("p2");
   const [final, SetFinal2] = useState<boolean>(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     let index = 0;
@@ -230,8 +233,10 @@ function tournament({ NetType }: OnlineGame) {
         if (name === final_1?.textContent || name === final_2?.textContent)
           setTimeout(() => SetFinal2(true), 3000);
       }
-      if (data?.type == 'error')
-        toast.success('game will start soon')
+      if (data?.type == 'error') {
+        toast.error('you can only join one tournament')
+        navigate(`/game/gameplay?room_name=${data?.room_name}`)
+      }
       if (NetType === "endT") {
         const parent = document!.querySelector(".tournCont");
         if (name === winner?.textContent) parent!.classList.add("win_");

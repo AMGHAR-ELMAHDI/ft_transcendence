@@ -302,6 +302,7 @@ class TnRooms(models.Model):
     STATUS_TOURNAMENT = [
         ('Q', 'QUEUE'),
         ('S', 'STARTED'),
+        ('E', 'ENDED'),
     ]
     name = models.CharField(max_length=255, default='', unique=True)
     status = models.CharField(max_length=255, choices=STATUS_TOURNAMENT, default='Q')

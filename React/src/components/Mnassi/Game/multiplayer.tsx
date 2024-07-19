@@ -4,6 +4,7 @@ import axios from "axios";
 import "./interface.css";
 import _Queue from "./inQueue";
 import _title from "./title";
+import toast from "react-hot-toast";
 
 interface LocalGameProps {
   Type: string;
@@ -296,7 +297,10 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
       if (data?.message?.type === "winner") {
         const firstwinner = document?.querySelector(".final_1");
         const secondwinner = document?.querySelector(".final_2");
-        if (Type === "Online") setExit(true);
+        if (Type === "Online") {
+          toast.success('game will start soon')
+          setExit(true);
+        }
         if (Type === "Online2") setExit2(true);
         if (data?.message?.index1 != index && data?.message?.index2 != index) {
           const parent = document!.querySelector(".tournCont");

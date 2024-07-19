@@ -169,25 +169,25 @@ class GameConsumer(AsyncWebsocketConsumer):
                     "posX": self.rooms[self.room_group_name]['paddle2'].posX,
                     "posY": self.rooms[self.room_group_name]['paddle2'].posY,
                 }
-            # await asyncio.sleep(0.002)
             await self.custom_Async(message, "paddleChan")
 
         if message_type == 'it_ends_now':
             roomName = infos['room']
             pos = roomName.find('_')
             roomId = roomName[pos + 1:len(roomName)]
+            TempOne = int(roomId)
 
-            if not (int(roomId) + 1) % 3:
-                TempOne = int(roomId)
+            if ((TempOne + 1) % 3 == 0 and self.rooms[f'bertouch_{TempOne - 1}']['winner'] != None) or ((TempOne + 2) % 3 == 0 and self.rooms[f'bertouch_{TempOne + 1}']['winner'] != None):
+                if (TempOne + 2) % 3 == 0:
+                    TempOne += 1
                 winner1 = self.rooms[f'bertouch_{TempOne - 1}']['winner']
                 winner2 = self.rooms[f'bertouch_{TempOne}']['winner']
-
-                # print('->>', TempOne - 1, ' ', winner1, ' -> ', self.rooms[f'bertouch_{TempOne - 1}']['players'], '\n->>', TempOne, ' ', winner2, ' -> ', self.rooms[f'bertouch_{TempOne}']['players'])
 
                 self.rooms[f'bertouch_{TempOne}']['rank'] = 'semi-final'
                 self.rooms[f'bertouch_{TempOne - 1}']['rank'] = 'semi-final'
 
                 if winner1 in self.rooms[f'bertouch_{TempOne - 1}']['players'] and winner2 in self.rooms[f'bertouch_{TempOne}']['players']:
+                    print('->dkhal', 'room 1: ', TempOne - 1, 'room 2: ', TempOne )
                     index_1 = self.rooms[f'bertouch_{TempOne - 1}']['players'][winner1]
                     index_2 = self.rooms[f'bertouch_{TempOne}']['players'][winner2]
 
@@ -198,15 +198,15 @@ class GameConsumer(AsyncWebsocketConsumer):
                         'index1': index_1,
                         'index2': index_2,
                     }
-
                     await self.sendMultipleRooms(message, 'winner', TempOne - 1)
                     await self.sendMultipleRooms(message, 'winner', TempOne)
+                # else:
+                #     print('error->>')
 
-            if not (int(roomId)) % 3:
-                TempOne = int(roomId)
+            if not TempOne % 3:
+                print('->>', TempOne)
                 winner = self.rooms[f'bertouch_{TempOne}']['winner']
 
-                # print('->>', TempOne, ' ', winner, ' -> ', self.rooms[f'bertouch_{TempOne}']['players'])
                 if winner in self.rooms[f'bertouch_{TempOne}']['players']:
                     index = self.rooms[f'bertouch_{TempOne}']['players'][winner]
 
@@ -258,6 +258,12 @@ class GameConsumer(AsyncWebsocketConsumer):
         message = event["message"]
         await self.send(
             text_data=json.dumps({"type": "finals", "message": message})
+        )
+
+    async def earnedAch(self, event):
+        message = event["message"]
+        await self.send(
+            text_data=json.dumps({"type": "earnedAch", "message": message})
         )
 
     async def paddleChan(self, event):
@@ -399,7 +405,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 game_duration_minutes=duration.total_seconds()
             )
 
-            winner.points += winner.level * 30
+            winner.points += winner.level * 300
             winner.coins += 30
 
             if winner.points >= winner.level * 1000:
@@ -415,7 +421,7 @@ class GameConsumer(AsyncWebsocketConsumer):
             pos = self.room_group_name.find('_')
             roomId = self.room_group_name[pos + 1:len(self.room_group_name)]
 
-            await self.CollectAchievement()
+            await self.CollectAchievement(game)
 
             if not int(roomId) % 3:
                 await self.createTnObject(int(roomId))
@@ -513,11 +519,12 @@ class TournamentM_(AsyncWebsocketConsumer):
             for skey, value in self.rooms.items():
                 for key in value['players']:
                     if key == self.username and (self.status == 'I' or self.rooms[skey]['winner'] == ''):
-                        if skey != self.room_name:
+                        if skey != self.room_name and self.rooms[skey]['winner'] == '':
                             print(skey, ' ', self.room_name)
                             await self.send(text_data=json.dumps({
                                 'type': 'error',
-                                'error': 'finish this tournament first'
+                                'error': 'finish this tournament first',
+                                'room_name': skey,
                             }))
                         UserExist = True
                         self.room_group_name = skey
@@ -554,7 +561,6 @@ class TournamentM_(AsyncWebsocketConsumer):
 
         ThisRoom = self.rooms[self.room_group_name]['players']
         Index = self.rooms[self.room_group_name]
-        print(f' -> {self.room_group_name}, {ThisRoom}')
 
         if self.username not in ThisRoom:
             Index['index'] += 1
@@ -563,6 +569,8 @@ class TournamentM_(AsyncWebsocketConsumer):
             if Index['index'] == 4:
                 TournamentM_.RoomNb += 1
             ThisRoom[self.username] = Index['index']
+
+        print(f' -> {self.room_group_name}, {ThisRoom}')
 
         await self.send(text_data=json.dumps({
             'type': 'identify',
@@ -605,6 +613,8 @@ class TournamentM_(AsyncWebsocketConsumer):
                 user = await sync_to_async(models.Player.objects.get)(username=key)
                 user.status = 'O'
                 await sync_to_async(user.save)(update_fields=['status'])
+            self.instance.status = 'E'
+            await sync_to_async(self.instance.save)(update_fields=['status'])
             self.rooms[self.room_group_name]['winner'] = data['winner']
             await self.stop_task()
 
