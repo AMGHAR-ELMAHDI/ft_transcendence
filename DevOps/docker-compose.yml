@@ -1,0 +1,185 @@
+version: "3"
+
+services:
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.0"
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - xpack.security.enabled=true
+      - ELASTIC_USERNAME=elastic
+    networks:
+      - devops
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  kibana:
+    image: "docker.elastic.co/kibana/kibana:7.17.0"
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
+      - "ELASTICSEARCH_USERNAME=elastic"
+      - "ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}"
+    depends_on:
+      - elasticsearch
+    networks:
+      - devops
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  javaApp:
+    image: "febbweiss/java-log-generator:latest"
+    container_name: javaApp
+    depends_on:
+      - elasticsearch
+      - kibana
+    networks:
+      - devops
+    env_file:
+      - .env
+    restart: on-failure
+
+  logstash:
+    image: "docker.elastic.co/logstash/logstash:7.17.0"
+    container_name: logstash
+    volumes:
+      - ./ELK/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./ELK/logstash.yaml:/usr/share/logstash/config/logstash.yml:ro
+    ports:
+      - 9600:9600
+      - 5400:5400
+    depends_on:
+      - kibana
+    env_file:
+      - .env
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    networks:
+      - devops
+    restart: on-failure
+
+  filebeat:
+    image: "docker.elastic.co/beats/filebeat:7.17.0"
+    container_name: filebeat
+    user: root
+    volumes:
+      - ./ELK/filebeat.docker.yaml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - kibana
+    env_file:
+      - .env
+    networks:
+      - devops
+    command: --strict.perms=false
+    restart: on-failure
+
+  #-----------------------------PROMETHEUS GRAFANA--------------------------------
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    env_file:
+      - .env
+    ports:
+      - 9100:9100
+    networks:
+      - devops
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    networks:
+      - devops
+    env_file:
+      - .env
+    volumes:
+      - prometheus-data:/prometheus
+      - ./Prometheus-Grafana/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./Prometheus-Grafana/rules.yml:/etc/alertmanager/rules.yml
+    depends_on:
+      - node-exporter
+      - alertmanager
+      - cadvisor
+    command:
+      - "--web.enable-lifecycle"
+      - --config.file=/etc/prometheus/prometheus.yml
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - 3000:3000
+    networks:
+      - devops
+    env_file:
+      - .env
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./Prometheus-Grafana/provisioning:/etc/grafana/provisioning/
+      - ./Prometheus-Grafana/grafana.ini:/etc/grafana/grafana.ini
+    environment:
+      - "GF_SECURITY_ADMIN_PASSWORD=$ADMIN_PASS"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    ports:
+      - 9093:9093
+    networks:
+      - devops
+    env_file:
+      - .env
+    volumes:
+      - alertmanager-data:/data
+      - ./Prometheus-Grafana/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    environment:
+      - ALERT_PASS=${ALERT_PASS}
+    command: --config.file=/etc/alertmanager/alertmanager.yml
+    restart: unless-stopped
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8081:8080
+    env_file:
+      - .env
+    networks:
+      - devops
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    privileged: true
+    restart: unless-stopped
+
+networks:
+  devops:
+    driver: bridge
+
+volumes:
+  data:
+  esdata:
+  prometheus-data: {}
+  alertmanager-data: {}
+  grafana-data: {}
