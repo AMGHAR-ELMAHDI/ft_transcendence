@@ -18,8 +18,6 @@ function GameInviteButton({ id }: Props) {
       `wss://localhost:2500/ws/single-game/${token}`
     );
     setSocket(gameSocket);
-    console.log(socket);
-
     gameSocket.onopen = function () {
       const inviteMessage = {
         action: "invite",

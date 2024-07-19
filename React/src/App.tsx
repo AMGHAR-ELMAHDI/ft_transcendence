@@ -24,8 +24,8 @@ import "./Imports";
 import GameLayout from "./components/Cheesy/GameLayout";
 import _tournament from "./components/Mnassi/Game/tournament";
 import Game from "./components/Mnassi/Game/Game";
-import './components/Mnassi/Game/responsive.css'
-// import PopUp from "./components/Mnassi/Game/popUp";
+import "./components/Mnassi/Game/responsive.css";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -68,5 +68,5 @@ function App() {
     </>
   );
 }
-// MKSzak1337++
+
 export default App;

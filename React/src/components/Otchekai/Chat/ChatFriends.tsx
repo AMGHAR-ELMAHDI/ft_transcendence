@@ -1,10 +1,3 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { useEffect, useState } from "react";
-import FriendId from "../../../Atoms/FriendId";
-import SelectedFriend from "../../../Atoms/SelectedFriend";
-import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
-import Url from "../../../Atoms/Url";
-import api from "../../../api";
 import ChatFriendComponent from "./ChatFriendComponent";
 
 export interface Friend {
@@ -35,43 +28,6 @@ function ChatFriends({
   setRerender,
   friends,
 }: Props) {
-  // const [friends, setFriends] = useState<Friend[]>([]);
-
-  // const getFriends = async () => {
-  //   try {
-  //     const response = await api.get("player/friends/");
-
-  //     setFriends(response.data.friends);
-  //     console.log(response.data.friends);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   getFriends();
-  //   const socket = new WebSocket(`wss://localhost:2500/ws/status/${token}/${1}`);
-
-  //   socket.onopen = () => {
-  //     console.log("[online status socket ] conected successfully !!!");
-  //   };
-
-  //   socket.onmessage = (event) => {
-  //     getFriends();
-  //   };
-
-  //   socket.onclose = () => {};
-
-  //   socket.onerror = (error) => {
-  //     console.error("WebSocket error:", error);
-  //   };
-
-  //   return () => {
-  //     socket.close();
-  //   };
-  // }, []);
-
   return (
     <>
       <h1 id="Chatlogo">Friends</h1>

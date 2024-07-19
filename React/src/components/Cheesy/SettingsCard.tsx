@@ -34,7 +34,6 @@ function SettingsCard({
       paddle: change == "P" ? id : Number(paddle),
     };
 
-    console.log("email: " + JSON.stringify(obj));
     try {
       await api.put("player/set/", obj);
       toast.success("Item equipped", { id: String(id) });
@@ -43,8 +42,6 @@ function SettingsCard({
       toast.error("Failed to equip item");
     }
   };
-
-  // if (price == 0) return;
 
   return (
     <div className="SettingCardContainer" onClick={equipItem}>

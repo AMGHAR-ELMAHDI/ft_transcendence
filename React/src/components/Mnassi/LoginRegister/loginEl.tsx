@@ -17,6 +17,7 @@ function loginEl() {
     username: username,
     password: password,
   };
+  console.log(import.meta.env.VITE_API_URL);
 
   const navigate = useNavigate();
   const handleSubmit = async (e: any) => {
@@ -32,7 +33,6 @@ function loginEl() {
           toast.success("Logged in successfully");
           localStorage.setItem("token", str.access);
           setAuthToken();
-          console.log(str.access);
           navigate("/");
         }
       })
@@ -62,7 +62,9 @@ function loginEl() {
           <span className="dot"></span>
         </div>
         <div className="member">
-          <p>don't have an account ? <Link to={"/register"}>register</Link></p>
+          <p>
+            don't have an account ? <Link to={"/register"}>register</Link>
+          </p>
         </div>
         <div className="email">
           <div className="custom-input">

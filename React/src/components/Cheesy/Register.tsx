@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaDiscord } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
 import Url from "../../Atoms/Url";
-import toast from "react-hot-toast";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -31,8 +30,6 @@ function Register() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(JSON.stringify(obj));
-
     axios
       .post(url + "sign-up/", obj)
       .then((response) => {

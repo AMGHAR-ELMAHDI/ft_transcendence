@@ -156,7 +156,6 @@ function InvitedUsers({ Name, Name2 }: LocalGameProps) {
         );
         context!.closePath();
         context!.fillStyle = data.paddle;
-        console.log(data.paddle)
         context?.fill();
         context!.strokeStyle = data.paddle;
         context?.stroke();

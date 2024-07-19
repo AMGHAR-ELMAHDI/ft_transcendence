@@ -1,8 +1,8 @@
 	INSERT INTO userman_item
 ("path", "type", "name", "price", "color") VALUES
 ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Blue-Table.png?raw=true', 'G', 'Blue-Table', '0', '#005379'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/blue-ball.png?raw=true', 'B', 'white-ball', '0', '#FFFFFF'),
-('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/blue-paddle.png?raw=true', 'P', 'white-paddle', '0', '#FFFFFF'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Balls/white-ball.png?raw=true', 'B', 'white-ball', '0', '#FFFFFF'),
+('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Paddles/white-paddle.png?raw=true', 'P', 'white-paddle', '0', '#FFFFFF'),
 ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Green-Table.png?raw=true', 'G', 'Green-Table', '900', '#04DF1A'),
 ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Grey-Table.png?raw=true', 'G', 'Grey-Table', '600', '#636363'),
 ('https://github.com/AMGHAR-ELMAHDI/Transcendance-Images/blob/master/Items/Backgrounds/Orange-Table.png?raw=true', 'G', 'Orange-Table', '700', '#FC7900'),

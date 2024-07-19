@@ -231,6 +231,9 @@ F_URI = os.getenv('F_URI')
 
 # Error pages
 
-HTTP_400_BAD_REQUEST = 'http://localhost:5173/400'
-HTTP_401_UNAUTHORIZED = 'http://localhost:5173/401'
-HTTP_403_FORBIDDEN = 'http://localhost:5173/403'
+HTTP_400_BAD_REQUEST = 'http://0.0.0.0:5173/400'
+HTTP_401_UNAUTHORIZED = 'http://0.0.0.0:5173/401'
+HTTP_403_FORBIDDEN = 'http://0.0.0.0:5173/403'
+
+F_HOST = os.getenv('F_HOST')
+B_HOST = os.getenv('B_HOST')

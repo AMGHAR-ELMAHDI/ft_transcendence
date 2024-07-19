@@ -18,17 +18,14 @@ function getGameMode(mode: string) {
 function getScore(player_score: string, opponent_score: string) {
   return (
     <div className="Dashboard-History-Score">
-      <h3 id="History-opponent_score">{opponent_score }</h3>
+      <h3 id="History-opponent_score">{opponent_score}</h3>
       <h3>&nbsp; : &nbsp;</h3>
       <h3 id="History-player_score">{player_score}</h3>
     </div>
   );
 }
 
-function getHistoryTabs(id:string, winner:string) {
-  console.log("id: " + id);
-  console.log("winner: " + winner);
-  
+function getHistoryTabs(id: string, winner: string) {
   if (id === winner) return "history-tabs history-tab-won";
   else return "history-tabs history-tab-lost";
 }
@@ -84,8 +81,6 @@ function ProfileHistory() {
   // "game_mode": "O",
   // "game_duration": 10.11
 
-
-  
   if (!data?.length) {
     return (
       <div id="HistoryNogamesPlayed">
@@ -93,7 +88,7 @@ function ProfileHistory() {
       </div>
     );
   }
-  
+
   return (
     <>
       {isLoading ? (
@@ -105,10 +100,7 @@ function ProfileHistory() {
               return (
                 <div
                   key={game.id}
-                  className={getHistoryTabs(
-                    game?.player_id,
-                    game?.winner_id
-                  )}
+                  className={getHistoryTabs(game?.player_id, game?.winner_id)}
                 >
                   <div className="history-tabs-left-container">
                     <div id="dashboard-history-opponent">

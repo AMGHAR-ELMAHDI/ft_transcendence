@@ -1,13 +1,10 @@
-import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
-import Friendschat from "../../../Atoms/Chatfriends";
 import api from "../../../api";
 import ChatFriends from "./ChatFriends";
 import ChatTyping from "./ChatTyping";
 import Typed from "typed.js";
 
 function ChatSystem() {
-  // const [FriendsChat, SetFriendlist] = useRecoilState(Friendschat);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [BlockRerender, setRerender] = useState<boolean>(false);
   const [Blockedusers, setBlockedUsers] = useState<any[]>([]);
@@ -19,7 +16,6 @@ function ChatSystem() {
     try {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
-      console.log(response.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +27,6 @@ function ChatSystem() {
       setBlockedUsers(response.data.blocked_users);
       setBlockedMe(response.data.blocked_me);
       setmyId(response.data.id);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -49,9 +44,7 @@ function ChatSystem() {
       `wss://localhost:2500/ws/status/${token}/${1}`
     );
 
-    socket.onopen = () => {
-      console.log("[online status socket ] conected successfully !!!");
-    };
+    socket.onopen = () => {};
 
     socket.onmessage = (event) => {
       getData();

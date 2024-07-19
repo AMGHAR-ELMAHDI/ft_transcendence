@@ -1,8 +1,5 @@
-import axios from "axios";
-import { useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { setAuthToken } from "./setAuthToken";
-import { useRecoilState } from "recoil";
 
 const getCookie = (name: string) => {
   const cookies = document.cookie
@@ -16,21 +13,12 @@ const deleteCookie = (name: string) => {
 };
 
 function ProtectedRoutes() {
-  const getData = async () => {
-    try {
-      const response = await axios.get("player/me/");
-    } catch (error: any) {
-      console.log("Error message:", error.message);
-    }
-  };
   const access = getCookie("access");
   let Logged = localStorage.getItem("token") ? true : false;
-  if (Logged) getData();
   if (access) {
     Logged = true;
     localStorage.setItem("token", access);
     setAuthToken();
-    getData();
     deleteCookie("access");
   }
   return Logged ? <Outlet /> : <Navigate to="/login" />;

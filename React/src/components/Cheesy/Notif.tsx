@@ -75,8 +75,6 @@ function Notif() {
     );
 
     socketFriend.current.onmessage = (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      console.log(data);
       getData();
     };
 
@@ -100,7 +98,6 @@ function Notif() {
 
   const filteredItems = received.filter((user) => user?.status.includes("P"));
 
-  
   DisplayNotif({
     players,
     pending,

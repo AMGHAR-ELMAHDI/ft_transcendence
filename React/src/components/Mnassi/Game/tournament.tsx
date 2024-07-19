@@ -174,7 +174,6 @@ function tournament({ NetType }: OnlineGame) {
       const data = JSON.parse(e.data);
       const dataType = data.type;
 
-      console.log(data)
       if (dataType === "identify") {
         index = data.player;
         name = data.name;

@@ -62,9 +62,7 @@ function ChatTyping({
       `wss://localhost:2500/ws/chat/${Selectedfriend}/${token}`
     );
     setSocket(chatSocket);
-    chatSocket.onopen = function () {
-      console.log("WebSocket connection established (tcha9lib blawr).");
-    };
+    chatSocket.onopen = function () {};
 
     const fetchInitialMessages = async () => {
       try {
@@ -82,7 +80,6 @@ function ChatTyping({
 
     chatSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
-      console.log(e, "e");
       const msg = {
         content: data["message"],
         timestamp: new Date(),
@@ -90,30 +87,6 @@ function ChatTyping({
       };
       setAllMessages((prevMessages) => [...prevMessages, msg]);
     };
-    // --------------------------------------------------
-
-    //     getFriends();
-    //     const socket = new WebSocket(`wss://localhost:2500/ws/status/${token}/${1}`);
-
-    //     socket.onopen = () => {
-    //       console.log("[online status socket ] conected successfully !!!");
-    //     };
-
-    //     socket.onmessage = (event) => {
-    //       getFriends();
-    //     };
-
-    //     socket.onclose = () => {};
-
-    //     socket.onerror = (error) => {
-    //       console.error("WebSocket error:", error);
-    //     };
-
-    //     return () => {
-    //       socket.close();
-    //     };
-    // --------------------------------------------------
-
     return () => {
       chatSocket.close();
     };
@@ -162,7 +135,6 @@ function ChatTyping({
       `wss://localhost:2500/ws/single-game/${token}`
     );
     setGameSocket(gameSocket);
-    console.log(gameSocket);
 
     gameSocket.onopen = function () {
       const inviteMessage = {

@@ -58,13 +58,13 @@ class discord_redirect(APIView):
 				if user is not None:
 					if user_has_device(user):
 						request.session['pre_2fa_user_id'] = user.id
-						return redirect(f'http://localhost:5173/twoFa2?user_id={user.id}')
+						return redirect(f'http://{settings.F_HOST}:5173/twoFa2?user_id={user.id}')
 					else:
 						login(request, user)
 						refresh = RefreshToken.for_user(user)
 						request.session['access'] = str(refresh.access_token)
 						request.session['refresh'] = str(refresh)
-						return HttpResponseRedirect(redirect_to='https://localhost:2500/oauth2/set-cookie')
+						return HttpResponseRedirect(redirect_to='https://{settings.B_HOST}:2500/oauth2/set-cookie')
 				else:
 					return redirect (settings.HTTP_401_UNAUTHORIZED)
 			else:
@@ -118,7 +118,7 @@ def set_cookie(request):
 	refresh_token = request.session.get('refresh')
 
 	if access_token and refresh_token:
-		response = HttpResponseRedirect('http://localhost:5173/')
+		response = HttpResponseRedirect('http://{settings.F_HOST}:5173/')
 		response.set_cookie('access', access_token)
 		response.set_cookie('refresh', refresh_token)
 		return response

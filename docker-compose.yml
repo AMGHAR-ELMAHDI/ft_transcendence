@@ -49,6 +49,8 @@ services:
       - "5173:5173"
     depends_on:
       - back-end
+    env_file:
+      - ./React/.env
     networks:
       - ft_trans
     restart: unless-stopped
