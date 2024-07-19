@@ -1,26 +1,15 @@
 from rest_framework import serializers
-from .models import *
+from rest_framework.validators import UniqueValidator
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
-from rest_framework.validators import UniqueValidator
-from djoser.serializers import UserCreateSerializer
-from django.contrib.auth import get_user_model
-
-# User = get_user_model()
-
-from django.contrib.auth.hashers import make_password
-from rest_framework import serializers
-from .models import Player  # Import your Player model here
-
-from rest_framework import serializers
-from .models import Player  # Import your Player model here
+from .models import *
+from .models import Player
 
 class PlayerCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
-    # Override the create method to exclude id field
     def create(self, validated_data):
-        validated_data.pop('id', None)  # Exclude 'id' field if present
+        validated_data.pop('id', None)  
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)
         if password is not None:
@@ -33,13 +22,6 @@ class PlayerCreateSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'username', 'password']
         extra_kwargs = {'password': {'write_only': True}
                         }
-
-
-
-# class PlayerCreateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Player
-#         fields = ['email','username', 'password']
     
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -90,10 +72,6 @@ class SettingsSerializer (serializers.ModelSerializer):
         model = Player
         fields = ['email', 'username', 'first_name', 'last_name', 'image']
 
-        # extra_kwargs = {
-        #     'email' : {'read_only' : True},
-        #     'username' : {'read_only' : True},
-        # }
     def update(self, instance, validated_data):
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
@@ -116,7 +94,6 @@ class InvitesSerializer(serializers.ModelSerializer):
     def get_sender_username(self, obj):
         return obj.sender.username
     
-
 
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(

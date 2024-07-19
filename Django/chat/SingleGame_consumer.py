@@ -103,7 +103,7 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
         room_id = get_group_name(self, self.user.id, invite_to_player_id)
         test_create = await self.create_invite(self.user.id, invite_to_player_id, room_id)
         if test_create == None:
-            print('Player already invited !!!')
+            print('Please accept pending invites first !!!')
             return
 
 
@@ -131,7 +131,8 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
         sender = get_object_or_404(Player, pk=sender_id)
         receiver = get_object_or_404(Player, pk=receiver_id)
         test = Invites.objects.filter(sender=sender, receiver=receiver, room_id=room_id, status="P")
-        if test.exists():
+        test1 = Invites.objects.filter(sender=receiver, receiver=sender, room_id=room_id, status="P")
+        if test.exists() or test1.exists():
                 return None
         invite = Invites(sender=sender, receiver=receiver, room_id=room_id)
         invite.save()
