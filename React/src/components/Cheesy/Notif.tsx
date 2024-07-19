@@ -100,7 +100,6 @@ function Notif() {
 
   const filteredItems = received.filter((user) => user?.status.includes("P"));
 
-  
   DisplayNotif({
     players,
     pending,
@@ -122,8 +121,6 @@ function Notif() {
       <IoNotificationsOutline id="notif" />
       {filteredItems.length > 0 && <div id="notifRedDot"></div>}
       {pending.length > 0 && <div id="notifRedDot"></div>}
-      {accepted.length > 0 && <div id="notifRedDot"></div>}
-      {sent.length > 0 && <div id="notifRedDot"></div>}
     </div>
   );
 }

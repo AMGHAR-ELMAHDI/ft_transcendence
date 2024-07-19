@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import PlayersReady from "./Game";
 import _tournament from "./tournament";
 import axios from "axios";
 import "./interface.css";
 import _Queue from "./inQueue";
 import _title from "./title";
-import { RecoilRoot } from "recoil";
-import { PiCoinsBold } from "react-icons/pi";
-import Pingpong from "./ping";
+import toast from "react-hot-toast";
 
 interface LocalGameProps {
   Type: string;
@@ -16,7 +13,7 @@ interface LocalGameProps {
 }
 
 
-function GameInterface({ Type, Name, Name2 }: LocalGameProps) {
+function GameInterface({ Name, Name2 }: LocalGameProps) {
   const [data, setData] = useState<any>([]);
 
   useEffect(()=> {
@@ -300,7 +297,10 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
       if (data?.message?.type === "winner") {
         const firstwinner = document?.querySelector(".final_1");
         const secondwinner = document?.querySelector(".final_2");
-        if (Type === "Online") setExit(true);
+        if (Type === "Online") {
+          toast.success('game will start soon')
+          setExit(true);
+        }
         if (Type === "Online2") setExit2(true);
         if (data?.message?.index1 != index && data?.message?.index2 != index) {
           const parent = document!.querySelector(".tournCont");

@@ -59,35 +59,6 @@ function DisplayNotif({
   socketGame,
 }: NotifProps) {
   const navigate = useNavigate();
-  if (filteredItems.length > 0) {
-    console.log("-----------------------PLAYERS------------------------");
-    console.log(filteredItems);
-    console.log(
-      "-----------------------END OF PLAYERS------------------------"
-    );
-  }
-
-  if (pending.length > 0) {
-    console.log("-----------------------PENDING------------------------");
-    console.log(pending);
-    console.log(
-      "-----------------------END OF PENDING------------------------"
-    );
-  }
-
-  if (accepted.length > 0) {
-    console.log("-----------------------ACCEPTED------------------------");
-    console.log(accepted);
-    console.log(
-      "-----------------------END OF ACCEPTED------------------------"
-    );
-  }
-
-  if (sent.length > 0) {
-    console.log("-----------------------SENT------------------------");
-    console.log(sent);
-    console.log("-----------------------END OF SENT------------------------");
-  }
 
   const render = () => {
     for (let index = 0; index < filteredItems.length; index++) {
@@ -136,7 +107,7 @@ function DisplayNotif({
                   id: pending[index].id,
                 };
                 socketGame.current?.send(JSON.stringify(inviteMessage));
-                toast.dismiss(String(num));
+                // toast.remove(String(num));
               }}
             >
               Accept
@@ -149,7 +120,7 @@ function DisplayNotif({
                   id: pending[index].id,
                 };
                 socketGame.current?.send(JSON.stringify(inviteMessage));
-                toast.dismiss(String(num));
+                // toast.remove(String(num));
               }}
             >
               Decline
@@ -171,10 +142,13 @@ function DisplayNotif({
               className="notifButton"
               onClick={() => {
                 toast.success(
-                  "You Accepted" + accepted[index].sender_username + "'s invite"
+                  "You Accepted" +
+                    accepted[index].sender_username +
+                    "'s invite",
+                  { duration: 1000000000000 }
                 );
                 localStorage.setItem("invite_id", String(accepted[index].id));
-                toast.dismiss(String(num));
+                toast.remove(String(num));
                 navigate("/invite-only");
               }}
             >
@@ -183,7 +157,7 @@ function DisplayNotif({
             <button
               className="notifButton"
               onClick={() => {
-                toast.dismiss(String(num));
+                // toast.dismiss(String(num));
               }}
             >
               Decline
@@ -205,10 +179,12 @@ function DisplayNotif({
               className="notifButton"
               onClick={() => {
                 toast.success(
-                  sent[index].sender_username + "Accepted Your invite"
+                  sent[index].sender_username + "Accepted Your invite",
+                  { duration: 1000000000000 }
                 );
                 localStorage.setItem("invite_id", String(sent[index].id));
-                toast.dismiss(String(num));
+
+                toast.remove(String(num));
                 navigate("/invite-only");
               }}
             >
@@ -217,7 +193,7 @@ function DisplayNotif({
             <button
               className="notifButton"
               onClick={() => {
-                toast.dismiss(String(num));
+                // toast.dismiss(String(num));
               }}
             >
               Decline

@@ -25,7 +25,7 @@ export default function GameContainer() {
         <SideBar />
         <div className="main">
           <TopBar />
-          <InvitedUsers Type="" Name={Name} Name2={Name2}/>
+          <InvitedUsers Name={Name} Name2={Name2}/>
         </div>
       </div>
     </>

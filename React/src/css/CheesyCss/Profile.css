@@ -360,7 +360,7 @@ progress[value]::-webkit-progress-value {
   #Profile {
     margin: 0;
     padding: 0;
-    width: 90vw;
+    width: 100vw;
   }
   .profile-left {
     min-width: 300px;

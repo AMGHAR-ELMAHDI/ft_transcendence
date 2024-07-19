@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { setAuthToken } from "../Utils/setAuthToken";
 import api from "../../api";
 import Typed from "typed.js";
@@ -9,7 +9,7 @@ export interface Items {
   id: number;
   type: string;
   name: string;
-  price: number;
+  price: string;
   path: string;
 }
 
@@ -64,6 +64,7 @@ function ChangeItems() {
     }
   }, []);
 
+
   if (!items.length)
     return (
       <div className="textContainer">
@@ -72,9 +73,12 @@ function ChangeItems() {
     );
 
   const paddles = items?.filter((item: Items) => item?.type === "P");
-  const backgrounds = items?.filter((item: Items) => item?.type === "G");
-  const balls: Items[] = items?.filter((item: Items) => item?.type === "B");
-
+  const backgrounds = items?.filter(
+    (item: Items) => item?.type === "G"
+  );
+  const balls:Items[] = items?.filter((item: Items) => item?.type === "B");
+  console.log(equiped);
+  
   return (
     <>
       {isLoading && <LoadingData />}

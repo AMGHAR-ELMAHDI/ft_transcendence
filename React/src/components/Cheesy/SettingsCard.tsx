@@ -32,8 +32,8 @@ function SettingsCard({
       ball: change == "B" ? id : Number(ball),
       table: change == "G" ? id : Number(table),
       paddle: change == "P" ? id : Number(paddle),
-    };
-
+    }
+    
     console.log("email: " + JSON.stringify(obj));
     try {
       await api.put("player/set/", obj);
@@ -44,7 +44,8 @@ function SettingsCard({
     }
   };
 
-  // if (price == 0) return;
+  if(price == 0)
+      return
 
   return (
     <div className="SettingCardContainer" onClick={equipItem}>
