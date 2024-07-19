@@ -16,7 +16,7 @@ services:
     env_file:
       - .env
     volumes:
-      - prometheus-data:/prometheus
+      # - prometheus-data:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./rules.yml:/etc/alertmanager/rules.yml
     command:
@@ -31,7 +31,7 @@ services:
     env_file:
       - .env
     volumes:
-      - grafana-data:/var/lib/grafana
+      # - grafana-data:/var/lib/grafana
       - ./provisioning:/etc/grafana/
       - ./grafana.ini:/etc/grafana/grafana.ini
     environment:
@@ -47,7 +47,7 @@ services:
       - .env
     volumes:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
-      - alertmanager-data:/data
+      # - alertmanager-data:/data
     command: --config.file=/etc/alertmanager/alertmanager.yml
     restart: unless-stopped
 
@@ -70,21 +70,8 @@ services:
     restart: unless-stopped
 
 volumes:
-  prometheus-data:
-    driver_opts:
-      o: bind
-      type: none
-      device: /$PWD/prometheus
-  alertmanager-data:
-    driver_opts:
-      o: bind
-      type: none
-      device: /$PWD/alertmanager
-  grafana-data:
-    driver_opts:
-      o: bind
-      type: none
-      device: /$PWD/grafana
-
+  prometheus-data: {}
+  alertmanager-data: {}
+  grafana-data: {}
 # 14282 cad
 # 1860 node

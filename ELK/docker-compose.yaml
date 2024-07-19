@@ -8,8 +8,13 @@ services:
             - '9300:9300'
         environment:
             - discovery.type=single-node
+            - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+            - xpack.security.enabled=true
+            - ELASTIC_USERNAME=elastic
         networks:
             - elastic
+        env_file:
+            - .env
         restart: on-failure
         
     kibana:
@@ -19,10 +24,14 @@ services:
             - '5601:5601'
         environment:
             - 'ELASTICSEARCH_HOSTS=http://elasticsearch:9200'
+            - "ELASTICSEARCH_USERNAME=elastic"
+            - "ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}"
         depends_on:
             - elasticsearch
         networks:
             - elastic
+        env_file:
+            - .env
         restart: on-failure
          
     javaApp:
@@ -33,6 +42,8 @@ services:
             - kibana
         networks:
             - elastic
+        env_file:
+            - .env
         restart: on-failure
          
     logstash:
@@ -45,6 +56,10 @@ services:
             - '9600:9600'
         depends_on:   
             - kibana
+        env_file:
+            - .env
+        environment:
+            - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
         networks:
             - elastic
         restart: on-failure
@@ -57,8 +72,10 @@ services:
             - ./filebeat.docker.yaml:/usr/share/filebeat/filebeat.yml:ro
             - /var/lib/docker/containers:/var/lib/docker/containers:ro
             - /var/run/docker.sock:/var/run/docker.sock:ro
-        depends_on:   
+        depends_on:
             - kibana
+        env_file:
+            - .env
         networks:
             - elastic
         command: --strict.perms=false

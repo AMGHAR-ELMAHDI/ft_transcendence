@@ -33,17 +33,11 @@ filebeat.autodiscover:
 processors:
 # The following example enriches each event with the machine's local time zone
 # offset from UTC.
-#      
+
 - add_locale:
       format: abbreviation
-#
-# The following example enriches each event with host metadata.
-#      
+
 - add_host_metadata: ~    
 
-# setup.kibana:
-#   host: "kibana-01:5601"   
-# output.elasticsearch:
-#  hosts: '${ELASTICSEARCH_HOSTS:es-node-01:9200}'
 output.logstash:
    hosts: ["logstash:5400"]
