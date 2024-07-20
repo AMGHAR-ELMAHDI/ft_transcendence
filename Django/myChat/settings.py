@@ -229,11 +229,11 @@ F_SCOPE = os.getenv('F_SCOPE')
 F_URI = os.getenv('F_URI')
 
 
-# Error pages
-
-HTTP_400_BAD_REQUEST = 'http://0.0.0.0:5173/400'
-HTTP_401_UNAUTHORIZED = 'http://0.0.0.0:5173/401'
-HTTP_403_FORBIDDEN = 'http://0.0.0.0:5173/403'
-
 F_HOST = os.getenv('F_HOST')
 B_HOST = os.getenv('B_HOST')
+# Error pages
+
+HTTP_400_BAD_REQUEST = f'http://{F_HOST}:5173/400'
+HTTP_401_UNAUTHORIZED = f'http://{F_HOST}:5173/401'
+HTTP_403_FORBIDDEN = f'http://{F_HOST}:5173/403'
+

@@ -102,10 +102,10 @@
 	color: var(--NeonEffect);
 }
 .cup {
-	position: absolute;
-	top: 350px;
-	transition: .2s;
-	cursor: pointer;
+    position: absolute;
+    top: 25%;
+    transition: .2s;
+    cursor: pointer;
 }
 .cup:hover {
 	filter: drop-shadow(0 0 5px yellow);
