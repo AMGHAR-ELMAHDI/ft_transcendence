@@ -141,11 +141,11 @@ function DisplayNotif({
             <button
               className="notifButton"
               onClick={() => {
-                toast.success(
-                  "You Accepted" +
-                    accepted[index].sender_username +
-                    "'s invite"
-                );
+                // toast.success(
+                //   "You Accepted" +
+                //     accepted[index].sender_username +
+                //     "'s invite"
+                // );
                 localStorage.setItem("invite_id", String(accepted[index].id));
                 toast.dismiss(String(num));
                 navigate("/invite-only");

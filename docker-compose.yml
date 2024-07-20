@@ -1,72 +1,71 @@
 version: "3"
 
-
 services:
-  back-end:
-    build: ./Django
-    ports:
-      - "2500:2500"
-    container_name: backEnd
-    volumes:
-      - ./Django:/code
-    depends_on:
-      - db
-      - redis  # Ensure backend depends on Redis
-    environment:
-      - REDIS_HOST=redis  # Set the Redis host for Django to connect to
-    networks:
-      - ft_trans
-    restart: unless-stopped
+  # back-end:
+  #   build: ./Django
+  #   ports:
+  #     - "2500:2500"
+  #   container_name: backEnd
+  #   volumes:
+  #     - ./Django:/code
+  #   depends_on:
+  #     - db
+  #     - redis # Ensure backend depends on Redis
+  #   environment:
+  #     - REDIS_HOST=redis # Set the Redis host for Django to connect to
+  #   networks:
+  #     - ft_trans
+  #   restart: unless-stopped
 
-  redis:
-    image: redis
-    container_name: redis
-    ports:
-      - "6379:6379"
-    networks:
-      - ft_trans
-    restart: unless-stopped
+  # redis:
+  #   image: redis
+  #   container_name: redis
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - ft_trans
+  #   restart: unless-stopped
 
-  db:
-    container_name: database
-    image: postgres
-    volumes:
-      - data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
-      interval: 1s
-      timeout: 5s
-      retries: 10
-    env_file:
-      - Django/.env
-    networks:
-      - ft_trans
-    restart: unless-stopped
+  # db:
+  #   container_name: database
+  #   image: postgres
+  #   volumes:
+  #     - data:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready"]
+  #     interval: 1s
+  #     timeout: 5s
+  #     retries: 10
+  #   env_file:
+  #     - Django/.env
+  #   networks:
+  #     - ft_trans
+  #   restart: unless-stopped
 
-  adminer:
-    container_name: adminer
-    image: adminer
-    ports:
-      - "8080:8080"
-    networks:
-      - ft_trans
-    restart: unless-stopped
+  # adminer:
+  #   container_name: adminer
+  #   image: adminer
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - ft_trans
+  #   restart: unless-stopped
 
-  frontend:
-    build:
-      context: ./React
-      dockerfile: Dockerfile
-    image: frontend
-    container_name: frontend
-    ports:
-      - "5173:5173"
-    depends_on:
-      - back-end
-    env_file:
-      - .env
-    networks:
-      - ft_trans
-    restart: unless-stopped
+  # frontend:
+  #   build:
+  #     context: ./React
+  #     dockerfile: Dockerfile
+  #   image: frontend
+  #   container_name: frontend
+  #   ports:
+  #     - "5173:5173"
+  #   depends_on:
+  #     - back-end
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - ft_trans
+  #   restart: unless-stopped
 
   # -----------------------------DEVOPS--------------------------------
   # elasticsearch:
@@ -152,100 +151,95 @@ services:
   #   command: --strict.perms=false
   #   restart: on-failure
 
-  # #-----------------------------PROMETHEUS GRAFANA--------------------------------
-  # node-exporter:
-  #   image: prom/node-exporter:latest
-  #   container_name: node-exporter
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - 9100:9100
-  #   networks:
-  #     - devops
-  #   restart: unless-stopped
+  #-----------------------------PROMETHEUS GRAFANA--------------------------------
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    env_file:
+      - .env
+    ports:
+      - 9100:9100
+    networks:
+      - devops
+    restart: unless-stopped
 
-  # prometheus:
-  #   image: prom/prometheus:latest
-  #   container_name: prometheus
-  #   ports:
-  #     - 9090:9090
-  #   networks:
-  #     - devops
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - prometheus-data:/prometheus
-  #     - ./DevOps/Prometheus-Grafana/prometheus.yml:/etc/prometheus/prometheus.yml
-  #     - ./DevOps/Prometheus-Grafana/rules.yml:/etc/alertmanager/rules.yml
-  #   depends_on:
-  #     - node-exporter
-  #     - alertmanager
-  #     - cadvisor
-  #   command:
-  #     - "--web.enable-lifecycle"
-  #     - --config.file=/etc/prometheus/prometheus.yml
-  #   restart: unless-stopped
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    networks:
+      - devops
+    env_file:
+      - .env
+    volumes:
+      - prometheus-data:/prometheus
+      - ./DevOps/Prometheus-Grafana/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./DevOps/Prometheus-Grafana/rules.yml:/etc/alertmanager/rules.yml
+    depends_on:
+      - node-exporter
+      - alertmanager
+      - cadvisor
+    command:
+      - "--web.enable-lifecycle"
+      - --config.file=/etc/prometheus/prometheus.yml
+    restart: unless-stopped
 
-  # grafana:
-  #   image: grafana/grafana:latest
-  #   container_name: grafana
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - devops
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - grafana-data:/var/lib/grafana
-  #     - ./DevOps/Prometheus-Grafana/provisioning:/etc/grafana/provisioning/
-  #     - ./DevOps/Prometheus-Grafana/grafana.ini:/etc/grafana/grafana.ini
-  #   environment:
-  #     - "GF_SECURITY_ADMIN_PASSWORD=$ADMIN_PASS"
-  #   depends_on:
-  #     - prometheus
-  #   restart: unless-stopped
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - 3000:3000
+    networks:
+      - devops
+    env_file:
+      - .env
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./DevOps/Prometheus-Grafana/provisioning:/etc/grafana/provisioning/
+      - ./DevOps/Prometheus-Grafana/grafana.ini:/etc/grafana/grafana.ini
+    environment:
+      - "GF_SECURITY_ADMIN_PASSWORD=$ADMIN_PASS"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
 
-  # alertmanager:
-  #   image: prom/alertmanager:latest
-  #   container_name: alertmanager
-  #   # build: 
-  #   #   context: ./DevOps/Prometheus-Grafana
-  #   #   dockerfile: Dockerfile
-  #   #   args:
-  #   #     - ALERT_PASS=${ALERT_PASS}
-  #   ports:
-  #     - 9093:9093
-  #   networks:
-  #     - devops
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - alertmanager-data:/data
-  #     - ./DevOps/Prometheus-Grafana/alertmanager.yml:/etc/alertmanager/alertmanager.yml
-  #   environment:
-  #     - ALERT_PASS=${ALERT_PASS}
-  #   command: --config.file=/etc/alertmanager/alertmanager.yml
-  #   restart: unless-stopped
+  alertmanager:
+    build:
+      context: ./DevOps/Prometheus-Grafana
+      args:
+        - ALERT_PASS=${ALERT_PASS}
+    image: alertmanager
+    container_name: alertmanager
+    ports:
+      - 9093:9093
+    networks:
+      - devops
+    env_file:
+      - .env
+    volumes:
+      - alertmanager-data:/data
+    restart: unless-stopped
 
-  # cadvisor:
-  #   image: gcr.io/cadvisor/cadvisor:latest
-  #   container_name: cadvisor
-  #   ports:
-  #     - 8081:8080
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - devops
-  #   volumes:
-  #     - /:/rootfs:ro
-  #     - /var/run:/var/run:ro
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
-  #     - /dev/disk/:/dev/disk:ro
-  #   devices:
-  #     - /dev/kmsg
-  #   privileged: true
-  #   restart: unless-stopped
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8081:8080
+    env_file:
+      - .env
+    networks:
+      - devops
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    privileged: true
+    restart: unless-stopped
 
 networks:
   ft_trans:

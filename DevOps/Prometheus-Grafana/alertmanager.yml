@@ -10,6 +10,4 @@ receivers:
         smarthost: smtp.gmail.com:587
         auth_username: "ocsthebest@gmail.com"
         auth_identity: "ocsthebest@gmail.com"
-        auth_password: "rphx gnta usvw dpjk"
-
-
+        auth_password: "${ALERT_PASS}"
