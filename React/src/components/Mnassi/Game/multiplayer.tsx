@@ -349,6 +349,13 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
           })
         );
       }
+      if (isWebSocketConnected() && !KeyPressed[KEY_DOWN] && !KeyPressed[KEY_UP]) {
+        objSocket.send(
+          JSON.stringify({
+            type: "stopPaddle",
+            user: index.toString(),
+          }))
+      }
     };
 
     function GameDraw() {

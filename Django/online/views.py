@@ -72,6 +72,8 @@ class Paddle:
 		self.veloY = veloY
 		self.width = width
 		self.height = height
+		self.speed = False
+		self.index = 0
 		self.canvasw = 1359
 		self.canvash = 841
 		self.score = 0

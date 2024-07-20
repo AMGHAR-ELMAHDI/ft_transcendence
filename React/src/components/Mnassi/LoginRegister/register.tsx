@@ -7,6 +7,7 @@ import Url from "../../../Atoms/Url";
 import PasswordSvg from "./PasswordSvg";
 import EmailSvg from "./EmailSvg";
 import ProfileSvg from "./ProfileSvg";
+import toast from "react-hot-toast";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -36,10 +37,14 @@ function Register() {
     axios
       .post(url + "sign-up/", obj)
       .then((response) => {
-        if (response.status === 201) navigate("/login");
+        if (response.status === 201) {
+          navigate("/login");
+          toast.success("Account created successfully");
+        }
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Check your informations");
       });
   };
 

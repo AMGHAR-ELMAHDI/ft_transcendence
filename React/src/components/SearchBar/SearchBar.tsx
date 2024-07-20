@@ -38,6 +38,7 @@ function SearchBar() {
     <div id="search-bar">
       <div className="Search-input-container">
         <input
+          autoComplete="off"
           id="search"
           type="text"
           placeholder="Search"

@@ -409,7 +409,7 @@ class GameConsumer(AsyncWebsocketConsumer):
             if winner.points >= winner.level * 1000:
                 winner.coins += 10 * winner.level
                 winner.level += 1
-                winner.points -= 1000
+                winner.points = winner.points % 1000
                 await sync_to_async(winner.save)(update_fields=['level'])
             await sync_to_async(winner.save)(update_fields=['points'])
             await sync_to_async(winner.save)(update_fields=['coins'])

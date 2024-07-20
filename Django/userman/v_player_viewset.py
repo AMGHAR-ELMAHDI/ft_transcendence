@@ -9,6 +9,8 @@ from django.db.models import Q
 from django.db.models import F
 from .serializers import *
 from .models import *
+import math
+
 
 class PlayerViewSet(viewsets.ModelViewSet):
 	queryset = Player.objects.all()
@@ -79,8 +81,8 @@ class PlayerViewSet(viewsets.ModelViewSet):
 				'first_name': serializer.data['first_name'],
 				'last_name': serializer.data['last_name'],
 				'coins' : player.coins,
-				'level': player.level,
-				'points': player.points,
+				'level': math.floor(player.level / 1000),
+				'points': player.points % 1000,
 				'win_rate': round(win_rate, 2),
 				'achievements_rate': round(achievements_rate, 2),
 				'blocked_users' : blocked_list,

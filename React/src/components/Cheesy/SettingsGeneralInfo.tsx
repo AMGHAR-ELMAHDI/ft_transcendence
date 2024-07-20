@@ -3,7 +3,6 @@ import api from "../../api";
 
 interface Props {
   image?: string;
-  
 }
 
 function SettingsGeneralInfo({ image }: Props) {
@@ -41,6 +40,7 @@ function SettingsGeneralInfo({ image }: Props) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="off"
           placeholder="Email"
         />
         <input
@@ -51,6 +51,7 @@ function SettingsGeneralInfo({ image }: Props) {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
+          autoComplete="off"
         />
         <input
           className="GeneralInfoInput"
@@ -60,6 +61,7 @@ function SettingsGeneralInfo({ image }: Props) {
           value={first_name}
           onChange={(e) => setFirst_name(e.target.value)}
           placeholder="First Name"
+          autoComplete="off"
         />
         <input
           className="GeneralInfoInput"
@@ -69,6 +71,7 @@ function SettingsGeneralInfo({ image }: Props) {
           value={last_name}
           onChange={(e) => setLast_name(e.target.value)}
           placeholder="last name"
+          autoComplete="off"
         />
 
         <div className="ButtonContainer">

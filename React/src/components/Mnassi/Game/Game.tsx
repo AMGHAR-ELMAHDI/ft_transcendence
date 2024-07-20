@@ -50,7 +50,7 @@ function Options() {
     </div>
   ) : type === "3" ? (
     <div>
-      <_title title="Local Tournament" />
+      {/* <_title title="Local Tournament" /> */}
       <_LocTn />
     </div>
   ) : (

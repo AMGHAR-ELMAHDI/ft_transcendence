@@ -102,6 +102,7 @@
 .topImgs {
   width: 9rem;
   height: 9rem;
+  object-fit: cover;
   border-radius: 50%;
   border-right: 5px dashed white;
   border-left: 5px dashed white;

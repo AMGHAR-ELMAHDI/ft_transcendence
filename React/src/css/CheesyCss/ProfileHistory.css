@@ -7,6 +7,7 @@
 
 .tableau {
   display: flex;
+  justify-content: flex-start;
   flex: 1;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -97,7 +98,7 @@
 
 .HistoryToolTipTable > th > h1 {
   color: hsl(232, 7%, 40%);
-  font-family: Futurass;
+  /* font-family: Futurass; */
   letter-spacing: 2px;
   font-size: 1.35rem;
 }
@@ -108,24 +109,24 @@ td > h1 {
 }
 
 .zekton > h1 {
-  font-family: Zekton;
+  /* font-family: Zekton; */
   font-size: 1.1rem;
 }
 
 #PlayerScoreProfile {
-  font-family: Zekton !important;
+  /* font-family: Zekton !important; */
   font-size: 1.1rem !important;
   color: #1f6561;
 }
 
 #PlayerScoreOpponent {
-  font-family: Zekton !important;
+  /* font-family: Zekton !important; */
   font-size: 1.1rem !important;
   color: #9f4146;
 }
 
 .Toruk > h1 {
-  font-family: Bank;
+  /* font-family: Bank; */
 }
 
 .UserScore {

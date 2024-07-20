@@ -86,8 +86,8 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 'players': {},
                 'index': 0,
                 'ball': views.Ball(67, 67, 7, 8, 8),
-                'paddle2': views.Paddle(0, 20, 1, 1, 20, 160),
-                'paddle1': views.Paddle(0, 50, 1, 1, 20, 160),
+                'paddle2': views.Paddle(0, 20, 1.5, 1.5, 20, 160),
+                'paddle1': views.Paddle(0, 50, 1.5, 1.5, 20, 160),
                 'winner': None,
                 'RunOnce': False,
                 'id': 0,
@@ -143,23 +143,19 @@ class GameConsumer_2(AsyncWebsocketConsumer):
 
         if message_type == "paddleUpdates":
             if infos["user"] == "1":
+                self.rooms[self.room_group_name]['paddle1'].speed = True
+                self.rooms[self.room_group_name]['paddle1'].index = infos["user"]
                 await self.rooms[self.room_group_name]['paddle1'].update(infos["key"])
-                message = {
-                    "type": "paddleChan",
-                    "index": infos["user"],
-                    "posX": self.rooms[self.room_group_name]['paddle1'].posX,
-                    "posY": self.rooms[self.room_group_name]['paddle1'].posY,
-                }
             if infos["user"] == "2":
+                self.rooms[self.room_group_name]['paddle2'].speed = True
+                self.rooms[self.room_group_name]['paddle2'].index = infos["user"]
                 await self.rooms[self.room_group_name]['paddle2'].update(infos["key"])
-                message = {
-                    "type": "paddleChan",
-                    "index": infos["user"],
-                    "posX": self.rooms[self.room_group_name]['paddle2'].posX,
-                    "posY": self.rooms[self.room_group_name]['paddle2'].posY,
-                }
-            # await asyncio.sleep(0.002)
-            await self.custom_Async(message, "paddleChan")
+
+        if message_type == 'stopPaddle':
+            if infos["user"] == "1":
+                self.rooms[self.room_group_name]['paddle1'].speed = False
+            if infos["user"] == "2":
+                self.rooms[self.room_group_name]['paddle2'].speed = False
 
         if message_type == 'it_ends_now':
             roomName = infos['room']
@@ -349,8 +345,9 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             winner.coins += 30
 
             if winner.points >= winner.level * 1000:
+                winner.coins += 10 * winner.level
                 winner.level += 1
-                winner.points -= 1000
+                winner.points = winner.points % 1000
                 await sync_to_async(winner.save)(update_fields=['level'])
             await sync_to_async(winner.save)(update_fields=['points'])
             await sync_to_async(winner.save)(update_fields=['coins'])
@@ -369,6 +366,23 @@ class GameConsumer_2(AsyncWebsocketConsumer):
         except Exception as e:
             print(f"Error in createGameObject: {e}")
 
+    async def paddleChanges_(self):
+        if self.rooms[self.room_group_name]['paddle1'].speed:
+            message = {
+                "type": "paddleChan",
+                "index": self.rooms[self.room_group_name]['paddle1'].index,
+                "posX": self.rooms[self.room_group_name]['paddle1'].posX,
+                "posY": self.rooms[self.room_group_name]['paddle1'].posY,
+            }
+        if self.rooms[self.room_group_name]['paddle1'].speed:
+            message = {
+                "type": "paddleChan",
+                "index": self.rooms[self.room_group_name]['paddle2'].index,
+                "posX": self.rooms[self.room_group_name]['paddle2'].posX,
+                "posY": self.rooms[self.room_group_name]['paddle2'].posY,
+            }
+        await self.custom_Async(message, "paddleChan")
+
     async def sendBallPos(self):
         await asyncio.sleep(3)
         self.date = timezone.now()
@@ -378,7 +392,6 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 "BallX": self.rooms[self.room_group_name]['ball'].BallX,
                 "BallY": self.rooms[self.room_group_name]['ball'].BallY,
             }
-            await self.custom_Async(message, "ballPos")
             await self.rooms[self.room_group_name]['ball'].update()
             await self.rooms[self.room_group_name]['ball'].Ballinter()
             res = await self.rooms[self.room_group_name]['ball'].BallScored(self.rooms[self.room_group_name]['paddle1'], self.rooms[self.room_group_name]['paddle2'])
@@ -393,8 +406,6 @@ class GameConsumer_2(AsyncWebsocketConsumer):
             await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle2'])
             await self.rooms[self.room_group_name]['ball'].update()
             await self.rooms[self.room_group_name]['ball'].Ballinter()
-            await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle1'])
-            await views.BallIntersection(self.rooms[self.room_group_name]['ball'], self.rooms[self.room_group_name]['paddle2'])
             if self.rooms[self.room_group_name]['paddle1'].score == 7:
                 self.rooms[self.room_group_name]['winner'] = self.rooms[self.room_group_name]['paddle1'].name
                 await self.createGameObject(self.rooms[self.room_group_name]['winner'])
@@ -403,7 +414,9 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 self.rooms[self.room_group_name]['winner'] = self.rooms[self.room_group_name]['paddle2'].name
                 await self.createGameObject(self.rooms[self.room_group_name]['winner'])
                 await self.stop_task()
-            await asyncio.sleep(1 / 65)
+            await self.custom_Async(message, "ballPos")
+            await self.paddleChanges_()
+            await asyncio.sleep(1 / 30)
 
     async def stop_task(self):
         if self.task and not self.task.done():
