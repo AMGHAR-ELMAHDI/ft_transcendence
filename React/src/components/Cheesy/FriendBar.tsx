@@ -32,10 +32,6 @@ function FriendBar() {
     }
   };
 
-  console.log(
-    "FriendBar socket url: " +
-      `wss://${import.meta.env.VITE_API_URL}ws/status/${token}/${1}`
-  );
 
   useEffect(() => {
     getData();

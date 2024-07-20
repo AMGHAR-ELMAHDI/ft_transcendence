@@ -19,7 +19,6 @@ function loginEl() {
     username: username,
     password: password,
   };
-  console.log(import.meta.env.VITE_API_URL);
 
   const navigate = useNavigate();
   const handleSubmit = async (e: any) => {

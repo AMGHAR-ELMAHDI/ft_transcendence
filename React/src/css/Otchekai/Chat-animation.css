@@ -77,12 +77,3 @@
     top: calc(70%);
   }
 }
-
-@media only screen and (max-width: 1440px) {
-  .Parent-animation {
-    position: relative;
-    height: 600px;
-    width: 1200px;
-    scale: 0.8;
-  }
-}

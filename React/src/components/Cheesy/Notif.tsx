@@ -85,7 +85,6 @@ function Notif() {
     );
 
     socketGame.current.onmessage = (event: MessageEvent) => {
-      console.log(event.data);
       getGameInvites();
     };
 

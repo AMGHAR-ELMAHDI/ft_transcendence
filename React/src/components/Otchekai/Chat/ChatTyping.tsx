@@ -7,6 +7,7 @@ import { GetCorrect } from "../../Cheesy/LeaderBoardGetTop3";
 import Url from "../../../Atoms/Url";
 import "../../../css/Otchekai/Chat-animation.css";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface Friend {
   id: number;
@@ -35,8 +36,15 @@ function ChatTyping({
   const Friend: any = friends.find((f) => f.id === Selectedfriend);
   const url = useRecoilValue(Url);
   const [gameSocket, setGameSocket] = useState<WebSocket | null>(null);
+  const navigate = useNavigate();
   const connType = 1;
   const chatBoxRef = useRef<HTMLDivElement>(null);
+
+  // const goToProfile = () => {
+  // console.log(Friend?.username);
+  // console.log(`/profile/${Friend?.username}`);
+
+  // };
 
   const scrollToBottom = () => {
     if (chatBoxRef.current) {
@@ -160,6 +168,7 @@ function ChatTyping({
       </div>
     );
   }
+
   return (
     <>
       <div className="negotiator">
@@ -170,7 +179,9 @@ function ChatTyping({
           alt="Friend avatar"
         />
         <div className="Friend-header-name">
-          <h1>{Friend?.username}</h1>
+          <h1 onClick={() => navigate(`/profile/${Friend?.username}`)}>
+            {Friend?.username}
+          </h1>
           <h2>{Friend?.status === "O" ? "online" : "offline"}</h2>
         </div>
       </div>

@@ -218,6 +218,7 @@
 }
 
 .Friend-header-name > h1 {
+  cursor: pointer;
   font-size: 1.5rem;
 }
 

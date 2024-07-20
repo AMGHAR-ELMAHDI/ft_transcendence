@@ -158,9 +158,9 @@ td > h1 {
     height: 1rem;
   }
 
-  .ScoreTd {
+  /* .ScoreTd {
     height: 6rem;
-  }
+  } */
   .zekton > h1 {
     font-size: 0.9rem;
   }
@@ -180,9 +180,6 @@ td > h1 {
 @media only screen and (max-width: 1440px) {
   .spacing {
     height: 0.8rem;
-  }
-  .ScoreTd {
-    height: 4rem;
   }
   .zekton > h1 {
     font-size: 0.7rem;

@@ -50,7 +50,6 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
     achievements: data.achievements,
   };
 
-    
   return (
     <>
       {isLoading && LoadingData()}
