@@ -8,6 +8,11 @@ services:
     container_name: backEnd
     volumes:
       - ./Django:/code
+    healthcheck:
+      test: ["CMD-SHELL", "curl -k https://localhost:2500/"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
     depends_on:
       - db
     networks:
@@ -48,7 +53,8 @@ services:
     ports:
       - "5173:5173"
     depends_on:
-      - back-end
+      back-end:
+        condition: service_healthy
     env_file:
       - .env
     networks:

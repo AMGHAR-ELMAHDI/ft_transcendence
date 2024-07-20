@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaDiscord } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
 import Url from "../../../Atoms/Url";
-import PasswordSvg from "./passwordSvg";
+import PasswordSvg from "./PasswordSvg";
 import EmailSvg from "./EmailSvg";
 import ProfileSvg from "./ProfileSvg";
 

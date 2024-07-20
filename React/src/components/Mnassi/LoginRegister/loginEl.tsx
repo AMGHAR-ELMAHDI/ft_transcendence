@@ -8,7 +8,7 @@ import { setAuthToken } from "../../Utils/setAuthToken";
 import toast from "react-hot-toast";
 import { FaDiscord } from "react-icons/fa";
 import EmailSvg from "./EmailSvg";
-import PasswordSvg from "./passwordSvg";
+import PasswordSvg from "./PasswordSvg";
 
 function loginEl() {
   const [username, setUsername] = useState("");
