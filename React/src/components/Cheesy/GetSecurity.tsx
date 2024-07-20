@@ -23,7 +23,6 @@ function GetSecurity() {
       toast.success("2FA has been enabled");
     } catch (error) {
       toast.error("2FA Code is incorrect");
-      console.log(error);
     }
   };
 
@@ -32,9 +31,7 @@ function GetSecurity() {
       const response = await api.get("setup-2fa/");
       setHas2FA(true);
       setData(response.data?.secret);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

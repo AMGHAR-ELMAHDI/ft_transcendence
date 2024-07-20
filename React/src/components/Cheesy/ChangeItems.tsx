@@ -33,7 +33,6 @@ function ChangeItems() {
         setItems(response.data.items);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setLoading(false);
       }
     };
@@ -43,7 +42,6 @@ function ChangeItems() {
         setEquiped(response.data);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setLoading(false);
       }
     };

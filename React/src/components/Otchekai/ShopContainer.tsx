@@ -10,6 +10,7 @@ import OwnedItems from "../../Atoms/OwnedItems";
 import api from "../../api";
 import Url from "../../Atoms/Url";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
   name: string;
@@ -162,6 +163,8 @@ function ShopDesign() {
 
 //TODO:Add UseState to rerender the Items when bought, ADD Shake effect(green and red color)
 function Card({ name, price, image, id }: CardProps) {
+  const navigate = useNavigate();
+
   const obj = {
     item_id: id,
   };
@@ -174,6 +177,7 @@ function Card({ name, price, image, id }: CardProps) {
       await axios.post(url + "shop/", obj);
       setPurchased(true);
       toast.success("You Successfully Purchased the Item!");
+      navigate("/settings");
     } catch (error) {
       toast.error("You Can't buy the Item");
       console.log(error);

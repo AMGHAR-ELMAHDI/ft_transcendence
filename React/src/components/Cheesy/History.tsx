@@ -63,7 +63,6 @@ function getHistoryTabs(id: string, winner: string) {
   else return "Lost";
 }
 
-
 function History({ UserData, UseUserData }: UserDataProps) {
   const [data, setData] = useState<any>([]);
   const [isLoading, setLoading] = useState(true);
@@ -78,7 +77,6 @@ function History({ UserData, UseUserData }: UserDataProps) {
       setData(response.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };

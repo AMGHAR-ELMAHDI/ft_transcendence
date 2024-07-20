@@ -40,18 +40,14 @@ function Notif() {
     try {
       const response = await api.get("player/");
       setPlayers(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const getData = async () => {
     try {
       const response = await api.get("reqs/");
       setReceived(response.data?.recieved);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const getGameInvites = async () => {
@@ -60,9 +56,7 @@ function Notif() {
       setPending(response.data?.pending);
       setAccepted(response.data?.accepted);
       setSent(response.data?.sent);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

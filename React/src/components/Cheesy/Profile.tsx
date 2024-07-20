@@ -31,7 +31,6 @@ function Profile({ profileList, show, setRender }: ProfileProps) {
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   };

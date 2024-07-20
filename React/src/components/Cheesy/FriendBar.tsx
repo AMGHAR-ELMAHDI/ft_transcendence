@@ -27,11 +27,9 @@ function FriendBar() {
       setData(response.data.friends);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
-
 
   useEffect(() => {
     getData();
