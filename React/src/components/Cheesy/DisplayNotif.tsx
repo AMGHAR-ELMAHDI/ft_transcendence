@@ -153,14 +153,6 @@ function DisplayNotif({
             >
               Join
             </button>
-            <button
-              className="notifButton"
-              onClick={() => {
-                toast.dismiss(String(num));
-              }}
-            >
-              Decline
-            </button>
           </div>
         </div>,
         { id: String(num) }
@@ -181,20 +173,11 @@ function DisplayNotif({
                   sent[index].sender_username + "Accepted Your invite"
                 );
                 localStorage.setItem("invite_id", String(sent[index].id));
-
                 toast.remove(String(num));
                 navigate("/invite-only");
               }}
             >
               Join
-            </button>
-            <button
-              className="notifButton"
-              onClick={() => {
-                toast.dismiss(String(num));
-              }}
-            >
-              Decline
             </button>
           </div>
         </div>,

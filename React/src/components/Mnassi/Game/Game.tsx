@@ -11,6 +11,7 @@ import _title from "./title";
 import _Queue from "./inQueue";
 import TestingTn from "./TournamentList";
 import { useEffect, useState } from "react";
+import { setAuthToken } from "../../Utils/setAuthToken";
 
 function Options() {
   const [type, setMod] = useState<string>("");
@@ -64,6 +65,7 @@ function Options() {
 }
 
 function Game() {
+  setAuthToken();
   return <Options />;
 }
 

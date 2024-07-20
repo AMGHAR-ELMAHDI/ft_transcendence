@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Pingpong from "./ping";
 import api from "../../../api";
+import { setAuthToken } from "../../Utils/setAuthToken";
 
 interface LocalGameProps {
   Name: string;
@@ -49,6 +50,7 @@ function GameInterface_({ Name, Name2 }: LocalGameProps) {
 }
 
 function InvitedUsers({ Name, Name2 }: LocalGameProps) {
+  setAuthToken();
   interface Vector {
     x: number;
     y: number;

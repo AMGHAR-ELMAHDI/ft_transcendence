@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../../api";
+import toast from "react-hot-toast";
 
 interface Props {
   image?: string;
@@ -25,14 +26,23 @@ function SettingsGeneralInfo({ image }: Props) {
 
     try {
       await api.put("player/setting/", obj);
+      toast.success("Settings updated successfully");
     } catch (error) {
       console.log(error);
+      toast.error("Bad input, change your input and try again");
     }
+  };
+
+  const handleReset = () => {
+    setEmail("");
+    setFirst_name("");
+    setLast_name("");
+    setUsername("");
   };
 
   return (
     <div className="GeneralInfoContainer">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onReset={handleReset}>
         <input
           className="GeneralInfoInput"
           name="email"
@@ -40,8 +50,11 @@ function SettingsGeneralInfo({ image }: Props) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          autoComplete="off"
           placeholder="Email"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
         />
         <input
           className="GeneralInfoInput"
@@ -52,6 +65,9 @@ function SettingsGeneralInfo({ image }: Props) {
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
           autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
         />
         <input
           className="GeneralInfoInput"
@@ -62,6 +78,9 @@ function SettingsGeneralInfo({ image }: Props) {
           onChange={(e) => setFirst_name(e.target.value)}
           placeholder="First Name"
           autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
         />
         <input
           className="GeneralInfoInput"
@@ -72,6 +91,9 @@ function SettingsGeneralInfo({ image }: Props) {
           onChange={(e) => setLast_name(e.target.value)}
           placeholder="last name"
           autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
         />
 
         <div className="ButtonContainer">

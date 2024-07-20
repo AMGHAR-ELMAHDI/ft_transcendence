@@ -13,6 +13,7 @@ import Notif from "../Cheesy/Notif";
 import { useRecoilState } from "recoil";
 import Username from "../../Atoms/Username";
 import { AxiosError } from "axios";
+import { setAuthToken } from "../Utils/setAuthToken";
 
 function TopBar() {
   const [data, setData] = React.useState<any>({});
@@ -23,6 +24,7 @@ function TopBar() {
   const navigate = useNavigate();
 
   const getData = async () => {
+    setAuthToken();
     try {
       const response = await api.get("player/me/");
       setData(response.data);
@@ -72,7 +74,8 @@ function TopBar() {
         <div className="NotifProfile">
           {<SearchBar />}
           <div className="NotifProfileContainer">
-            {(window.location.pathname != "/invite-only" &&  window.location.pathname != "/game") && <Notif />}
+            {window.location.pathname != "/invite-only" &&
+              window.location.pathname != "/game" && <Notif />}
             {window.location.pathname === "/shop" && (
               <div className="CoinsShop">{data?.coins}$</div>
             )}

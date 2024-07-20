@@ -2,14 +2,15 @@ import TopBar from "../../SearchBar/TopBar";
 import InvitedUsers from "./invitedUsers";
 import OnlineStatus from "../../zmakhkha/OnlineStatus";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import SideBar from "../../Cheesy/SideBar";
 import api from "../../../api";
+import { setAuthToken } from "../../Utils/setAuthToken";
 
 export default function GameContainer() {
   const [Name, setName] = useState("");
   const [Name2, setName2] = useState("");
   const token: any = localStorage.getItem("token");
+  setAuthToken();
 
   useEffect(() => {
     const inviteID = localStorage.getItem("invite_id");

@@ -7,6 +7,7 @@ import "./tournament.css";
 import "./interface.css";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { setAuthToken } from "../../Utils/setAuthToken";
 function _tournament() {
   return (
     <>
@@ -61,6 +62,7 @@ function tournament({ NetType }: OnlineGame) {
   const [player2, setNameP2] = useState<string>("...");
   const [FirstGame, RunFirstGame] = useState<boolean>(false);
   const [SecGame, RunSecGame] = useState<boolean>(false);
+  setAuthToken();
 
   useEffect(() => {
     const player_1 = document.querySelector(".LeftJoin .first");

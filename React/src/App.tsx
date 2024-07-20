@@ -25,7 +25,7 @@ import Game from "./components/Mnassi/Game/Game";
 import "./components/Mnassi/Game/responsive.css";
 import Login from "./components/Mnassi/LoginRegister/Login";
 import Register from "./components/Mnassi/LoginRegister/Register";
-
+import Verify2FA2 from "./components/Cheesy/Verify2FA2";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +33,7 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
       <Route path="twoFa" element={<Verify2FA />} />
+      <Route path="/twoFa2" element={<Verify2FA2 />} />
       <Route path="403" element={<Error_403 />} />
 
       <Route element={<ProtectedRoutes />}>
