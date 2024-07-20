@@ -1,302 +1,457 @@
 :root {
-	--custMcolor: #0B0D13;
-	--custBlue: #1E86E3;
-	--custGray: #7F818A;
-	--custDGray: #323644;
-	--custDBlue: #1B1D26;
+  --custMcolor: #0b0d13;
+  --custBlue: #1e86e3;
+  --custGray: #7f818a;
+  --custDGray: #323644;
+  --custDBlue: #1b1d26;
 }
 /* #root {
 	width: 100%;
 	height: 100svh;
 } */
 @font-face {
-	font-family: lightpant;
-	src: url(/Panton-Trial-Light.ttf);
+  font-family: lightpant;
+  src: url(/Panton-Trial-Light.ttf);
 }
 @font-face {
-	font-family: pant;
-	src: url(/Panton-Trial-Bold.ttf);
+  font-family: pant;
+  src: url(/Panton-Trial-Bold.ttf);
 }
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 .allComp {
-	height: 100svh;
-	background: url(/back.svg);
-	background-size: cover;
-	background-position: center;
-	padding: 0;
-	margin: 0;
+  height: 100svh;
+  background: url(/back.svg);
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+  margin: 0;
 }
 .header {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 .header h1 {
-	font-family: lightpant;
-	font-size: 40px;
-	color: #FBFAF8;
-	text-transform: capitalize;
-	margin-left: -30px;
+  font-family: lightpant;
+  font-size: 40px;
+  color: #fbfaf8;
+  text-transform: capitalize;
+  margin-left: -30px;
 }
 .header img {
-	position: relative;
-	width: 153px;
+  position: relative;
+  width: 153px;
 }
 .content {
-	height: 83.2svh;
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: flex-start;
-	gap: 15px;
-	margin-left: 66px;
+  height: 83.2svh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+  margin-left: 66px;
 }
 .register {
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: flex-start;
-	gap: 15px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
 }
 .top_ h1 {
-	font-size: 54px;
-	text-transform: capitalize;
-	color: white;
+  font-size: 54px;
+  text-transform: capitalize;
+  color: white;
 }
 .top_ {
-	display: flex;
-	align-items: flex-end;
-	gap: 13px;
+  display: flex;
+  align-items: flex-end;
+  gap: 13px;
 }
 .dot {
-	background-color: var(--custBlue);
-	width: 11px;
-	height: 11px;
-	bottom: 11px;
-	position: relative;
-	border-radius: 50%;
+  background-color: var(--custBlue);
+  width: 11px;
+  height: 11px;
+  bottom: 11px;
+  position: relative;
+  border-radius: 50%;
 }
 .member {
-	cursor: pointer;
-	color: var(--custGray);
-	text-transform: capitalize;
+  cursor: pointer;
+  color: var(--custGray);
+  text-transform: capitalize;
 }
-.member a, .ferb {
-	cursor: pointer;
-	color: var(--custBlue);
-	text-transform: capitalize;
+.member a,
+.ferb {
+  cursor: pointer;
+  color: var(--custBlue);
+  text-transform: capitalize;
 }
 .icon {
-	color: white;
-	position: relative;
-	right: 40px;
-	top: 13px;
-	pointer-events: none;
+  color: white;
+  position: relative;
+  right: 40px;
+  top: 13px;
+  pointer-events: none;
 }
 /* input {
 	border: none;
 	transition: .2s;
 } */
 .member a:hover {
-	color: #2476be;
+  color: #2476be;
 }
 /* input:hover {
 	border: 1px solid #1D90F5;
 	box-shadow: 0 0 7.3px 2px var(--custBlue);
 } */
 .custom-input input {
-	padding: 20px 294px 20px 30px;
-	background-color: var(--custDGray);
-	border: none;
-	outline: none;
-	border-radius: 15px;
-	color: white;
-	transition: all 2s;
+  padding: 20px 294px 20px 30px;
+  background-color: var(--custDGray);
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  color: white;
+  transition: all 2s;
 }
 .custom-input {
-	position: relative;
-	margin: 0px;
+  position: relative;
+  margin: 0px;
 }
 .custom-input label {
-	position: absolute;
-	color: #636362;
-	font-size: 16px;
-	text-transform: capitalize;
-	transition: all .2s;
-	left: 30px;
-	top: 18px;
-	pointer-events: none;
+  position: absolute;
+  color: #636362;
+  font-size: 16px;
+  text-transform: capitalize;
+  transition: all 0.2s;
+  left: 30px;
+  top: 18px;
+  pointer-events: none;
 }
 .custom-input_f input {
-	padding: 20px 47px 20px 30px;
-	background-color: var(--custDGray);
-	border: none;
-	outline: none;
-	border-radius: 15px;
-	color: white;
-	transition: all .2s;
+  padding: 20px 47px 20px 30px;
+  background-color: var(--custDGray);
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  color: white;
+  transition: all 0.2s;
 }
 .custom-input_f {
-	position: relative;
+  position: relative;
 }
 .custom-input_f label {
-	position: absolute;
-	color: #636362;
-	font-size: 16px;
-	text-transform: capitalize;
-	transition: all .2s;
-	left: 30px;
-	top: 18px;
-	pointer-events: none;
+  position: absolute;
+  color: #636362;
+  font-size: 16px;
+  text-transform: capitalize;
+  transition: all 0.2s;
+  left: 30px;
+  top: 18px;
+  pointer-events: none;
 }
-.password input, .email input {
-	font-family: Arial, Helvetica, sans-serif;
-	padding: 20px 300px 20px 30px;
+.password input,
+.email input {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px 300px 20px 30px;
 }
 .custom-input input:focus + label,
 .custom-input_f input:valid + label,
 .custom-input input:valid + label,
 .custom-input_f input:focus + label {
-	top: 0;
-	font-size: 13px;
+  top: 0;
+  font-size: 13px;
 }
-	
+
 .buttons {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	width: 530px;
-	gap: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 530px;
+  gap: 10px;
 }
-.fortytwo, .gmail {
-	cursor: pointer;
-	background-color: var(--custDGray);
-	padding: 0px 20px;
-	border-radius: 30px;
-	border: none;
-	outline: none;
-	transition: .5s;
+.fortytwo,
+.gmail {
+  cursor: pointer;
+  background-color: var(--custDGray);
+  padding: 0px 20px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  transition: 0.5s;
 }
 .ds {
-	font-size: 65px;
+  font-size: 65px;
 }
-.create, .login_btn {
-	cursor: pointer;
-	background-color: var(--custBlue);
-	border: none;
-	color: white;
-	padding: 20px 46px;
-	font-size: 20px;
-	text-transform: capitalize;
-	border-radius: 20px;
-	transition: .5s;
+.create,
+.login_btn {
+  cursor: pointer;
+  background-color: var(--custBlue);
+  border: none;
+  color: white;
+  padding: 20px 46px;
+  font-size: 20px;
+  text-transform: capitalize;
+  border-radius: 20px;
+  transition: 0.5s;
 }
 .login_btn {
-	padding: 20px 93px;
+  padding: 20px 93px;
 }
-.create:hover, .login_btn:hover {
-	box-shadow: 0 0 10px 1px var(--custBlue);
+.create:hover,
+.login_btn:hover {
+  box-shadow: 0 0 10px 1px var(--custBlue);
 }
-.gmail:hover, .fortytwo:hover {
-	box-shadow: 0 0 10px 1px black;
+.gmail:hover,
+.fortytwo:hover {
+  box-shadow: 0 0 10px 1px black;
 }
-.fullname, .email, .password {
-	display: flex; 
+
+/* ------------------------- */
+.fullname {
+  width: 100%;
+}
+
+.fullname > div {
+  width: 100%;
+}
+
+.fullname > div > input {
+  width: 100%;
+}
+/* ------------------------- */
+
+.fullname,
+.email,
+.password {
+  display: flex;
 }
 .line p {
-	color: white;
+  color: white;
 }
 .login {
-	height: 83.2svh;
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: flex-start;
-	gap: 15px;
+  height: 83.2svh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
 }
 .swipe {
-	transform: translateX(-100%);
-	position: absolute;
-	opacity: 0;
-	transition: 1s;
+  transform: translateX(-100%);
+  position: absolute;
+  opacity: 0;
+  transition: 1s;
 }
 .move {
-	transform: translateX(-100%);
-	opacity: 0;
-	transition: 1s;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: 1s;
 }
 .show {
-	opacity: 1;
-	position: absolute;
-	transform: translateX(0%);
-	transition: 1s;
+  opacity: 1;
+  position: absolute;
+  transform: translateX(0%);
+  transition: 1s;
 }
 .good {
-	background-color: rgba(67, 247, 91, 0.74);
+  background-color: rgba(67, 247, 91, 0.74);
 }
 .error {
-	animation: error .6s linear;
+  animation: error 0.6s linear;
 }
 @keyframes error {
-	0% {
-		border: none;
-		background-color: var(--custDGray);
-	}
-	20% {
-		/* border: 1px solid red; */
-		background-color: rgba(247, 67, 67, 0.74);
-	}
-	40% {
-		border: none;
-		background-color: var(--custDGray);
-	}
-	60% {
-		/* border: 1px solid red; */
-		background-color: rgba(247, 67, 67, 0.74);
-	}
-	100% {
-		border: none;
-		background-color: var(--custDGray);
-	}
+  0% {
+    border: none;
+    background-color: var(--custDGray);
+  }
+  20% {
+    background-color: rgba(247, 67, 67, 0.74);
+  }
+  40% {
+    border: none;
+    background-color: var(--custDGray);
+  }
+  60% {
+    /* border: 1px solid red; */
+    background-color: rgba(247, 67, 67, 0.74);
+  }
+  100% {
+    border: none;
+    background-color: var(--custDGray);
+  }
 }
 button:focus {
-	outline: none;
-	border: none;
+  outline: none;
+  border: none;
 }
 .statusError {
-	color: red;
-	text-shadow: 0 0 5px red;
-	text-align: center;
-	width: 89%;
-	text-transform: capitalize;
-	animation: popIt 2.5s linear;
-	transition: .4s ;
-	opacity: 0;
+  color: red;
+  text-shadow: 0 0 5px red;
+  text-align: center;
+  width: 89%;
+  text-transform: capitalize;
+  animation: popIt 2.5s linear;
+  transition: 0.4s;
+  opacity: 0;
 }
 @keyframes popIt {
-	0% {
-		opacity: 0;
-	}
-	25% {
-		opacity: 1;
-	}
-	50% {
-		opacity: 1;
-	}
-	80% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 /* @media screen and (max-width: 822px) {
 	.content_ {
 		margin-left: 50px;
 	}
 } */
+
+@media only screen and (max-width: 768px) {
+  .content {
+    height: 80svh;
+    gap: 0;
+    margin: 0;
+    margin-left: 5px;
+    width: 90vw;
+    justify-content: center;
+    align-items: center;
+  }
+  .custom-input_f input {
+    padding: 15px;
+    width: 300px !important;
+  }
+  .top_ h1 {
+    font-size: 1.5rem;
+  }
+  .member > * {
+    font-size: 1rem;
+  }
+  .member > * > * {
+    font-size: 1rem;
+  }
+
+  .fullname > .icon {
+    width: 300px;
+    right: 0;
+    display: none;
+  }
+  .custom-input_f {
+    position: relative;
+  }
+  .custom-input input {
+    padding: 20px;
+    width: 300px !important;
+  }
+  .custom-input {
+    position: relative;
+    margin: 0px;
+  }
+  .buttons {
+    width: 300px;
+    gap: 5px;
+  }
+  .fortytwo,
+  .gmail {
+    padding: 0px 5px;
+    border-radius: 25px;
+  }
+  .create {
+    padding: 20px 10px;
+    font-size: 1rem;
+    text-transform: capitalize;
+    border-radius: 20px;
+    transition: 0.5s;
+  }
+  .ds {
+    font-size: 3rem;
+    padding: 5px;
+  }
+  .fortytwo > img {
+    width: 3rem;
+    padding: 5px;
+  }
+  .login_btn {
+    flex: 1;
+    padding: 20px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .content {
+    height: 80svh;
+    gap: 0;
+    margin: 0;
+    margin-left: 0;
+    width: 90vw;
+  }
+  .custom-input_f input {
+    padding: 15px;
+    width: 250px !important;
+  }
+  .top_ h1 {
+    font-size: 1.3rem;
+  }
+  .member > * {
+    font-size: 0.9rem;
+  }
+  .member > * > * {
+    font-size: 0.9rem;
+  }
+
+  .fullname > .icon {
+    width: 250px;
+    right: 0;
+    display: none;
+  }
+  .custom-input_f {
+    position: relative;
+  }
+  .custom-input input {
+    padding: 20px;
+    width: 250px !important;
+  }
+  .custom-input {
+    position: relative;
+    margin: 0px;
+  }
+  .buttons {
+    width: 250px;
+    gap: 5px;
+  }
+  .fortytwo,
+  .gmail {
+    padding: 0px 5px;
+    border-radius: 25px;
+  }
+  .create {
+    padding: 10px;
+    font-size: 1rem;
+    text-transform: capitalize;
+    border-radius: 20px;
+    transition: 0.5s;
+  }
+  .ds {
+    font-size: 3rem;
+    padding: 5px;
+  }
+  .fortytwo > img {
+    width: 3rem;
+    padding: 5px;
+  }
+}

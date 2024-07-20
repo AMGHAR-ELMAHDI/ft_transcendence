@@ -227,10 +227,10 @@
   color: var(--grey-bg-color);
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+.GeneralInfoInput:-webkit-autofill,
+.GeneralInfoInput:-webkit-autofill:hover,
+.GeneralInfoInput:-webkit-autofill:focus,
+.GeneralInfoInput:-webkit-autofill:active {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: white 5000s ease-in-out 0s;

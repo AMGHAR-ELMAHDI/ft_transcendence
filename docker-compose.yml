@@ -50,7 +50,7 @@ services:
     depends_on:
       - back-end
     env_file:
-      - ./React/.env
+      - .env
     networks:
       - ft_trans
     restart: unless-stopped

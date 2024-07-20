@@ -12,8 +12,6 @@ import NotFound from "./components/Cheesy/NotFound";
 import Settings from "./components/Cheesy/Settings";
 import GameContainer_invite from "./components/Mnassi/Game/GameContainer_invite";
 import ShopContainer from "./components/Otchekai/ShopContainer";
-import Login from "./components/Mnassi/LoginRegister/Login";
-import Register from "./components/Cheesy/Register";
 import Users, { UsersLoader } from "./components/Cheesy/Users";
 import ProfileLayout from "./components/Cheesy/ProfileLayout";
 import ProtectedRoutes from "./components/Utils/ProtectedRoutes";
@@ -25,6 +23,9 @@ import GameLayout from "./components/Cheesy/GameLayout";
 import _tournament from "./components/Mnassi/Game/tournament";
 import Game from "./components/Mnassi/Game/Game";
 import "./components/Mnassi/Game/responsive.css";
+import Login from "./components/Mnassi/LoginRegister/Login";
+import Register from "./components/Mnassi/LoginRegister/Register";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(

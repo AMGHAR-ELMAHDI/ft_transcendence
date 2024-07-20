@@ -73,7 +73,7 @@ function ChatSystem() {
     }
   }, []);
 
-  if (!FriendsChat.length) {
+  if (!FriendsChat?.length) {
     return (
       <div id="lonely">
         <p id="text"></p>

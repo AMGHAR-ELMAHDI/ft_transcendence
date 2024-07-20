@@ -15,6 +15,7 @@ const deleteCookie = (name: string) => {
 function ProtectedRoutes() {
   const access = getCookie("access");
   let Logged = localStorage.getItem("token") ? true : false;
+  
   if (access) {
     Logged = true;
     localStorage.setItem("token", access);
