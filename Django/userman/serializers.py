@@ -4,6 +4,10 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from .models import *
 from .models import Player
+from .validators import email_validator, char_validator
+
+unique_username_validator = UniqueValidator(queryset=Player.objects.all(), message="This username is already in use.")
+unique_email_validator = UniqueValidator(queryset=Player.objects.all(), message="This email is already in use.")
 
 class PlayerCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -68,6 +72,12 @@ class LeaderBoardSerializer(serializers.ModelSerializer):
         return player.get_won_games_count
 
 class SettingsSerializer (serializers.ModelSerializer):
+    username = serializers.CharField( required=True, validators=[unique_username_validator, char_validator] )
+    email = serializers.EmailField( required=True, validators=[unique_email_validator, email_validator]  )
+    first_name = serializers.EmailField( required=True, validators=[char_validator]  )
+    last_name = serializers.EmailField( required=True, validators=[char_validator]  )
+
+    
     class Meta:
         model = Player
         fields = ['email', 'username', 'first_name', 'last_name', 'image']
@@ -96,16 +106,10 @@ class InvitesSerializer(serializers.ModelSerializer):
     
 
 class UserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-        required=True,
-        validators=[UniqueValidator(queryset=Player.objects.all(), message="This email is already in use.")]
-    )
+    email = serializers.EmailField( required=True, validators=[unique_email_validator, email_validator]  )
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
-    username = serializers.CharField(
-        required=True,
-        validators=[UniqueValidator(queryset=Player.objects.all(), message="This username is already in use.")]
-    )
+    username = serializers.CharField( required=True, validators=[unique_username_validator, char_validator] )
 
     class Meta:
         model = Player

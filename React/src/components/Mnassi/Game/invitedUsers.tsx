@@ -104,6 +104,13 @@ function InvitedUsers({ Name, Name2 }: LocalGameProps) {
     });
     window.addEventListener("keyup", function (e) {
       KeyPressed[e.keyCode] = false;
+      if (e.keyCode === KEY_DOWN || e.keyCode === KEY_UP) {
+        objSocket.send(
+          JSON.stringify({
+            type: "stopPaddle",
+            user: index.toString(),
+          }))
+        }
     });
     function changeCanvasSize(newWidth: number, newHeight: number) {
       canvas.width = newWidth;

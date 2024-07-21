@@ -37,14 +37,21 @@ function Register() {
     axios
       .post(url + "sign-up/", obj)
       .then((response) => {
+        console.log('dkhalt ', response.status)
         if (response.status === 201) {
           navigate("/login");
           toast.success("Account created successfully");
         }
       })
       .catch((error) => {
-        console.log(error);
-        toast.error("Check your informations");
+        if (error.response) {
+          if(error.response.data.username)
+            toast.error(error.response.data.username[0])
+          if(error.response.data.email)
+              toast.error(error.response.data.email[0])
+          if(error.response.data.password)
+            toast.error(error.response.data.password[0])
+        }
       });
   };
 

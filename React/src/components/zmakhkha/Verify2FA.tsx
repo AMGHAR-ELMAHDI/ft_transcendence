@@ -18,6 +18,8 @@ function Verify2FA() {
 
   const obj = {
     code: result,
+    user_id: window.location.search.split("=")[1],
+
   };
 
   const CheckTwoFa = () => {

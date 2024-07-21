@@ -74,6 +74,7 @@ class Paddle:
 		self.height = height
 		self.speed = False
 		self.index = 0
+		self.key = ""
 		self.canvasw = 1359
 		self.canvash = 841
 		self.score = 0
@@ -102,38 +103,6 @@ class Paddle:
 			self.posY -= self.veloY
 		if (key == 'down' and self.posY + self.height <= self.canvash):
 			self.posY += self.veloY
-
-def GetSession(request):
-	winner1 = request.session.get('winner1')
-	winner2 = request.session.get('winner2')
-	if winner1 and winner2:
-		return JsonResponse({'winner1': winner1, 'winner2': winner2})
-	else:
-		return JsonResponse({'error': 'session is empty'}, status=401)
-
-def StockGame(request):
-	if request.method == 'GET':
-		me = get_object_or_404(models.Player, username='mbachar')
-		opp = get_object_or_404(models.Player, username='mnassi')
-		print(me.username, ' -> ',opp.username)
-		game = models.GameHistory(
-			player=me,
-			opponent=opp,
-			player_score=7,
-			opponent_score=6,
-			game_mode='O',
-			game_duration_minutes=request.GET.get('counter'),
-		)
-		me.points += me.level * 30
-		print(me.level * 1000, ' ', me.points)
-		if me.points >= me.level * 1000:
-			me.level += 1
-			me.points = 0
-			me.save(update_fields=['level'])
-		me.save(update_fields=['points'])
-		game.save()
-		return JsonResponse({'status': 'Success', 'name': me.username, 'progress': me.points, 'level': me.level})
-	return JsonResponse({'status': 'Method Not Allowed'}, status=405)
 
 def getTournaments(request):
 	queryset = models.TnRooms.objects.all()

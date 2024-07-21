@@ -15,6 +15,8 @@ from django_otp.plugins.otp_totp.models import TOTPDevice
 from django_otp.forms import OTPTokenForm
 from django.contrib.auth.password_validation import validate_password
 from django.core.cache import cache
+from django.conf import settings
+
 
 from .utils import getLogging
 
@@ -47,7 +49,12 @@ class SignInAPIView(APIView):
             if user_has_device(user):
                 request.session['pre_2fa_user_id'] = user.id
                 logger.info(f"[SignInAPIView] 2FA required for user {username}")
-                return Response({'detail': '2fa_required'}, status=status.HTTP_200_OK)
+                print(f'++++++++++++++++++++++++http://{settings.F_HOST}:5173/twoFa?user_id={user.id}')
+                return Response({'redirect': f'/twoFa2?user_id={user.id}'}, status=status.HTTP_200_OK)
+                # return redirect(f'http://{settings.F_HOST}:5173/twoFa2?user_id={user.id}')
+                # return redirect(f'http://{settings.F_HOST}:5173/twoFa?user_id={user.id}')
+        
+
             else:
                 refresh = RefreshToken.for_user(user)
                 login(request, user)
@@ -110,7 +117,9 @@ class TwoFactorVerifyView(APIView):
 
     def post(self, request):
         user_id = request.session.get('pre_2fa_user_id')
-        if not user_id:
+        user_id1 = request.data.get('user_id')
+
+        if not user_id and not user_id1 :
             return Response({'error': 'No user in session'}, status=status.HTTP_400_BAD_REQUEST)
         
         user = Player.objects.get(id=user_id)

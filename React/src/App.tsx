@@ -15,7 +15,6 @@ import ShopContainer from "./components/Otchekai/ShopContainer";
 import Users, { UsersLoader } from "./components/Cheesy/Users";
 import ProfileLayout from "./components/Cheesy/ProfileLayout";
 import ProtectedRoutes from "./components/Utils/ProtectedRoutes";
-import Verify2FA from "./components/zmakhkha/Verify2FA";
 import { Toaster } from "react-hot-toast";
 import Error_403 from "./components/Cheesy/Error403";
 import "./Imports";
@@ -24,8 +23,10 @@ import _tournament from "./components/Mnassi/Game/tournament";
 import Game from "./components/Mnassi/Game/Game";
 import "./components/Mnassi/Game/responsive.css";
 import Login from "./components/Mnassi/LoginRegister/Login";
-import Register from "./components/Mnassi/LoginRegister/Register";
+// import Register from "./components/Mnassi/LoginRegister/register";
+import Verify2FA from "./components/zmakhkha/Verify2FA";
 import Verify2FA2 from "./components/Cheesy/Verify2FA2";
+import Register from "./components/Mnassi/LoginRegister/Register";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

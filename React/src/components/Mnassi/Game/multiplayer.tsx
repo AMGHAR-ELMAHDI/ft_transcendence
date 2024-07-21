@@ -103,6 +103,13 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
     });
     window.addEventListener("keyup", function (e) {
       KeyPressed[e.keyCode] = false;
+      if (e.keyCode === KEY_DOWN || e.keyCode === KEY_UP) {
+        objSocket.send(
+          JSON.stringify({
+            type: "stopPaddle",
+            user: index.toString(),
+          }))
+        }
     });
     function changeCanvasSize(newWidth: number, newHeight: number) {
       canvas.width = newWidth;
@@ -348,13 +355,6 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
             key: "down",
           })
         );
-      }
-      if (isWebSocketConnected() && !KeyPressed[KEY_DOWN] && !KeyPressed[KEY_UP]) {
-        objSocket.send(
-          JSON.stringify({
-            type: "stopPaddle",
-            user: index.toString(),
-          }))
       }
     };
 
