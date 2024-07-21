@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../../api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   image?: string;
@@ -11,7 +12,7 @@ function SettingsGeneralInfo({ image }: Props) {
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
   const [username, setUsername] = useState("");
-
+  const navigate = useNavigate();
   const obj = {
     id: 1,
     email: email,
@@ -27,6 +28,7 @@ function SettingsGeneralInfo({ image }: Props) {
     try {
       await api.put("player/setting/", obj);
       toast.success("Settings updated successfully");
+      navigate('/');
     } catch (error) {
       console.log(error);
       toast.error("Bad input, change your input and try again");

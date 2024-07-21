@@ -24,7 +24,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 			serializer = SettingsSerializer(player)
 			return Response(serializer.data)
 		if request.method == 'PUT':
-			serialized_player = self.get_serializer(player, data=request.data)
+			serialized_player = SettingsSerializer(player, data=request.data)
 			serialized_player.is_valid(raise_exception=True)
 			self.perform_update(serialized_player)
 			return Response(serialized_player.data)

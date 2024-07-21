@@ -74,8 +74,8 @@ class LeaderBoardSerializer(serializers.ModelSerializer):
 class SettingsSerializer (serializers.ModelSerializer):
     username = serializers.CharField( required=True, validators=[unique_username_validator, char_validator] )
     email = serializers.EmailField( required=True, validators=[unique_email_validator, email_validator]  )
-    first_name = serializers.EmailField( required=True, validators=[char_validator]  )
-    last_name = serializers.EmailField( required=True, validators=[char_validator]  )
+    first_name = serializers.CharField( required=True, validators=[char_validator]  )
+    last_name = serializers.CharField( required=True, validators=[char_validator]  )
 
     
     class Meta:
