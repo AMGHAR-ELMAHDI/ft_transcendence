@@ -17,7 +17,6 @@ function ChatSystem() {
       const response = await api.get("player/friends/");
       SetFriendlist(response.data.friends);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -28,7 +27,6 @@ function ChatSystem() {
       setBlockedMe(response.data.blocked_me);
       setmyId(response.data.id);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -53,7 +51,6 @@ function ChatSystem() {
     socket.onclose = () => {};
 
     socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
     };
 
     const emptyDataElement = document.querySelector("#text");

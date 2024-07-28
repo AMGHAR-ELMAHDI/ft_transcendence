@@ -38,7 +38,6 @@ function UserProfile({ show, setRender, data, myProfile }: UserProps) {
       const response = await api.get("player/friends/");
       setFriends(response.data?.friends);
     } catch (error) {
-      console.error(error);
     }
   };
 

@@ -30,7 +30,6 @@ function SettingsGeneralInfo({ image }: Props) {
       toast.success("Settings updated successfully");
       navigate('/');
     } catch (error) {
-      console.log(error);
       toast.error("Bad input, change your input and try again");
     }
   };

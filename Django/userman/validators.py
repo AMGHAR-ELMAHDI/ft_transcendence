@@ -13,6 +13,6 @@ def max_size_validator(file):
 username_validator = ASCIIUsernameValidator()
 char_validator = RegexValidator(r'^[a-zA-Z]*$', 'Only alphabetical characters are allowed.')
 email_validator = RegexValidator(
-    r'^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-z]{2,}$',
+    r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-_]+\.[a-z]{2,}$',
     'Enter a valid email address.'
 )

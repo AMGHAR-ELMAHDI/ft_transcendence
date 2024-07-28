@@ -72,10 +72,10 @@ class LeaderBoardSerializer(serializers.ModelSerializer):
         return player.get_won_games_count
 
 class SettingsSerializer (serializers.ModelSerializer):
-    username = serializers.CharField( required=True, validators=[unique_username_validator, char_validator] )
-    email = serializers.EmailField( required=True, validators=[unique_email_validator, email_validator]  )
-    first_name = serializers.CharField( required=True, validators=[char_validator]  )
-    last_name = serializers.CharField( required=True, validators=[char_validator]  )
+    username = serializers.CharField( required=False, validators=[unique_username_validator, char_validator] )
+    email = serializers.EmailField( required=False, validators=[unique_email_validator, email_validator]  )
+    first_name = serializers.CharField( required=False, validators=[char_validator]  )
+    last_name = serializers.CharField( required=False, validators=[char_validator]  )
 
     
     class Meta:

@@ -23,11 +23,11 @@ def get_user_by_id(user_id):
 
 async def getUser(authorization_header):
     if not authorization_header:
-        print("[getUser] Connection rejected: Authorization header not found.")
+        #print("[getUser] Connection rejected: Authorization header not found.")
         return None
 
     token = authorization_header
-    print(f"token : |{token}|")
+    #print(f"token : |{token}|")
 
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
@@ -36,13 +36,13 @@ async def getUser(authorization_header):
         return user
 
     except jwt.ExpiredSignatureError:
-        print("[getUser] Connection rejected: Token expired.")
+        #print("[getUser] Connection rejected: Token expired.")
         return None
     except jwt.InvalidTokenError:
-        print("[getUser] Connection rejected: Invalid token.")
+        #print("[getUser] Connection rejected: Invalid token.")
         return None
     except Player.DoesNotExist:
-        print(f"Player does not exist with ID: {user_id}")
+        #print(f"Player does not exist with ID: {user_id}")
         return None
 
 class FriendshipRequestConsumer(AsyncWebsocketConsumer):
@@ -55,16 +55,16 @@ class FriendshipRequestConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
         await self.channel_layer.group_add("friendship", self.channel_name)
-        print(f"[FriendshipRequestConsumer] {self.user.username} connected!")
+        #print(f"[FriendshipRequestConsumer] {self.user.username} connected!")
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard("friendship", self.channel_name)
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        print('---------')
-        print(data)
-        print('---------')
+        #print('---------')
+        #print(data)
+        #print('---------')
         action = data.get('action')
         
         if action == 'create':
@@ -90,10 +90,10 @@ class FriendshipRequestConsumer(AsyncWebsocketConsumer):
             return
         test = await is_invite_exists(self.user, friend)
         if test:
-            print("[exists ++++++++++++++]")
+            #print("[exists ++++++++++++++]")
             return
         else:
-            print("[exists -------------------")
+            #print("[exists -------------------")
             new_friendship_request = FriendshipRequest(from_user=self.user, to_user=friend)
             await sync_to_async(new_friendship_request.save)()
 
@@ -181,7 +181,7 @@ class FriendshipRequestConsumer(AsyncWebsocketConsumer):
 
 @database_sync_to_async
 def update_friendship(from_user, to_user, status):
-    print('[update_friendship]')
+    #print('[update_friendship]')
     try:
         friendship_request = FriendshipRequest.objects.get(from_user=from_user, to_user=to_user)
     except FriendshipRequest.DoesNotExist:
@@ -189,7 +189,7 @@ def update_friendship(from_user, to_user, status):
     friendship_request.status = status
     friendship_request.save()
     if status == 'A':
-        print('[update_friendship] [A]')
+        #print('[update_friendship] [A]')
         p1 = Player.objects.get(id=from_user.id)
         p2 = Player.objects.get(id=to_user.id)
         f = Friendship(player1=p1, player2=p2)

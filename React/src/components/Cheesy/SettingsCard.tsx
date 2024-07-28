@@ -38,7 +38,6 @@ function SettingsCard({
       await api.put("player/set/", obj);
       toast.success("Item equipped", { id: String(id) });
     } catch (error) {
-      console.log(error);
       toast.error("Failed to equip item");
     }
   };

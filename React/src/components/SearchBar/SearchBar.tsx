@@ -14,7 +14,6 @@ function SearchBar() {
         const response = await api.get("player/");
         setPlayers(response.data);
       } catch (error) {
-        console.log(error);
       }
     };
     getPlayers();

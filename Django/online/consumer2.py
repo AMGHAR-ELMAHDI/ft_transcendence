@@ -413,9 +413,7 @@ class GameConsumer_2(AsyncWebsocketConsumer):
                 await self.createGameObject(self.rooms[self.room_group_name]['winner'])
                 await self.stop_task()
             await self.custom_Async(message, "ballPos")
-            # if self.rooms[self.room_group_name]['paddle1'].speed:
             message = {"type": "paddleChan", "index": self.rooms[self.room_group_name]['paddle1'].index, "posX": self.rooms[self.room_group_name]['paddle1'].posX, "posY": self.rooms[self.room_group_name]['paddle1'].posY,}
-            # if self.rooms[self.room_group_name]['paddle2'].speed:
             message2 = {"type": "paddleChan", "index": self.rooms[self.room_group_name]['paddle2'].index, "posX": self.rooms[self.room_group_name]['paddle2'].posX, "posY": self.rooms[self.room_group_name]['paddle2'].posY,}
             await self.custom_Async(message, "paddleChan")
             await self.custom_Async(message2, "paddleChan")

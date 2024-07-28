@@ -49,7 +49,6 @@ function ProfileFriends() {
       setData(response.data.friends);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   };
@@ -66,7 +65,6 @@ function ProfileFriends() {
     };
     socket.onclose = () => {};
     socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
     };
 
     const emptyDataElement = document.querySelector(".emptyData");

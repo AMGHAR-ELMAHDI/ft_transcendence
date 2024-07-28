@@ -10,18 +10,6 @@ services:
       - ./Django:/code
     depends_on:
       - db
-      - redis
-    environment:
-      - REDIS_HOST=redis
-    networks:
-      - ft_trans
-    restart: unless-stopped
-
-  redis:
-    image: redis
-    container_name: redis
-    ports:
-      - "6379:6379"
     networks:
       - ft_trans
     restart: unless-stopped

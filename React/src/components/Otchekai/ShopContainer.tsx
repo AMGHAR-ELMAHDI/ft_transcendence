@@ -38,7 +38,6 @@ export default ShopContainer;
 
 function FilterItems(ownedItems: any, name: string) {
   if (!Array.isArray(ownedItems)) {
-    console.error("ownedItems is not an array:", ownedItems);
     return false;
   }
 
@@ -126,7 +125,6 @@ function ShopDesign() {
       const response = await api.get("items/");
       setShopItems(response.data);
     } catch (error) {
-      console.log(error);
     }
   };
   useEffect(() => {
@@ -140,7 +138,6 @@ function ShopDesign() {
       const response = await api.get("player/items/");
       setownedItems(response.data.items);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -180,7 +177,6 @@ function Card({ name, price, image, id }: CardProps) {
       navigate("/settings");
     } catch (error) {
       toast.error("You Can't buy the Item");
-      console.log(error);
     }
   };
 

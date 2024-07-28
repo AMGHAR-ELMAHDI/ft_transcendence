@@ -200,6 +200,7 @@ ul > li > div > * > img {
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .idAndLine {

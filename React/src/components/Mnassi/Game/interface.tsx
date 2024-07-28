@@ -35,7 +35,6 @@ function game2D() {
         setData(response.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   }, []);
   useEffect(() => {
@@ -155,14 +154,14 @@ function game2D() {
       TwoVect(20, 20),
       20,
       160,
-      "PLAYER1"
+      "PLAYER"
     );
     const paddle2 = new (Paddles as any)(
       TwoVect(canvas.width - 20, 20),
       TwoVect(20, 20),
       20,
       160,
-      "PLAYER2"
+      "BOT"
     );
 
     function BallIntersection(paddle: Paddles, ball: Ball) {

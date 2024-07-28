@@ -24,7 +24,7 @@ def get_user_by_id(user_id):
 
 async def getUser(authorization_header):
     if not authorization_header:
-        print("---------> Connection rejected: Authorization header not found.")
+        #print("---------> Connection rejected: Authorization header not found.")
         return None
 
     token = authorization_header
@@ -36,13 +36,13 @@ async def getUser(authorization_header):
         return user
 
     except jwt.ExpiredSignatureError:
-        print("---------> Connection rejected: Token expired.")
+        #print("---------> Connection rejected: Token expired.")
         return None
     except jwt.InvalidTokenError:
-        print("---------> Connection rejected: Invalid token.")
+        #print("---------> Connection rejected: Invalid token.")
         return None
     except Player.DoesNotExist:
-        print(f"Player does not exist with ID: {user_id}")
+        #print(f"Player does not exist with ID: {user_id}")
         return None
 
 class RequestSingleGameConsumer(AsyncWebsocketConsumer):
@@ -56,7 +56,7 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
         self.user = user
         await self.accept()
         await self.channel_layer.group_add("gameInvites", self.channel_name)
-        print("[RequestSingleGameConsumer] connected successfully ")
+        #print("[RequestSingleGameConsumer] connected successfully ")
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard("gameInvites", self.channel_name)
@@ -70,16 +70,16 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
             invite_to_player_id = data.get('invite_to')
             await self.send_invite(invite_to_player_id)
         elif action == 'accept':
-            print("[RequestSingleGameConsumer] accept scoop ")
+            #print("[RequestSingleGameConsumer] accept scoop ")
             invite_id = data.get('id')
             if invite_id:
                 invite = await self.get_invite_by_id(invite_id)
                 if invite:
                     await self.change_invite_status(invite, 'A')
         elif action == 'deny':
-            print("[RequestSingleGameConsumer] deny scoop ")
+            #print("[RequestSingleGameConsumer] deny scoop ")
             invite_id = data.get('id')
-            print(F"[RequestSingleGameConsumer] deny scoop invite_id : {invite_id} ")
+            #print(F"[RequestSingleGameConsumer] deny scoop invite_id : {invite_id} ")
             if invite_id:
                 invite = await self.get_invite_by_id(invite_id)
                 if invite:
@@ -97,13 +97,13 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
 
     async def send_invite(self, invite_to_player_id):
         if self.user.id == invite_to_player_id:
-            print('You cannot invite yourself to play a game !!')
+            #print('You cannot invite yourself to play a game !!')
             return
-        print(f"Sending game invite from player ID {self.user.id} to player ID {invite_to_player_id}")
+        #print(f"Sending game invite from player ID {self.user.id} to player ID {invite_to_player_id}")
         room_id = get_group_name(self, self.user.id, invite_to_player_id)
         test_create = await self.create_invite(self.user.id, invite_to_player_id, room_id)
         if test_create == None:
-            print('Please accept pending invites first !!!')
+            #print('Please accept pending invites first !!!')
             return
 
 
@@ -112,7 +112,7 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
         try:
             invite = get_object_or_404(Invites, pk=invite_id)
         except Invites.DoesNotExist:
-            print(F"[RequestSingleGameConsumer] Invitations {invite_id} does not exist !!")
+            print("-")
         return invite
 
     @database_sync_to_async
@@ -120,7 +120,7 @@ class RequestSingleGameConsumer(AsyncWebsocketConsumer):
         if status == 'A':
             invite.status = status
             invite.save()
-            print(F"[RequestSingleGameConsumer] Invitation {invite.id} Accepted by {self.user.username} !!")
+            #print(F"[RequestSingleGameConsumer] Invitation {invite.id} Accepted by {self.user.username} !!")
             return invite
         elif status == 'R':
             invite.delete()

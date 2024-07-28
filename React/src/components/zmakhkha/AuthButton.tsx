@@ -8,7 +8,6 @@ const AuthButton = () => {
       // Redirect user to the OAuth provider (42) login page
       window.location.href = response.data.authorization_url;
     } catch (error) {
-      console.error("Error initiating authentication:", error);
     }
   };
 

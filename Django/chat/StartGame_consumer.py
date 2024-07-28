@@ -24,7 +24,7 @@ def get_user_by_id(user_id):
 
 async def getUser(authorization_header):
     if not authorization_header:
-        print("---------> Connection rejected: Authorization header not found.")
+        #print("---------> Connection rejected: Authorization header not found.")
         return None
 
     token = authorization_header
@@ -36,13 +36,13 @@ async def getUser(authorization_header):
         return user
 
     except jwt.ExpiredSignatureError:
-        print("---------> Connection rejected: Token expired.")
+        #print("---------> Connection rejected: Token expired.")
         return None
     except jwt.InvalidTokenError:
-        print("---------> Connection rejected: Invalid token.")
+        #print("---------> Connection rejected: Invalid token.")
         return None
     except Player.DoesNotExist:
-        print(f"Player does not exist with ID: {user_id}")
+        #print(f"Player does not exist with ID: {user_id}")
         return None
 
 class StartGame_consumer(AsyncWebsocketConsumer):
@@ -56,10 +56,10 @@ class StartGame_consumer(AsyncWebsocketConsumer):
             return
         
         await self.accept()
-        print(f"[{self.user}] ----------------------------------------------------")
+        #print(f"[{self.user}] ----------------------------------------------------")
         await self.channel_layer.group_add(str(self.room_id), self.channel_name)
-        print("[StartSingleGameConsumer] connected successfully ")
-        print(f"[{self.user}] joined the room [{self.room_id}]")
+        #print("[StartSingleGameConsumer] connected successfully ")
+        #print(f"[{self.user}] joined the room [{self.room_id}]")
 
     async def receive(self, text_data):
         pass

@@ -41,7 +41,6 @@ function TestFriend({
 
       setFriends(response.data.friends);
     } catch (error) {
-      console.log(error);
     }
   };
 

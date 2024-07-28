@@ -25,7 +25,6 @@ function GameInterface_({ Name, Name2 }: LocalGameProps) {
         setData(response.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   }, []);
   return (
@@ -80,7 +79,6 @@ function InvitedUsers({ Name, Name2 }: LocalGameProps) {
         data = response.data;
       })
       .catch((error) => {
-        console.log(error);
       });
   }, []);
 

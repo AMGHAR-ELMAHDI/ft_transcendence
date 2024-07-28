@@ -7,7 +7,6 @@ import { useState } from "react";
 
 function DashboardContainer() {
   const [render, setRender] = useState<string>("History");
-  console.log("dash");
   return (
     <>
       <div className="AppClass">

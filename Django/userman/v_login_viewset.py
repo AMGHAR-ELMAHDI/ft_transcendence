@@ -49,7 +49,7 @@ class SignInAPIView(APIView):
             if user_has_device(user):
                 request.session['pre_2fa_user_id'] = user.id
                 logger.info(f"[SignInAPIView] 2FA required for user {username}")
-                print(f'++++++++++++++++++++++++http://{settings.F_HOST}:5173/twoFa?user_id={user.id}')
+                #print(f'++++++++++++++++++++++++http://{settings.F_HOST}:5173/twoFa?user_id={user.id}')
                 return Response({'redirect': f'/twoFa2?user_id={user.id}'}, status=status.HTTP_200_OK)
                 # return redirect(f'http://{settings.F_HOST}:5173/twoFa2?user_id={user.id}')
                 # return redirect(f'http://{settings.F_HOST}:5173/twoFa?user_id={user.id}')

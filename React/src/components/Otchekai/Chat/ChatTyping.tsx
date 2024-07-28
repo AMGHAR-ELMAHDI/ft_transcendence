@@ -40,12 +40,6 @@ function ChatTyping({
   const connType = 1;
   const chatBoxRef = useRef<HTMLDivElement>(null);
 
-  // const goToProfile = () => {
-  // console.log(Friend?.username);
-  // console.log(`/profile/${Friend?.username}`);
-
-  // };
-
   const scrollToBottom = () => {
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
@@ -81,7 +75,6 @@ function ChatTyping({
           )
         );
       } catch (error) {
-        console.error("Error fetching initial messages:", error);
       }
     };
     fetchInitialMessages();
@@ -103,7 +96,6 @@ function ChatTyping({
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!socket || socket.readyState !== WebSocket.OPEN) {
-      console.error("WebSocket connection not open (ga3ma tcha9lib).");
       return;
     }
 
@@ -135,7 +127,6 @@ function ChatTyping({
     }
     const token = localStorage.getItem("token");
     if (!token) {
-      console.error("No token found in localStorage.");
       return;
     }
 

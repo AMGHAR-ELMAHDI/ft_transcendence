@@ -47,7 +47,6 @@ function multiplayer2({ type, Name1, Name2 }: LocalGameProps) {
         data_ = response.data;
       })
       .catch((error) => {
-        console.log(error);
       });
   }, []);
 

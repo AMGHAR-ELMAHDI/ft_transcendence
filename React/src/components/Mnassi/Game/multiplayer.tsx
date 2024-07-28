@@ -23,7 +23,6 @@ function GameInterface({ Name, Name2 }: LocalGameProps) {
         setData(response.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   }, []);
   return (
@@ -79,7 +78,6 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
         data = response.data;
       })
       .catch((error) => {
-        console.log(error);
       });
   }, []);
 
@@ -310,10 +308,8 @@ function multiplayer({ Type, Name, Name2 }: LocalGameProps) {
       if (data?.message?.type === "winner") {
         const firstwinner = document?.querySelector(".final_1");
         const secondwinner = document?.querySelector(".final_2");
-        if (Type === "Online") {
-          toast.success("game will start soon");
-          setExit(true);
-        }
+        toast.success("game will start soon");
+        if (Type === "Online") setExit(true);
         if (Type === "Online2") setExit2(true);
         if (data?.message?.index1 != index && data?.message?.index2 != index) {
           const parent = document!.querySelector(".tournCont");

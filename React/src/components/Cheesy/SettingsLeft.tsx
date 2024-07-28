@@ -38,7 +38,6 @@ function SettingsLeft({ setRender }: Props) {
       const response = await api.get("player/setting/");
       setData(response.data);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -60,6 +59,9 @@ function SettingsLeft({ setRender }: Props) {
     try {
       const formData = new FormData();
       formData.append("email", obj.email);
+      formData.append("username", obj.username);
+      formData.append("first_name", obj.first_name);
+      formData.append("last_name", obj.last_name);
 
       if (fileInputRef.current?.files?.[0]) {
         formData.append("image", avatar);
@@ -69,7 +71,6 @@ function SettingsLeft({ setRender }: Props) {
     } catch (error: any) {
       if (error instanceof AxiosError)
         toast.error(error.response?.data?.image[0]);
-      console.log(error);
     }
   };
 

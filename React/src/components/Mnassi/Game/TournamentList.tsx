@@ -13,7 +13,7 @@ function TnList({ players, room_name, onJoin }: Props) {
   return (
     <>
       <div className="card">
-        <img src="/DefeatBot7.png" alt="" className="img-card" />
+        <img src="/vs4.png" alt="" className="img-card" />
         <div className="tnName">
           <h1>{room_name}</h1>
         </div>

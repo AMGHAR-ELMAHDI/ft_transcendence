@@ -46,7 +46,6 @@ export const UsersLoader = async ({ params }: { params: any }) => {
     const response = await api.get(`player/${username}/me/`);
     return response.data;
   } catch (error) {
-    console.log(error);
     return null;
   }
 };

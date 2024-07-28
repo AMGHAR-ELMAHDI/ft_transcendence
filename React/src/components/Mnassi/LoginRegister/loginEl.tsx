@@ -27,34 +27,20 @@ function loginEl() {
       .post(url + "sign-in/", obj)
       .then((response) => {
         var str = response.data;
-        console.log(str);
-        console.log("access: " + str.access);
-        
         if (str.access === undefined)
           {
             toast.error("2FA REQUIRED");
-            console.log("data: " + response.data);
-            console.log("data redirect: " + response.data?.redirect);
             navigate(response.data?.redirect);
           }
           else 
           {
-          console.log("login status 200: " + response.data);
-          
-          toast.success("Logged in successfully");
-          localStorage.setItem("token", str.access);
-          setAuthToken();
-          navigate("/");
+            toast.success("Logged in successfully");
+            localStorage.setItem("token", str.access);
+            setAuthToken();
+            navigate("/");
         }
       })
       .catch((error) => {
-        if (error.response) {
-          if(error.response.data.username)
-            toast.error(error.response.data.username[0])
-          if(error.response.data.password)
-            toast.error(error.response.data.password[0])
-        }
-        else
           toast.error("Wrong info");
       });
   };

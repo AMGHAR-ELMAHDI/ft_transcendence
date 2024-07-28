@@ -36,7 +36,6 @@ function UserView() {
         setData(response.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   }, []);
 

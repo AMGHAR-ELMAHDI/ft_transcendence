@@ -47,7 +47,6 @@ function FriendBar() {
     socket.onclose = () => {};
 
     socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
     };
 
     return () => {

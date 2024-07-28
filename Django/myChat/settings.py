@@ -101,14 +101,6 @@ CHANNEL_LAYERS = {
     },
 }
 
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels_redis.pubsub.RedisPubSubChannelLayer",
-#         "CONFIG": {
-#             "hosts": [("redis", 6379)],
-#         },
-#     },
-# }
 
 TEMPLATES = [
     {
@@ -142,26 +134,17 @@ EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False') == 'True'
 
 
 
-# Database Configuration
-# use this to work without docker 
+# use this to work with docker 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db5.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': int(os.getenv('POSTGRES_PORT')),
     }
 }
-
-# use this to work with docker 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('POSTGRES_DB'),
-#         'USER': os.getenv('POSTGRES_USER'),
-#         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-#         'HOST': os.getenv('POSTGRES_HOST'),
-#         'PORT': int(os.getenv('POSTGRES_PORT')),
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

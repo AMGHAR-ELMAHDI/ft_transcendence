@@ -31,11 +31,9 @@ function ProfileItems({ UserData, UseUserData }: UserDataProps) {
   const getData = async () => {
     try {
       const response = await api.get(getUrl);
-      if (!UseUserData) setData(response.data?.items);
-      else setData(response.data);
+      setData(response.data?.items);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   };
@@ -60,7 +58,7 @@ function ProfileItems({ UserData, UseUserData }: UserDataProps) {
       };
     }
   }, []);
-
+  
   const length: boolean = data?.length ? true : false;
   if (!length)
     return (

@@ -25,6 +25,8 @@ function Register() {
   };
 
   const handleDiscordAuth = () => {
+
+    
     window.location.href = import.meta.env.VITE_API_URL + "discord/login/";
   };
 
@@ -37,7 +39,6 @@ function Register() {
     axios
       .post(url + "sign-up/", obj)
       .then((response) => {
-        console.log('dkhalt ', response.status)
         if (response.status === 201) {
           navigate("/login");
           toast.success("Account created successfully");

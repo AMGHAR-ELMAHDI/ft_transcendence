@@ -27,7 +27,6 @@ function ProfileAcheivements({ UserData, UseUserData }: UserDataProps) {
       setData(response.data?.achievements);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   };
