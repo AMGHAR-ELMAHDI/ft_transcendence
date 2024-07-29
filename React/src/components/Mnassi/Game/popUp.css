@@ -1,0 +1,53 @@
+:root {
+	--custBack: #0C0E14;
+	--NeonEffect: #1D90F5;
+	--fadedFColor: #000E15;
+	--fadedSColor: #005379;
+}
+.contai__ {
+    background-color: var(--fadedSColor);
+    box-shadow: 0 0 30px 2px var(--NeonEffect);
+    width: 350px;
+    height: 100px;
+    position: absolute;
+    left: 50%;
+    transform: translateY(0%);
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 15;
+    gap: 30px;
+    border-radius: 20px;
+    animation: an 1s ease-in-out;
+}
+.infosAch {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    flex-flow: column;
+    max-width: 238px;
+}
+.achievementIm {
+    width: 70px;
+}
+.achievementIm img {
+    width: 70px;
+    border: 2px solid var(--NeonEffect);
+    border-radius: 10px;
+}
+.infosAch h3 {
+    font-size: 15px;
+    color: rgba(190, 190, 190, 0.831);
+}
+.infosAch h1 {
+    color: white;
+}
+@keyframes an {
+    0% {
+        transform: translateX(-50%) translateY(-200%);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0%);
+    }
+}

@@ -1,0 +1,138 @@
+:root {
+  --sb-track-color: #0c0e14;
+  --sb-thumb-color: #5fcae4;
+}
+
+.ProfileItems::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ProfileItems::-webkit-scrollbar-track {
+  background: #0c0e14;
+  border-radius: 18px;
+}
+
+.ProfileItems::-webkit-scrollbar-thumb {
+  background: #5fcae4;
+  border-radius: 18px;
+  border: 1px solid #0c0e14;
+}
+
+@supports not selector(.ProfileItems::-webkit-scrollbar) {
+  * {
+    scrollbar-color: #5fcae4 #0c0e14;
+  }
+}
+
+.ProfileItems {
+  border-radius: 15px;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  max-height: 930px;
+  justify-content: space-evenly;
+  gap: 2rem;
+}
+
+.ProfileItem {
+  border: 1px solid var(--blue-glow);
+  border-radius: 15px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 500px;
+  gap: 1rem;
+  position: relative;
+  box-shadow: 0 5px 10px 0 rgba(190, 185, 185, 0.233);
+}
+
+.ProfileItem > img {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.ProfileItemInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+#AchDate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 200px;
+  padding: 1rem;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.ProfileItemInfo > p {
+  text-align: center;
+  width: 250px;
+}
+
+@media only screen and (max-width: 2880px) {
+  .ProfileItems {
+    height: 50vh !important;
+    gap: 1rem;
+  }
+}
+
+@media only screen and (max-width: 2560px) {
+  .ProfileItems {
+    height: 50vh !important;
+  }
+  .ProfileItem {
+    padding: 10px;
+    height: fit-content;
+    height: 450px;
+    gap: 1rem;
+  }
+  .ProfileItem > img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .ProfileItems {
+    gap: 10px;
+  }
+  .ProfileItem {
+    padding: 10px;
+    height: 350px;
+    gap: 0.5rem;
+  }
+  .ProfileItem > img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+}

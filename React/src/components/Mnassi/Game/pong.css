@@ -1,0 +1,97 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+:root {
+	--redNeon: #F86E4C;
+	--redNeonShadow: black;
+	--blueNeon: #1D90F5;
+	--blueNeonShadow: #21425e;
+	--whiteNeon: white;
+	--whiteNeonShadow: rgb(155, 155, 155);
+}
+#root {
+	width: 100%;
+}
+.co_ {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	align-items: center;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.544);
+	height: 100svh;
+	transition: .3s all;
+}
+.plate {
+	perspective: 1000px;
+}
+.ball {
+	position: absolute;
+	top: 15%;
+	left: 50%;
+	transform: translateX(-50%);
+	background: white;
+	width: 25px;
+	border: 1px solid var(--redNeon);
+	box-shadow: 0 0 10px var(--redNeon);
+	height: 25px;
+	border-radius: 50%;
+	z-index: 15;
+	animation: bounce 1s infinite ease-in;
+}
+.hand {
+	background-color: var(--redNeon);
+	box-shadow: 0 6px 0 var(--redNeonShadow),
+		0 0 20px var(--redNeon);
+	width: 25px;
+	height: 100px;
+	border-radius: 30px;
+	position: absolute;
+	bottom: -90px;
+	left: 50%;
+	transform: translateX(-50%);
+	border: 2px solid var(--whiteNeon);
+	border-top: none;
+}
+.table {
+	background-color: var(--redNeon);
+	width: 150px;
+	position: relative;
+	height: 150px;
+	border-radius: 50%;
+	transform: rotateX(50deg) perspective(1000px);
+	border: 2px solid var(--whiteNeon);
+	animation: move 1s infinite ease-out;
+	box-shadow: 0 8px 0 var(--redNeonShadow),
+		0 0 20px var(--redNeon);
+}
+@keyframes bounce {
+	0% {
+		height: 16px;
+		transform: translateY(155%);
+	}
+	50% {
+		height: 25px;
+		transform: translateY(-700%);
+	}
+	100% {
+		height: 16px;
+		transform: translateY(155%);
+	}
+}
+@keyframes move {
+	0% {
+		transform: rotateX(50deg) perspective(1000px);
+	}
+	50% {
+		transform: rotateX(80deg) perspective(1500px);
+	}
+	100% {
+		transform: rotateX(50deg) perspective(1000px);
+	}
+}
