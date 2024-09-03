@@ -1,0 +1,79 @@
+@font-face {
+  font-family: cool;
+  src: url(../../css/Fonts/Panton/Panton-Trial-Bold.ttf);
+}
+
+.animation-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Parent-animation {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.left_wall {
+  background-color: white;
+  position: absolute;
+  height: 150px;
+  width: 1%;
+  top: 25px;
+  left: 0;
+  border-radius: 20px;
+  animation: paddles 5s ease-in infinite;
+}
+
+.right_wall {
+  background-color: white;
+  position: absolute;
+  height: 150px;
+  width: 1%;
+  border-radius: 20px;
+  top: 25px;
+  right: 0;
+  animation: paddles 5s ease-out infinite 1.2s;
+}
+
+.Chat-ball {
+  position: absolute;
+  top: 10%;
+  left: 1%;
+  background-color: #5fcae4;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  animation: Ball 5s linear infinite;
+}
+
+@keyframes paddles {
+  0% {
+    top: 25px;
+  }
+  50% {
+    top: calc(100% - 100px);
+  }
+}
+
+@keyframes Ball {
+  0% {
+    top: 10%;
+    left: 1%;
+  }
+  2.5% {
+    top: 0%;
+    left: 5%;
+  }
+  42.5% {
+    top: calc(100% - 30px);
+    left: 85%;
+  }
+  50% {
+    left: 98%;
+    top: calc(70%);
+  }
+}
