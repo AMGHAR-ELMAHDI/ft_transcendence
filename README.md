@@ -5,13 +5,13 @@
 **Ft_Transcendence** is a web application built to provide an immersive and customizable gaming experience with a focus on user management, gameplay, and security. The project incorporates features such as user registration, authentication, live chat, and the ability to play Pong games with remote players. The application leverages modern web technologies, including React with TypeScript for the frontend and Django for the backend, ensuring a responsive and scalable architecture.
 
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;">
-    <img src="./Images/Home.png" width="130" />
-    <img src="./Images/Game.png" width="130" />
-    <img src="./Images/Chat.png" width="130" />
-    <img src="./Images/Shop.png" width="130" />
-    <img src="./Images/Profile.png" width="130" />
-    <img src="./Images/Leaderboard.png" width="130" />
-    <img src="./Images/Settings.png" width="130" />
+    <img src="./Images/Home.png" width="100%" />
+    <img src="./Images/Game.png" width="100" />
+    <img src="./Images/Chat.png" width="100" />
+    <img src="./Images/Shop.png" width="100" />
+    <img src="./Images/Profile.png" width="100" />
+    <img src="./Images/Leaderboard.png" width="100" />
+    <img src="./Images/Settings.png" width="100" />
 </div>
 
 ### Key Features:
