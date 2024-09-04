@@ -4,7 +4,18 @@
 
 **Ft_Transcendence** is a web application built to provide an immersive and customizable gaming experience with a focus on user management, gameplay, and security. The project incorporates features such as user registration, authentication, live chat, and the ability to play Pong games with remote players. The application leverages modern web technologies, including React with TypeScript for the frontend and Django for the backend, ensuring a responsive and scalable architecture.
 
+<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;">
+    <img src="./Images/Home.png" width="130" />
+    <img src="./Images/Game.png" width="130" />
+    <img src="./Images/Chat.png" width="130" />
+    <img src="./Images/Shop.png" width="130" />
+    <img src="./Images/Profile.png" width="130" />
+    <img src="./Images/Leaderboard.png" width="130" />
+    <img src="./Images/Settings.png" width="130" />
+</div>
+
 ### Key Features:
+
 - **User Management and Authentication**: Secure user registration, login, and profile management with the ability to track match history and stats.
 - **OAuth 2.0 and 2FA**: Remote authentication via OAuth 2.0 with 42 and Discord, combined with Two-Factor Authentication (2FA) for enhanced security.
 - **Live Chat and Multiplayer Gameplay**: Real-time chat with direct messaging, game invitations, and the ability to play Pong with remote players.
@@ -17,16 +28,19 @@
 To set up the project locally, follow these steps:
 
 1. **Clone the Repository**:
+
    ```bash
    git clone git@github.com:AMGHAR-ELMAHDI/ft_transcendence.git
-   cd Transcendance
    ```
 
 2. **Modify Environment Files**:
+
+   - Update the `.env` file in the `./` "aka" `Root` directory with the appropriate settings for the DevOps.
    - Update the `.env` file in the `Django/` directory with the appropriate settings for the backend.
    - Update the `.env` file in the `React/` directory with the appropriate settings for the frontend.
 
 3. **Build and Run the Project**:
+
    ```bash
    docker-compose up -d
    ```
